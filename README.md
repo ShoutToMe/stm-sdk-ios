@@ -54,6 +54,8 @@ You’ll need your Shout to Me access token to access the API.
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     // Replace with your Shout to Me token
     [STM sharedInstance].accessToken = @"YOUR_ACCESS_TOKEN";
+    // Set your channel Id
+    [STM sharedInstance].channelId = @"CHANNEL_ID";
 
     return YES;
 }
