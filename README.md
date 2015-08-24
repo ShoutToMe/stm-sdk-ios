@@ -81,25 +81,25 @@ The SDK provides a StmRecordingOverlay view to simplify recording shouts and sen
 
 // Add a button and launch the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
-    STMRecorder *recorder = [STMRecorder alloc] init];
-    [recorder launchRecordingOverlay]
+    STMRecorder *recorder = [[STMRecorder alloc] init];
+    [recorder launchRecordingOverlay];
 }
 
 #pragma mark - STMRecorder delegate methods
--(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
-  if (e) {
-    NSLog(@"[shoutCreated] error: %@", [e localizedDescription]);
-    return;
-  }
-  NSLog(@"Shout Created with Id: %@", shout.id);
+-(void)shoutCreated:(Shout*)shout error:(NSError*)err {
+    if (err) {
+        NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
+        return;
+    }
+    NSLog(@"Shout Created with Id: %@", shout.str_id);
 }
 
 -(void)shoutDeleted:(NSError*)err {
-  if (e) {
-    NSLog(@"[shoutDeleted] error: %@", [e localizedDescription]);
-    return;
-  }
-  NSLog(@"Shout Deleted");
+    if (err) {
+        NSLog(@"[shoutDeleted] error: %@", [err localizedDescription]);
+        return;
+    }
+    NSLog(@"Shout Deleted");
 }
 
 ```
