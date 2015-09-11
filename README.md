@@ -61,19 +61,17 @@ You’ll need your Shout to Me access token to access the API.
 }
 ```
 
-#### 5. Add the Shout To Me Recording Overlay
+#### 5. Use the Shout To Me Recording View Controller
 
-The SDK provides a StmRecordingOverlay view to simplify recording shouts and sending them to the API.
-
-```objc
-//ViewController.h
-
-// Add and implement the STMRecorderDelegate
-@interface STMViewController : UIViewController <STMRecorderDelegate>
-
-@end
-```
-
+-```objc
+-//ViewController.h
+-
+-// Add and implement the STMRecordingOverlayDelegate
+-@interface STMViewController : UIViewController <STMRecordingOverlayDelegate>
+-
+-@end
+-```
+The SDK provides a STMRecordingOverlay view controller to simplify recording shouts and sending them to the API.
 ```objc
 //ViewController.m
 
@@ -81,11 +79,12 @@ The SDK provides a StmRecordingOverlay view to simplify recording shouts and sen
 
 // Add a button and launch the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
-    STMRecorder *recorder = [[STMRecorder alloc] init];
-    [recorder launchRecordingOverlay];
+    STMRecordingOverlayViewController *overlayViewController = [[STMRecordingOverlayViewController alloc] init];
+    [self presentViewController:overlayViewController animated:NO completion:nil];
+
 }
 
-#pragma mark - STMRecorder delegate methods
+#pragma mark - STMRecordingOverlay delegate methods
 -(void)shoutCreated:(Shout*)shout error:(NSError*)err {
     if (err) {
         NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
@@ -105,14 +104,14 @@ The SDK provides a StmRecordingOverlay view to simplify recording shouts and sen
 ```
 
 ## SDK Documentation
-### STMRecorderDelegate
-The STMRecorder delegate is the protocol developers will use to respond to recording events with the Shout to Me system.
+### STMRecordingOverlayDelegate
+The STMRecordingOverlay delegate can be used to respond to recording events from the STMRecordingOverlayViewController.
 
 ```objc
 /**
- * Protocol used by STM to communicate recording events with the app
+ * Delegates used by STMRecordingOverlayViewController to communicate recording events with the app
  */
-@protocol STMRecorderDelegate <NSObject>
+@protocol STMRecordingOverlayDelegate <NSObject>
 
  /**
  * shoutCreated
