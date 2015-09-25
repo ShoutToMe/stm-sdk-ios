@@ -56,6 +56,8 @@ You’ll need your Shout to Me access token to access the API.
     [STM sharedInstance].accessToken = @"YOUR_ACCESS_TOKEN";
     // Set your channel Id
     [STM sharedInstance].channelId = @"CHANNEL_ID";
+    // Initialize Shout To Me SDK
+    [STM initAll];
 
     return YES;
 }
