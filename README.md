@@ -64,26 +64,33 @@ You’ll need your Shout to Me access token to access the API.
 ```
 
 #### 5. Use the Shout To Me Recording View Controller
-
--```objc
--//ViewController.h
--
--// Add and implement the STMRecordingOverlayDelegate
--@interface STMViewController : UIViewController <STMRecordingOverlayDelegate>
--
--@end
--```
 The SDK provides a STMRecordingOverlay view controller to simplify recording shouts and sending them to the API.
+
+
+
+```objc
+//ViewController.h
+
+// Add and implement the STMRecordingOverlayDelegate
+@interface STMViewController : UIViewController <STMRecordingOverlayDelegate>
+
+@end
+```
+
 ```objc
 //ViewController.m
 
+@interface ViewController ()
+// Create reference to overlay view controller
+@property (nonatomic, strong) STMRecordingOverlayViewController *overlayController;
+@end
+
 @implementation ViewController
 
-// Add a button and launch the recording overlay when touched
+// Add a button and present the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
-    STMRecordingOverlayViewController *overlayViewController = [[STMRecordingOverlayViewController alloc] init];
-    [self presentViewController:overlayViewController animated:NO completion:nil];
-
+    self.overlayController = [[STMRecordingOverlayViewController alloc] init];
+    [self presentViewController:self.overlayController animated:YES completion:nil];
 }
 
 #pragma mark - STMRecordingOverlay delegate methods
