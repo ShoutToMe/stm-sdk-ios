@@ -126,13 +126,6 @@ The STMRecordingOverlay delegate can be used to respond to recording events from
  * @param err - an error object
  */
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
-/**
- * shoutDeleted
- * Called after the response is received from a call to the delete
- * shout server endpoint.
- * @param err - an error object
- */
--(void)shoutDeleted:(NSError*)err;
 
 @end
 ```
