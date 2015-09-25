@@ -32,7 +32,16 @@ Then use `pod install` to install the pod and create an Xcode workspace.
 
 **Close any current Xcode sessions and use `.xcworkspace` for this project from now on.**
 
-#### 4.Initialize STM
+#### 4. Edit Info.plist
+The STM SDK requires two keys be added to your app's Info.plist.
+
+[NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+[NSLocationWhenInUseUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)
+
+Both are strings and should be set to: "Your location is used to find shouts near you."
+
+
+#### 5.Initialize STM
 
 Edit AppDelegate.m :
 
@@ -63,7 +72,7 @@ You’ll need your Shout to Me access token to access the API.
 }
 ```
 
-#### 5. Use the Shout To Me Recording View Controller
+#### 6. Use the Shout To Me Recording View Controller
 The SDK provides a STMRecordingOverlay view controller to simplify recording shouts and sending them to the API.
 
 
