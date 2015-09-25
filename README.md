@@ -90,16 +90,19 @@ The SDK provides a STMRecordingOverlay view controller to simplify recording sho
 // Add a button and present the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
     self.overlayController = [[STMRecordingOverlayViewController alloc] init];
+    self.overlayController.delegate = self;
     [self presentViewController:self.overlayController animated:YES completion:nil];
+
 }
 
 #pragma mark - STMRecordingOverlay delegate methods
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
     if (err) {
         NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
-        return;
+        
+    } else {
+        NSLog(@"Shout Created with Id: %@", shout.str_id);
     }
-    NSLog(@"Shout Created with Id: %@", shout.str_id);
 }
 
 ```
