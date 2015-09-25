@@ -94,20 +94,12 @@ The SDK provides a STMRecordingOverlay view controller to simplify recording sho
 }
 
 #pragma mark - STMRecordingOverlay delegate methods
--(void)shoutCreated:(Shout*)shout error:(NSError*)err {
+-(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
     if (err) {
         NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
         return;
     }
     NSLog(@"Shout Created with Id: %@", shout.str_id);
-}
-
--(void)shoutDeleted:(NSError*)err {
-    if (err) {
-        NSLog(@"[shoutDeleted] error: %@", [err localizedDescription]);
-        return;
-    }
-    NSLog(@"Shout Deleted");
 }
 
 ```
