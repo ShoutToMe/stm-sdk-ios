@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'STM_Example', :exclusive => true do
+  pod "STM", :path => "../"
+end
+
+target 'STM_Tests', :exclusive => true do
+  pod "STM", :path => "../"
+
+  
+end

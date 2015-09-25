@@ -1,0 +1,1107 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0CDC4BDADF006E0EA8B696F453F04AF8 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F043C9E520C43C230A70EEE68592403 /* Utils.m */; };
+		0F921EAD97A29EAB38A700F2FFEEFFE9 /* SendShout.h in Headers */ = {isa = PBXBuildFile; fileRef = 880C4223F222DFB176A17C168D7A777F /* SendShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A34D47FF4075C7B1FA445494AA9DDB /* StandardButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EAB05113DE595CFBAD696A105C70823 /* StandardButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12C4F90113CC172B3EFD9386FCF82301 /* STMRecordingOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC21E491597BDADEDE53130CCF5BF147 /* STMRecordingOverlayViewController.m */; };
+		139C45D4F64F48748AE5C01BE3C90C39 /* SendShout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D30A8E9FFA44C77F496403BEFC90756 /* SendShout.m */; };
+		1915D01BBA91732CE33DB51EFF99D6F0 /* Server.h in Headers */ = {isa = PBXBuildFile; fileRef = 0154B95A5A2912DA174FA9C81BEACB1C /* Server.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E43CC045DEAE9C84D148B997D2B48C7 /* STMCvad.h in Headers */ = {isa = PBXBuildFile; fileRef = 846FBE7E3BF22EFB8BE1451A28B5A4D9 /* STMCvad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2257783693ED2B2A26FF785A9B3069F9 /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = 6771E08755FEA0DDFCBE7F99096DDD88 /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		231BDE081598EE2B73612CCE69DCF1A5 /* RecordingSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97ED469C99E6F3801B8603F4D736BC /* RecordingSystem.m */; };
+		27AE00B4239741277A245C8DB1D843CB /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB21A94BFA9D1500EB1362A262F4F0B /* AppUtils.m */; };
+		27C26D855EE4C71FD051CEC78DD5A8FA /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 72AD1F2AABC45C159C5BB4FD1A2EB1E0 /* KeychainItemWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C06209B64AAA4C7DDBE33AB4AD726BB /* VoiceCmdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D21CAF16481A7431E3D2668E4F878AB0 /* VoiceCmdView.xib */; };
+		2CA1D2B00632D1A272EBBF7008EF6122 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2E79D87B486FB34D4539AE325D69BB /* RoundedButton.m */; };
+		2D552B7D9CEC9246E42EDE952881D640 /* Pods-STM_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B0DEAD94F3CEEB66DA8678203677DE41 /* Pods-STM_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39C3C6BB473A196B72F42E65645B78E9 /* Pods-STM_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FCC4453552FE002F082FD22769B5C6AA /* Pods-STM_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A95BB847CDFBC9C6C8EB9760266F28A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A6176E404B940CAC9C38E3A3F4A658 /* User.m */; };
+		3B14F59FA04EC11FEAAAB8EC7B5E680E /* STMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1D5A113B89D32B13C37B4B74DD65CF /* STMConversation.m */; };
+		3D1BD8AE4EFC86F4C7E3BE768C55805C /* BtnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C521447AEF95FD2531439315A76B665 /* BtnClose.png */; };
+		418A955261250E4234B08B267C04771D /* abort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4D26FC31CFBBAFF6C2E1DF1B0D96F /* abort.caf */; };
+		432F78916469F62B2FB9426CC56086C4 /* STMRecordingOverlayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503E25F7EA6666E1B947A69F10F307E /* STMRecordingOverlayViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E613CB1B2984D00100EDEEC3D0E3C28 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7293494AAE4B2823988EB08234AAF0A /* STMLocation.m */; };
+		50212F95D05791C9163DD30AAA87822F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E60F9A4D176A03523376ED0DF61703 /* Foundation.framework */; };
+		50B0CAE6BC65AC859DD98D6855DFEBB5 /* RoundedButton.h in Headers */ = {isa = PBXBuildFile; fileRef = AB3E837BA6247F4F42BD6D3A36BA3AB4 /* RoundedButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		541AB8723A906730AD5CF19EABA0C562 /* STM-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A70128BB53DE1E3EA5E8C302E42BF7EB /* STM-dummy.m */; };
+		56695B3DD348BB4E5FA2B881883FFF87 /* STMConversation.h in Headers */ = {isa = PBXBuildFile; fileRef = 128CFDDB5751D1EF8ECCA2C8111F03E3 /* STMConversation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5943FB601CC9765C5B1819132303A4E7 /* User.h in Headers */ = {isa = PBXBuildFile; fileRef = F1A7B80EF31A495FBB01AFDC1B83E533 /* User.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ABF6D3348FBC67CF90A98010DB7BC98 /* shout.caf in Resources */ = {isa = PBXBuildFile; fileRef = E6DF9ACB0B3BA26D60F3AE41C9CC9291 /* shout.caf */; };
+		609F811CD4C94F3265EA5F1BBFAF926A /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4E000E25B4402B6768E99BFB94591F /* SignIn.m */; };
+		61CA0F3FA4A8D21707FA837C3A3C0884 /* STMChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E331552F41A8A1DD6FCA942C329D34 /* STMChannel.m */; };
+		61E6D4C3936642A9DC1B4E5BB3C63F73 /* GraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B6403ABB19F58C7EBFDD665B3F88AE /* GraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		62B7290F37EA841DE448F991F43427E5 /* STMChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 64CD77C4F6FBFB60725B8BA2B228583F /* STMChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72FFE268755F5D17FC44F194621724F4 /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4644A2978FBFB6AEF7618EA4237E7502 /* undo.caf */; };
+		7465CC3A8C3130DDB0A6D4DD883D1EDC /* StandardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E5B16E2082DB19E080018FE240554B /* StandardButton.m */; };
+		74A35B3E8D3AE067C7ACCC5202B1C371 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C2C7E69FC2939DB0571391717C9EAD /* UserData.m */; };
+		78D51BF19F32ADC8FADA725B6CB3251F /* AudioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A564826EF3DE1FBD55B2C877A3CFA7 /* AudioElement.m */; };
+		7B92D2CAA7711BF861E4B65EA85F3D20 /* RecordingSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CCC21C0709A91C429DA2CB3F53B0667 /* RecordingSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7D2D3E929AD008A36CDC26600D02A974 /* UserData.h in Headers */ = {isa = PBXBuildFile; fileRef = B834AFA6B3AA37456905BBAB1F50921D /* UserData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7D45FEEFF82BD8AA6D14EBA0918FFBE2 /* STM.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F22AF613A2C2E4161A1DD13E31828B1 /* STM.bundle */; };
+		7DBF32579DB1D990B2E9CEE73B6EE8F0 /* AudioSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9400028EA7FF7D71E5F9CEEF5808A54F /* AudioSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7EB4CC373C5443FAE7E2B4933868B188 /* VoiceCmdView.h in Headers */ = {isa = PBXBuildFile; fileRef = 00419976745FDC35A432C10415719321 /* VoiceCmdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A5F104B7DB8D03A73002D32AA01FFBE /* DL_URLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBCC14C57C0B6948A2F78656ADC8B93 /* DL_URLServer.m */; };
+		8B5265526765076EE20B79ADB460D775 /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 620560730F9550A21AA955653753016C /* sent.caf */; };
+		8E8FC8C7723CE42146E0CDE0C4A77557 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FCF5702FC51481EDD48F86D6B0DFA /* Settings.m */; };
+		93EFB61C8EDBA5A183A5BDC9D8174EC1 /* STMVad.h in Headers */ = {isa = PBXBuildFile; fileRef = 4641AE0F40A26C6E12FEB7179CE53F2A /* STMVad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9569DDB24166C34CCDE500669FAB5BDF /* AppUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 40F8B475A36A40C7A23088F036FAB162 /* AppUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9912CC5C9E2AA6E021A5BF2ABB48C1C3 /* VoiceCmdView.m in Sources */ = {isa = PBXBuildFile; fileRef = C790EBB72C2F2562320FC930B178609F /* VoiceCmdView.m */; };
+		995EA74F77A6976D2FCB1A33C268F1B0 /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8DF29C0A8B6F2627E3BA2DE63DA80CB6 /* finish.caf */; };
+		9AE6F1F94E7028C292A06223DCA7DF3F /* STMRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E2228C5626106A13A6883B0A7C3929 /* STMRecorder.m */; };
+		9AE71ECA8159214EFA565B008C3056E3 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = D24031705F9BB4B1A2BF1C7B8F61AB71 /* Error.m */; };
+		9BCE84CA8F7D6E10BA0E8FEB5B53F319 /* STMShout.m in Sources */ = {isa = PBXBuildFile; fileRef = 715B71E5D74C40736B105811E066B036 /* STMShout.m */; };
+		9DFAEE01B6C38FEE4FC9C98AD1331099 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2557C05DFC8D27D75503B210E648CB39 /* KeychainItemWrapper.m */; };
+		9F0ACF1CCD731EB705075C6BEA23EBC2 /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = 8378EFA38D6794DC610696AA31850819 /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A33AEA28FA75B7DB7EB0B0E45BEE230E /* DL_URLServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DAA3936A81FC30BC75E3E5722B2AA65 /* DL_URLServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5A6A70E9123327E1C8EB2C03EDA67DE /* STMVad.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C76A87BDC09BE9CFF5B32B358C296 /* STMVad.m */; };
+		A8FA3525A631354B449DA91BBBD9AC26 /* listen.caf in Resources */ = {isa = PBXBuildFile; fileRef = 29EB6460FC36647ABC2B4F59454903FF /* listen.caf */; };
+		AC5E508820E82B888F40C04E875AE707 /* Pods-STM_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B315D29D40DF8ED56B9DA1941D416F /* Pods-STM_Tests-dummy.m */; };
+		BAADCA44B96030CE0FC4EFCD48AAE06F /* STMShout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB20A67819632FA10C310DA72E02183 /* STMShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BAFEAC32EC3CFBFC97759248D45B5F0D /* AudioSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EF2EEF6086A54427A531F6B2765A28 /* AudioSystem.m */; };
+		BC2067C79BA1F07F9D09E9839426DA37 /* Settings.h in Headers */ = {isa = PBXBuildFile; fileRef = 46157814FA59DB040F4679A2768509C7 /* Settings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BF4CF3CFF207E722F8C2BA5B41F68548 /* STMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05819366545AE0083079E38DC0D0E45F /* STMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5D844E5C91C57B5A76B23C780BE217C /* Pods-STM_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E4C32EB6B95D19A97C0EBE6818D1E3 /* Pods-STM_Example-dummy.m */; };
+		C9DDFD5EC6C535B5DF42535B48A8FE94 /* AudioElement.h in Headers */ = {isa = PBXBuildFile; fileRef = E39E041D4958383ED48A27276FB3CDC6 /* AudioElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFE2498967F5C2D9279E361AEEE1ABC3 /* STM_Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9C90401C812A9411F18848342E9B76 /* STM_Defs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4D051CB1FA9BC5F89F4EF7A5E45F83F /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D86D21B04256F878F5F71DCFEAF0DD45 /* GraphView.m */; };
+		D5E49C4E5574BBF16C1C8AEDAA1E93C2 /* STMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04FBC5AD870A0AED63FE204DFE47BEB8 /* STMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D70DDB9E47F87B30CA6243E13DA506DD /* SignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 028E012545BBB9853064757942142327 /* SignIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D814214AF13C80E2B51E940CAF33568F /* STMCvad.m in Sources */ = {isa = PBXBuildFile; fileRef = 522A667F7C47F91C31887AE5AC67DA98 /* STMCvad.m */; };
+		DA23B3E350B8F337E040B10F8EF6F221 /* STM.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE176725913D0F08A9746198E4D488 /* STM.m */; };
+		DB52ED67322F35FAA3FFD03D6EA1FB15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E60F9A4D176A03523376ED0DF61703 /* Foundation.framework */; };
+		DC7A3C618E4A0CA259940A78EDC1C27C /* ShoutPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = D5AA8CBA97322DF8DF8CD9B57C0F432B /* ShoutPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3723B1E2F53A969148DA214FAA568B6 /* STM-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21F528B20344FB17443D6D2DD43FE3EC /* STM-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E485623C1BB279E800D8DE67 /* BtnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C521447AEF95FD2531439315A76B665 /* BtnClose.png */; };
+		E485623D1BB279E800D8DE67 /* VoiceCmdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D21CAF16481A7431E3D2668E4F878AB0 /* VoiceCmdView.xib */; };
+		E485623E1BB279E800D8DE67 /* abort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4D26FC31CFBBAFF6C2E1DF1B0D96F /* abort.caf */; };
+		E485623F1BB279E800D8DE67 /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8DF29C0A8B6F2627E3BA2DE63DA80CB6 /* finish.caf */; };
+		E48562401BB279E800D8DE67 /* listen.caf in Resources */ = {isa = PBXBuildFile; fileRef = 29EB6460FC36647ABC2B4F59454903FF /* listen.caf */; };
+		E48562411BB279E800D8DE67 /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 620560730F9550A21AA955653753016C /* sent.caf */; };
+		E48562421BB279E800D8DE67 /* shout.caf in Resources */ = {isa = PBXBuildFile; fileRef = E6DF9ACB0B3BA26D60F3AE41C9CC9291 /* shout.caf */; };
+		E48562431BB279E800D8DE67 /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4644A2978FBFB6AEF7618EA4237E7502 /* undo.caf */; };
+		F3923787903A123F3856C02988D38D8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E60F9A4D176A03523376ED0DF61703 /* Foundation.framework */; };
+		F7B75233B159CD7CF14E75E51D13A088 /* ShoutPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A225FA132723436B4F7F6CE077286D /* ShoutPlayer.m */; };
+		FC7985504905FA59CAB36172E02E2355 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 95D402F82C74FBACCE1F78AFC3117A8B /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		54B6FE30C3935A5019F0670CBE43BA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EBFFE92F8A3E444C7E537572E2C7DB8;
+			remoteInfo = STM;
+		};
+		CF4BC502E0C788B5BAA3CC3DE94B8870 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EBFFE92F8A3E444C7E537572E2C7DB8;
+			remoteInfo = STM;
+		};
+		EC30D8B1E486B4B1AD2E2690B208B8A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A06EEDA92F7786E214F0434AD78ECA4F;
+			remoteInfo = "STM-STM";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00419976745FDC35A432C10415719321 /* VoiceCmdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VoiceCmdView.h; sourceTree = "<group>"; };
+		00AE176725913D0F08A9746198E4D488 /* STM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STM.m; sourceTree = "<group>"; };
+		0154B95A5A2912DA174FA9C81BEACB1C /* Server.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		028E012545BBB9853064757942142327 /* SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
+		04FBC5AD870A0AED63FE204DFE47BEB8 /* STMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecorder.h; sourceTree = "<group>"; };
+		05819366545AE0083079E38DC0D0E45F /* STMLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMLocation.h; sourceTree = "<group>"; };
+		085F6B57AA450920FACD4EC6F407D013 /* Pods-STM_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.release.xcconfig"; sourceTree = "<group>"; };
+		0A4FCF5702FC51481EDD48F86D6B0DFA /* Settings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		0C521447AEF95FD2531439315A76B665 /* BtnClose.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = BtnClose.png; sourceTree = "<group>"; };
+		128CFDDB5751D1EF8ECCA2C8111F03E3 /* STMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMConversation.h; sourceTree = "<group>"; };
+		14B315D29D40DF8ED56B9DA1941D416F /* Pods-STM_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Tests-dummy.m"; sourceTree = "<group>"; };
+		1F22AF613A2C2E4161A1DD13E31828B1 /* STM.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STM.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F528B20344FB17443D6D2DD43FE3EC /* STM-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STM-umbrella.h"; sourceTree = "<group>"; };
+		22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "STM-Private.xcconfig"; sourceTree = "<group>"; };
+		23A564826EF3DE1FBD55B2C877A3CFA7 /* AudioElement.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioElement.m; sourceTree = "<group>"; };
+		23C2C7E69FC2939DB0571391717C9EAD /* UserData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		2557C05DFC8D27D75503B210E648CB39 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		26E4C32EB6B95D19A97C0EBE6818D1E3 /* Pods-STM_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Example-dummy.m"; sourceTree = "<group>"; };
+		29EB6460FC36647ABC2B4F59454903FF /* listen.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = listen.caf; sourceTree = "<group>"; };
+		2BE4D26FC31CFBBAFF6C2E1DF1B0D96F /* abort.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = abort.caf; sourceTree = "<group>"; };
+		30A225FA132723436B4F7F6CE077286D /* ShoutPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ShoutPlayer.m; sourceTree = "<group>"; };
+		33DDD12152991FF3C693C93C19141ED7 /* Pods-STM_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Example-resources.sh"; sourceTree = "<group>"; };
+		3A588EA31C15FF68AAFFF528994BCF45 /* Pods-STM_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		3D30A8E9FFA44C77F496403BEFC90756 /* SendShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SendShout.m; sourceTree = "<group>"; };
+		3D3C76A87BDC09BE9CFF5B32B358C296 /* STMVad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMVad.m; sourceTree = "<group>"; };
+		40F8B475A36A40C7A23088F036FAB162 /* AppUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		457379E9205BD9629131E064E1A3F417 /* Pods-STM_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-STM_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		46157814FA59DB040F4679A2768509C7 /* Settings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		4641AE0F40A26C6E12FEB7179CE53F2A /* STMVad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMVad.h; sourceTree = "<group>"; };
+		4644A2978FBFB6AEF7618EA4237E7502 /* undo.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = undo.caf; sourceTree = "<group>"; };
+		4C97ED469C99E6F3801B8603F4D736BC /* RecordingSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RecordingSystem.m; sourceTree = "<group>"; };
+		522A667F7C47F91C31887AE5AC67DA98 /* STMCvad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMCvad.m; sourceTree = "<group>"; };
+		5410C37374E61370036B09791ECE2B7C /* STM-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STM-prefix.pch"; sourceTree = "<group>"; };
+		59E2228C5626106A13A6883B0A7C3929 /* STMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecorder.m; sourceTree = "<group>"; };
+		5A8F6307F5AD49C03D0EF19DA2507A36 /* STM.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STM.xcconfig; sourceTree = "<group>"; };
+		5B4E000E25B4402B6768E99BFB94591F /* SignIn.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
+		5D1D5A113B89D32B13C37B4B74DD65CF /* STMConversation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMConversation.m; sourceTree = "<group>"; };
+		5D802550C0410460838990D58975576E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		620560730F9550A21AA955653753016C /* sent.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = sent.caf; sourceTree = "<group>"; };
+		64CD77C4F6FBFB60725B8BA2B228583F /* STMChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMChannel.h; sourceTree = "<group>"; };
+		6771E08755FEA0DDFCBE7F99096DDD88 /* Error.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
+		67E5B16E2082DB19E080018FE240554B /* StandardButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = StandardButton.m; sourceTree = "<group>"; };
+		6A1267AEAEFC6E800EC8450064660703 /* Pods-STM_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-STM_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		6C223DD9F2D1967815A204CB281AA629 /* Pods-STM_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		6EAB05113DE595CFBAD696A105C70823 /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
+		715B71E5D74C40736B105811E066B036 /* STMShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMShout.m; sourceTree = "<group>"; };
+		72AD1F2AABC45C159C5BB4FD1A2EB1E0 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		749E963C30515C11282AD96036EF099C /* Pods-STM_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Example-frameworks.sh"; sourceTree = "<group>"; };
+		7503E25F7EA6666E1B947A69F10F307E /* STMRecordingOverlayViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecordingOverlayViewController.h; sourceTree = "<group>"; };
+		7CCC21C0709A91C429DA2CB3F53B0667 /* RecordingSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RecordingSystem.h; sourceTree = "<group>"; };
+		7DAA3936A81FC30BC75E3E5722B2AA65 /* DL_URLServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DL_URLServer.h; sourceTree = "<group>"; };
+		7E841D2FF6A96BFD81DE041F135A1E78 /* STM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FBCC14C57C0B6948A2F78656ADC8B93 /* DL_URLServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DL_URLServer.m; sourceTree = "<group>"; };
+		820E6C9373B385CAC786954880DB352C /* Pods_STM_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STM_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8353C50B58DBA55A87B44DA9DC376EA8 /* Pods-STM_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-STM_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8378EFA38D6794DC610696AA31850819 /* STM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM.h; sourceTree = "<group>"; };
+		840033E8F0FF2809F15BA2725CA4F266 /* Pods-STM_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-STM_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		846FBE7E3BF22EFB8BE1451A28B5A4D9 /* STMCvad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMCvad.h; sourceTree = "<group>"; };
+		880C4223F222DFB176A17C168D7A777F /* SendShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SendShout.h; sourceTree = "<group>"; };
+		8993327A916C754B12E9E5083153DE3B /* Pods-STM_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-STM_Tests.modulemap"; sourceTree = "<group>"; };
+		89E331552F41A8A1DD6FCA942C329D34 /* STMChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMChannel.m; sourceTree = "<group>"; };
+		8AB20A67819632FA10C310DA72E02183 /* STMShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMShout.h; sourceTree = "<group>"; };
+		8C2E79D87B486FB34D4539AE325D69BB /* RoundedButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
+		8DB21A94BFA9D1500EB1362A262F4F0B /* AppUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		8DF29C0A8B6F2627E3BA2DE63DA80CB6 /* finish.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = finish.caf; sourceTree = "<group>"; };
+		9400028EA7FF7D71E5F9CEEF5808A54F /* AudioSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioSystem.h; sourceTree = "<group>"; };
+		95D402F82C74FBACCE1F78AFC3117A8B /* Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		9BFD4F1BEF79BAD1F7DE924324519CB5 /* Pods-STM_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		9F043C9E520C43C230A70EEE68592403 /* Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		9F9C90401C812A9411F18848342E9B76 /* STM_Defs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM_Defs.h; sourceTree = "<group>"; };
+		A6FE517855F83326947017ACA2DE0D30 /* Pods_STM_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STM_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A70128BB53DE1E3EA5E8C302E42BF7EB /* STM-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STM-dummy.m"; sourceTree = "<group>"; };
+		AB3E837BA6247F4F42BD6D3A36BA3AB4 /* RoundedButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RoundedButton.h; sourceTree = "<group>"; };
+		B0DEAD94F3CEEB66DA8678203677DE41 /* Pods-STM_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Tests-umbrella.h"; sourceTree = "<group>"; };
+		B4EF2EEF6086A54427A531F6B2765A28 /* AudioSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioSystem.m; sourceTree = "<group>"; };
+		B6A6176E404B940CAC9C38E3A3F4A658 /* User.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B7293494AAE4B2823988EB08234AAF0A /* STMLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMLocation.m; sourceTree = "<group>"; };
+		B834AFA6B3AA37456905BBAB1F50921D /* UserData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C0661DA00C74EBE9DDA4E9D0169DD708 /* Pods-STM_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Tests-resources.sh"; sourceTree = "<group>"; };
+		C790EBB72C2F2562320FC930B178609F /* VoiceCmdView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VoiceCmdView.m; sourceTree = "<group>"; };
+		D21CAF16481A7431E3D2668E4F878AB0 /* VoiceCmdView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = VoiceCmdView.xib; sourceTree = "<group>"; };
+		D24031705F9BB4B1A2BF1C7B8F61AB71 /* Error.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
+		D5AA8CBA97322DF8DF8CD9B57C0F432B /* ShoutPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ShoutPlayer.h; sourceTree = "<group>"; };
+		D7CCDBB3CE06B5FF19760E8A10CFCAD1 /* Pods-STM_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		D86D21B04256F878F5F71DCFEAF0DD45 /* GraphView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		DB8532A822290000962A807252F57D2E /* Pods-STM_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-STM_Example.modulemap"; sourceTree = "<group>"; };
+		DC0A18B1AB065ED38FFA48A5E7963F84 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E39E041D4958383ED48A27276FB3CDC6 /* AudioElement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioElement.h; sourceTree = "<group>"; };
+		E42283577E983CF9B3422B83A8BCD812 /* STM.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = STM.modulemap; sourceTree = "<group>"; };
+		E5E60F9A4D176A03523376ED0DF61703 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E6DF9ACB0B3BA26D60F3AE41C9CC9291 /* shout.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = shout.caf; sourceTree = "<group>"; };
+		EC21E491597BDADEDE53130CCF5BF147 /* STMRecordingOverlayViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecordingOverlayViewController.m; sourceTree = "<group>"; };
+		F1A7B80EF31A495FBB01AFDC1B83E533 /* User.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		F74303E1104FEEB9B59A3D87DAE0A346 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9B6403ABB19F58C7EBFDD665B3F88AE /* GraphView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		FCC4453552FE002F082FD22769B5C6AA /* Pods-STM_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Example-umbrella.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		429D77131399C67FDA4E81E1138A27AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3923787903A123F3856C02988D38D8E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56081829F1FCF246072CC14B8AC6104C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50212F95D05791C9163DD30AAA87822F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67057D2B7A107F6B602AA4EFDCAB7B39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB52ED67322F35FAA3FFD03D6EA1FB15 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC3C84D0603F0E34134559B272CBEAB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E57C3E1878CBD6885F754388EAD8E2E /* STM */ = {
+			isa = PBXGroup;
+			children = (
+				4FACA63752DE67FC4659236E76C7352E /* Pod */,
+				9E2AF5E86815013050413100D3E99BF0 /* Resources */,
+				3130FFB154A5FFD932523B47838FA5AF /* Support Files */,
+			);
+			name = STM;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		103AA014FE365D835C452ED3D69881FE /* KeyChainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				72AD1F2AABC45C159C5BB4FD1A2EB1E0 /* KeychainItemWrapper.h */,
+				2557C05DFC8D27D75503B210E648CB39 /* KeychainItemWrapper.m */,
+			);
+			path = KeyChainItemWrapper;
+			sourceTree = "<group>";
+		};
+		10F9EB75C124B71D4F1D846FA16CBED9 /* Pods-STM_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5D802550C0410460838990D58975576E /* Info.plist */,
+				8993327A916C754B12E9E5083153DE3B /* Pods-STM_Tests.modulemap */,
+				8353C50B58DBA55A87B44DA9DC376EA8 /* Pods-STM_Tests-acknowledgements.markdown */,
+				840033E8F0FF2809F15BA2725CA4F266 /* Pods-STM_Tests-acknowledgements.plist */,
+				14B315D29D40DF8ED56B9DA1941D416F /* Pods-STM_Tests-dummy.m */,
+				6C223DD9F2D1967815A204CB281AA629 /* Pods-STM_Tests-frameworks.sh */,
+				C0661DA00C74EBE9DDA4E9D0169DD708 /* Pods-STM_Tests-resources.sh */,
+				B0DEAD94F3CEEB66DA8678203677DE41 /* Pods-STM_Tests-umbrella.h */,
+				D7CCDBB3CE06B5FF19760E8A10CFCAD1 /* Pods-STM_Tests.debug.xcconfig */,
+				3A588EA31C15FF68AAFFF528994BCF45 /* Pods-STM_Tests.release.xcconfig */,
+			);
+			name = "Pods-STM_Tests";
+			path = "Target Support Files/Pods-STM_Tests";
+			sourceTree = "<group>";
+		};
+		143BA4D5085C3BB93F6C08C9CE76E0CC /* GraphView */ = {
+			isa = PBXGroup;
+			children = (
+				F9B6403ABB19F58C7EBFDD665B3F88AE /* GraphView.h */,
+				D86D21B04256F878F5F71DCFEAF0DD45 /* GraphView.m */,
+			);
+			path = GraphView;
+			sourceTree = "<group>";
+		};
+		3130FFB154A5FFD932523B47838FA5AF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC0A18B1AB065ED38FFA48A5E7963F84 /* Info.plist */,
+				E42283577E983CF9B3422B83A8BCD812 /* STM.modulemap */,
+				5A8F6307F5AD49C03D0EF19DA2507A36 /* STM.xcconfig */,
+				22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */,
+				A70128BB53DE1E3EA5E8C302E42BF7EB /* STM-dummy.m */,
+				5410C37374E61370036B09791ECE2B7C /* STM-prefix.pch */,
+				21F528B20344FB17443D6D2DD43FE3EC /* STM-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/STM";
+			sourceTree = "<group>";
+		};
+		4C603833F5AA3E6FF41E7DD70F8D1329 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				A47E1DA3AF51C714A086E09F7DA23CDA /* Assets */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		4FACA63752DE67FC4659236E76C7352E /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				EF7BA0AA0A26EDA1596B871C18B432C2 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		53F661C0CA7190D2CF05023FB33D61E4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E5E60F9A4D176A03523376ED0DF61703 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				E39357D5A479E8954BD2419AF9335ABE /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
+				EC1BC8BB681299229C57EDF55E1C6FE3 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9E2AF5E86815013050413100D3E99BF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C603833F5AA3E6FF41E7DD70F8D1329 /* Pod */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A47E1DA3AF51C714A086E09F7DA23CDA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0C521447AEF95FD2531439315A76B665 /* BtnClose.png */,
+				D21CAF16481A7431E3D2668E4F878AB0 /* VoiceCmdView.xib */,
+				2BE4D26FC31CFBBAFF6C2E1DF1B0D96F /* abort.caf */,
+				8DF29C0A8B6F2627E3BA2DE63DA80CB6 /* finish.caf */,
+				29EB6460FC36647ABC2B4F59454903FF /* listen.caf */,
+				620560730F9550A21AA955653753016C /* sent.caf */,
+				E6DF9ACB0B3BA26D60F3AE41C9CC9291 /* shout.caf */,
+				4644A2978FBFB6AEF7618EA4237E7502 /* undo.caf */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		B036C7B64C37362640A096DC3EF55DE8 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				40F8B475A36A40C7A23088F036FAB162 /* AppUtils.h */,
+				8DB21A94BFA9D1500EB1362A262F4F0B /* AppUtils.m */,
+				E39E041D4958383ED48A27276FB3CDC6 /* AudioElement.h */,
+				23A564826EF3DE1FBD55B2C877A3CFA7 /* AudioElement.m */,
+				9400028EA7FF7D71E5F9CEEF5808A54F /* AudioSystem.h */,
+				B4EF2EEF6086A54427A531F6B2765A28 /* AudioSystem.m */,
+				6771E08755FEA0DDFCBE7F99096DDD88 /* Error.h */,
+				D24031705F9BB4B1A2BF1C7B8F61AB71 /* Error.m */,
+				7CCC21C0709A91C429DA2CB3F53B0667 /* RecordingSystem.h */,
+				4C97ED469C99E6F3801B8603F4D736BC /* RecordingSystem.m */,
+				AB3E837BA6247F4F42BD6D3A36BA3AB4 /* RoundedButton.h */,
+				8C2E79D87B486FB34D4539AE325D69BB /* RoundedButton.m */,
+				64CD77C4F6FBFB60725B8BA2B228583F /* STMChannel.h */,
+				89E331552F41A8A1DD6FCA942C329D34 /* STMChannel.m */,
+				128CFDDB5751D1EF8ECCA2C8111F03E3 /* STMConversation.h */,
+				5D1D5A113B89D32B13C37B4B74DD65CF /* STMConversation.m */,
+				846FBE7E3BF22EFB8BE1451A28B5A4D9 /* STMCvad.h */,
+				522A667F7C47F91C31887AE5AC67DA98 /* STMCvad.m */,
+				05819366545AE0083079E38DC0D0E45F /* STMLocation.h */,
+				B7293494AAE4B2823988EB08234AAF0A /* STMLocation.m */,
+				04FBC5AD870A0AED63FE204DFE47BEB8 /* STMRecorder.h */,
+				59E2228C5626106A13A6883B0A7C3929 /* STMRecorder.m */,
+				7503E25F7EA6666E1B947A69F10F307E /* STMRecordingOverlayViewController.h */,
+				EC21E491597BDADEDE53130CCF5BF147 /* STMRecordingOverlayViewController.m */,
+				8AB20A67819632FA10C310DA72E02183 /* STMShout.h */,
+				715B71E5D74C40736B105811E066B036 /* STMShout.m */,
+				4641AE0F40A26C6E12FEB7179CE53F2A /* STMVad.h */,
+				3D3C76A87BDC09BE9CFF5B32B358C296 /* STMVad.m */,
+				9F9C90401C812A9411F18848342E9B76 /* STM_Defs.h */,
+				880C4223F222DFB176A17C168D7A777F /* SendShout.h */,
+				3D30A8E9FFA44C77F496403BEFC90756 /* SendShout.m */,
+				0154B95A5A2912DA174FA9C81BEACB1C /* Server.h */,
+				46157814FA59DB040F4679A2768509C7 /* Settings.h */,
+				0A4FCF5702FC51481EDD48F86D6B0DFA /* Settings.m */,
+				D5AA8CBA97322DF8DF8CD9B57C0F432B /* ShoutPlayer.h */,
+				30A225FA132723436B4F7F6CE077286D /* ShoutPlayer.m */,
+				028E012545BBB9853064757942142327 /* SignIn.h */,
+				5B4E000E25B4402B6768E99BFB94591F /* SignIn.m */,
+				6EAB05113DE595CFBAD696A105C70823 /* StandardButton.h */,
+				67E5B16E2082DB19E080018FE240554B /* StandardButton.m */,
+				F1A7B80EF31A495FBB01AFDC1B83E533 /* User.h */,
+				B6A6176E404B940CAC9C38E3A3F4A658 /* User.m */,
+				B834AFA6B3AA37456905BBAB1F50921D /* UserData.h */,
+				23C2C7E69FC2939DB0571391717C9EAD /* UserData.m */,
+				95D402F82C74FBACCE1F78AFC3117A8B /* Utils.h */,
+				9F043C9E520C43C230A70EEE68592403 /* Utils.m */,
+				00419976745FDC35A432C10415719321 /* VoiceCmdView.h */,
+				C790EBB72C2F2562320FC930B178609F /* VoiceCmdView.m */,
+				143BA4D5085C3BB93F6C08C9CE76E0CC /* GraphView */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53F661C0CA7190D2CF05023FB33D61E4 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BCE515743B184918B07ED8728A4CC0C1 /* DL_URLServer */ = {
+			isa = PBXGroup;
+			children = (
+				7DAA3936A81FC30BC75E3E5722B2AA65 /* DL_URLServer.h */,
+				7FBCC14C57C0B6948A2F78656ADC8B93 /* DL_URLServer.m */,
+			);
+			path = DL_URLServer;
+			sourceTree = "<group>";
+		};
+		C3F51283A84179CD5824AE63D043F5F8 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				8378EFA38D6794DC610696AA31850819 /* STM.h */,
+				00AE176725913D0F08A9746198E4D488 /* STM.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6FE517855F83326947017ACA2DE0D30 /* Pods_STM_Example.framework */,
+				820E6C9373B385CAC786954880DB352C /* Pods_STM_Tests.framework */,
+				1F22AF613A2C2E4161A1DD13E31828B1 /* STM.bundle */,
+				7E841D2FF6A96BFD81DE041F135A1E78 /* STM.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7A913799604B24A4A178243C5465F57 /* Pods-STM_Example */ = {
+			isa = PBXGroup;
+			children = (
+				F74303E1104FEEB9B59A3D87DAE0A346 /* Info.plist */,
+				DB8532A822290000962A807252F57D2E /* Pods-STM_Example.modulemap */,
+				457379E9205BD9629131E064E1A3F417 /* Pods-STM_Example-acknowledgements.markdown */,
+				6A1267AEAEFC6E800EC8450064660703 /* Pods-STM_Example-acknowledgements.plist */,
+				26E4C32EB6B95D19A97C0EBE6818D1E3 /* Pods-STM_Example-dummy.m */,
+				749E963C30515C11282AD96036EF099C /* Pods-STM_Example-frameworks.sh */,
+				33DDD12152991FF3C693C93C19141ED7 /* Pods-STM_Example-resources.sh */,
+				FCC4453552FE002F082FD22769B5C6AA /* Pods-STM_Example-umbrella.h */,
+				9BFD4F1BEF79BAD1F7DE924324519CB5 /* Pods-STM_Example.debug.xcconfig */,
+				085F6B57AA450920FACD4EC6F407D013 /* Pods-STM_Example.release.xcconfig */,
+			);
+			name = "Pods-STM_Example";
+			path = "Target Support Files/Pods-STM_Example";
+			sourceTree = "<group>";
+		};
+		E39357D5A479E8954BD2419AF9335ABE /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0E57C3E1878CBD6885F754388EAD8E2E /* STM */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		EC1BC8BB681299229C57EDF55E1C6FE3 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D7A913799604B24A4A178243C5465F57 /* Pods-STM_Example */,
+				10F9EB75C124B71D4F1D846FA16CBED9 /* Pods-STM_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		EF7BA0AA0A26EDA1596B871C18B432C2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BCE515743B184918B07ED8728A4CC0C1 /* DL_URLServer */,
+				B036C7B64C37362640A096DC3EF55DE8 /* Internal */,
+				103AA014FE365D835C452ED3D69881FE /* KeyChainItemWrapper */,
+				C3F51283A84179CD5824AE63D043F5F8 /* Public */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		220923F5AC4A16126EBAE7B19E97FD8C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D552B7D9CEC9246E42EDE952881D640 /* Pods-STM_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E66350AB443BB2D315C00D15E21966B2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39C3C6BB473A196B72F42E65645B78E9 /* Pods-STM_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6D24A2C3447CBF83D2C23EDB50D2990 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9569DDB24166C34CCDE500669FAB5BDF /* AppUtils.h in Headers */,
+				C9DDFD5EC6C535B5DF42535B48A8FE94 /* AudioElement.h in Headers */,
+				7DBF32579DB1D990B2E9CEE73B6EE8F0 /* AudioSystem.h in Headers */,
+				A33AEA28FA75B7DB7EB0B0E45BEE230E /* DL_URLServer.h in Headers */,
+				2257783693ED2B2A26FF785A9B3069F9 /* Error.h in Headers */,
+				61E6D4C3936642A9DC1B4E5BB3C63F73 /* GraphView.h in Headers */,
+				27C26D855EE4C71FD051CEC78DD5A8FA /* KeychainItemWrapper.h in Headers */,
+				7B92D2CAA7711BF861E4B65EA85F3D20 /* RecordingSystem.h in Headers */,
+				50B0CAE6BC65AC859DD98D6855DFEBB5 /* RoundedButton.h in Headers */,
+				E3723B1E2F53A969148DA214FAA568B6 /* STM-umbrella.h in Headers */,
+				9F0ACF1CCD731EB705075C6BEA23EBC2 /* STM.h in Headers */,
+				62B7290F37EA841DE448F991F43427E5 /* STMChannel.h in Headers */,
+				56695B3DD348BB4E5FA2B881883FFF87 /* STMConversation.h in Headers */,
+				1E43CC045DEAE9C84D148B997D2B48C7 /* STMCvad.h in Headers */,
+				BF4CF3CFF207E722F8C2BA5B41F68548 /* STMLocation.h in Headers */,
+				D5E49C4E5574BBF16C1C8AEDAA1E93C2 /* STMRecorder.h in Headers */,
+				432F78916469F62B2FB9426CC56086C4 /* STMRecordingOverlayViewController.h in Headers */,
+				BAADCA44B96030CE0FC4EFCD48AAE06F /* STMShout.h in Headers */,
+				93EFB61C8EDBA5A183A5BDC9D8174EC1 /* STMVad.h in Headers */,
+				CFE2498967F5C2D9279E361AEEE1ABC3 /* STM_Defs.h in Headers */,
+				0F921EAD97A29EAB38A700F2FFEEFFE9 /* SendShout.h in Headers */,
+				1915D01BBA91732CE33DB51EFF99D6F0 /* Server.h in Headers */,
+				BC2067C79BA1F07F9D09E9839426DA37 /* Settings.h in Headers */,
+				DC7A3C618E4A0CA259940A78EDC1C27C /* ShoutPlayer.h in Headers */,
+				D70DDB9E47F87B30CA6243E13DA506DD /* SignIn.h in Headers */,
+				11A34D47FF4075C7B1FA445494AA9DDB /* StandardButton.h in Headers */,
+				5943FB601CC9765C5B1819132303A4E7 /* User.h in Headers */,
+				7D2D3E929AD008A36CDC26600D02A974 /* UserData.h in Headers */,
+				FC7985504905FA59CAB36172E02E2355 /* Utils.h in Headers */,
+				7EB4CC373C5443FAE7E2B4933868B188 /* VoiceCmdView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0EBFFE92F8A3E444C7E537572E2C7DB8 /* STM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1CBFCD79332C42F0874E6FB0B92AB18 /* Build configuration list for PBXNativeTarget "STM" */;
+			buildPhases = (
+				BA53FA583C8DFC83F80164DB3B53F468 /* Sources */,
+				56081829F1FCF246072CC14B8AC6104C /* Frameworks */,
+				228ECB4840B63CF512E66BA14CED1E91 /* Resources */,
+				E6D24A2C3447CBF83D2C23EDB50D2990 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD1E3A52787E88E29609EEE3B22993DB /* PBXTargetDependency */,
+			);
+			name = STM;
+			productName = STM;
+			productReference = 7E841D2FF6A96BFD81DE041F135A1E78 /* STM.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		1CC5727B948E17EEA661350A4D8C05C2 /* Pods-STM_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 145DAFBC960A4D04EB040AC583586A7A /* Build configuration list for PBXNativeTarget "Pods-STM_Example" */;
+			buildPhases = (
+				77A0122D3383F8E4A6099956BC3182ED /* Sources */,
+				67057D2B7A107F6B602AA4EFDCAB7B39 /* Frameworks */,
+				E66350AB443BB2D315C00D15E21966B2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9DA13234649E59A1F55E844F8A6BD2A6 /* PBXTargetDependency */,
+			);
+			name = "Pods-STM_Example";
+			productName = "Pods-STM_Example";
+			productReference = A6FE517855F83326947017ACA2DE0D30 /* Pods_STM_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A06EEDA92F7786E214F0434AD78ECA4F /* STM-STM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7084E2655AB39CAF68D22446479C962F /* Build configuration list for PBXNativeTarget "STM-STM" */;
+			buildPhases = (
+				840F056CC5036DFFDE9AC0E75B2FCC89 /* Sources */,
+				DC3C84D0603F0E34134559B272CBEAB6 /* Frameworks */,
+				7702BC08583EF40B9F4885F3B9FEA4E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "STM-STM";
+			productName = "STM-STM";
+			productReference = 1F22AF613A2C2E4161A1DD13E31828B1 /* STM.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		BBC74965835A9D55015A987DD5E2B93C /* Pods-STM_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8762D4645477EA11313BBA133B7FF46 /* Build configuration list for PBXNativeTarget "Pods-STM_Tests" */;
+			buildPhases = (
+				0303EEBCEFEAA25D98D56D674236A425 /* Sources */,
+				429D77131399C67FDA4E81E1138A27AD /* Frameworks */,
+				220923F5AC4A16126EBAE7B19E97FD8C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4050700DC4B19ABFEA62D237F133D115 /* PBXTargetDependency */,
+			);
+			name = "Pods-STM_Tests";
+			productName = "Pods-STM_Tests";
+			productReference = 820E6C9373B385CAC786954880DB352C /* Pods_STM_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = CCA510CFBEA2D207524CDA0D73C3B561 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1CC5727B948E17EEA661350A4D8C05C2 /* Pods-STM_Example */,
+				BBC74965835A9D55015A987DD5E2B93C /* Pods-STM_Tests */,
+				0EBFFE92F8A3E444C7E537572E2C7DB8 /* STM */,
+				A06EEDA92F7786E214F0434AD78ECA4F /* STM-STM */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		228ECB4840B63CF512E66BA14CED1E91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E485623C1BB279E800D8DE67 /* BtnClose.png in Resources */,
+				E485623D1BB279E800D8DE67 /* VoiceCmdView.xib in Resources */,
+				E485623E1BB279E800D8DE67 /* abort.caf in Resources */,
+				E485623F1BB279E800D8DE67 /* finish.caf in Resources */,
+				E48562401BB279E800D8DE67 /* listen.caf in Resources */,
+				E48562411BB279E800D8DE67 /* sent.caf in Resources */,
+				E48562421BB279E800D8DE67 /* shout.caf in Resources */,
+				E48562431BB279E800D8DE67 /* undo.caf in Resources */,
+				7D45FEEFF82BD8AA6D14EBA0918FFBE2 /* STM.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7702BC08583EF40B9F4885F3B9FEA4E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D1BD8AE4EFC86F4C7E3BE768C55805C /* BtnClose.png in Resources */,
+				2C06209B64AAA4C7DDBE33AB4AD726BB /* VoiceCmdView.xib in Resources */,
+				418A955261250E4234B08B267C04771D /* abort.caf in Resources */,
+				995EA74F77A6976D2FCB1A33C268F1B0 /* finish.caf in Resources */,
+				A8FA3525A631354B449DA91BBBD9AC26 /* listen.caf in Resources */,
+				8B5265526765076EE20B79ADB460D775 /* sent.caf in Resources */,
+				5ABF6D3348FBC67CF90A98010DB7BC98 /* shout.caf in Resources */,
+				72FFE268755F5D17FC44F194621724F4 /* undo.caf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0303EEBCEFEAA25D98D56D674236A425 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5E508820E82B888F40C04E875AE707 /* Pods-STM_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77A0122D3383F8E4A6099956BC3182ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5D844E5C91C57B5A76B23C780BE217C /* Pods-STM_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		840F056CC5036DFFDE9AC0E75B2FCC89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA53FA583C8DFC83F80164DB3B53F468 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27AE00B4239741277A245C8DB1D843CB /* AppUtils.m in Sources */,
+				78D51BF19F32ADC8FADA725B6CB3251F /* AudioElement.m in Sources */,
+				BAFEAC32EC3CFBFC97759248D45B5F0D /* AudioSystem.m in Sources */,
+				8A5F104B7DB8D03A73002D32AA01FFBE /* DL_URLServer.m in Sources */,
+				9AE71ECA8159214EFA565B008C3056E3 /* Error.m in Sources */,
+				D4D051CB1FA9BC5F89F4EF7A5E45F83F /* GraphView.m in Sources */,
+				9DFAEE01B6C38FEE4FC9C98AD1331099 /* KeychainItemWrapper.m in Sources */,
+				231BDE081598EE2B73612CCE69DCF1A5 /* RecordingSystem.m in Sources */,
+				2CA1D2B00632D1A272EBBF7008EF6122 /* RoundedButton.m in Sources */,
+				541AB8723A906730AD5CF19EABA0C562 /* STM-dummy.m in Sources */,
+				DA23B3E350B8F337E040B10F8EF6F221 /* STM.m in Sources */,
+				61CA0F3FA4A8D21707FA837C3A3C0884 /* STMChannel.m in Sources */,
+				3B14F59FA04EC11FEAAAB8EC7B5E680E /* STMConversation.m in Sources */,
+				D814214AF13C80E2B51E940CAF33568F /* STMCvad.m in Sources */,
+				4E613CB1B2984D00100EDEEC3D0E3C28 /* STMLocation.m in Sources */,
+				9AE6F1F94E7028C292A06223DCA7DF3F /* STMRecorder.m in Sources */,
+				12C4F90113CC172B3EFD9386FCF82301 /* STMRecordingOverlayViewController.m in Sources */,
+				9BCE84CA8F7D6E10BA0E8FEB5B53F319 /* STMShout.m in Sources */,
+				A5A6A70E9123327E1C8EB2C03EDA67DE /* STMVad.m in Sources */,
+				139C45D4F64F48748AE5C01BE3C90C39 /* SendShout.m in Sources */,
+				8E8FC8C7723CE42146E0CDE0C4A77557 /* Settings.m in Sources */,
+				F7B75233B159CD7CF14E75E51D13A088 /* ShoutPlayer.m in Sources */,
+				609F811CD4C94F3265EA5F1BBFAF926A /* SignIn.m in Sources */,
+				7465CC3A8C3130DDB0A6D4DD883D1EDC /* StandardButton.m in Sources */,
+				3A95BB847CDFBC9C6C8EB9760266F28A /* User.m in Sources */,
+				74A35B3E8D3AE067C7ACCC5202B1C371 /* UserData.m in Sources */,
+				0CDC4BDADF006E0EA8B696F453F04AF8 /* Utils.m in Sources */,
+				9912CC5C9E2AA6E021A5BF2ABB48C1C3 /* VoiceCmdView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4050700DC4B19ABFEA62D237F133D115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STM;
+			target = 0EBFFE92F8A3E444C7E537572E2C7DB8 /* STM */;
+			targetProxy = CF4BC502E0C788B5BAA3CC3DE94B8870 /* PBXContainerItemProxy */;
+		};
+		9DA13234649E59A1F55E844F8A6BD2A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STM;
+			target = 0EBFFE92F8A3E444C7E537572E2C7DB8 /* STM */;
+			targetProxy = 54B6FE30C3935A5019F0670CBE43BA66 /* PBXContainerItemProxy */;
+		};
+		BD1E3A52787E88E29609EEE3B22993DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "STM-STM";
+			target = A06EEDA92F7786E214F0434AD78ECA4F /* STM-STM */;
+			targetProxy = EC30D8B1E486B4B1AD2E2690B208B8A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03CA91998D6773EC5D02B3DB87B8353E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		08672E8ADFB37D349DF3385DEBB2D112 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = STM;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		0B57334D6C23DADAA4F7D802A5760EB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		3214352CC117706182CAE91278881FC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 085F6B57AA450920FACD4EC6F407D013 /* Pods-STM_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-STM_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-STM_Example/Pods-STM_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_STM_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		71D4BF302F26BA8D28464105ECCAECCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = STM;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		785F3D29B2FC19B27F810EBED0B3D285 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7CCDBB3CE06B5FF19760E8A10CFCAD1 /* Pods-STM_Tests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-STM_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-STM_Tests/Pods-STM_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_STM_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8629FD9479264125FF61A1C4460DF389 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.1.0;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.1.0;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/STM/STM-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/STM/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/STM/STM.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = STM;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D014AC7C13C387208C9DDE9458E3DE4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22A086090DF1030F74A86E40269ADDBA /* STM-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.1.0;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.1.0;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/STM/STM-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/STM/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/STM/STM.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = STM;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E094FF177CC6C7A65B738243359BAB6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A588EA31C15FF68AAFFF528994BCF45 /* Pods-STM_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-STM_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-STM_Tests/Pods-STM_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_STM_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FEEA5447FCB57009A29D661C222888A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BFD4F1BEF79BAD1F7DE924324519CB5 /* Pods-STM_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-STM_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-STM_Example/Pods-STM_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_STM_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		145DAFBC960A4D04EB040AC583586A7A /* Build configuration list for PBXNativeTarget "Pods-STM_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEEA5447FCB57009A29D661C222888A2 /* Debug */,
+				3214352CC117706182CAE91278881FC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B57334D6C23DADAA4F7D802A5760EB2 /* Debug */,
+				03CA91998D6773EC5D02B3DB87B8353E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7084E2655AB39CAF68D22446479C962F /* Build configuration list for PBXNativeTarget "STM-STM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08672E8ADFB37D349DF3385DEBB2D112 /* Debug */,
+				71D4BF302F26BA8D28464105ECCAECCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8762D4645477EA11313BBA133B7FF46 /* Build configuration list for PBXNativeTarget "Pods-STM_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				785F3D29B2FC19B27F810EBED0B3D285 /* Debug */,
+				E094FF177CC6C7A65B738243359BAB6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1CBFCD79332C42F0874E6FB0B92AB18 /* Build configuration list for PBXNativeTarget "STM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8629FD9479264125FF61A1C4460DF389 /* Debug */,
+				D014AC7C13C387208C9DDE9458E3DE4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

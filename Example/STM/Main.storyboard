@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="whP-gf-Uak">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="wQg-tq-qST">
+            <objects>
+                <viewController id="whP-gf-Uak" customClass="STMViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Handle" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-03-aZz">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" id="k3g-9P-PPU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="k3g-9P-PPU"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="k3g-9P-PPU"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFV-3m-WL6">
+                                <rect key="frame" x="277" y="285" width="59" height="30"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordTouched:" destination="whP-gf-Uak" eventType="touchUpInside" id="JPG-Ms-nYb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJu-z0-eDS">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Update"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="125" y="96" width="53" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="UpdateTouched:" destination="whP-gf-Uak" eventType="touchUpInside" id="vyf-wN-Te9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fFV-3m-WL6" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" id="6at-8a-hMq"/>
+                            <constraint firstItem="fFV-3m-WL6" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" id="AKw-Pc-Wce">
+                                <variation key="widthClass=compact" constant="37"/>
+                            </constraint>
+                            <constraint firstItem="qJu-z0-eDS" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="39" id="HOu-BS-8nZ">
+                                <variation key="widthClass=compact" constant="76"/>
+                            </constraint>
+                            <constraint firstItem="qJu-z0-eDS" firstAttribute="leading" secondItem="yaA-03-aZz" secondAttribute="trailing" constant="8" id="YtL-Va-gQh"/>
+                            <constraint firstItem="yaA-03-aZz" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" id="f0Q-EJ-bgf"/>
+                            <constraint firstItem="yaA-03-aZz" firstAttribute="top" secondItem="fFV-3m-WL6" secondAttribute="bottom" constant="9" id="tZa-KK-vev"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="yaA-03-aZz"/>
+                                <exclude reference="qJu-z0-eDS"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="6at-8a-hMq"/>
+                                <exclude reference="AKw-Pc-Wce"/>
+                                <exclude reference="f0Q-EJ-bgf"/>
+                                <exclude reference="tZa-KK-vev"/>
+                                <exclude reference="HOu-BS-8nZ"/>
+                                <exclude reference="YtL-Va-gQh"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="yaA-03-aZz"/>
+                                <include reference="qJu-z0-eDS"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="6at-8a-hMq"/>
+                                <include reference="AKw-Pc-Wce"/>
+                                <include reference="f0Q-EJ-bgf"/>
+                                <include reference="tZa-KK-vev"/>
+                                <include reference="HOu-BS-8nZ"/>
+                                <include reference="YtL-Va-gQh"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="handleTextField" destination="yaA-03-aZz" id="nZ4-ga-zpd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="304.5" y="433"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,14 @@
+PODS:
+  - STM (0.1.0)
+
+DEPENDENCIES:
+  - STM (from `../`)
+
+EXTERNAL SOURCES:
+  STM:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  STM: 568a8cd20c4edc11239a9ef00493215f8819b761
+
+COCOAPODS: 0.38.2
