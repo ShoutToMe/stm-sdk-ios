@@ -102,7 +102,11 @@ typedef enum eVoiceCmdAfterSound
 {
     VoiceCmdView *vcv;
     
-    NSBundle *bundle = [NSBundle bundleForClass:STM.class];
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle]
+                                                 pathForResource:@"STM"
+                                                 ofType:@"bundle"]];
+    
+//    NSBundle *bundle = [NSBundle bundleForClass:STM.class];
 
     vcv = [[bundle loadNibNamed:@"VoiceCmdView" owner:nil options:nil] objectAtIndex:0];
     CGRect frame = vcv.frame;
