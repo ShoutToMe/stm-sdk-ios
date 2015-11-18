@@ -84,7 +84,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         
         //[Conversations initAll];
         
-        //[Channels initAll];
+        [Channels initAll];
         
         [RecordingSystem initAll];
         
@@ -101,7 +101,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     {
         [STM saveAll];
         
-//        [Channels freeAll];
+        [Channels freeAll];
 //        [Conversations freeAll];
         [ShoutPlayer freeAll];
 //        [ShoutFeed freeAll];
@@ -272,15 +272,15 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //    return ([Market controller]);
 //}
 //
-//+ (Channels *)channels
-//{
-//    if (NO == bInitialized)
-//    {
-//        [self initAll];
-//    }
-//    
-//    return ([Channels controller]);
-//}
++ (Channels *)channels
+{
+    if (NO == bInitialized)
+    {
+        [self initAll];
+    }
+    
+    return ([Channels controller]);
+}
 
 + (AudioSystem *)audioSystem
 {
