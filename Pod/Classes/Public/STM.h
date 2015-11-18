@@ -23,7 +23,7 @@
 //#import "Conversations.h"
 //#import "Analytics.h"
 //#import "Market.h"
-//#import "Channels.h"
+#import "Channels.h"
 #import "UserData.h"
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
@@ -61,7 +61,7 @@
 //+ (Conversations *)conversations;
 //+ (Analytics *)analytics;
 //+ (Market *)market;
-//+ (Channels *)channels;
++ (Channels *)channels;
 + (AudioSystem *)audioSystem;
 + (RecordingSystem *)recordingSystem;
 //+ (tSTMInternalURLType)urlType:(NSString *)strURL;
