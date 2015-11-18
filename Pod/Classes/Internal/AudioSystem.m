@@ -145,10 +145,11 @@ __strong static AudioSystem *singleton = nil; // this will be the one and only o
 - (void)playBundleFile:(NSString *)strFileAudio withDelegate:(id<AudioSystemDelegate>)delegate andUserData:(id)userData
 {
     // Construct URL to sound file
-    NSBundle *bundle = [NSBundle bundleForClass:STM.class];
-//    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle]
-//                              pathForResource:@"STM"
-//                              ofType:@"bundle"]];
+//    NSBundle *bundle = [NSBundle bundleForClass:STM.class];
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle]
+                                                 pathForResource:@"STM"
+                                                 ofType:@"bundle"]];
+    
     NSString *path = [NSString stringWithFormat:@"%@/%@", [bundle resourcePath], strFileAudio];
     NSURL *soundUrl = [NSURL fileURLWithPath:path];
     
