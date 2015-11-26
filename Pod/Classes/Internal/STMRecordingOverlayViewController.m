@@ -19,10 +19,11 @@ typedef enum eAfterAudioCmd
 
 @interface STMRecordingOverlayViewController () <VoiceCmdViewDelegate, SendShoutDelegate>
 
-@property (nonatomic, strong) VoiceCmdView          *voiceCmdView;
-@property (nonatomic, strong) VoiceCmdResults       *voiceCmdResults;
-@property (nonatomic, strong) UIActivityIndicatorView *indicator;
-@property (weak, nonatomic) IBOutlet UIView         *viewBusy;
+@property (nonatomic, strong)   VoiceCmdView            *voiceCmdView;
+@property (nonatomic, strong)   VoiceCmdResults         *voiceCmdResults;
+@property (nonatomic, strong)   UIActivityIndicatorView *indicator;
+@property (weak, nonatomic)     IBOutlet UIView         *viewBusy;
+@property (nonatomic)           BOOL                    bDismiss;
 
 @end
 
@@ -160,20 +161,16 @@ typedef enum eAfterAudioCmd
 // processes the results of the voice command and issues the appropriate response
 - (void)processVoiceResults
 {
-    BOOL bDismiss = YES;
+    self.bDismiss = YES;
+    [self showBusy:YES];
     
     if (self.voiceCmdResults.bUserClosed)
     {
         //[self stopPlayingAudioOrSpeaking];
-        bDismiss = YES;
+        self.bDismiss = YES;
     } else {
-        bDismiss = YES;
+        self.bDismiss = YES;
         [self sendShout:self.voiceCmdResults.dataAudio withText:self.voiceCmdResults.strText];
-    }
-    
-    if (bDismiss)
-    {
-        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -188,6 +185,11 @@ typedef enum eAfterAudioCmd
     if (status == SendShoutStatus_Success)
     {
         [self playAudio:SHOUT_SENT_SOUND withAfterCmd:AfterAudioCmd_None];
+        
+    }
+    if (self.bDismiss)
+    {
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
     [self showBusy:NO];
     
