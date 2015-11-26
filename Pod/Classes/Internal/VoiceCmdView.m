@@ -312,7 +312,7 @@ typedef enum eVoiceCmdAfterSound
 {
     if ((!_bComplete) && (self.state == VoiceCmdState_Listening))
     {
-        self.state = VoiceCmdState_Stopped;
+        self.state = VoiceCmdState_Processing;
         [self.timer invalidate];
         self.timer = nil;
         if ([self.stmRecorder isRecording]){
@@ -417,7 +417,7 @@ typedef enum eVoiceCmdAfterSound
             break;
 
         case VoiceCmdState_Processing:
-            self.labelContextSpecificText.text = NSLocalizedString(@"Thinking...", nil);
+            self.labelContextSpecificText.text = NSLocalizedString(@"Sending...", nil);
             self.viewButtonsCancel.hidden = NO;
             self.viewButtonsYesNo.hidden = YES;
             self.viewButtonsDone.hidden = YES;
@@ -531,7 +531,7 @@ typedef enum eVoiceCmdAfterSound
                 sound = VoiceCmdSound_Finalize;
             }
             
-            self.state = VoiceCmdState_Stopped;
+            self.state = VoiceCmdState_Processing;
             [self updateDisplay];
             
         } else
