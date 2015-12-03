@@ -169,6 +169,10 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
                 // give the delegate the results
                 [request.delegate onSendShoutCompleteWithShout:self.shoutLastSent WithStatus:request.status];
             }
+        } else if (request.type == RequestType_Undo) {
+            if ([request.delegate respondsToSelector:@selector(onUndoLastSendCompleteWithStatus:)]) {
+                [request.delegate onUndoLastSendCompleteWithStatus:request.status];
+            }
         }
     }
 }
@@ -275,6 +279,40 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
     }
 }
 
+- (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate
+{
+    if (self.shoutLastSent)
+    {
+        //[[Analytics controller] increment:@"shouts taken back" by:1];
+        
+        SendShoutRequest *request = [[SendShoutRequest alloc] init];
+        
+        request = [[SendShoutRequest alloc] init];
+        request.type = RequestType_Undo;
+        request.delegate = delegate;
+        
+        request.strURL = [NSString stringWithFormat:@"%@/%@/%@",
+                          [Settings controller].strServerURL,
+                          SERVER_CMD_UNDO_SHOUT,
+                          self.shoutLastSent.str_id];
+        
+        //NSLog(@"Undo Shout: URL = %@", request.strURL);
+        
+        [[DL_URLServer controller] issueRequestURL:request.strURL
+                                        methodType:DL_URLRequestMethod_Delete
+                                        withParams:nil
+                                        withObject:request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+        
+        self.dateLastSend = nil;
+        self.shoutLastSent = nil;
+    }
+}
+
 - (NSDate *)dateOfLastSend
 {
     return self.dateLastSend;
@@ -369,6 +407,8 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
     // if this was a post shout request
     if (request.type == RequestType_SendShout)
     {
+        [self performSelector:@selector(processResults:) withObject:request afterDelay:0.0];
+    } else if (request.type == RequestType_Undo) {
         [self performSelector:@selector(processResults:) withObject:request afterDelay:0.0];
     }
 }

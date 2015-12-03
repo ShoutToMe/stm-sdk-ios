@@ -25,6 +25,7 @@ typedef enum eSendShoutStatus
 
 - (void)onSendShoutCompleteWithStatus:(tSendShoutStatus)status;
 - (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status;
+- (void)onUndoLastSendCompleteWithStatus:(tSendShoutStatus)status;
 
 @end
 
@@ -38,6 +39,7 @@ typedef enum eSendShoutStatus
 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)undoLastSend;
+- (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate;
 - (NSDate *)dateOfLastSend;
 - (STMShout *)lastSentShout;
 
