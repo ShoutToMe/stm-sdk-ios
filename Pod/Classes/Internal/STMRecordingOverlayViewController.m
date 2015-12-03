@@ -149,6 +149,9 @@ typedef enum eAfterAudioCmd
     [[STM audioSystem] stopAudioAndSpeechFor:self.voiceCmdView cancelCallback:YES];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 #pragma mark - VoiceCmd View Delegates
 
 // called when the voice command has completed
