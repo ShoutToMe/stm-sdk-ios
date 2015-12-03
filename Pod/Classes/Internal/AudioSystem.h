@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AudioElement.h"
 
+#define STMAudio_ShoutSend          @"sent.caf"
+#define STMAudio_ShoutUndo          @"undo.caf"
+
 typedef enum eSTMAudioInputType
 {
     STMAudioInputType_None = 0,
