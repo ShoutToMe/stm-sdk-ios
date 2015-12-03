@@ -204,4 +204,8 @@ typedef enum eAfterAudioCmd
     }
 }
 
+- (void)VoiceCmdViewCloseButtonTouched:(VoiceCmdView *)voiceCmdView {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
