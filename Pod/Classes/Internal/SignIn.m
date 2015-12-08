@@ -568,6 +568,12 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                                                                                    [alert show];
                                                                                    return;
                                                                                });
+                                                                           } else if ([(NSHTTPURLResponse *) response statusCode] == 409) {
+                                                                               NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                                                                               [details setValue:@"Handle must be unique" forKey:NSLocalizedDescriptionKey];
+                                                                               NSError *error = [NSError errorWithDomain:@"HandleTaken" code:400 userInfo:details];
+                                                                               return completionHandler(error);
+
                                                                            }
                                                                        }
                                                                        
