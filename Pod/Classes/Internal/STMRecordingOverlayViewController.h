@@ -13,9 +13,12 @@
 
 @interface STMRecordingOverlayViewController : UIViewController<VoiceCmdViewDelegate, SendShoutDelegate>
 @property (atomic) id<STMRecordingOverlayDelegate> delegate;
+
+-(void)userRequestsStopListening;
 @end
 
 @protocol STMRecordingOverlayDelegate <NSObject>
 
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
+-(void)overlayClosed;
 @end

@@ -8,8 +8,10 @@
 
 #import "STMRecordingOverlayViewController.h"
 #import "SendShout.h"
+#import "AppUtils.h"
 
 #define SHOUT_SENT_SOUND                            @"sent.caf"
+#define MIN_AUDIO_LEN_AFTER_ERR     40000
 
 typedef enum eAfterAudioCmd
 {
@@ -149,6 +151,13 @@ typedef enum eAfterAudioCmd
     [[STM audioSystem] stopAudioAndSpeechFor:self.voiceCmdView cancelCallback:YES];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)userRequestsStopListening {
+    [self.voiceCmdView userRequestsStopListening];
+}
 #pragma mark - VoiceCmd View Delegates
 
 // called when the voice command has completed
@@ -164,10 +173,20 @@ typedef enum eAfterAudioCmd
     self.bDismiss = YES;
     [self showBusy:YES];
     
+    NSLog(@"Shout Audio Length: %lu", (unsigned long)self.voiceCmdResults.dataAudio.length);
+    
+    if (self.voiceCmdResults.dataAudio.length < MIN_AUDIO_LEN_AFTER_ERR) {
+        self.voiceCmdResults.bUserClosed = YES;
+    }
+    
     if (self.voiceCmdResults.bUserClosed)
     {
         //[self stopPlayingAudioOrSpeaking];
         self.bDismiss = YES;
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
+            [self.delegate overlayClosed];
+        }
     } else {
         self.bDismiss = YES;
         [self sendShout:self.voiceCmdResults.dataAudio withText:self.voiceCmdResults.strText];
@@ -190,6 +209,9 @@ typedef enum eAfterAudioCmd
     if (self.bDismiss)
     {
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
+            [self.delegate overlayClosed];
+        }
     }
     [self showBusy:NO];
     
@@ -203,5 +225,14 @@ typedef enum eAfterAudioCmd
         }
     }
 }
+
+- (void)VoiceCmdViewCloseButtonTouched:(VoiceCmdView *)voiceCmdView {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
+        [self.delegate overlayClosed];
+    }
+}
+
+
 
 @end
