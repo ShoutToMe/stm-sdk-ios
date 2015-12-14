@@ -13,7 +13,7 @@
 #import "Utils.h"
 #import "Server.h"
 
-#define CHANNEL_DATA_VERSION   1  // what version is this object (increased any time new items are added or existing items are changed)
+#define CHANNEL_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_CHANNEL_DATA_VERSION            @"ChannelDataVer"
 #define KEY_CHANNEL_ID                      @"ChannelId"
@@ -23,6 +23,8 @@
 #define KEY_CHANNEL_GEOFENCED               @"ChannelGeofended"
 #define KEY_CHANNEL_MIX_PANEL_TOKEN         @"ChannelMixPanelToken"
 #define KEY_CHANNEL_WIT_ACCESS_TOKEN        @"ChannelWitAccessToken"
+#define KEY_CHANNEL_IMAGE                   @"ChannelImage"
+#define KEY_CHANNEL_IMAGE_LIST              @"ChannelImageList"
 
 @interface STMChannel () <NSCopying>
 
@@ -42,6 +44,8 @@
         self.bGeofenced = NO;
         self.strMixPanelToken = @"";
         self.strWitAccessToken = @"";
+        self.strChannelImage = @"";
+        self.strChannelImageList = @"";
     }
     return self;
 }
@@ -58,14 +62,16 @@
 
 - (NSString *)description
 {
-    NSString *strDesc = [NSString stringWithFormat:@"Channel - id: %@, name: %@, description: %@, mix_panel: %@, wit: %@",
+    NSString *strDesc = [NSString stringWithFormat:@"Channel - id: %@, name: %@, description: %@, mix_panel: %@, wit: %@, channel image: %@, channel image list: %@",
                          self.strID,
                          self.strName,
                          self.strDescription,
                          self.strMixPanelToken,
-                         self.strWitAccessToken
+                         self.strWitAccessToken,
+                         self.strChannelImage,
+                         self.strChannelImageList
                          ];
-
+    
     return strDesc;
 }
 
@@ -97,6 +103,8 @@
     newChannel.strDescription = [_strDescription copy];
     newChannel.strMixPanelToken = [_strMixPanelToken copy];
     newChannel.strWitAccessToken = [_strWitAccessToken copy];
+    newChannel.strChannelImage = [_strChannelImage copy];
+    newChannel.strChannelImageList = [_strChannelImageList copy];
     newChannel.bGeofenced = _bGeofenced;
 
     return newChannel;
@@ -168,6 +176,24 @@
             {
                 self.strWitAccessToken = @"";
             }
+            strVal = [aDecoder decodeObjectForKey:KEY_CHANNEL_IMAGE];
+            if (strVal)
+            {
+                self.strChannelImage = strVal;
+            }
+            else
+            {
+                self.strChannelImage = @"";
+            }
+            strVal = [aDecoder decodeObjectForKey:KEY_CHANNEL_IMAGE_LIST];
+            if (strVal)
+            {
+                self.strChannelImageList = strVal;
+            }
+            else
+            {
+                self.strChannelImageList = @"";
+            }
         }
     }
 
@@ -186,6 +212,8 @@
     [aCoder encodeObject:self.strDescription forKey:KEY_CHANNEL_DESCRIPTION];
     [aCoder encodeObject:self.strMixPanelToken forKey:KEY_CHANNEL_MIX_PANEL_TOKEN];
     [aCoder encodeObject:self.strWitAccessToken forKey:KEY_CHANNEL_WIT_ACCESS_TOKEN];
+    [aCoder encodeObject:self.strChannelImage forKey:KEY_CHANNEL_IMAGE];
+    [aCoder encodeObject:self.strChannelImageList forKey:KEY_CHANNEL_IMAGE_LIST];
 }
 
 #pragma mark - Public Methods
@@ -201,6 +229,8 @@
         self.strName = [Utils stringFromKey:@"name" inDictionary:dictChannel];
         self.strDescription = [Utils stringFromKey:@"description" inDictionary:dictChannel];
         self.bGeofenced = [Utils boolFromKey:@"geofenced" inDictionary:dictChannel];
+        self.strChannelImage = [Utils stringFromKey:@"channel_image" inDictionary:dictChannel];
+        self.strChannelImageList = [Utils stringFromKey:@"channel_list_image" inDictionary:dictChannel];
 
         self.strMixPanelToken = [Utils stringFromKey:@"mobile" inDictionary:[dictChannel objectForKey:@"mixpanel_keys"]];
 

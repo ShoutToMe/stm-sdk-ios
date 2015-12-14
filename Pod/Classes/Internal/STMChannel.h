@@ -18,6 +18,8 @@
 @property (nonatomic, assign)   BOOL                        bGeofenced;
 @property (nonatomic, copy)     NSString                    *strMixPanelToken;
 @property (nonatomic, copy)     NSString                    *strWitAccessToken;
+@property (nonatomic, copy)     NSString                    *strChannelImage;
+@property (nonatomic, copy)     NSString                    *strChannelImageList;
 
 - (id)initWithDictionary:(NSDictionary *)dictChannel;
 
