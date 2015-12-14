@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/Internal/Channel.h

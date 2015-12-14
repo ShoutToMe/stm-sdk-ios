@@ -1,5 +1,5 @@
 PODS:
-  - STM (0.1.0)
+  - STM (0.0.5)
 
 DEPENDENCIES:
   - STM (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  STM: 568a8cd20c4edc11239a9ef00493215f8819b761
+  STM: 1a2cef497b6e9d03cefdb9040248c54fdeaedafc
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
