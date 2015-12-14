@@ -170,7 +170,7 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
                 
                 NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
                 NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+                //NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
                 NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
                 STMChannel *channel;
                 if (dictData)
