@@ -7,84 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02013EC612983BBC44208C1ACD5A9B9C /* DL_URLServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1608E9238F6A955087F91EF3AC9A3399 /* DL_URLServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0336CCCAE0213C90A14990D19A245B40 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE5BF5F050ADD89C130CDEA499E1DE0 /* AppUtils.m */; };
-		03EBF5A02DC0CE38ACB56978A7144D99 /* VoiceCmdView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7117A202DA463DC51836D3CF58CD606 /* VoiceCmdView.m */; };
-		0689435039363BDF7DBF181836757C87 /* ShoutPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3207F85DF1FDAB54B66567D5960BA3 /* ShoutPlayer.m */; };
 		083B17EE35B012B09AE49F9BA8F551D0 /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = D1A922077B53E667270166F4AEE5A98B /* finish.caf */; };
 		08C5673A6EBC8A4DFDE6C3161CE99EBD /* BtnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 437C81EFC78CF8FAD1F912E0B7A1CE08 /* BtnClose.png */; };
-		0B78DE71BDEEB23FA25B4682C591EBB7 /* User.h in Headers */ = {isa = PBXBuildFile; fileRef = D628705C131E12C527981EDEA62BCCCE /* User.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E37EEF1B34E50569D82E5FB65B791B1 /* STM-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 47622F5B0ACDE3B3AD264AC785E6324F /* STM-dummy.m */; };
-		0FFB4085C33B2F7D649DB00E32777436 /* STMRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D832DDCAEF5873C589BC9154FF3BA120 /* STMRecorder.m */; };
+		1234C1F12D568D44A91BE35B27E60BBF /* STMShout.m in Sources */ = {isa = PBXBuildFile; fileRef = B885AFA9100512C4C1FD2BBB6DF8A917 /* STMShout.m */; };
+		13FA576B43BC39439613A120CD77095E /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F90479EC10A63D7EB1E56F0927B34D /* AppUtils.m */; };
 		15A73B2A53391BAE089EB2430225069B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		168D818EA1BF08286CB132890AEB5C9E /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0F8846C7CED551311653E25EDB74A3 /* GraphView.m */; };
-		1883B10DFB1CD912C2C4877653BCCE67 /* STMVad.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D78EC0B9FD5200066E131A9652E445C /* STMVad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C38479CD73AB8F78E9764F8491D36AB /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FA15704C83E509F6A0C085A0F96614B7 /* RoundedButton.m */; };
+		1D5AAEFF4A23E30A2299FAF2A724CA92 /* STM.m in Sources */ = {isa = PBXBuildFile; fileRef = 524F1A7900752EEDBE6D9723C0502F5A /* STM.m */; };
+		1D72734B2B0DBF77113B94F168F5D898 /* AudioElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B98281208B1156A8EC76FB4F14EE80A /* AudioElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25EA4FDAB403D417107A58B5BBFBE95F /* STMVad.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3837CB2B724D89430AC8FB02AE2789 /* STMVad.m */; };
 		264CD858D002383BFCD05373FA960D6B /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 74DD03B9C45AB5B1F5189DBCB67D9679 /* sent.caf */; };
-		2792A2C4CF9AA09BEFFB72FF47262251 /* STMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = AB3BCED676092590F5B57E0BBE20DF7A /* STMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		291915FC0D49221717A4A06B345D8E0D /* Channels.m in Sources */ = {isa = PBXBuildFile; fileRef = D07F30E3839473B2447A6E82F174E37F /* Channels.m */; };
-		305063E9EC7AE1D12573539A4FC61591 /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = B72A31DC5817961B2D8E9C12629B7AD0 /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		342B637564E908EF7C3C2FE7D3F9B8E9 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D915C10502F5E1CDB1EA34D5AD671BF /* STMLocation.m */; };
-		3536362BA09DEE30BA0029C54ED85D82 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 19D5A705C0AA24AE00A9FD47BC4DFC49 /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3A8CDDE1DD64BFCE8F0F736AD541B013 /* STMChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = FEA3A65E02399CBD588365B3568246DB /* STMChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3AA11CEB670919B587801088C0C5F19E /* RecordingSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3137ABEB1C4E157E38E3AB017BEC639D /* RecordingSystem.m */; };
-		3D9200F70C3DC0488B727AC490C8CC89 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A131D5C23D31E29F842DE5D58BA2776 /* UserData.m */; };
-		3E10B1BE1E94AC682089ED7E0E8A79C2 /* STM-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F043D13691990B00503FC3C446D3167 /* STM-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A03D97C5A88F6CC7D2A0BF89D8CEDBC /* UserData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4485E6B152676AF08C1D25580F58A546 /* UserData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B7EFB155FF17F198B21DA38A5236E39 /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDCA6AA705C4E8699F8F7680C01412 /* SignIn.m */; };
+		3019E8FDBE32985E36FE1D2D0FC22A4C /* Settings.h in Headers */ = {isa = PBXBuildFile; fileRef = D606F3C6282B59AE33CA010E24768125 /* Settings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		304DBAE81806D3A6660FE0506E3199B0 /* STM-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 47622F5B0ACDE3B3AD264AC785E6324F /* STM-dummy.m */; };
+		3068B3D5104804051DA727A0B74A1A38 /* GraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C525ACCDD3622D5BFF80BAFD7E93F18 /* GraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30B061A2A94285D4E0D58BAEC17A4F39 /* STMShout.h in Headers */ = {isa = PBXBuildFile; fileRef = 98CBD2225F3E17D809761677BBF5469F /* STMShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3151D78277EC2628671C869E44DD030D /* RecordingSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BB75F08060BDCC443E23982942D02 /* RecordingSystem.m */; };
+		3765016A1A0A1A88A1B0794DB531D8A4 /* SignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = F6F1250B3B1C101F4F3799BC64E43047 /* SignIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39E4AB357272AFEB3CD572271C2E7C6C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BFBE07CAE508C023E1FCE386A4BE32 /* User.m */; };
+		3B789F43F96CEF46B29583B898FA8D44 /* AudioSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E497675F4F40E9AA43DD307A8519D /* AudioSystem.m */; };
+		3D804A9EB0A2A5A0FC9A5027CD5F3DC2 /* RecordingSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = CBDD7892B0A40A0C05F9E7DB507707C1 /* RecordingSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3EE9CCFA28B7C086F0D874A4F9970104 /* Pods-STM_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1F6705754CB45776301811AB22B15F /* Pods-STM_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F7179171F84A4A89D4A7774237A0F22 /* StandardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1F1B3B0F9363BEF3CC0DE7901E5AA2 /* StandardButton.m */; };
 		439EA551B60996E2E99A24558A6B9CAA /* Pods-STM_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0C397537600484BAB87DD1BD530D48 /* Pods-STM_Example-dummy.m */; };
-		44E16E237B9D4B09059523C3B19379D0 /* STMVad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6952A8B0F3FBDBED96D924EF3C10CC /* STMVad.m */; };
-		451AE3C5039CF68A4D712C0ED1E86A70 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = EA6631FF35D45E0E8E5BB60922815B4A /* KeychainItemWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A1A5ED77D775CC3C285C94A99A66B58 /* DL_URLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C942FAB6014BB4462934766B6E7486EF /* DL_URLServer.m */; };
-		4D5C64B8AF608A865ECE074A59E7D3BD /* SendShout.m in Sources */ = {isa = PBXBuildFile; fileRef = FF953D63B2DDB89D71C4A7FBCA8D0CB5 /* SendShout.m */; };
+		4462127F0C3A322305D645A98A499ADB /* Server.h in Headers */ = {isa = PBXBuildFile; fileRef = A6270BD8BBF9B3918DBB246BC1B8833A /* Server.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44AAF972A80AD3B5C9B10306177D1944 /* STMChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6536A43742DDD76EAA8E6AEE2D506C5E /* STMChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F921B7179A7E2CA43CFC3F20647BB39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		5217DCEF1697E517218BC36F473C067A /* STMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 590189B77BD6C08CCD60E0363783C4BD /* STMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		555E6F3F107DBE8779F66E657C298BE7 /* STMChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5105D75AC0CE0BF0199C44D1519FBDE /* STMChannel.m */; };
+		54333B360F3EB56C715BF2F4A7FBF38D /* STMCvad.h in Headers */ = {isa = PBXBuildFile; fileRef = 31708FB5C64E353DAE7FF8C8DE8AA6B2 /* STMCvad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5993AD73B35BDA3E27650F229AADE878 /* STM_Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 805930D81A26CE2F27DB0A8C12B0A499 /* STM_Defs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59C7731D948A0036DC217AEA05EA4D2D /* abort.caf in Resources */ = {isa = PBXBuildFile; fileRef = D836FE14B12161F51C27533E44876BC2 /* abort.caf */; };
-		5C77D682978A335730EE60ED4C4DD334 /* STMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = C398ADCB058A5AFD5D2D3D2DA77480E8 /* STMConversation.m */; };
-		5E101740952EB7BD154F9C2DE6FD9146 /* StandardButton.h in Headers */ = {isa = PBXBuildFile; fileRef = D71112812B68BF2B72537D01CD49A898 /* StandardButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5B7B424BE6BA5775746E4701229B24E4 /* AudioSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 824BCB6C8AD6A1020211E7B0FDF43EB7 /* AudioSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5C490236DBD79C0D0E353CE9ADE13730 /* STM-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F043D13691990B00503FC3C446D3167 /* STM-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5C7B0DA93E016921F2DCA51831CAD9E5 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8032FA7EB0A218C3D69186E04D054FA2 /* KeychainItemWrapper.m */; };
 		61039EBA833DC10F578D6587A61BD162 /* STM.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AA2918F6C12A62B323BCA97A537F3DAF /* STM.bundle */; };
-		692F64965255B9CB8546FDCCE58DE32C /* AudioSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878FA8B7D88DC7D48C300C55C501FF6 /* AudioSystem.m */; };
+		6682292E8B04B922DD3707748EE4DBF9 /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = BA62A67242D521A870FFA315FC4CCCCA /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		668B9E669FDC399D86D20B0BBB7B2175 /* STMRecordingOverlayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41171C92B5C128A13A9B4DED0A2F6C00 /* STMRecordingOverlayViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AA662F7F56C0AACC1A44D903C6E40AE /* STMConversation.h in Headers */ = {isa = PBXBuildFile; fileRef = 375C30CF6AB6EF73CE7169451B36A96A /* STMConversation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6B153E2C574D1E61ACFEEAF995DF01D2 /* listen.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4BEC1D20A518EDFDAEF1E9B588C7DFFA /* listen.caf */; };
 		6C83303EE1409D7C4E12D4ECD3771FD2 /* Pods-STM_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 76816DCAFC1923506B2376556F590869 /* Pods-STM_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6DB539FADC0421D8CFEF49EB6E77C0AB /* STMShout.m in Sources */ = {isa = PBXBuildFile; fileRef = FACADB6BCD9875E11649EC88417E3280 /* STMShout.m */; };
-		70F563D874008354538F5FDF3AF961D0 /* AudioSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 143F9C5FA7A6A26C6C1AA5B42C3704AC /* AudioSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7107FE5A3F59B800F99B28D65EF2801D /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B077A9FD6C0841D510D757B03E33753 /* Utils.m */; };
+		6E905E77133D74C43C219E26B7889CA3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEEB9AB739A18F28B2A567E44561378 /* Settings.m */; };
 		72C0D1387CAB1984D4AA20450478D73F /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9F6F019C624F12F0CAD0C2AA076860A7 /* undo.caf */; };
-		7AE8C947F34B93CD9847FA1FAB1469E0 /* Server.h in Headers */ = {isa = PBXBuildFile; fileRef = 7414D696DB8A57A69E840E5500BFEF37 /* Server.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		83A5A941C5AD1F1E342EEE2453DFD468 /* SignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = CEA6F0D19C266A8B38545DBD6331CFD2 /* SignIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		83C14AFD01911220DE45EE4E39E6EC55 /* Settings.h in Headers */ = {isa = PBXBuildFile; fileRef = 18890D111CBBD1ED89C720A496F4579E /* Settings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		86A7B69ABEE285882803E19BB49D28AE /* STMCvad.h in Headers */ = {isa = PBXBuildFile; fileRef = AEFE5D2CA7AEEB501B7F57F00A2C92E0 /* STMCvad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72EAA4A123769C5146C4A0D7934C5BB6 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6966E495F1EC5A72D52C7C70B211549D /* Utils.m */; };
+		72F552DD281468449E4BC34DC53EF4F1 /* STMRecordingOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D17F460E9A64596AAD4E403D5A2BC0D6 /* STMRecordingOverlayViewController.m */; };
+		7C3C34D2AD087DABFA01CF60DF9DB008 /* RoundedButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7340B4B84736284944919B8C16B9DDB2 /* RoundedButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F3BE479DDC8B369F7F69795740272D2 /* User.h in Headers */ = {isa = PBXBuildFile; fileRef = F14F5905FBA8CC4F525363F62FF49855 /* User.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F98ACC0E267C394E5C8720332E15EB0 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = B8265FC118936D9F93EE18A5A12C4A56 /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8161648E2EB694C9554659026897F4B8 /* SendShout.m in Sources */ = {isa = PBXBuildFile; fileRef = 98CF019709079E8250D1132A7919C3F6 /* SendShout.m */; };
 		87F093D324B53BFF7EF75161C9C2DC1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		8A174E59289533B33862D387FCD7F9D8 /* STMCvad.m in Sources */ = {isa = PBXBuildFile; fileRef = 3592D21F212744835796434E3F86634A /* STMCvad.m */; };
-		8B5B11EB4283B9425AEF0E4BA615778C /* STMRecordingOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36BE6742FCE6415FC61A12D1E528B /* STMRecordingOverlayViewController.m */; };
-		8D122CF078D999F0BF81036FAC91CC93 /* STMRecordingOverlayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 277498735E2812272A58C66DCFE10ABD /* STMRecordingOverlayViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		94089179AC97D4270F02980B2551BC46 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB0F7343295F1F76019970D86E244C /* Settings.m */; };
-		A2BFD9AF2FA3AF98567262D3ABB10A56 /* RecordingSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B36E36169C1645031E2C8E40A1363FE /* RecordingSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A82B9A5FDBFE7F1A524122BC2C00FF97 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A951BBF237570D4387F59BFAE16058 /* Channel.m */; };
-		AB5E52C8DA3A885439CCD78AD1FF1EFD /* STMShout.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FD4C8C68E1D7A39023A499CE0921F2B /* STMShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0CF2C058EC484410ACB4B22BB9D479D /* VoiceCmdView.h in Headers */ = {isa = PBXBuildFile; fileRef = 244D38E8B0B18DD671BE2D00E41D3FE1 /* VoiceCmdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88B5AFF4561F55D0EB95658138954AC2 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF165A5691705242612FE328B448E15 /* Error.m */; };
+		8D636134FE8D2F91158E26F7D41A8B50 /* STMRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CC6FE941EC46417AE724BC23477705 /* STMRecorder.m */; };
+		921CAFC6CBD58787EAAF6396206FEA8A /* ShoutPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = E294F52611617C1F6F94BD9F943B27C5 /* ShoutPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		928780B3C6DB21002B93CF18DA18E140 /* AppUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A42950DDF73294AF1D96BB912C070770 /* AppUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99A023DA8CF92989FB5B981B2B03047D /* STMVad.h in Headers */ = {isa = PBXBuildFile; fileRef = E0F007A0CDA6F12BBCA8C91A64E51F36 /* STMVad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D92D4300BE2BC3B3149AA9881A1C92A /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F5BB9DE2412D57177D66ADB967DA1 /* GraphView.m */; };
+		A59DDADECDC99F6DC99B299D2AB071AC /* AudioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D392C87162D9D2EDB568AB052613F12 /* AudioElement.m */; };
+		A5C536B3E9222E3BF5FFAB01D185B22D /* StandardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFE93084C704A44DF62AA3640D8DDF8 /* StandardButton.m */; };
+		A8E651856D9A0B9C0BB9C2FF984AF590 /* SendShout.h in Headers */ = {isa = PBXBuildFile; fileRef = A501D710903C80385346F56BB1D75882 /* SendShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC638B201B7F885F6EF0A456F9F3E854 /* Channels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F135F409C54CA4136820384DA593D91 /* Channels.m */; };
 		B168809AA8CEEF95103EC01B5E265898 /* VoiceCmdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EF596B7CA6119E783B104A960B33A2E /* VoiceCmdView.xib */; };
-		B286E8FAF7DB62CBCEF16C3F7FF1B2D3 /* STMConversation.h in Headers */ = {isa = PBXBuildFile; fileRef = 902BED38E716C8BBA3A6842A9B7183F0 /* STMConversation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3F4483F346AEF3105BF5CA7E42C1AEB /* StandardButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF99A050418BCAD7A130BB9ADE6AE0A /* StandardButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B494B25AE9B4896AEBBCAFBC753FE212 /* VoiceCmdView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F852B5D9E7FEA16722A5BA146C34D9F /* VoiceCmdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B87E41D310C130257706218112375035 /* shout.caf in Resources */ = {isa = PBXBuildFile; fileRef = E256EC9910E8D26E526DD90D57A18ECD /* shout.caf */; };
-		B96A55C09659878E52B9D81EBBE38263 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = D1A949FA9CF1417F132BBA683F5BB223 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B9CE7EFCC331FD1E2586104FBB2A79FE /* ShoutPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BBAF4F8895D078484E6072435596729C /* ShoutPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4ECE33EAFE2142BDDEA8E7D3811EE1E /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D27050E2E94E969B3792C1FC85348A71 /* SignIn.m */; };
-		CFEE2AEDD2ACB44FD60B4273FFCE57AB /* Channels.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C6D52F872E07B8A2E8EE41573EF648 /* Channels.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D2DF30F300D6776346B8168ED7678B8D /* UserData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B56B005AEFDDDE8DB39B29A57214FB9 /* UserData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D58AB7825E2B9FCA11EA1C360538057F /* GraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CACA166289826CE56F674482EC371A6 /* GraphView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D83EDA83AB351E04AA9D407A11C84187 /* RoundedButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D7267C39DEDE40881625B35DB165D6 /* RoundedButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE4BC7AB8921A4140F734184E1FA0F4B /* AudioElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 7735BD5D8F3F268E229E1DF1BF5D3079 /* AudioElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE529DFB9C4C3600B3BE4AF148A7AC60 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D1FA4948731D675F4376C564267BB1 /* User.m */; };
-		DFC0B9FE3DF6A1C47F1A97F9BAE8AC06 /* AudioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C304EAFB1CBE2946815EC44B817B4 /* AudioElement.m */; };
-		E4254A1B46C6839F7EB8A767CB37BC1A /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = D7E1C7D77FA63E0E1EB920E7119A0D16 /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E616B26C75B299E78A008AC1F3E48E44 /* AppUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = CB794EE73E4243E4B9D8F0765AF616D8 /* AppUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAC4D4E0F0BA5F12603E76A40C870FA0 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 737432BE135885FF25DFF536286BF8EF /* RoundedButton.m */; };
+		C3902BA9482948A1EC526E92EE790CD0 /* STMChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96424A999E04043E43254E3A907C0ACE /* STMChannel.m */; };
+		CFEF9496FDC55FE8C66565516948DB4D /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC522DA07ECD00019FE1D072617A20D6 /* UserData.m */; };
+		D26F942B0C4E25819337D8507918147D /* DL_URLServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 113986C8331C415B06DE40EA7419860A /* DL_URLServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D2B13BCB70D462D2E24672DB61EE38F0 /* ShoutPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D83760E62766F272DB14F61C490AF4 /* ShoutPlayer.m */; };
+		DF907ABEAC102186DBA0B809E40EEE24 /* VoiceCmdView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD284D6A6C5872362E6A0E254515048 /* VoiceCmdView.m */; };
+		E3E185752C74428EBC9547F4761EA7D6 /* STMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD28B86A0C7AEE25128BC1B678DF948 /* STMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEF73A782593501CDEF6817B3BBDBC2B /* Channels.h in Headers */ = {isa = PBXBuildFile; fileRef = 638211049EE7A1A0D6172751CCDED3A1 /* Channels.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF141D02F23551A7EC01809049629B03 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D86A1FE3EECEF9B83699279BAC6DE719 /* STMLocation.m */; };
+		F2129DFBFD0470913B17F3E08855D073 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2A6D9456FDAFBC92EFCBF07D3F84968 /* Pods-STM_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 838B91BFCDCB66D18E378921D976F2E3 /* Pods-STM_Tests-dummy.m */; };
-		F2CCD497390423307FD804E49B267470 /* SendShout.h in Headers */ = {isa = PBXBuildFile; fileRef = 53349B255E124197DCF6507505D9DF9B /* SendShout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F43780776201A1F417467468EEB111CE /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CC3AF78E3A124A7B6D653E029BD1EE /* Error.m */; };
-		F7A1CA0ADBE65CBE43021A8837465198 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B6147880E11E4F79FF4D5D29DA9FBF /* KeychainItemWrapper.m */; };
-		F946F83E54B207F7A4743F7E3F08EB2D /* STM.m in Sources */ = {isa = PBXBuildFile; fileRef = 427486384B848F3129B82596930C2CE6 /* STM.m */; };
-		FB37E7AFA282E880D02AC83BAEAE514B /* STM_Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 930E226F2991CE09E6C26627B6D243DC /* STM_Defs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4485AB0D20C7145442E32BEBABAD326 /* STMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 786A099E211A002E647E813C0A10EF78 /* STMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6E9845DFEB2FDACA3947C3BDFF0EF39 /* STMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1313AC2C415C6A8BEB75381640D81E4A /* STMConversation.m */; };
+		F9828D9203DFAC01CE03A66ED3311B14 /* DL_URLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DFA972243273C3063A1E0D4019D7D3 /* DL_URLServer.m */; };
+		FA11FDD5FC050FBE330DD6611F4697DE /* STMCvad.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35D8C93B61EE8829309F5841BF1620 /* STMCvad.m */; };
+		FB508916D1217A4BC9FDFB21BDC6D59C /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = 301DCD9204839F9D868F42945FC69D62 /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,106 +110,104 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00CC3AF78E3A124A7B6D653E029BD1EE /* Error.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
-		0B077A9FD6C0841D510D757B03E33753 /* Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		0D78EC0B9FD5200066E131A9652E445C /* STMVad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMVad.h; sourceTree = "<group>"; };
+		0C525ACCDD3622D5BFF80BAFD7E93F18 /* GraphView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		0F135F409C54CA4136820384DA593D91 /* Channels.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Channels.m; sourceTree = "<group>"; };
+		10BFBE07CAE508C023E1FCE386A4BE32 /* User.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		113986C8331C415B06DE40EA7419860A /* DL_URLServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DL_URLServer.h; sourceTree = "<group>"; };
+		1313AC2C415C6A8BEB75381640D81E4A /* STMConversation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMConversation.m; sourceTree = "<group>"; };
 		138D8F1F9C5C819ACC4664D2522BC89A /* STM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A936E3482B7036659ADFE745D73F67 /* STM-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STM-prefix.pch"; sourceTree = "<group>"; };
-		143F9C5FA7A6A26C6C1AA5B42C3704AC /* AudioSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioSystem.h; sourceTree = "<group>"; };
-		14A36BE6742FCE6415FC61A12D1E528B /* STMRecordingOverlayViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecordingOverlayViewController.m; sourceTree = "<group>"; };
-		14EB0F7343295F1F76019970D86E244C /* Settings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		1608E9238F6A955087F91EF3AC9A3399 /* DL_URLServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DL_URLServer.h; sourceTree = "<group>"; };
-		1878FA8B7D88DC7D48C300C55C501FF6 /* AudioSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioSystem.m; sourceTree = "<group>"; };
-		18890D111CBBD1ED89C720A496F4579E /* Settings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
-		19D5A705C0AA24AE00A9FD47BC4DFC49 /* Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		1A131D5C23D31E29F842DE5D58BA2776 /* UserData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		1A7EA353DA687742BA17CDDCB1D521E2 /* Pods_STM_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STM_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E1F1B3B0F9363BEF3CC0DE7901E5AA2 /* StandardButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = StandardButton.m; sourceTree = "<group>"; };
-		244D38E8B0B18DD671BE2D00E41D3FE1 /* VoiceCmdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VoiceCmdView.h; sourceTree = "<group>"; };
-		277498735E2812272A58C66DCFE10ABD /* STMRecordingOverlayViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecordingOverlayViewController.h; sourceTree = "<group>"; };
+		1D392C87162D9D2EDB568AB052613F12 /* AudioElement.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioElement.m; sourceTree = "<group>"; };
 		2B2242D1F06EEE2E06A9C8BB4B0C900D /* Pods-STM_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		311C304EAFB1CBE2946815EC44B817B4 /* AudioElement.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioElement.m; sourceTree = "<group>"; };
-		3137ABEB1C4E157E38E3AB017BEC639D /* RecordingSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RecordingSystem.m; sourceTree = "<group>"; };
+		2F852B5D9E7FEA16722A5BA146C34D9F /* VoiceCmdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VoiceCmdView.h; sourceTree = "<group>"; };
+		301DCD9204839F9D868F42945FC69D62 /* STM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM.h; sourceTree = "<group>"; };
+		31708FB5C64E353DAE7FF8C8DE8AA6B2 /* STMCvad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMCvad.h; sourceTree = "<group>"; };
 		33DDD12152991FF3C693C93C19141ED7 /* Pods-STM_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Example-resources.sh"; sourceTree = "<group>"; };
-		3592D21F212744835796434E3F86634A /* STMCvad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMCvad.m; sourceTree = "<group>"; };
-		3B36E36169C1645031E2C8E40A1363FE /* RecordingSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RecordingSystem.h; sourceTree = "<group>"; };
-		3CACA166289826CE56F674482EC371A6 /* GraphView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
-		3D3207F85DF1FDAB54B66567D5960BA3 /* ShoutPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ShoutPlayer.m; sourceTree = "<group>"; };
+		375C30CF6AB6EF73CE7169451B36A96A /* STMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMConversation.h; sourceTree = "<group>"; };
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3FD4C8C68E1D7A39023A499CE0921F2B /* STMShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMShout.h; sourceTree = "<group>"; };
-		427486384B848F3129B82596930C2CE6 /* STM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STM.m; sourceTree = "<group>"; };
+		41171C92B5C128A13A9B4DED0A2F6C00 /* STMRecordingOverlayViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecordingOverlayViewController.h; sourceTree = "<group>"; };
 		437C81EFC78CF8FAD1F912E0B7A1CE08 /* BtnClose.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = BtnClose.png; sourceTree = "<group>"; };
+		4485E6B152676AF08C1D25580F58A546 /* UserData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		457379E9205BD9629131E064E1A3F417 /* Pods-STM_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-STM_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		47622F5B0ACDE3B3AD264AC785E6324F /* STM-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STM-dummy.m"; sourceTree = "<group>"; };
 		4BEC1D20A518EDFDAEF1E9B588C7DFFA /* listen.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = listen.caf; sourceTree = "<group>"; };
 		51E2CE1D6D7249DF2E2C6EF642908630 /* Pods-STM_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		53349B255E124197DCF6507505D9DF9B /* SendShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SendShout.h; sourceTree = "<group>"; };
-		55D7267C39DEDE40881625B35DB165D6 /* RoundedButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RoundedButton.h; sourceTree = "<group>"; };
-		56D1FA4948731D675F4376C564267BB1 /* User.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		590189B77BD6C08CCD60E0363783C4BD /* STMLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMLocation.h; sourceTree = "<group>"; };
+		524F1A7900752EEDBE6D9723C0502F5A /* STM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STM.m; sourceTree = "<group>"; };
 		59D7E7207B9FB05858CB797D77A4239B /* STM.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STM.xcconfig; sourceTree = "<group>"; };
-		5B56B005AEFDDDE8DB39B29A57214FB9 /* UserData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		5BF99A050418BCAD7A130BB9ADE6AE0A /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
 		5D802550C0410460838990D58975576E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F043D13691990B00503FC3C446D3167 /* STM-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STM-umbrella.h"; sourceTree = "<group>"; };
+		638211049EE7A1A0D6172751CCDED3A1 /* Channels.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Channels.h; sourceTree = "<group>"; };
+		6536A43742DDD76EAA8E6AEE2D506C5E /* STMChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMChannel.h; sourceTree = "<group>"; };
 		668F386B3017B743798C1A41463DE8A4 /* Pods_STM_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STM_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		69C6D52F872E07B8A2E8EE41573EF648 /* Channels.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Channels.h; sourceTree = "<group>"; };
+		6966E495F1EC5A72D52C7C70B211549D /* Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		6A1267AEAEFC6E800EC8450064660703 /* Pods-STM_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-STM_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		6B9BB75F08060BDCC443E23982942D02 /* RecordingSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RecordingSystem.m; sourceTree = "<group>"; };
 		6C223DD9F2D1967815A204CB281AA629 /* Pods-STM_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		6D915C10502F5E1CDB1EA34D5AD671BF /* STMLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMLocation.m; sourceTree = "<group>"; };
-		737432BE135885FF25DFF536286BF8EF /* RoundedButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
-		7414D696DB8A57A69E840E5500BFEF37 /* Server.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		6FEEB9AB739A18F28B2A567E44561378 /* Settings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		7340B4B84736284944919B8C16B9DDB2 /* RoundedButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RoundedButton.h; sourceTree = "<group>"; };
 		749E963C30515C11282AD96036EF099C /* Pods-STM_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Example-frameworks.sh"; sourceTree = "<group>"; };
 		74DD03B9C45AB5B1F5189DBCB67D9679 /* sent.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = sent.caf; sourceTree = "<group>"; };
 		76816DCAFC1923506B2376556F590869 /* Pods-STM_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Tests-umbrella.h"; sourceTree = "<group>"; };
-		7735BD5D8F3F268E229E1DF1BF5D3079 /* AudioElement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioElement.h; sourceTree = "<group>"; };
+		76CC6FE941EC46417AE724BC23477705 /* STMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecorder.m; sourceTree = "<group>"; };
+		786A099E211A002E647E813C0A10EF78 /* STMLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMLocation.h; sourceTree = "<group>"; };
+		7FD28B86A0C7AEE25128BC1B678DF948 /* STMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecorder.h; sourceTree = "<group>"; };
+		8032FA7EB0A218C3D69186E04D054FA2 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		805930D81A26CE2F27DB0A8C12B0A499 /* STM_Defs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM_Defs.h; sourceTree = "<group>"; };
+		824BCB6C8AD6A1020211E7B0FDF43EB7 /* AudioSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioSystem.h; sourceTree = "<group>"; };
 		8353C50B58DBA55A87B44DA9DC376EA8 /* Pods-STM_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-STM_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		838B91BFCDCB66D18E378921D976F2E3 /* Pods-STM_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Tests-dummy.m"; sourceTree = "<group>"; };
 		840033E8F0FF2809F15BA2725CA4F266 /* Pods-STM_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-STM_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		8993327A916C754B12E9E5083153DE3B /* Pods-STM_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-STM_Tests.modulemap"; sourceTree = "<group>"; };
-		89B6147880E11E4F79FF4D5D29DA9FBF /* KeychainItemWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		8B98281208B1156A8EC76FB4F14EE80A /* AudioElement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AudioElement.h; sourceTree = "<group>"; };
+		8D35D8C93B61EE8829309F5841BF1620 /* STMCvad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMCvad.m; sourceTree = "<group>"; };
+		8D6F5BB9DE2412D57177D66ADB967DA1 /* GraphView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		8E024313949AB2764C7B9655EAAB7116 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF596B7CA6119E783B104A960B33A2E /* VoiceCmdView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = VoiceCmdView.xib; sourceTree = "<group>"; };
-		902BED38E716C8BBA3A6842A9B7183F0 /* STMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMConversation.h; sourceTree = "<group>"; };
+		8F4E497675F4F40E9AA43DD307A8519D /* AudioSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AudioSystem.m; sourceTree = "<group>"; };
 		91D307E699C6EB8E0DAEC254800AD5C0 /* Pods-STM_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.release.xcconfig"; sourceTree = "<group>"; };
-		930E226F2991CE09E6C26627B6D243DC /* STM_Defs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM_Defs.h; sourceTree = "<group>"; };
-		9C6952A8B0F3FBDBED96D924EF3C10CC /* STMVad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMVad.m; sourceTree = "<group>"; };
+		96424A999E04043E43254E3A907C0ACE /* STMChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMChannel.m; sourceTree = "<group>"; };
+		98CBD2225F3E17D809761677BBF5469F /* STMShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMShout.h; sourceTree = "<group>"; };
+		98CF019709079E8250D1132A7919C3F6 /* SendShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SendShout.m; sourceTree = "<group>"; };
+		99F90479EC10A63D7EB1E56F0927B34D /* AppUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		9F6F019C624F12F0CAD0C2AA076860A7 /* undo.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = undo.caf; sourceTree = "<group>"; };
-		A7117A202DA463DC51836D3CF58CD606 /* VoiceCmdView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VoiceCmdView.m; sourceTree = "<group>"; };
+		A42950DDF73294AF1D96BB912C070770 /* AppUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		A501D710903C80385346F56BB1D75882 /* SendShout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SendShout.h; sourceTree = "<group>"; };
+		A6270BD8BBF9B3918DBB246BC1B8833A /* Server.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		AA2918F6C12A62B323BCA97A537F3DAF /* STM.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STM.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB3BCED676092590F5B57E0BBE20DF7A /* STMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecorder.h; sourceTree = "<group>"; };
-		AEE5BF5F050ADD89C130CDEA499E1DE0 /* AppUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
-		AEFE5D2CA7AEEB501B7F57F00A2C92E0 /* STMCvad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMCvad.h; sourceTree = "<group>"; };
-		B72A31DC5817961B2D8E9C12629B7AD0 /* STM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STM.h; sourceTree = "<group>"; };
+		B8265FC118936D9F93EE18A5A12C4A56 /* Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		B885AFA9100512C4C1FD2BBB6DF8A917 /* STMShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMShout.m; sourceTree = "<group>"; };
+		BA3837CB2B724D89430AC8FB02AE2789 /* STMVad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMVad.m; sourceTree = "<group>"; };
+		BA62A67242D521A870FFA315FC4CCCCA /* Error.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BBAF4F8895D078484E6072435596729C /* ShoutPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ShoutPlayer.h; sourceTree = "<group>"; };
+		BBFE93084C704A44DF62AA3640D8DDF8 /* StandardButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = StandardButton.m; sourceTree = "<group>"; };
+		BC522DA07ECD00019FE1D072617A20D6 /* UserData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		C0661DA00C74EBE9DDA4E9D0169DD708 /* Pods-STM_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STM_Tests-resources.sh"; sourceTree = "<group>"; };
 		C07250CD937699C46D219E9534D2EE70 /* STM.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = STM.modulemap; sourceTree = "<group>"; };
-		C398ADCB058A5AFD5D2D3D2DA77480E8 /* STMConversation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMConversation.m; sourceTree = "<group>"; };
-		C5105D75AC0CE0BF0199C44D1519FBDE /* STMChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMChannel.m; sourceTree = "<group>"; };
-		C942FAB6014BB4462934766B6E7486EF /* DL_URLServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DL_URLServer.m; sourceTree = "<group>"; };
-		CB794EE73E4243E4B9D8F0765AF616D8 /* AppUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
-		CE0F8846C7CED551311653E25EDB74A3 /* GraphView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
-		CEA6F0D19C266A8B38545DBD6331CFD2 /* SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
-		D07F30E3839473B2447A6E82F174E37F /* Channels.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Channels.m; sourceTree = "<group>"; };
+		CAD284D6A6C5872362E6A0E254515048 /* VoiceCmdView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VoiceCmdView.m; sourceTree = "<group>"; };
+		CBDD7892B0A40A0C05F9E7DB507707C1 /* RecordingSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RecordingSystem.h; sourceTree = "<group>"; };
+		D0D83760E62766F272DB14F61C490AF4 /* ShoutPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ShoutPlayer.m; sourceTree = "<group>"; };
+		D17F460E9A64596AAD4E403D5A2BC0D6 /* STMRecordingOverlayViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecordingOverlayViewController.m; sourceTree = "<group>"; };
 		D1A922077B53E667270166F4AEE5A98B /* finish.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = finish.caf; sourceTree = "<group>"; };
-		D1A949FA9CF1417F132BBA683F5BB223 /* Channel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
-		D27050E2E94E969B3792C1FC85348A71 /* SignIn.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
-		D628705C131E12C527981EDEA62BCCCE /* User.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		D71112812B68BF2B72537D01CD49A898 /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
-		D7E1C7D77FA63E0E1EB920E7119A0D16 /* Error.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
-		D832DDCAEF5873C589BC9154FF3BA120 /* STMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecorder.m; sourceTree = "<group>"; };
+		D4EDCA6AA705C4E8699F8F7680C01412 /* SignIn.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
+		D606F3C6282B59AE33CA010E24768125 /* Settings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		D836FE14B12161F51C27533E44876BC2 /* abort.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = abort.caf; sourceTree = "<group>"; };
+		D86A1FE3EECEF9B83699279BAC6DE719 /* STMLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMLocation.m; sourceTree = "<group>"; };
 		DB8532A822290000962A807252F57D2E /* Pods-STM_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-STM_Example.modulemap"; sourceTree = "<group>"; };
+		E0F007A0CDA6F12BBCA8C91A64E51F36 /* STMVad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMVad.h; sourceTree = "<group>"; };
 		E256EC9910E8D26E526DD90D57A18ECD /* shout.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = shout.caf; sourceTree = "<group>"; };
+		E294F52611617C1F6F94BD9F943B27C5 /* ShoutPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ShoutPlayer.h; sourceTree = "<group>"; };
 		E47E584F7C523E6FBA2274C3E8811471 /* Pods-STM_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E5A951BBF237570D4387F59BFAE16058 /* Channel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
-		EA6631FF35D45E0E8E5BB60922815B4A /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		EB0C397537600484BAB87DD1BD530D48 /* Pods-STM_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Example-dummy.m"; sourceTree = "<group>"; };
 		EE1F6705754CB45776301811AB22B15F /* Pods-STM_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Example-umbrella.h"; sourceTree = "<group>"; };
+		EEF165A5691705242612FE328B448E15 /* Error.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
+		F14F5905FBA8CC4F525363F62FF49855 /* User.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		F5DFA972243273C3063A1E0D4019D7D3 /* DL_URLServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DL_URLServer.m; sourceTree = "<group>"; };
+		F6F1250B3B1C101F4F3799BC64E43047 /* SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
 		F74303E1104FEEB9B59A3D87DAE0A346 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FACADB6BCD9875E11649EC88417E3280 /* STMShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMShout.m; sourceTree = "<group>"; };
-		FEA3A65E02399CBD588365B3568246DB /* STMChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMChannel.h; sourceTree = "<group>"; };
-		FF953D63B2DDB89D71C4A7FBCA8D0CB5 /* SendShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SendShout.m; sourceTree = "<group>"; };
+		FA15704C83E509F6A0C085A0F96614B7 /* RoundedButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +245,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FB4E5D46CD90DBFD72211D1F1F9F1C9 /* DL_URLServer */ = {
+			isa = PBXGroup;
+			children = (
+				113986C8331C415B06DE40EA7419860A /* DL_URLServer.h */,
+				F5DFA972243273C3063A1E0D4019D7D3 /* DL_URLServer.m */,
+			);
+			path = DL_URLServer;
+			sourceTree = "<group>";
+		};
 		10F9EB75C124B71D4F1D846FA16CBED9 /* Pods-STM_Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,24 +270,6 @@
 			);
 			name = "Pods-STM_Tests";
 			path = "Target Support Files/Pods-STM_Tests";
-			sourceTree = "<group>";
-		};
-		11517B43C21358E490BA29BE79E89046 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				B72A31DC5817961B2D8E9C12629B7AD0 /* STM.h */,
-				427486384B848F3129B82596930C2CE6 /* STM.m */,
-			);
-			path = Public;
-			sourceTree = "<group>";
-		};
-		138781439DB7ECD934E5078DD597D482 /* DL_URLServer */ = {
-			isa = PBXGroup;
-			children = (
-				1608E9238F6A955087F91EF3AC9A3399 /* DL_URLServer.h */,
-				C942FAB6014BB4462934766B6E7486EF /* DL_URLServer.m */,
-			);
-			path = DL_URLServer;
 			sourceTree = "<group>";
 		};
 		185DC3C34A34A7BC1B59A1AEA58CE217 /* Resources */ = {
@@ -304,6 +291,82 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		268D75EBE25D9C413A4D67D954D7BE5D /* KeyChainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */,
+				8032FA7EB0A218C3D69186E04D054FA2 /* KeychainItemWrapper.m */,
+			);
+			path = KeyChainItemWrapper;
+			sourceTree = "<group>";
+		};
+		273596501A6DE817D87D14B73B098380 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				A42950DDF73294AF1D96BB912C070770 /* AppUtils.h */,
+				99F90479EC10A63D7EB1E56F0927B34D /* AppUtils.m */,
+				8B98281208B1156A8EC76FB4F14EE80A /* AudioElement.h */,
+				1D392C87162D9D2EDB568AB052613F12 /* AudioElement.m */,
+				824BCB6C8AD6A1020211E7B0FDF43EB7 /* AudioSystem.h */,
+				8F4E497675F4F40E9AA43DD307A8519D /* AudioSystem.m */,
+				638211049EE7A1A0D6172751CCDED3A1 /* Channels.h */,
+				0F135F409C54CA4136820384DA593D91 /* Channels.m */,
+				BA62A67242D521A870FFA315FC4CCCCA /* Error.h */,
+				EEF165A5691705242612FE328B448E15 /* Error.m */,
+				CBDD7892B0A40A0C05F9E7DB507707C1 /* RecordingSystem.h */,
+				6B9BB75F08060BDCC443E23982942D02 /* RecordingSystem.m */,
+				7340B4B84736284944919B8C16B9DDB2 /* RoundedButton.h */,
+				FA15704C83E509F6A0C085A0F96614B7 /* RoundedButton.m */,
+				A501D710903C80385346F56BB1D75882 /* SendShout.h */,
+				98CF019709079E8250D1132A7919C3F6 /* SendShout.m */,
+				A6270BD8BBF9B3918DBB246BC1B8833A /* Server.h */,
+				D606F3C6282B59AE33CA010E24768125 /* Settings.h */,
+				6FEEB9AB739A18F28B2A567E44561378 /* Settings.m */,
+				E294F52611617C1F6F94BD9F943B27C5 /* ShoutPlayer.h */,
+				D0D83760E62766F272DB14F61C490AF4 /* ShoutPlayer.m */,
+				F6F1250B3B1C101F4F3799BC64E43047 /* SignIn.h */,
+				D4EDCA6AA705C4E8699F8F7680C01412 /* SignIn.m */,
+				5BF99A050418BCAD7A130BB9ADE6AE0A /* StandardButton.h */,
+				BBFE93084C704A44DF62AA3640D8DDF8 /* StandardButton.m */,
+				805930D81A26CE2F27DB0A8C12B0A499 /* STM_Defs.h */,
+				6536A43742DDD76EAA8E6AEE2D506C5E /* STMChannel.h */,
+				96424A999E04043E43254E3A907C0ACE /* STMChannel.m */,
+				375C30CF6AB6EF73CE7169451B36A96A /* STMConversation.h */,
+				1313AC2C415C6A8BEB75381640D81E4A /* STMConversation.m */,
+				31708FB5C64E353DAE7FF8C8DE8AA6B2 /* STMCvad.h */,
+				8D35D8C93B61EE8829309F5841BF1620 /* STMCvad.m */,
+				786A099E211A002E647E813C0A10EF78 /* STMLocation.h */,
+				D86A1FE3EECEF9B83699279BAC6DE719 /* STMLocation.m */,
+				7FD28B86A0C7AEE25128BC1B678DF948 /* STMRecorder.h */,
+				76CC6FE941EC46417AE724BC23477705 /* STMRecorder.m */,
+				41171C92B5C128A13A9B4DED0A2F6C00 /* STMRecordingOverlayViewController.h */,
+				D17F460E9A64596AAD4E403D5A2BC0D6 /* STMRecordingOverlayViewController.m */,
+				98CBD2225F3E17D809761677BBF5469F /* STMShout.h */,
+				B885AFA9100512C4C1FD2BBB6DF8A917 /* STMShout.m */,
+				E0F007A0CDA6F12BBCA8C91A64E51F36 /* STMVad.h */,
+				BA3837CB2B724D89430AC8FB02AE2789 /* STMVad.m */,
+				F14F5905FBA8CC4F525363F62FF49855 /* User.h */,
+				10BFBE07CAE508C023E1FCE386A4BE32 /* User.m */,
+				4485E6B152676AF08C1D25580F58A546 /* UserData.h */,
+				BC522DA07ECD00019FE1D072617A20D6 /* UserData.m */,
+				B8265FC118936D9F93EE18A5A12C4A56 /* Utils.h */,
+				6966E495F1EC5A72D52C7C70B211549D /* Utils.m */,
+				2F852B5D9E7FEA16722A5BA146C34D9F /* VoiceCmdView.h */,
+				CAD284D6A6C5872362E6A0E254515048 /* VoiceCmdView.m */,
+				3A0720EC63ACC59028AC01B0489F97AD /* GraphView */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		3A0720EC63ACC59028AC01B0489F97AD /* GraphView */ = {
+			isa = PBXGroup;
+			children = (
+				0C525ACCDD3622D5BFF80BAFD7E93F18 /* GraphView.h */,
+				8D6F5BB9DE2412D57177D66ADB967DA1 /* GraphView.m */,
+			);
+			path = GraphView;
+			sourceTree = "<group>";
+		};
 		4387088BDDD20EF28FF22D47C2BB87C4 /* STM */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,73 +378,13 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		5541C742D6A1E2B3B7CA26CE4F2FBB4B /* GraphView */ = {
+		623B02459F9FAFD6CA87A1B4A89700CF /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				3CACA166289826CE56F674482EC371A6 /* GraphView.h */,
-				CE0F8846C7CED551311653E25EDB74A3 /* GraphView.m */,
+				301DCD9204839F9D868F42945FC69D62 /* STM.h */,
+				524F1A7900752EEDBE6D9723C0502F5A /* STM.m */,
 			);
-			path = GraphView;
-			sourceTree = "<group>";
-		};
-		61ED7D8796599148DCA6B6C1D2967AA9 /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				CB794EE73E4243E4B9D8F0765AF616D8 /* AppUtils.h */,
-				AEE5BF5F050ADD89C130CDEA499E1DE0 /* AppUtils.m */,
-				7735BD5D8F3F268E229E1DF1BF5D3079 /* AudioElement.h */,
-				311C304EAFB1CBE2946815EC44B817B4 /* AudioElement.m */,
-				143F9C5FA7A6A26C6C1AA5B42C3704AC /* AudioSystem.h */,
-				1878FA8B7D88DC7D48C300C55C501FF6 /* AudioSystem.m */,
-				D1A949FA9CF1417F132BBA683F5BB223 /* Channel.h */,
-				E5A951BBF237570D4387F59BFAE16058 /* Channel.m */,
-				69C6D52F872E07B8A2E8EE41573EF648 /* Channels.h */,
-				D07F30E3839473B2447A6E82F174E37F /* Channels.m */,
-				D7E1C7D77FA63E0E1EB920E7119A0D16 /* Error.h */,
-				00CC3AF78E3A124A7B6D653E029BD1EE /* Error.m */,
-				3B36E36169C1645031E2C8E40A1363FE /* RecordingSystem.h */,
-				3137ABEB1C4E157E38E3AB017BEC639D /* RecordingSystem.m */,
-				55D7267C39DEDE40881625B35DB165D6 /* RoundedButton.h */,
-				737432BE135885FF25DFF536286BF8EF /* RoundedButton.m */,
-				53349B255E124197DCF6507505D9DF9B /* SendShout.h */,
-				FF953D63B2DDB89D71C4A7FBCA8D0CB5 /* SendShout.m */,
-				7414D696DB8A57A69E840E5500BFEF37 /* Server.h */,
-				18890D111CBBD1ED89C720A496F4579E /* Settings.h */,
-				14EB0F7343295F1F76019970D86E244C /* Settings.m */,
-				BBAF4F8895D078484E6072435596729C /* ShoutPlayer.h */,
-				3D3207F85DF1FDAB54B66567D5960BA3 /* ShoutPlayer.m */,
-				CEA6F0D19C266A8B38545DBD6331CFD2 /* SignIn.h */,
-				D27050E2E94E969B3792C1FC85348A71 /* SignIn.m */,
-				D71112812B68BF2B72537D01CD49A898 /* StandardButton.h */,
-				1E1F1B3B0F9363BEF3CC0DE7901E5AA2 /* StandardButton.m */,
-				930E226F2991CE09E6C26627B6D243DC /* STM_Defs.h */,
-				FEA3A65E02399CBD588365B3568246DB /* STMChannel.h */,
-				C5105D75AC0CE0BF0199C44D1519FBDE /* STMChannel.m */,
-				902BED38E716C8BBA3A6842A9B7183F0 /* STMConversation.h */,
-				C398ADCB058A5AFD5D2D3D2DA77480E8 /* STMConversation.m */,
-				AEFE5D2CA7AEEB501B7F57F00A2C92E0 /* STMCvad.h */,
-				3592D21F212744835796434E3F86634A /* STMCvad.m */,
-				590189B77BD6C08CCD60E0363783C4BD /* STMLocation.h */,
-				6D915C10502F5E1CDB1EA34D5AD671BF /* STMLocation.m */,
-				AB3BCED676092590F5B57E0BBE20DF7A /* STMRecorder.h */,
-				D832DDCAEF5873C589BC9154FF3BA120 /* STMRecorder.m */,
-				277498735E2812272A58C66DCFE10ABD /* STMRecordingOverlayViewController.h */,
-				14A36BE6742FCE6415FC61A12D1E528B /* STMRecordingOverlayViewController.m */,
-				3FD4C8C68E1D7A39023A499CE0921F2B /* STMShout.h */,
-				FACADB6BCD9875E11649EC88417E3280 /* STMShout.m */,
-				0D78EC0B9FD5200066E131A9652E445C /* STMVad.h */,
-				9C6952A8B0F3FBDBED96D924EF3C10CC /* STMVad.m */,
-				D628705C131E12C527981EDEA62BCCCE /* User.h */,
-				56D1FA4948731D675F4376C564267BB1 /* User.m */,
-				5B56B005AEFDDDE8DB39B29A57214FB9 /* UserData.h */,
-				1A131D5C23D31E29F842DE5D58BA2776 /* UserData.m */,
-				19D5A705C0AA24AE00A9FD47BC4DFC49 /* Utils.h */,
-				0B077A9FD6C0841D510D757B03E33753 /* Utils.m */,
-				244D38E8B0B18DD671BE2D00E41D3FE1 /* VoiceCmdView.h */,
-				A7117A202DA463DC51836D3CF58CD606 /* VoiceCmdView.m */,
-				5541C742D6A1E2B3B7CA26CE4F2FBB4B /* GraphView */,
-			);
-			path = Internal;
+			path = Public;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -412,7 +415,7 @@
 		9F63DA300C12DB727AEF84F3FC3A5876 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				E213E43343A3612505D277B85FD0B0B5 /* Classes */,
+				D79E0A391839807775F83AB02C915105 /* Classes */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -423,15 +426,6 @@
 				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BDB67410BB146FF6CD52FEFA12AA7512 /* KeyChainItemWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				EA6631FF35D45E0E8E5BB60922815B4A /* KeychainItemWrapper.h */,
-				89B6147880E11E4F79FF4D5D29DA9FBF /* KeychainItemWrapper.m */,
-			);
-			path = KeyChainItemWrapper;
 			sourceTree = "<group>";
 		};
 		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
@@ -450,6 +444,17 @@
 			path = Pod;
 			sourceTree = "<group>";
 		};
+		D79E0A391839807775F83AB02C915105 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0FB4E5D46CD90DBFD72211D1F1F9F1C9 /* DL_URLServer */,
+				273596501A6DE817D87D14B73B098380 /* Internal */,
+				268D75EBE25D9C413A4D67D954D7BE5D /* KeyChainItemWrapper */,
+				623B02459F9FAFD6CA87A1B4A89700CF /* Public */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		D7A913799604B24A4A178243C5465F57 /* Pods-STM_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,17 +471,6 @@
 			);
 			name = "Pods-STM_Example";
 			path = "Target Support Files/Pods-STM_Example";
-			sourceTree = "<group>";
-		};
-		E213E43343A3612505D277B85FD0B0B5 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				138781439DB7ECD934E5078DD597D482 /* DL_URLServer */,
-				61ED7D8796599148DCA6B6C1D2967AA9 /* Internal */,
-				BDB67410BB146FF6CD52FEFA12AA7512 /* KeyChainItemWrapper */,
-				11517B43C21358E490BA29BE79E89046 /* Public */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		E39357D5A479E8954BD2419AF9335ABE /* Development Pods */ = {
@@ -514,45 +508,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		AE630D91ACB4399ED6AA123A3C09DCA4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E616B26C75B299E78A008AC1F3E48E44 /* AppUtils.h in Headers */,
-				DE4BC7AB8921A4140F734184E1FA0F4B /* AudioElement.h in Headers */,
-				70F563D874008354538F5FDF3AF961D0 /* AudioSystem.h in Headers */,
-				B96A55C09659878E52B9D81EBBE38263 /* Channel.h in Headers */,
-				CFEE2AEDD2ACB44FD60B4273FFCE57AB /* Channels.h in Headers */,
-				02013EC612983BBC44208C1ACD5A9B9C /* DL_URLServer.h in Headers */,
-				E4254A1B46C6839F7EB8A767CB37BC1A /* Error.h in Headers */,
-				D58AB7825E2B9FCA11EA1C360538057F /* GraphView.h in Headers */,
-				451AE3C5039CF68A4D712C0ED1E86A70 /* KeychainItemWrapper.h in Headers */,
-				A2BFD9AF2FA3AF98567262D3ABB10A56 /* RecordingSystem.h in Headers */,
-				D83EDA83AB351E04AA9D407A11C84187 /* RoundedButton.h in Headers */,
-				F2CCD497390423307FD804E49B267470 /* SendShout.h in Headers */,
-				7AE8C947F34B93CD9847FA1FAB1469E0 /* Server.h in Headers */,
-				83C14AFD01911220DE45EE4E39E6EC55 /* Settings.h in Headers */,
-				B9CE7EFCC331FD1E2586104FBB2A79FE /* ShoutPlayer.h in Headers */,
-				83A5A941C5AD1F1E342EEE2453DFD468 /* SignIn.h in Headers */,
-				5E101740952EB7BD154F9C2DE6FD9146 /* StandardButton.h in Headers */,
-				3E10B1BE1E94AC682089ED7E0E8A79C2 /* STM-umbrella.h in Headers */,
-				305063E9EC7AE1D12573539A4FC61591 /* STM.h in Headers */,
-				FB37E7AFA282E880D02AC83BAEAE514B /* STM_Defs.h in Headers */,
-				3A8CDDE1DD64BFCE8F0F736AD541B013 /* STMChannel.h in Headers */,
-				B286E8FAF7DB62CBCEF16C3F7FF1B2D3 /* STMConversation.h in Headers */,
-				86A7B69ABEE285882803E19BB49D28AE /* STMCvad.h in Headers */,
-				5217DCEF1697E517218BC36F473C067A /* STMLocation.h in Headers */,
-				2792A2C4CF9AA09BEFFB72FF47262251 /* STMRecorder.h in Headers */,
-				8D122CF078D999F0BF81036FAC91CC93 /* STMRecordingOverlayViewController.h in Headers */,
-				AB5E52C8DA3A885439CCD78AD1FF1EFD /* STMShout.h in Headers */,
-				1883B10DFB1CD912C2C4877653BCCE67 /* STMVad.h in Headers */,
-				0B78DE71BDEEB23FA25B4682C591EBB7 /* User.h in Headers */,
-				D2DF30F300D6776346B8168ED7678B8D /* UserData.h in Headers */,
-				3536362BA09DEE30BA0029C54ED85D82 /* Utils.h in Headers */,
-				B0CF2C058EC484410ACB4B22BB9D479D /* VoiceCmdView.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D31E8738A5412C1A50D93962C8DFFA78 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +521,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C83303EE1409D7C4E12D4ECD3771FD2 /* Pods-STM_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2B73AC4CD0471FE0F870678A038A810 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				928780B3C6DB21002B93CF18DA18E140 /* AppUtils.h in Headers */,
+				1D72734B2B0DBF77113B94F168F5D898 /* AudioElement.h in Headers */,
+				5B7B424BE6BA5775746E4701229B24E4 /* AudioSystem.h in Headers */,
+				EEF73A782593501CDEF6817B3BBDBC2B /* Channels.h in Headers */,
+				D26F942B0C4E25819337D8507918147D /* DL_URLServer.h in Headers */,
+				6682292E8B04B922DD3707748EE4DBF9 /* Error.h in Headers */,
+				3068B3D5104804051DA727A0B74A1A38 /* GraphView.h in Headers */,
+				F2129DFBFD0470913B17F3E08855D073 /* KeychainItemWrapper.h in Headers */,
+				3D804A9EB0A2A5A0FC9A5027CD5F3DC2 /* RecordingSystem.h in Headers */,
+				7C3C34D2AD087DABFA01CF60DF9DB008 /* RoundedButton.h in Headers */,
+				A8E651856D9A0B9C0BB9C2FF984AF590 /* SendShout.h in Headers */,
+				4462127F0C3A322305D645A98A499ADB /* Server.h in Headers */,
+				3019E8FDBE32985E36FE1D2D0FC22A4C /* Settings.h in Headers */,
+				921CAFC6CBD58787EAAF6396206FEA8A /* ShoutPlayer.h in Headers */,
+				3765016A1A0A1A88A1B0794DB531D8A4 /* SignIn.h in Headers */,
+				B3F4483F346AEF3105BF5CA7E42C1AEB /* StandardButton.h in Headers */,
+				5C490236DBD79C0D0E353CE9ADE13730 /* STM-umbrella.h in Headers */,
+				FB508916D1217A4BC9FDFB21BDC6D59C /* STM.h in Headers */,
+				5993AD73B35BDA3E27650F229AADE878 /* STM_Defs.h in Headers */,
+				44AAF972A80AD3B5C9B10306177D1944 /* STMChannel.h in Headers */,
+				6AA662F7F56C0AACC1A44D903C6E40AE /* STMConversation.h in Headers */,
+				54333B360F3EB56C715BF2F4A7FBF38D /* STMCvad.h in Headers */,
+				F4485AB0D20C7145442E32BEBABAD326 /* STMLocation.h in Headers */,
+				E3E185752C74428EBC9547F4761EA7D6 /* STMRecorder.h in Headers */,
+				668B9E669FDC399D86D20B0BBB7B2175 /* STMRecordingOverlayViewController.h in Headers */,
+				30B061A2A94285D4E0D58BAEC17A4F39 /* STMShout.h in Headers */,
+				99A023DA8CF92989FB5B981B2B03047D /* STMVad.h in Headers */,
+				7F3BE479DDC8B369F7F69795740272D2 /* User.h in Headers */,
+				2A03D97C5A88F6CC7D2A0BF89D8CEDBC /* UserData.h in Headers */,
+				7F98ACC0E267C394E5C8720332E15EB0 /* Utils.h in Headers */,
+				B494B25AE9B4896AEBBCAFBC753FE212 /* VoiceCmdView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,10 +605,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0C505923F1902EF42520F81E0E1E429C /* Build configuration list for PBXNativeTarget "STM" */;
 			buildPhases = (
-				8CF18ABA84A91416779CB0E947FF905D /* Sources */,
+				1D2D3AF96610368F45762B3843783321 /* Sources */,
 				5FA3A570CA7E21CB85F879B39DA13EB5 /* Frameworks */,
 				FECF92073E771D94EE6BFC80DBA92A43 /* Resources */,
-				AE630D91ACB4399ED6AA123A3C09DCA4 /* Headers */,
+				F2B73AC4CD0471FE0F870678A038A810 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -707,6 +700,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1D2D3AF96610368F45762B3843783321 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FA576B43BC39439613A120CD77095E /* AppUtils.m in Sources */,
+				A59DDADECDC99F6DC99B299D2AB071AC /* AudioElement.m in Sources */,
+				3B789F43F96CEF46B29583B898FA8D44 /* AudioSystem.m in Sources */,
+				AC638B201B7F885F6EF0A456F9F3E854 /* Channels.m in Sources */,
+				F9828D9203DFAC01CE03A66ED3311B14 /* DL_URLServer.m in Sources */,
+				88B5AFF4561F55D0EB95658138954AC2 /* Error.m in Sources */,
+				9D92D4300BE2BC3B3149AA9881A1C92A /* GraphView.m in Sources */,
+				5C7B0DA93E016921F2DCA51831CAD9E5 /* KeychainItemWrapper.m in Sources */,
+				3151D78277EC2628671C869E44DD030D /* RecordingSystem.m in Sources */,
+				1C38479CD73AB8F78E9764F8491D36AB /* RoundedButton.m in Sources */,
+				8161648E2EB694C9554659026897F4B8 /* SendShout.m in Sources */,
+				6E905E77133D74C43C219E26B7889CA3 /* Settings.m in Sources */,
+				D2B13BCB70D462D2E24672DB61EE38F0 /* ShoutPlayer.m in Sources */,
+				2B7EFB155FF17F198B21DA38A5236E39 /* SignIn.m in Sources */,
+				A5C536B3E9222E3BF5FFAB01D185B22D /* StandardButton.m in Sources */,
+				304DBAE81806D3A6660FE0506E3199B0 /* STM-dummy.m in Sources */,
+				1D5AAEFF4A23E30A2299FAF2A724CA92 /* STM.m in Sources */,
+				C3902BA9482948A1EC526E92EE790CD0 /* STMChannel.m in Sources */,
+				F6E9845DFEB2FDACA3947C3BDFF0EF39 /* STMConversation.m in Sources */,
+				FA11FDD5FC050FBE330DD6611F4697DE /* STMCvad.m in Sources */,
+				EF141D02F23551A7EC01809049629B03 /* STMLocation.m in Sources */,
+				8D636134FE8D2F91158E26F7D41A8B50 /* STMRecorder.m in Sources */,
+				72F552DD281468449E4BC34DC53EF4F1 /* STMRecordingOverlayViewController.m in Sources */,
+				1234C1F12D568D44A91BE35B27E60BBF /* STMShout.m in Sources */,
+				25EA4FDAB403D417107A58B5BBFBE95F /* STMVad.m in Sources */,
+				39E4AB357272AFEB3CD572271C2E7C6C /* User.m in Sources */,
+				CFEF9496FDC55FE8C66565516948DB4D /* UserData.m in Sources */,
+				72EAA4A123769C5146C4A0D7934C5BB6 /* Utils.m in Sources */,
+				DF907ABEAC102186DBA0B809E40EEE24 /* VoiceCmdView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		20D26C7A89A3F99B04DF0E1EB2BF4678 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -720,43 +749,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				439EA551B60996E2E99A24558A6B9CAA /* Pods-STM_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8CF18ABA84A91416779CB0E947FF905D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0336CCCAE0213C90A14990D19A245B40 /* AppUtils.m in Sources */,
-				DFC0B9FE3DF6A1C47F1A97F9BAE8AC06 /* AudioElement.m in Sources */,
-				692F64965255B9CB8546FDCCE58DE32C /* AudioSystem.m in Sources */,
-				A82B9A5FDBFE7F1A524122BC2C00FF97 /* Channel.m in Sources */,
-				291915FC0D49221717A4A06B345D8E0D /* Channels.m in Sources */,
-				4A1A5ED77D775CC3C285C94A99A66B58 /* DL_URLServer.m in Sources */,
-				F43780776201A1F417467468EEB111CE /* Error.m in Sources */,
-				168D818EA1BF08286CB132890AEB5C9E /* GraphView.m in Sources */,
-				F7A1CA0ADBE65CBE43021A8837465198 /* KeychainItemWrapper.m in Sources */,
-				3AA11CEB670919B587801088C0C5F19E /* RecordingSystem.m in Sources */,
-				EAC4D4E0F0BA5F12603E76A40C870FA0 /* RoundedButton.m in Sources */,
-				4D5C64B8AF608A865ECE074A59E7D3BD /* SendShout.m in Sources */,
-				94089179AC97D4270F02980B2551BC46 /* Settings.m in Sources */,
-				0689435039363BDF7DBF181836757C87 /* ShoutPlayer.m in Sources */,
-				C4ECE33EAFE2142BDDEA8E7D3811EE1E /* SignIn.m in Sources */,
-				3F7179171F84A4A89D4A7774237A0F22 /* StandardButton.m in Sources */,
-				0E37EEF1B34E50569D82E5FB65B791B1 /* STM-dummy.m in Sources */,
-				F946F83E54B207F7A4743F7E3F08EB2D /* STM.m in Sources */,
-				555E6F3F107DBE8779F66E657C298BE7 /* STMChannel.m in Sources */,
-				5C77D682978A335730EE60ED4C4DD334 /* STMConversation.m in Sources */,
-				8A174E59289533B33862D387FCD7F9D8 /* STMCvad.m in Sources */,
-				342B637564E908EF7C3C2FE7D3F9B8E9 /* STMLocation.m in Sources */,
-				0FFB4085C33B2F7D649DB00E32777436 /* STMRecorder.m in Sources */,
-				8B5B11EB4283B9425AEF0E4BA615778C /* STMRecordingOverlayViewController.m in Sources */,
-				6DB539FADC0421D8CFEF49EB6E77C0AB /* STMShout.m in Sources */,
-				44E16E237B9D4B09059523C3B19379D0 /* STMVad.m in Sources */,
-				DE529DFB9C4C3600B3BE4AF148A7AC60 /* User.m in Sources */,
-				3D9200F70C3DC0488B727AC490C8CC89 /* UserData.m in Sources */,
-				7107FE5A3F59B800F99B28D65EF2801D /* Utils.m in Sources */,
-				03EBF5A02DC0CE38ACB56978A7144D99 /* VoiceCmdView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

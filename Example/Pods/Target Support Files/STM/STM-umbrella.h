@@ -4,7 +4,6 @@
 #import "AppUtils.h"
 #import "AudioElement.h"
 #import "AudioSystem.h"
-#import "Channel.h"
 #import "Channels.h"
 #import "Error.h"
 #import "GraphView.h"
