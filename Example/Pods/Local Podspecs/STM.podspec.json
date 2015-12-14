@@ -1,17 +1,18 @@
 {
   "name": "STM",
-  "version": "0.1.0",
+  "version": "0.0.5",
   "summary": "Shout To Me iOS SDK",
-  "description": "An iOS SDK that can be used to consume the Shout to Me cloud services",
+  "description": "An iOS SDK that can be used to consume the Shout to Me cloud services.",
   "homepage": "https://github.com/ShoutToMe/stm-sdk-ios",
   "license": "MIT",
   "authors": {
-    "Tyler Clemens": "tyler.r.clemens@gmail.com"
+    "Tyler Clemens": "tyler@shoutto.me"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/STM.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/ShoutToMe/stm-sdk-ios.git",
+    "tag": "0.0.5"
   },
+  "social_media_url": "https://twitter.com/shout_to_me",
   "platforms": {
     "ios": "7.0"
   },

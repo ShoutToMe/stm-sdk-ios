@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## STM
 
-Copyright (c) 2015 Tyler Clemens <tyler.r.clemens@gmail.com>
+Copyright (c) 2015 Tyler Clemens <tyler@shoutto.me>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
