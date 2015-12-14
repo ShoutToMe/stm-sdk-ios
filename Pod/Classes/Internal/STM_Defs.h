@@ -23,6 +23,7 @@
 #define STM_NOTIFICATION_AUDIO_SYSTEM_STOPPED_PLAYING           @"STM_Notification_Audio_System_Stopped_Playing"
 #define STM_NOTIFICATION_MARKET_UPDATED                         @"STM_Notification_Market_Updated"
 #define STM_NOTIFICATION_AUDIO_POWER_CHANGED                    @"STM_Notification_Recorder_Audio_Power_Changed"
+#define STM_NOTIFICATION_SETTINGS_CHANNEL_CHANGED               @"STM_Notification_Settings_Channel_Changed"
 #define STM_NOTIFICATION_KEY_SHOUT_PLAYER_SHOUT                 @"Shout"
 #define STM_NOTIFICATION_KEY_SHOUT_PLAYER_LOAD_SUCCESS          @"LoadSuccess"
 
@@ -33,6 +34,8 @@
 #define STM_NOTIFICATION_KEY_SHOUT_FEED_CHANGE_UNIT             @"Unit"
 
 #define STM_NOTIFICATION_KEY_LOCATION_UPDATED_LOCATION          @"Location"
+
+#define STM_NOTIFICATION_KEY_CHANNEL_UPDATED_CHANNEL            @"Channel"
 
 #define STM_NOTIFICATION_KEY_CONVERSATION_ID                    @"ConversationID"
 #define STM_NOTIFICATION_KEY_CONVERSATION_IGNORED               @"ConversationIgnored"
