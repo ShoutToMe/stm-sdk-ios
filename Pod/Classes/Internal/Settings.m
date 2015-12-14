@@ -13,6 +13,7 @@
 #import "Settings.h"
 #import "KeychainItemWrapper.h"
 #import "Utils.h"
+#import "STM_Defs.h"
 
 #define KEY_DEVICE_ID                       @"com.ShoutToMe.DeviceID"
 
@@ -212,6 +213,12 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
         //NSLog(@"No device id set. New device id: %@", self.strDeviceID);
         [wrapperKeychainDeviceID setObject:self.strDeviceID forKey:(__bridge id)kSecValueData];
     }
+}
+
+- (void)setChannel:(STMChannel *)channel {
+    _channel = channel;
+    NSDictionary *dictNotification = @{ STM_NOTIFICATION_KEY_CHANNEL_UPDATED_CHANNEL  : channel };
+    [[NSNotificationCenter defaultCenter] postNotificationName:STM_NOTIFICATION_SETTINGS_CHANNEL_CHANGED object:self userInfo:dictNotification];
 }
 
 #pragma mark - Public Methods
