@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Channel.h"
+#import "STMChannel.h"
 
 @protocol ChannelsDelegate <NSObject>
 
@@ -29,6 +29,8 @@
 + (Channels *)controller;
 
 - (void)requestForChannelsWithDelegate:(id<ChannelsDelegate>)delegate;
+- (void)requestForChannel:(NSString *)channelID completionHandler:(void (^)(STMChannel *channel,
+                                                                            NSError *error))completionHandler;
 - (void)cancelAllRequests;
 
 @end

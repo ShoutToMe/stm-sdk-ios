@@ -104,7 +104,7 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 
     if ([results isKindOfClass:[NSDictionary class]])
     {
-        Channel *channel = [[Channel alloc] initWithDictionary:(NSDictionary *)results];
+        STMChannel *channel = [[STMChannel alloc] initWithDictionary:(NSDictionary *)results];
         [arrayChannels addObject:channel];
     }
     else if ([results isKindOfClass:[NSArray class]])
@@ -112,7 +112,7 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
         NSArray *arrayChannelDictionaries = (NSArray *)results;
         for (NSDictionary *dictChannel in arrayChannelDictionaries)
         {
-            Channel *channel = [[Channel alloc] initWithDictionary:dictChannel];
+            STMChannel *channel = [[STMChannel alloc] initWithDictionary:dictChannel];
             [arrayChannels addObject:channel];
         }
     }
@@ -145,6 +145,47 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
                                        contentType:CONTENT_TYPE
                                     headerRequests:[[UserData controller] dictStandardRequestHeaders]];
     }
+}
+
+- (void)requestForChannel:(NSString *)channelID completionHandler:(void (^)(STMChannel *channel,
+                                                                            NSError *error))completionHandler {
+    NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
+                     [Settings controller].strServerURL,
+                     SERVER_CMD_GET_CHANNELS,
+                     channelID];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
+    
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:url]
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+                
+                //NSLog(@"Channels: Results download returned: %@", jsonString );
+                
+                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+                NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+                NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
+                STMChannel *channel;
+                if (dictData)
+                {
+                    channel = [[STMChannel alloc] initWithDictionary:[dictData objectForKey:@"channel"]];
+                }
+                
+                completionHandler(channel, error);
+                
+                
+
+
+                
+            }] resume];
+    
 }
 
 - (void)cancelAllRequests
