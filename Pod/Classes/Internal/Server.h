@@ -20,7 +20,7 @@
 
 #define CONTENT_TYPE                            @"application/json; charset=utf-8"
 
-#define SERVER_URL                              @"https://app-test.shoutto.me/api/v1"
+#define SERVER_URL                              @"https://app.shoutto.me/api/v1"
 
 #define SERVER_PAGE_STATS                       @"webviews/me#/me"
 
