@@ -189,6 +189,21 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                     {
                         [Settings controller].channel.strName = strChannelName;
                     }
+                    NSString *strChannelDescription = [dictDefaultChannel objectForKey:SERVER_RESULTS_CHANNEL_DESCRIPTION_KEY];
+                    if (strChannelDescription)
+                    {
+                        [Settings controller].channel.strDescription = strChannelDescription;
+                    }
+                    NSString *strChannelImage = [dictDefaultChannel objectForKey:SERVER_RESULTS_CHANNEL_IMAGE_KEY];
+                    if (strChannelImage)
+                    {
+                        [Settings controller].channel.strChannelImage = strChannelImage;
+                    }
+                    NSString *strChannelListImage = [dictDefaultChannel objectForKey:SERVER_RESULTS_CHANNEL_LIST_IMAGE_KEY];
+                    if (strChannelImage)
+                    {
+                        [Settings controller].channel.strChannelImageList = strChannelListImage;
+                    }
                     NSDictionary *dictMixPanel = [dictDefaultChannel objectForKey:SERVER_RESULTS_MIX_PANEL_KEY];
                     if (dictMixPanel)
                     {
