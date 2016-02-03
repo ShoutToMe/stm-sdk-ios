@@ -26,7 +26,7 @@ Go to your project directory, use `pod init` to create a Podfile.
 
 Add this line to your Podfile:
 
-pod 'STM', '~> 1.0.0'
+pod 'STM', '~> 0.0.8'
 
 Then use `pod install` to install the pod and create an Xcode workspace.
 
