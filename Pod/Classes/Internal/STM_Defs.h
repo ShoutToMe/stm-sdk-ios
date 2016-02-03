@@ -18,6 +18,7 @@
 #define STM_NOTIFICATION_SHOUT_PLAYER_AUDIO_LOADED              @"STM_Notification_Shout_Player_Audio_Loaded"
 #define STM_NOTIFICATION_LOCATION_UPDATED                       @"STM_Notification_Location_Updated"
 #define STM_NOTIFICATION_LOCATION_DENIED                        @"STM_Notification_Location_Denied"
+#define STM_NOTIFICATION_LOCATION_AUTHORIZATION_CHANGED         @"STM_Notification_Location_Authorization_Changed"
 #define STM_NOTIFICATION_CONVERSATION_IGNORE_STATUS_CHANGED     @"STM_Notification_Conversation_Ignore_Status_Changed"
 #define STM_NOTIFICATION_AUDIO_SYSTEM_STARTED_PLAYING           @"STM_Notification_Audio_System_Started_Playing"
 #define STM_NOTIFICATION_AUDIO_SYSTEM_STOPPED_PLAYING           @"STM_Notification_Audio_System_Stopped_Playing"
@@ -34,6 +35,7 @@
 #define STM_NOTIFICATION_KEY_SHOUT_FEED_CHANGE_UNIT             @"Unit"
 
 #define STM_NOTIFICATION_KEY_LOCATION_UPDATED_LOCATION          @"Location"
+#define STM_NOTIFICATION_KEY_LOCATION_AUTHORIZATION_STATUS      @"AuthorizationStatus"
 
 #define STM_NOTIFICATION_KEY_CHANNEL_UPDATED_CHANNEL            @"Channel"
 

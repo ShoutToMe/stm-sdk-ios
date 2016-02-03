@@ -262,6 +262,9 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    NSDictionary *dictNotification = @{ STM_NOTIFICATION_KEY_LOCATION_AUTHORIZATION_STATUS  : [NSNumber numberWithInt: status] };
+    [[NSNotificationCenter defaultCenter] postNotificationName:STM_NOTIFICATION_LOCATION_AUTHORIZATION_CHANGED object:self userInfo:dictNotification];
+
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
         case kCLAuthorizationStatusRestricted:
