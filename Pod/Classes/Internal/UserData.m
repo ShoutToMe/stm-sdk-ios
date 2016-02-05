@@ -185,8 +185,15 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
 
 - (void)signOut
 {
-    self.user = [[User alloc] init];
-    [self save];
+    if (self.user) {
+        [self.user setBVerified:NO];
+        [self.user setStrAuthCode:@""];
+        [self.user setStrPhoneNumber:@""];
+        [self.user setStrUserID:@""];
+        [self.user setStrHandle:@""];
+        [self save];
+    }
+
 }
 
 - (BOOL)isAnonymous
