@@ -143,7 +143,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
         NSString *strAuthCode = [dictData objectForKey:SERVER_RESULTS_AUTH_TOKEN_KEY];
         if (strAuthCode)
         {
-            [UserData controller].user.strAuthCode = strAuthCode;
+            [[UserData controller].user setStrAuthCode:strAuthCode];
         }
 
         NSDictionary *dictUser = [dictData objectForKey:SERVER_RESULTS_USER_KEY];
@@ -152,21 +152,21 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             NSString *strUserID = [dictUser objectForKey:SERVER_RESULTS_USER_ID_KEY];
             if (strUserID)
             {
-                [UserData controller].user.strUserID = strUserID;
+                [[UserData controller].user setStrUserID:strUserID];
             }
             NSString *strHandle = [dictUser objectForKey:SERVER_RESULTS_HANDLE_ID_KEY];
             if (strHandle)
             {
-                [UserData controller].user.strHandle = strHandle;
+                [[UserData controller].user setStrHandle:strHandle];
             }
             if ([dictUser objectForKey:SERVER_RESULTS_VERIFIED_KEY])
             {
-                [UserData controller].user.bVerified = [Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser];
+                [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];
             }
             NSString *strAffiliateID = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_KEY];
             if (strAffiliateID)
             {
-                [Settings controller].strAffiliateID = strAffiliateID;
+                [[Settings controller] setStrAffiliateID:strAffiliateID];
             }
             NSDictionary *dictAffiliate = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_DATA_KEY];
             if (dictAffiliate)
@@ -174,9 +174,11 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                 strAffiliateID = [dictAffiliate objectForKey:SERVER_RESULTS_AFFILIATE_ID_KEY];
                 if (strAffiliateID)
                 {
-                    [Settings controller].strAffiliateID = strAffiliateID;
+                    [[Settings controller] setStrAffiliateID:strAffiliateID];
                 }
+                /*
                 NSDictionary *dictDefaultChannel = [dictAffiliate objectForKey:SERVER_RESULTS_DEFAULT_CHANNEL_KEY];
+
                 if (dictDefaultChannel)
                 {
                     NSString *strChannelID = [dictDefaultChannel objectForKey:SERVER_RESULTS_CHANNEL_ID_KEY];
@@ -223,6 +225,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                         }
                     }
                 }
+                 */
             }
 
             [Settings saveAll];
