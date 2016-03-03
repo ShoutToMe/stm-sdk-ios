@@ -170,22 +170,31 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
                 
                 NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
                 NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-                //NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
                 NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
                 STMChannel *channel;
-                if (dictData)
-                {
-                    channel = [[STMChannel alloc] initWithDictionary:[dictData objectForKey:@"channel"]];
+
+                if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
+
+                    if (dictData)
+                    {
+                        channel = [[STMChannel alloc] initWithDictionary:[dictData objectForKey:@"channel"]];
+                    }
+                } else {
+                    //STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Channel request failed.", url, nil, jsonString);
+                    if (dictData ) {
+                        NSString *failureReason = [dictData objectForKey:@"reason"];
+                        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                        [details setValue:dictData forKey:NSLocalizedDescriptionKey];
+                        error = [NSError errorWithDomain:failureReason code:400 userInfo:details];
+                    }
+
                 }
-                
+
                 completionHandler(channel, error);
-                
-                
 
-
-                
             }] resume];
-    
+
 }
 
 - (void)cancelAllRequests
