@@ -11,7 +11,6 @@
 
 #define AUTH_KEY                                @"Authorization"
 
-#define BASIC_AUTH                              @"NEZqc0xEamNRTFVxY1U3RGlPMXhDSFBVQXJLenVsa2s6a2tUOWFzdnkyekZETnJjck5adjhycndyUTc2WXpUWnc="
 #define BASIC_AUTH_PREFIX                       @"Basic"
 
 #define STD_AUTH_PREFIX                         @"Bearer"

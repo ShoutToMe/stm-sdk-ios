@@ -34,9 +34,7 @@ static BOOL bInitialized = NO;
 __strong static STM *singleton = nil; // this will be the one and only object this static singleton class has
 
 @interface STM ()
-{
-    
-}
+@property (nonatomic, strong) NSString *authKey;
 
 @end
 
@@ -44,16 +42,20 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 #pragma mark - Static methods
 
-+ (void)initAll
-{
-    [STM initAllWithDelegate:nil];
+//+ (void)initAll
+//{
+//    [STM initAllWithDelegate:nil];
+//}
+
++ (void)initWithAccessToken:(NSString *)token {
+    [self initAllWithDelegate:nil andToken:token];
 }
 
-+ (void)initAllWithDelegate:(id<STMSignInDelegate>)delegate
++ (void)initAllWithDelegate:(id<STMSignInDelegate>)delegate andToken:(NSString *)token
 {
     if (NO == bInitialized)
     {
-        singleton = [[STM alloc] init];
+        singleton = [[STM alloc] initWithToken:token];
 //        singleton.delegate = delegate;
         
         [STMLocation initAll];
@@ -136,10 +138,10 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 // (this call is both a container and an object class and the container holds one of itself)
 + (STM *)sharedInstance
 {
-    if (singleton == nil)
-    {
-        [self initAll];
-    }
+//    if (singleton == nil)
+//    {
+//        [self initAll];
+//    }
     
     return (singleton);
 }
@@ -154,40 +156,40 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 + (Settings *)settings
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([Settings controller]);
 }
 
 + (UserData *)userData
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([UserData controller]);
 }
 
 + (Error *)error
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([Error controller]);
 }
 
 + (SignIn *)signIn
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([SignIn controller]);
 }
@@ -204,20 +206,20 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //
 + (STMLocation *)location
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([STMLocation controller]);
 }
 //
 + (SendShout *)sendShout
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([SendShout controller]);
 }
@@ -234,10 +236,10 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //
 + (ShoutPlayer *)shoutPlayer
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([ShoutPlayer controller]);
 }
@@ -274,30 +276,30 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //
 + (Channels *)channels
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([Channels controller]);
 }
 
 + (AudioSystem *)audioSystem
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([AudioSystem controller]);
 }
 
 + (RecordingSystem *)recordingSystem
 {
-    if (NO == bInitialized)
-    {
-        [self initAll];
-    }
+//    if (NO == bInitialized)
+//    {
+//        [self initAll];
+//    }
     
     return ([RecordingSystem controller]);
 }
@@ -365,12 +367,10 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 #pragma mark - Object Methods
 
-- (id)init
-{
+- (id)initWithToken:(NSString *)token {
     self = [super init];
-    if (self)
-    {
-        
+    if (self) {
+        self.accessToken = token;
     }
     return self;
 }
@@ -410,14 +410,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     [self setAuthorizationInURLRequest:(NSMutableURLRequest *)request];
     
     return request;
-}
-
-- (NSString *)accessToken {
-    return [STM userData].user.strAuthCode;
-}
-
-- (void)setAccessToken:(NSString *)accessToken {
-    [STM userData].user.strAuthCode = accessToken;
 }
 
 - (NSString *)channelId {

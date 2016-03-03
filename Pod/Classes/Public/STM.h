@@ -39,8 +39,7 @@
 @property (nonatomic, copy)   NSString          *accessToken;
 @property (nonatomic, copy)   NSString          *channelId;
 
-+ (void)initAll;
-+ (void)initAllWithDelegate:(id<STMSignInDelegate>)delegate;
++ (void)initWithAccessToken:(NSString *)token;
 + (void)saveAll;
 + (void)freeAll;
 
