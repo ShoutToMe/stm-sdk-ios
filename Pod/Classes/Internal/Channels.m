@@ -66,12 +66,12 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 	{
         // release our singleton
         singleton = nil;
-		
+
 		bInitialized = NO;
 	}
 }
 
-// returns the singleton 
+// returns the singleton
 // (this call is both a container and an object class and the container holds one of itself)
 + (Channels *)controller
 {
@@ -83,7 +83,7 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 - (id)init
 {
     self = [super init];
-    if (self) 
+    if (self)
 	{
         _bPendingRequest = NO;
     }
@@ -154,24 +154,27 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
                      SERVER_CMD_GET_CHANNELS,
                      channelID];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
+
     [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
-    
-    
+
+
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    
+
     [[session dataTaskWithURL:[NSURL URLWithString:url]
             completionHandler:^(NSData *data,
                                 NSURLResponse *response,
                                 NSError *error) {
+
                 NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-                
+
                 //NSLog(@"Channels: Results download returned: %@", jsonString );
-                
+
                 NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
                 NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
                 NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
                 NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
+
+
                 STMChannel *channel;
 
                 if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
