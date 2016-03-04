@@ -1,5 +1,6 @@
+[![CocoaPods](https://img.shields.io/cocoapods/p/STM.svg)](https://cocoapods.org/pods/STM)
+[![CocoaPods](https://img.shields.io/cocoapods/v/STM.svg)](https://cocoapods.org/pods/STM)
 # Shout to Me iOS SDK
-Version 1
 
 ## Quickstart Guide
 This guide will show you how to get up and running with the Shout to Me iOS SDK in minutes.
