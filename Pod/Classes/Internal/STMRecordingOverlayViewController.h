@@ -15,9 +15,11 @@
 @property (atomic) id<STMRecordingOverlayDelegate> delegate;
 
 -(void)userRequestsStopListening;
+-(id)initWithTags:(NSString *)tags andTopic:(NSString *)topic;
 @end
 
 @protocol STMRecordingOverlayDelegate <NSObject>
+
 
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
 -(void)overlayClosed;

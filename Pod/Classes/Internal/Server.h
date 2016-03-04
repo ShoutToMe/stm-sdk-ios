@@ -55,6 +55,8 @@
 #define SERVER_COURSE_KEY                       @"course"
 #define SERVER_SPEED_KEY                        @"speed"
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
+#define SERVER_TAGS_KEY                         @"tags"
+#define SERVER_TOPIC_KEY                        @"topic"
 
 #define SERVER_VERIFY_PHONE_ARG                 @"phone"
 

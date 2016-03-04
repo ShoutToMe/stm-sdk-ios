@@ -37,6 +37,7 @@ typedef enum eSendShoutStatus
 
 + (SendShout *)controller;
 
+- (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)undoLastSend;
 - (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate;
