@@ -13,6 +13,7 @@
 #import "UserData.h"
 #import "Utils.h"
 #import "SignIn.h"
+#import "STM.h"
 
 #define USER_DATA_VERSION   1  // what version is this object (increased any time new items are added or existing items are changed)
 
@@ -210,7 +211,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
 {
     NSMutableDictionary *dictHeaders = [[NSMutableDictionary alloc] init];
 
-    [dictHeaders setObject:[NSString stringWithFormat:@"%@ %@", BASIC_AUTH_PREFIX, BASIC_AUTH] forKey:AUTH_KEY];
+    [dictHeaders setObject:[NSString stringWithFormat:@"%@ %@", BASIC_AUTH_PREFIX, [STM sharedInstance].accessToken] forKey:AUTH_KEY];
     NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     [dictHeaders setObject:[NSString stringWithFormat:@"%@", appBuildString] forKey:BUILD_HEADER_PREFIX];
 
@@ -242,7 +243,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
                                        SERVER_CMD_SKIP]];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    [config setHTTPAdditionalHeaders:@{@"Authorization":[NSString stringWithFormat:@"%@ %@", BASIC_AUTH_PREFIX, BASIC_AUTH],
+    [config setHTTPAdditionalHeaders:@{@"Authorization":[NSString stringWithFormat:@"%@ %@", BASIC_AUTH_PREFIX, [STM sharedInstance].accessToken],
                                        @"BuildNumber":[NSString stringWithFormat:@"%@", appBuildString],
                                        @"Content-Type": @"application/json"}];
     
