@@ -1,3 +1,5 @@
+[![CocoaPods](https://img.shields.io/cocoapods/p/STM.svg)](https://cocoapods.org/pods/STM)
+[![CocoaPods](https://img.shields.io/cocoapods/v/STM.svg)](https://cocoapods.org/pods/STM)
 # Shout to Me iOS SDK
 Version 1
 
