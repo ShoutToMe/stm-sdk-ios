@@ -42,6 +42,8 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
 @property (nonatomic, weak)     id<SendShoutDelegate>   delegate;
 @property (nonatomic, copy)     NSString                *strURL;
 @property (nonatomic, strong)   NSMutableDictionary     *dictRequestData;
+@property (nonatomic, copy)     NSString                *topic;
+@property (nonatomic, copy)     NSString                *tags;
 
 @end
 
@@ -61,6 +63,8 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
         self.dictRequestData = nil;
         self.strText = @"";
         self.strURL = @"";
+        self.tags = @"";
+        self.topic = @"";
     }
     return self;
 }
@@ -192,6 +196,8 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].course] forKey:SERVER_COURSE_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].speed] forKey:SERVER_SPEED_KEY];
         [request.dictRequestData setObject:request.strText forKey:SERVER_SPOKEN_TEXT_KEY];
+        [request.dictRequestData setObject:request.tags forKey:SERVER_TAGS_KEY];
+        [request.dictRequestData setObject:request.topic forKey:SERVER_TOPIC_KEY];
         if ([Utils stringIsSet:request.strReplyToId])
         {
             [request.dictRequestData setObject:request.strReplyToId forKey:SERVER_REPLY_TO_ID_KEY];
@@ -222,26 +228,34 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
 
 #pragma mark - Public Methods
 
-// sends the shout to the server
-- (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate
-{
+- (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate {
+    
     //[[Analytics controller] increment:@"shouts recorded" by:1];
-
+    
     SendShoutRequest *request = [[SendShoutRequest alloc] init];
-
+    
     self.dateLastSend = nil;
-
+    
     request = [[SendShoutRequest alloc] init];
     request.type = RequestType_SendShout;
     request.delegate = delegate;
     request.dataAudio = dataShout;
     request.strText = strText;
+    request.tags = tags;
+    request.topic = topic;
     if (strReplyToId)
     {
         request.strReplyToId = strReplyToId;
     }
-
+    
     [self postShout:request];
+    
+}
+
+// sends the shout to the server
+- (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate
+{
+    [self sendData:dataShout text:strText replyToId:strReplyToId tags:@"" topic:@"" withDelegate:delegate];
 }
 
 // takes back the last sent shout

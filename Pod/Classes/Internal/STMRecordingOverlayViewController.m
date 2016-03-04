@@ -26,11 +26,21 @@ typedef enum eAfterAudioCmd
 @property (nonatomic, strong)   UIActivityIndicatorView *indicator;
 @property (weak, nonatomic)     IBOutlet UIView         *viewBusy;
 @property (nonatomic)           BOOL                    bDismiss;
+@property NSString *tags;
+@property NSString *topic;
 
 @end
 
 @implementation STMRecordingOverlayViewController
 
+- (id)initWithTags:(NSString *)tags andTopic:(NSString *)topic {
+    self = [super init];
+    if (self) {
+        self.tags = [tags copy];
+        self.topic = [topic copy];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -116,7 +126,7 @@ typedef enum eAfterAudioCmd
             [data appendData:dataAudio];
             
             
-            [[STM sendShout] sendData:data text:strText replyToId:nil withDelegate:self];
+            [[STM sendShout] sendData:data text:strText replyToId:nil tags:self.tags topic:self.topic withDelegate:self];
             
         }
     }
