@@ -196,11 +196,15 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].course] forKey:SERVER_COURSE_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].speed] forKey:SERVER_SPEED_KEY];
         [request.dictRequestData setObject:request.strText forKey:SERVER_SPOKEN_TEXT_KEY];
-        [request.dictRequestData setObject:request.tags forKey:SERVER_TAGS_KEY];
-        [request.dictRequestData setObject:request.topic forKey:SERVER_TOPIC_KEY];
         if ([Utils stringIsSet:request.strReplyToId])
         {
             [request.dictRequestData setObject:request.strReplyToId forKey:SERVER_REPLY_TO_ID_KEY];
+        }
+        if ([Utils stringIsSet:request.tags]) {
+            [request.dictRequestData setObject:request.tags forKey:SERVER_TAGS_KEY];
+        }
+        if ([Utils stringIsSet:request.topic]) {
+            [request.dictRequestData setObject:request.topic forKey:SERVER_TOPIC_KEY];
         }
         //NSLog(@"audio: %@", [request.dictRequestData objectForKey:SERVER_AUDIO_KEY]);
 
