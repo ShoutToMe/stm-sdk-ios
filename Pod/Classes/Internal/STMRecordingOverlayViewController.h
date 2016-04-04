@@ -13,6 +13,7 @@
 
 @interface STMRecordingOverlayViewController : UIViewController<VoiceCmdViewDelegate, SendShoutDelegate>
 @property (atomic) id<STMRecordingOverlayDelegate> delegate;
+@property double MaxListeningSeconds;
 
 -(void)userRequestsStopListening;
 -(id)initWithTags:(NSString *)tags andTopic:(NSString *)topic;

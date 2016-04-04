@@ -22,7 +22,6 @@
 #define GRAPH_MIN_VALUE             -42.0
 #define GRAPH_MAX_VALUE             1.5
 
-#define MAX_LISTEN_TIME_SECS        15.0
 #define MAX_SILENCE_WAIT_TIME_SECS  2.0
 
 #define BUTTONS_CORNER_RADIUS       3
@@ -580,7 +579,14 @@ typedef enum eVoiceCmdAfterSound
     if (!_bComplete)
     {
         [self.viewGraph clear];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:MAX_LISTEN_TIME_SECS target:self selector:@selector(timerFired) userInfo:nil repeats:NO];
+        double timeInterval;
+        if (self.maxListeningSeconds) {
+            timeInterval = self.maxListeningSeconds;
+        } else {
+            timeInterval = [[STM settings].channel.strDefaultMaxListeningSeconds doubleValue];
+        }
+        NSLog(@"timeInterval: %f", timeInterval);
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(timerFired) userInfo:nil repeats:NO];
         //NSLog(@"%s", __FUNCTION__);
     }
 

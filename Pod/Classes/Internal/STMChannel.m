@@ -13,18 +13,19 @@
 #import "Utils.h"
 #import "Server.h"
 
-#define CHANNEL_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
+#define CHANNEL_DATA_VERSION   3  // what version is this object (increased any time new items are added or existing items are changed)
 
-#define KEY_CHANNEL_DATA_VERSION            @"ChannelDataVer"
-#define KEY_CHANNEL_ID                      @"ChannelId"
-#define KEY_CHANNEL_TYPE                    @"ChannelType"
-#define KEY_CHANNEL_NAME                    @"ChannelName"
-#define KEY_CHANNEL_DESCRIPTION             @"ChannelDescription"
-#define KEY_CHANNEL_GEOFENCED               @"ChannelGeofended"
-#define KEY_CHANNEL_MIX_PANEL_TOKEN         @"ChannelMixPanelToken"
-#define KEY_CHANNEL_WIT_ACCESS_TOKEN        @"ChannelWitAccessToken"
-#define KEY_CHANNEL_IMAGE                   @"ChannelImage"
-#define KEY_CHANNEL_IMAGE_LIST              @"ChannelImageList"
+#define KEY_CHANNEL_DATA_VERSION                    @"ChannelDataVer"
+#define KEY_CHANNEL_ID                              @"ChannelId"
+#define KEY_CHANNEL_TYPE                            @"ChannelType"
+#define KEY_CHANNEL_NAME                            @"ChannelName"
+#define KEY_CHANNEL_DESCRIPTION                     @"ChannelDescription"
+#define KEY_CHANNEL_GEOFENCED                       @"ChannelGeofended"
+#define KEY_CHANNEL_MIX_PANEL_TOKEN                 @"ChannelMixPanelToken"
+#define KEY_CHANNEL_WIT_ACCESS_TOKEN                @"ChannelWitAccessToken"
+#define KEY_CHANNEL_IMAGE                           @"ChannelImage"
+#define KEY_CHANNEL_IMAGE_LIST                      @"ChannelImageList"
+#define KEY_CHANNEL_DEFAULT_MAX_LISTENING_SECONDS   @"ChannelDefaultMaxListeningSeconds"
 
 @interface STMChannel () <NSCopying>
 
@@ -46,6 +47,7 @@
         self.strWitAccessToken = @"";
         self.strChannelImage = @"";
         self.strChannelImageList = @"";
+        self.strDefaultMaxListeningSeconds = @"";
     }
     return self;
 }
@@ -62,14 +64,15 @@
 
 - (NSString *)description
 {
-    NSString *strDesc = [NSString stringWithFormat:@"Channel - id: %@, name: %@, description: %@, mix_panel: %@, wit: %@, channel image: %@, channel image list: %@",
+    NSString *strDesc = [NSString stringWithFormat:@"Channel - id: %@, name: %@, description: %@, mix_panel: %@, wit: %@, channel image: %@, channel image list: %@, default max listening seconds: %@",
                          self.strID,
                          self.strName,
                          self.strDescription,
                          self.strMixPanelToken,
                          self.strWitAccessToken,
                          self.strChannelImage,
-                         self.strChannelImageList
+                         self.strChannelImageList,
+                         self.strDefaultMaxListeningSeconds
                          ];
     
     return strDesc;
@@ -106,6 +109,7 @@
     newChannel.strChannelImage = [_strChannelImage copy];
     newChannel.strChannelImageList = [_strChannelImageList copy];
     newChannel.bGeofenced = _bGeofenced;
+    newChannel.strDefaultMaxListeningSeconds = [_strDefaultMaxListeningSeconds copy];
 
     return newChannel;
 }
@@ -194,6 +198,15 @@
             {
                 self.strChannelImageList = @"";
             }
+            strVal = [aDecoder decodeObjectForKey:KEY_CHANNEL_DEFAULT_MAX_LISTENING_SECONDS];
+            if (strVal)
+            {
+                self.strDefaultMaxListeningSeconds = strVal;
+            }
+            else
+            {
+                self.strDefaultMaxListeningSeconds = @"";
+            }
         }
     }
 
@@ -214,6 +227,7 @@
     [aCoder encodeObject:self.strWitAccessToken forKey:KEY_CHANNEL_WIT_ACCESS_TOKEN];
     [aCoder encodeObject:self.strChannelImage forKey:KEY_CHANNEL_IMAGE];
     [aCoder encodeObject:self.strChannelImageList forKey:KEY_CHANNEL_IMAGE_LIST];
+    [aCoder encodeObject:self.strDefaultMaxListeningSeconds forKey:KEY_CHANNEL_DEFAULT_MAX_LISTENING_SECONDS];
 }
 
 #pragma mark - Public Methods
@@ -231,6 +245,7 @@
         self.bGeofenced = [Utils boolFromKey:@"geofenced" inDictionary:dictChannel];
         self.strChannelImage = [Utils stringFromKey:@"channel_image" inDictionary:dictChannel];
         self.strChannelImageList = [Utils stringFromKey:@"channel_list_image" inDictionary:dictChannel];
+        self.strDefaultMaxListeningSeconds = [Utils stringFromKey:@"default_voigo_max_recording_length_seconds" inDictionary:dictChannel];
 
         self.strMixPanelToken = [Utils stringFromKey:@"mobile" inDictionary:[dictChannel objectForKey:@"mixpanel_keys"]];
 
