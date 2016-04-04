@@ -64,6 +64,7 @@ typedef enum eVoiceCmdButton
 @property (nonatomic, readonly) tVoiceCmdState              state;
 @property                       STMRecorder                 *stmRecorder;
 @property (nonatomic, weak) UIViewController *viewController;
+@property double maxListeningSeconds;
 
 - (void)offsetY:(CGFloat)yOffset;
 - (void)setTitleAndStartListening:(NSString *)strTitle;
@@ -78,6 +79,7 @@ typedef enum eVoiceCmdButton
 - (void)abort;
 - (void)switchToYesNoMode;
 - (void)stopRecording;
+- (void)setMaxListeningSeconds:(double)maxListeningSeconds;
 
 
 @end

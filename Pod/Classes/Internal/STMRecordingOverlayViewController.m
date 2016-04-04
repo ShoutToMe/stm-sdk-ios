@@ -55,6 +55,9 @@ typedef enum eAfterAudioCmd
         [[STM audioSystem] setInputType:STMAudioInputType_BluetoothHFP];
         [[STM audioSystem] holdActive:YES];
         self.voiceCmdView = [VoiceCmdView CreateWithWidth:self.view.bounds.size.width];
+        if (self.MaxListeningSeconds) {
+            self.voiceCmdView.MaxListeningSeconds = self.MaxListeningSeconds;
+        }
         [self.voiceCmdView setTitle:@""];
         self.voiceCmdView.delegate = self;
         [self.view addSubview:self.voiceCmdView];
