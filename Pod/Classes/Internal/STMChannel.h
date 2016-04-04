@@ -20,6 +20,7 @@
 @property (nonatomic, copy)     NSString                    *strWitAccessToken;
 @property (nonatomic, copy)     NSString                    *strChannelImage;
 @property (nonatomic, copy)     NSString                    *strChannelImageList;
+@property (nonatomic, copy)     NSString                    *strDefaultMaxListeningSeconds;
 
 - (id)initWithDictionary:(NSDictionary *)dictChannel;
 
