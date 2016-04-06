@@ -91,7 +91,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="ey4-L3-R4f" userLabel="View - buttons done">
-                            <rect key="frame" x="0.0" y="264" width="414" height="270"/>
+                            <rect key="frame" x="0.0" y="264" width="414" height="135"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="R2V-dl-DAG" customClass="CircleProgressBar">
@@ -163,16 +163,6 @@
                 <outlet property="viewMain" destination="euQ-7B-MPN" id="l1l-Ry-W19"/>
             </connections>
             <point key="canvasLocation" x="455" y="545"/>
-        </view>
-        <view contentMode="scaleToFill" id="MOV-6M-mbJ">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-        </view>
-        <view contentMode="scaleToFill" id="6ig-0W-xuP">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
     <resources>
