@@ -164,16 +164,6 @@
             </connections>
             <point key="canvasLocation" x="455" y="545"/>
         </view>
-        <view contentMode="scaleToFill" id="MOV-6M-mbJ">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-        </view>
-        <view contentMode="scaleToFill" id="6ig-0W-xuP">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-        </view>
     </objects>
     <resources>
         <image name="BtnClose.png" width="155" height="155"/>
