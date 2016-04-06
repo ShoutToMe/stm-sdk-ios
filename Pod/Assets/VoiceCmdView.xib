@@ -91,7 +91,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="ey4-L3-R4f" userLabel="View - buttons done">
-                            <rect key="frame" x="0.0" y="264" width="414" height="270"/>
+                            <rect key="frame" x="0.0" y="264" width="414" height="135"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="R2V-dl-DAG" customClass="CircleProgressBar">
