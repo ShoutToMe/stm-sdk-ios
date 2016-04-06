@@ -382,6 +382,7 @@ typedef enum eVoiceCmdAfterSound
         self.stmRecorder =  [[STMRecorder alloc] init];
         self.stmRecorder.delegate = self;
         [self.stmRecorder enabledVad];
+        self.circleProgressBar.hintHidden = YES;
 
         _bInitialized = YES;
     }
@@ -419,7 +420,8 @@ typedef enum eVoiceCmdAfterSound
             self.labelContextSpecificText.text = NSLocalizedString(@"Sending...", nil);
             self.viewButtonsCancel.hidden = NO;
             self.viewButtonsYesNo.hidden = YES;
-            self.viewButtonsDone.hidden = YES;
+//            self.viewButtonsDone.hidden = YES;
+            self.doneButton.hidden = YES;
             self.viewGraph.hidden = YES;
             self.indicator.hidden = NO;
             break;
@@ -550,9 +552,17 @@ typedef enum eVoiceCmdAfterSound
 {
     if (!_bComplete)
     {
-        self.results.bTimeout = YES;
-        [self stopListening];
+        NSLog(@"self.currentTimerCount: %d", (int)self.currentTimerCount);
+        NSLog(@"secondsLeft: %d", (int)self.secondsLeft);
+        [self.circleProgressBar setProgress:(_circleProgressBar.progress + 1/self.secondsLeft) animated:YES duration:1.0];
+        
+        self.timerLabel.text = [NSString stringWithFormat:@"%d sec", (int)(self.secondsLeft - self.currentTimerCount)];
+        if (self.currentTimerCount >= self.secondsLeft) {
+            self.results.bTimeout = YES;
+            [self stopListening];
+        }
     }
+    self.currentTimerCount += 1.0;
 }
 
 - (void)silenceTimerFired
@@ -585,8 +595,10 @@ typedef enum eVoiceCmdAfterSound
         } else {
             timeInterval = [[STM settings].channel.strDefaultMaxListeningSeconds doubleValue];
         }
+        self.secondsLeft = timeInterval;
+        self.currentTimerCount = 0;
         NSLog(@"timeInterval: %f", timeInterval);
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(timerFired) userInfo:nil repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
         //NSLog(@"%s", __FUNCTION__);
     }
 
