@@ -10,6 +10,8 @@
 #import "STM.h"
 #import "STMRecorder.h"
 #import "AudioSystem.h"
+#import "CircleProgressBar.h"
+#import "RoundedButton.h"
 
 #define CONFIDENCE_THRESHOLD    .5
 
@@ -63,8 +65,13 @@ typedef enum eVoiceCmdButton
 @property (nonatomic, assign)   id<VoiceCmdViewDelegate>    delegate;
 @property (nonatomic, readonly) tVoiceCmdState              state;
 @property                       STMRecorder                 *stmRecorder;
+@property (strong, nonatomic) IBOutlet CircleProgressBar *circleProgressBar;
+@property (strong, nonatomic) IBOutlet RoundedButton *doneButton;
+@property (strong, nonatomic) IBOutlet UILabel *timerLabel;
 @property (nonatomic, weak) UIViewController *viewController;
 @property double maxListeningSeconds;
+@property double secondsLeft;
+@property double currentTimerCount;
 
 - (void)offsetY:(CGFloat)yOffset;
 - (void)setTitleAndStartListening:(NSString *)strTitle;

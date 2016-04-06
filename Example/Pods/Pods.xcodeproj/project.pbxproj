@@ -74,6 +74,16 @@
 		D2B13BCB70D462D2E24672DB61EE38F0 /* ShoutPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D83760E62766F272DB14F61C490AF4 /* ShoutPlayer.m */; };
 		DF907ABEAC102186DBA0B809E40EEE24 /* VoiceCmdView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD284D6A6C5872362E6A0E254515048 /* VoiceCmdView.m */; };
 		E3E185752C74428EBC9547F4761EA7D6 /* STMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD28B86A0C7AEE25128BC1B678DF948 /* STMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E48B1F321CB329D7002A26E4 /* CircleProgressBar.h in Headers */ = {isa = PBXBuildFile; fileRef = E48B1F2E1CB31BDA002A26E4 /* CircleProgressBar.h */; };
+		E48B1F331CB329DA002A26E4 /* CircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E48B1F2F1CB31BDA002A26E4 /* CircleProgressBar.m */; };
+		E4C234C71CB487E7006F387C /* abort.caf in Resources */ = {isa = PBXBuildFile; fileRef = D836FE14B12161F51C27533E44876BC2 /* abort.caf */; };
+		E4C234C81CB487E7006F387C /* BtnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 437C81EFC78CF8FAD1F912E0B7A1CE08 /* BtnClose.png */; };
+		E4C234C91CB487E7006F387C /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = D1A922077B53E667270166F4AEE5A98B /* finish.caf */; };
+		E4C234CA1CB487E7006F387C /* listen.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4BEC1D20A518EDFDAEF1E9B588C7DFFA /* listen.caf */; };
+		E4C234CB1CB487E7006F387C /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 74DD03B9C45AB5B1F5189DBCB67D9679 /* sent.caf */; };
+		E4C234CC1CB487E7006F387C /* shout.caf in Resources */ = {isa = PBXBuildFile; fileRef = E256EC9910E8D26E526DD90D57A18ECD /* shout.caf */; };
+		E4C234CD1CB487E7006F387C /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9F6F019C624F12F0CAD0C2AA076860A7 /* undo.caf */; };
+		E4C234CE1CB487E7006F387C /* VoiceCmdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EF596B7CA6119E783B104A960B33A2E /* VoiceCmdView.xib */; };
 		EEF73A782593501CDEF6817B3BBDBC2B /* Channels.h in Headers */ = {isa = PBXBuildFile; fileRef = 638211049EE7A1A0D6172751CCDED3A1 /* Channels.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF141D02F23551A7EC01809049629B03 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D86A1FE3EECEF9B83699279BAC6DE719 /* STMLocation.m */; };
 		F2129DFBFD0470913B17F3E08855D073 /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -199,6 +209,8 @@
 		E256EC9910E8D26E526DD90D57A18ECD /* shout.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = shout.caf; sourceTree = "<group>"; };
 		E294F52611617C1F6F94BD9F943B27C5 /* ShoutPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ShoutPlayer.h; sourceTree = "<group>"; };
 		E47E584F7C523E6FBA2274C3E8811471 /* Pods-STM_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		E48B1F2E1CB31BDA002A26E4 /* CircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressBar.h; sourceTree = "<group>"; };
+		E48B1F2F1CB31BDA002A26E4 /* CircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressBar.m; sourceTree = "<group>"; };
 		E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		EB0C397537600484BAB87DD1BD530D48 /* Pods-STM_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Example-dummy.m"; sourceTree = "<group>"; };
 		EE1F6705754CB45776301811AB22B15F /* Pods-STM_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -447,6 +459,7 @@
 		D79E0A391839807775F83AB02C915105 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E48B1F2D1CB31BDA002A26E4 /* CircleProgressBar */,
 				0FB4E5D46CD90DBFD72211D1F1F9F1C9 /* DL_URLServer */,
 				273596501A6DE817D87D14B73B098380 /* Internal */,
 				268D75EBE25D9C413A4D67D954D7BE5D /* KeyChainItemWrapper */,
@@ -496,6 +509,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		E48B1F2D1CB31BDA002A26E4 /* CircleProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				E48B1F2E1CB31BDA002A26E4 /* CircleProgressBar.h */,
+				E48B1F2F1CB31BDA002A26E4 /* CircleProgressBar.m */,
+			);
+			path = CircleProgressBar;
+			sourceTree = "<group>";
+		};
 		EC1BC8BB681299229C57EDF55E1C6FE3 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +555,7 @@
 				5B7B424BE6BA5775746E4701229B24E4 /* AudioSystem.h in Headers */,
 				EEF73A782593501CDEF6817B3BBDBC2B /* Channels.h in Headers */,
 				D26F942B0C4E25819337D8507918147D /* DL_URLServer.h in Headers */,
+				E48B1F321CB329D7002A26E4 /* CircleProgressBar.h in Headers */,
 				6682292E8B04B922DD3707748EE4DBF9 /* Error.h in Headers */,
 				3068B3D5104804051DA727A0B74A1A38 /* GraphView.h in Headers */,
 				F2129DFBFD0470913B17F3E08855D073 /* KeychainItemWrapper.h in Headers */,
@@ -686,7 +709,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C234CB1CB487E7006F387C /* sent.caf in Resources */,
+				E4C234CA1CB487E7006F387C /* listen.caf in Resources */,
+				E4C234C81CB487E7006F387C /* BtnClose.png in Resources */,
+				E4C234CE1CB487E7006F387C /* VoiceCmdView.xib in Resources */,
 				61039EBA833DC10F578D6587A61BD162 /* STM.bundle in Resources */,
+				E4C234C71CB487E7006F387C /* abort.caf in Resources */,
+				E4C234CC1CB487E7006F387C /* shout.caf in Resources */,
+				E4C234CD1CB487E7006F387C /* undo.caf in Resources */,
+				E4C234C91CB487E7006F387C /* finish.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +749,7 @@
 				6E905E77133D74C43C219E26B7889CA3 /* Settings.m in Sources */,
 				D2B13BCB70D462D2E24672DB61EE38F0 /* ShoutPlayer.m in Sources */,
 				2B7EFB155FF17F198B21DA38A5236E39 /* SignIn.m in Sources */,
+				E48B1F331CB329DA002A26E4 /* CircleProgressBar.m in Sources */,
 				A5C536B3E9222E3BF5FFAB01D185B22D /* StandardButton.m in Sources */,
 				304DBAE81806D3A6660FE0506E3199B0 /* STM-dummy.m in Sources */,
 				1D5AAEFF4A23E30A2299FAF2A724CA92 /* STM.m in Sources */,
