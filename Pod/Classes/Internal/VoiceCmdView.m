@@ -200,6 +200,7 @@ typedef enum eVoiceCmdAfterSound
     }
 
     [self completeWithSound:VoiceCmdSound_Abort];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)buttonYesTouched:(id)sender
@@ -237,6 +238,7 @@ typedef enum eVoiceCmdAfterSound
 - (IBAction)buttonDoneTouched:(id)sender
 {
     [self userRequestsStopListening];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Public Methods
@@ -319,6 +321,7 @@ typedef enum eVoiceCmdAfterSound
         }
         
         [self updateDisplay];
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
 
@@ -363,6 +366,8 @@ typedef enum eVoiceCmdAfterSound
         self.viewButtonsCancel.hidden = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(powerChanged:) name:STM_NOTIFICATION_AUDIO_POWER_CHANGED object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buttonCloseTouched:) name:UIApplicationWillResignActiveNotification object:nil];
 
         self.results = [[VoiceCmdResults alloc] init];
 
