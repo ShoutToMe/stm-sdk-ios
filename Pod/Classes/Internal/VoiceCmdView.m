@@ -552,6 +552,7 @@ typedef enum eVoiceCmdAfterSound
 {
     if (!_bComplete)
     {
+        self.currentTimerCount += 1.0;
         NSLog(@"self.currentTimerCount: %d", (int)self.currentTimerCount);
         NSLog(@"secondsLeft: %d", (int)self.secondsLeft);
         [self.circleProgressBar setProgress:(_circleProgressBar.progress + 1/self.secondsLeft) animated:YES duration:1.0];
@@ -562,7 +563,7 @@ typedef enum eVoiceCmdAfterSound
             [self stopListening];
         }
     }
-    self.currentTimerCount += 1.0;
+    
 }
 
 - (void)silenceTimerFired
@@ -598,6 +599,8 @@ typedef enum eVoiceCmdAfterSound
         self.secondsLeft = timeInterval;
         self.currentTimerCount = 0;
         NSLog(@"timeInterval: %f", timeInterval);
+        self.timerLabel.text = [NSString stringWithFormat:@"%d sec", (int)(self.secondsLeft - self.currentTimerCount)];
+        [self.circleProgressBar setProgress:(_circleProgressBar.progress + 1/self.secondsLeft) animated:YES duration:1.0];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
         //NSLog(@"%s", __FUNCTION__);
     }
