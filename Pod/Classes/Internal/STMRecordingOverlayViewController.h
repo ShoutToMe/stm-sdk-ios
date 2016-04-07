@@ -23,5 +23,5 @@
 
 
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
--(void)overlayClosed;
+-(void)overlayClosed:(BOOL)bDismissed;
 @end

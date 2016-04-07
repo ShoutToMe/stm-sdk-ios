@@ -197,8 +197,8 @@ typedef enum eAfterAudioCmd
         //[self stopPlayingAudioOrSpeaking];
         self.bDismiss = YES;
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-        if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
-            [self.delegate overlayClosed];
+        if ([self.delegate respondsToSelector:@selector(overlayClosed:)]) {
+            [self.delegate overlayClosed:YES];
         }
     } else {
         self.bDismiss = YES;
@@ -222,8 +222,8 @@ typedef enum eAfterAudioCmd
     if (self.bDismiss)
     {
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-        if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
-            [self.delegate overlayClosed];
+        if ([self.delegate respondsToSelector:@selector(overlayClosed:)]) {
+            [self.delegate overlayClosed:NO];
         }
     }
     [self showBusy:NO];
@@ -241,8 +241,8 @@ typedef enum eAfterAudioCmd
 
 - (void)VoiceCmdViewCloseButtonTouched:(VoiceCmdView *)voiceCmdView {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    if ([self.delegate respondsToSelector:@selector(overlayClosed)]) {
-        [self.delegate overlayClosed];
+    if ([self.delegate respondsToSelector:@selector(overlayClosed:)]) {
+        [self.delegate overlayClosed:YES];
     }
 }
 
