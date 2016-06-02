@@ -76,6 +76,10 @@
 		E3E185752C74428EBC9547F4761EA7D6 /* STMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD28B86A0C7AEE25128BC1B678DF948 /* STMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E48B1F321CB329D7002A26E4 /* CircleProgressBar.h in Headers */ = {isa = PBXBuildFile; fileRef = E48B1F2E1CB31BDA002A26E4 /* CircleProgressBar.h */; };
 		E48B1F331CB329DA002A26E4 /* CircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E48B1F2F1CB31BDA002A26E4 /* CircleProgressBar.m */; };
+		E4BC62DD1D00E65F004FB832 /* Messages.h in Headers */ = {isa = PBXBuildFile; fileRef = E4BC62DB1D00E65F004FB832 /* Messages.h */; };
+		E4BC62DE1D00E65F004FB832 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BC62DC1D00E65F004FB832 /* Messages.m */; };
+		E4BC62E11D00E6B0004FB832 /* STMMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = E4BC62DF1D00E6B0004FB832 /* STMMessage.h */; };
+		E4BC62E21D00E6B0004FB832 /* STMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BC62E01D00E6B0004FB832 /* STMMessage.m */; };
 		E4C234C71CB487E7006F387C /* abort.caf in Resources */ = {isa = PBXBuildFile; fileRef = D836FE14B12161F51C27533E44876BC2 /* abort.caf */; };
 		E4C234C81CB487E7006F387C /* BtnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 437C81EFC78CF8FAD1F912E0B7A1CE08 /* BtnClose.png */; };
 		E4C234C91CB487E7006F387C /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = D1A922077B53E667270166F4AEE5A98B /* finish.caf */; };
@@ -211,6 +215,10 @@
 		E47E584F7C523E6FBA2274C3E8811471 /* Pods-STM_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-STM_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E48B1F2E1CB31BDA002A26E4 /* CircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressBar.h; sourceTree = "<group>"; };
 		E48B1F2F1CB31BDA002A26E4 /* CircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressBar.m; sourceTree = "<group>"; };
+		E4BC62DB1D00E65F004FB832 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		E4BC62DC1D00E65F004FB832 /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
+		E4BC62DF1D00E6B0004FB832 /* STMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMMessage.h; sourceTree = "<group>"; };
+		E4BC62E01D00E6B0004FB832 /* STMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMMessage.m; sourceTree = "<group>"; };
 		E711AEF0EDB1AED1294C8EB7A5F3C032 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		EB0C397537600484BAB87DD1BD530D48 /* Pods-STM_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-STM_Example-dummy.m"; sourceTree = "<group>"; };
 		EE1F6705754CB45776301811AB22B15F /* Pods-STM_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-STM_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -366,6 +374,10 @@
 				2F852B5D9E7FEA16722A5BA146C34D9F /* VoiceCmdView.h */,
 				CAD284D6A6C5872362E6A0E254515048 /* VoiceCmdView.m */,
 				3A0720EC63ACC59028AC01B0489F97AD /* GraphView */,
+				E4BC62DB1D00E65F004FB832 /* Messages.h */,
+				E4BC62DC1D00E65F004FB832 /* Messages.m */,
+				E4BC62DF1D00E6B0004FB832 /* STMMessage.h */,
+				E4BC62E01D00E6B0004FB832 /* STMMessage.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -556,6 +568,7 @@
 				EEF73A782593501CDEF6817B3BBDBC2B /* Channels.h in Headers */,
 				D26F942B0C4E25819337D8507918147D /* DL_URLServer.h in Headers */,
 				E48B1F321CB329D7002A26E4 /* CircleProgressBar.h in Headers */,
+				E4BC62DD1D00E65F004FB832 /* Messages.h in Headers */,
 				6682292E8B04B922DD3707748EE4DBF9 /* Error.h in Headers */,
 				3068B3D5104804051DA727A0B74A1A38 /* GraphView.h in Headers */,
 				F2129DFBFD0470913B17F3E08855D073 /* KeychainItemWrapper.h in Headers */,
@@ -566,6 +579,7 @@
 				3019E8FDBE32985E36FE1D2D0FC22A4C /* Settings.h in Headers */,
 				921CAFC6CBD58787EAAF6396206FEA8A /* ShoutPlayer.h in Headers */,
 				3765016A1A0A1A88A1B0794DB531D8A4 /* SignIn.h in Headers */,
+				E4BC62E11D00E6B0004FB832 /* STMMessage.h in Headers */,
 				B3F4483F346AEF3105BF5CA7E42C1AEB /* StandardButton.h in Headers */,
 				5C490236DBD79C0D0E353CE9ADE13730 /* STM-umbrella.h in Headers */,
 				FB508916D1217A4BC9FDFB21BDC6D59C /* STM.h in Headers */,
@@ -735,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4BC62E21D00E6B0004FB832 /* STMMessage.m in Sources */,
 				13FA576B43BC39439613A120CD77095E /* AppUtils.m in Sources */,
 				A59DDADECDC99F6DC99B299D2AB071AC /* AudioElement.m in Sources */,
 				3B789F43F96CEF46B29583B898FA8D44 /* AudioSystem.m in Sources */,
@@ -759,6 +774,7 @@
 				EF141D02F23551A7EC01809049629B03 /* STMLocation.m in Sources */,
 				8D636134FE8D2F91158E26F7D41A8B50 /* STMRecorder.m in Sources */,
 				72F552DD281468449E4BC34DC53EF4F1 /* STMRecordingOverlayViewController.m in Sources */,
+				E4BC62DE1D00E65F004FB832 /* Messages.m in Sources */,
 				1234C1F12D568D44A91BE35B27E60BBF /* STMShout.m in Sources */,
 				25EA4FDAB403D417107A58B5BBFBE95F /* STMVad.m in Sources */,
 				39E4AB357272AFEB3CD572271C2E7C6C /* User.m in Sources */,

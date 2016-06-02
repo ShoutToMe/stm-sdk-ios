@@ -40,6 +40,7 @@
 #define SERVER_CMD_PUT_SHOUT                    @"shouts"
 #define SERVER_CMD_PUT_DOWNVOTE_SHOUT           @"downvote"
 #define SERVER_CMD_GET_CURRENT_MARKET           @"markets/current"
+#define SERVER_CMD_GET_MESSAGES                 @"messages"
 
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
 #define SERVER_PHONE_NUMBER_KEY                 @"phone"
