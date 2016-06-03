@@ -7,6 +7,8 @@
 //
 
 #import "STMMessage.h"
+#import "User.h"
+#import "STMChannel.h"
 #import "Utils.h"
 #import "Server.h"
 
@@ -83,7 +85,34 @@
         self.strMessage = [Utils stringFromKey:@"message" inDictionary:dictMessage];
         self.strShoutId = [Utils stringFromKey:@"shout_id" inDictionary:dictMessage];
         self.dateCreated = [Utils dateFromString:[Utils stringFromKey:@"created_date" inDictionary:dictMessage]];
+        self.channel = [self channelFromKey:@"channel" inDictionary:dictMessage];
+        self.recipient = [self userFromKey:@"recipient" inDictionary:dictMessage];
+        self.sender = [self userFromKey:@"sender" inDictionary:dictMessage];
     }
+}
+
+- (STMChannel *)channelFromKey:(NSString *)strKey inDictionary:(NSDictionary *)dict
+{
+    STMChannel *channel;
+    if (dict)
+    {
+        NSDictionary *dictChannel = [dict objectForKey:strKey];
+        channel = [[STMChannel alloc] initWithDictionary: dictChannel];
+    }
+    
+    return channel;
+}
+
+- (User *)userFromKey:(NSString *)strKey inDictionary:(NSDictionary *)dict
+{
+    User *user;
+    if (dict)
+    {
+        NSDictionary *dictUser = [dict objectForKey:strKey];
+        user = [[User alloc] initWithDictionary: dictUser];
+    }
+    
+    return user;
 }
 
 @end
