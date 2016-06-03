@@ -357,4 +357,19 @@
     return (boolean ? @"YES" : @"NO");
 }
 
++ (NSString *)getISO8601String:(NSDate *)date
+{
+    static NSDateFormatter *formatter = nil;
+    if (!formatter)
+    {
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setLocale: [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation: @"UTC"];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+        
+    }
+    NSString *iso8601String = [formatter stringFromDate: date];
+    return [iso8601String stringByAppendingString: @"Z"];
+}
+
 @end

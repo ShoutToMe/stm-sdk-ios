@@ -30,5 +30,6 @@
 + (NSString *)timeStringForSeconds:(double)seconds;
 + (NSString *)modelNameFrom:(NSString *)strModelInfo;
 + (NSString *)strForBool:(BOOL)boolean;
++ (NSString *)getISO8601String:(NSDate *)date;
 
 @end
