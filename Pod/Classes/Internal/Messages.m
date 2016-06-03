@@ -119,7 +119,6 @@ __strong static Messages *singleton = nil;
     {
         MessagesRequest *request = [[MessagesRequest alloc] init];
         request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@", [Settings controller].strServerURL, SERVER_CMD_GET_MESSAGES];
         request.strURL = [NSString stringWithFormat:@"%@/%@?channel_id=%@",
                                   [Settings controller].strServerURL,
                                   SERVER_CMD_GET_MESSAGES,
@@ -173,7 +172,6 @@ __strong static Messages *singleton = nil;
     {
         MessagesRequest *request = [[MessagesRequest alloc] init];
         request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@", [Settings controller].strServerURL, SERVER_CMD_GET_MESSAGES];
         request.strURL = [NSString stringWithFormat:@"%@/%@?recipient_id=%@",
                           [Settings controller].strServerURL,
                           SERVER_CMD_GET_MESSAGES,
