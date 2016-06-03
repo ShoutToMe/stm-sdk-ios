@@ -93,7 +93,7 @@ __strong static Messages *singleton = nil;
 {
     NSMutableArray *arrayMessages = [[NSMutableArray alloc] init];
     
-    if ([results isKindOfClass:[NSDictionary class]])
+    if ([results isKindOfClass:[NSDictionary class]] && ((NSDictionary *)results).count >= 1)
     {
         STMMessage *message = [[STMMessage alloc] initWithDictionary:(NSDictionary *)results];
         [arrayMessages addObject:message];
