@@ -15,6 +15,9 @@
 @property (nonatomic, copy)   NSString          *strPhoneNumber;
 @property (nonatomic, copy)   NSString          *strUserID;
 @property (nonatomic, copy)   NSString          *strHandle;
+@property (nonatomic, copy)   NSDate            *dateLastViewedMessages;
+
+- (id)initWithDictionary:(NSDictionary *)dictMessage;
 
 @end
 

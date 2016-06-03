@@ -20,6 +20,7 @@
 #define KEY_USER_PHONE_NUMBER           @"UserPhoneNumber"
 #define KEY_USER_USER_ID                @"UserUserId"
 #define KEY_USER_HANDLE                 @"UserHandle"
+#define KEY_USER_LAST_VIEWED_MESSAGES   @"UserLastViewedMessages"
 
 @interface User ()
 {
@@ -42,6 +43,7 @@
         self.strPhoneNumber = @"";
         self.strUserID = @"";
         self.strHandle = @"";
+        self.dateLastViewedMessages = [NSDate date];
     }
     return self;
 }
@@ -54,12 +56,13 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@",
             self.strUserID,
             self.strHandle,
             self.strPhoneNumber,
             self.strAuthCode,
-            self.bVerified ? @"YES" : @"NO"
+            self.bVerified ? @"YES" : @"NO",
+            self.dateLastViewedMessages
             ]);
 }
 
@@ -111,6 +114,16 @@
             {
                 self.strHandle = @"";
             }
+            
+            NSDate  *dateVal = [aDecoder decodeObjectForKey:KEY_USER_LAST_VIEWED_MESSAGES];
+            if (dateVal)
+            {
+                self.dateLastViewedMessages = dateVal;
+            }
+            else
+            {
+                self.dateLastViewedMessages = [NSDate date];
+            }
         }
     }
 
@@ -125,11 +138,33 @@
     [aCoder encodeObject:self.strPhoneNumber forKey:KEY_USER_PHONE_NUMBER];
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
+    [aCoder encodeObject:self.dateLastViewedMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
 }
 
 #pragma mark - Misc Methods
 
+- (void)setDataFromDictionary:(NSDictionary *)dict
+{
+    if (dict)
+    {
+        self.strUserID = [Utils stringFromKey:@"id" inDictionary:dict];
+        self.strHandle = [Utils stringFromKey:@"handle" inDictionary:dict];
+        self.bVerified = [Utils boolFromKey:@"verified" inDictionary:dict];
+        self.dateLastViewedMessages = [Utils dateFromString:[Utils stringFromKey:@"last_viewed_messages" inDictionary:dict]];
+    }
+}
+
 #pragma mark - Public Methods
+
+- (id)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self)
+    {
+        [self setDataFromDictionary:dict];
+    }
+    return self;
+}
 
 
 @end
