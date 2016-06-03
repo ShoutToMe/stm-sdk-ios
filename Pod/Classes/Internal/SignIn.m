@@ -25,6 +25,8 @@ typedef enum eSignInRequestType
     SignInRequestType_SignUp,
     SignInRequestType_VerifyAccount,
     SignInRequestType_SetHandle,
+    SignInRequestType_SetLastViewedMessages,
+    SignInRequestType_GetLastViewedMessages,
     SignInRequestType_VerificationCode,
     SignInRequestType_CheckAuthCode
 } tSignInRequestType;
@@ -162,6 +164,10 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             if ([dictUser objectForKey:SERVER_RESULTS_VERIFIED_KEY])
             {
                 [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];
+            }
+            NSDate *dateLastViewedMessages = [dictUser objectForKey:SERVER_RESULTS_LAST_VIEWED_MESSAGES_KEY];
+            if (dateLastViewedMessages) {
+                [[UserData controller].user setDateLastViewedMessages:[Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_VIEWED_MESSAGES_KEY inDictionary:dictUser]]];
             }
             NSString *strAffiliateID = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_KEY];
             if (strAffiliateID)
@@ -665,6 +671,80 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     }
 }
 
+- (void)setLastViewedMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
+    if (self.request == nil)
+    {
+        NSString *strDate = [Utils getISO8601String:date];
+        [[UserData controller] setLastViewedMessages:date];
+        
+        self.request = [[SignInRequest alloc] init];
+        self.request.delegate = delegate;
+        self.request.type = SignInRequestType_SetLastViewedMessages;
+        
+        // set the json data
+        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_VIEWED_MESSAGES_KEY : strDate }];
+        NSError *error = nil;
+        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
+        
+        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
+                                      [Settings controller].strServerURL,
+                                      SERVER_CMD_PERSONALIZE,
+                                      [UserData controller].user.strUserID
+                                      ];
+        //NSLog(@"Personalize: Query = %@, JSON = %@", strServerQuery, strJSON);
+        
+        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
+                                        methodType:DL_URLRequestMethod_Put
+                                        withParams:strJSON
+                                        withObject:self.request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+    }
+    else
+    {
+        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
+    }
+}
+
+- (void)getLastViewedMessageswithDelegate:(id<STMSignInDelegate>)delegate {
+    if (self.request == nil)
+    {
+        self.request = [[SignInRequest alloc] init];
+        self.request.delegate = delegate;
+        self.request.type = SignInRequestType_GetLastViewedMessages;
+        
+        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
+                                      [Settings controller].strServerURL,
+                                      SERVER_CMD_PERSONALIZE,
+                                      [STM currentUser].strUserID
+                                      ];
+        
+        // set the json data
+        self.request.dictRequestData = nil;
+        
+        //NSLog(@"Sign In: Query = %@", self.request.strRequestURL);
+        
+        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
+                                        methodType:DL_URLRequestMethod_Get
+                                        withParams:nil
+                                        withObject:self.request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+    }
+    else
+    {
+        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
+    }
+}
+
+
 #pragma mark - DL_URLServer Callbacks
 
 // this is the results callback from DLURLServer
@@ -706,7 +786,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
 
     if (status == DL_URLRequestStatus_Success)
     {
-        if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
+        if ([[strStatus lowercaseString] isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
         {
             // if this request had user data included in the response
             if ((request.type == SignInRequestType_SignInAnonymous) ||

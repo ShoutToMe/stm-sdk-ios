@@ -54,6 +54,9 @@ typedef enum eSTMSignInResult
 - (void)verifyWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
 - (void)setHandle:(NSString *)strHandle withDelegate:(id<STMSignInDelegate>)delegate;
 - (void)setHandle:(NSString *)strHandle withCompletionHandler:(void (^)(NSError *))completionHandler;
+- (void)setLastViewedMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate;
+- (void)setLastViewedMessages:(NSDate *)date withCompletionHandler:(void (^)(NSError *))completionHandler;
+- (void)getLastViewedMessageswithDelegate:(id<STMSignInDelegate>)delegate;
 - (void)processData:(NSDictionary *)dictData;
 
 @end
