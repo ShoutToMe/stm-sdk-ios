@@ -15,7 +15,7 @@
 #import "SignIn.h"
 #import "STM.h"
 
-#define USER_DATA_VERSION   1  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define USER_DATA_FILENAME              @"UserData"
 

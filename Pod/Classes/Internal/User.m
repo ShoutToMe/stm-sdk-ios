@@ -12,7 +12,7 @@
 #import "User.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   1  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
