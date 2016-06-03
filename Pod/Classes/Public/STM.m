@@ -28,6 +28,7 @@
 #import "UserData.h"
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
+#import "Messages.h"
 
 static BOOL bInitialized = NO;
 
@@ -90,6 +91,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         
         [RecordingSystem initAll];
         
+        [Messages initAll];
+        
         bInitialized = YES;
     }
     if (![[STM signIn] isSignedIn]) {
@@ -119,6 +122,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [DL_URLServer freeAll];
         [STMLocation freeAll];
         [RecordingSystem freeAll];
+        
+        [Messages freeAll];
         
         // release our singleton
         singleton = nil;
@@ -302,6 +307,11 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //    }
     
     return ([RecordingSystem controller]);
+}
+
++ (Messages *)messages
+{
+    return ([Messages controller]);
 }
 
 //+ (tSTMInternalURLType)urlType:(NSString *)strURL
