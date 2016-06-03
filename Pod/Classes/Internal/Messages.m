@@ -141,6 +141,33 @@ __strong static Messages *singleton = nil;
     }
 }
 
+- (void)requestForMessagesWithChannelId:(NSString *)channelId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate {
+    if (!_bPendingRequest)
+    {
+        MessagesRequest *request = [[MessagesRequest alloc] init];
+        request.delegate = delegate;
+        request.strURL = [NSString stringWithFormat:@"%@/%@?channel_id=%@&last_seen_date=%@",
+                          [Settings controller].strServerURL,
+                          SERVER_CMD_GET_MESSAGES,
+                          channelId,
+                          [Utils getISO8601String:lastSeenDate]];
+        
+        //NSLog(@"Messages: URL = %@", strURL);
+        
+        // create the request
+        _bPendingRequest = YES;
+        [[DL_URLServer controller] issueRequestURL:request.strURL
+                                        methodType:DL_URLRequestMethod_Get
+                                        withParams:nil
+                                        withObject:request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+    }
+}
+
 - (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndDelegate:(id<MessagesDelegate>)delegate {
     if (!_bPendingRequest)
     {
@@ -151,6 +178,33 @@ __strong static Messages *singleton = nil;
                           [Settings controller].strServerURL,
                           SERVER_CMD_GET_MESSAGES,
                           recipientId];
+        
+        //NSLog(@"Messages: URL = %@", strURL);
+        
+        // create the request
+        _bPendingRequest = YES;
+        [[DL_URLServer controller] issueRequestURL:request.strURL
+                                        methodType:DL_URLRequestMethod_Get
+                                        withParams:nil
+                                        withObject:request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+    }
+}
+
+- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate {
+    if (!_bPendingRequest)
+    {
+        MessagesRequest *request = [[MessagesRequest alloc] init];
+        request.delegate = delegate;
+        request.strURL = [NSString stringWithFormat:@"%@/%@?recipient_id=%@&last_seen_date=%@",
+                          [Settings controller].strServerURL,
+                          SERVER_CMD_GET_MESSAGES,
+                          recipientId,
+                          [Utils getISO8601String:lastSeenDate]];
         
         //NSLog(@"Messages: URL = %@", strURL);
         

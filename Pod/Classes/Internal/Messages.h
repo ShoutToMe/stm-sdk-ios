@@ -26,6 +26,8 @@
 
 - (void)requestForMessagesWithChannelId:(NSString *)channelId AndDelegate:(id<MessagesDelegate>)delegate;
 - (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndDelegate:(id<MessagesDelegate>)delegate;
+- (void)requestForMessagesWithChannelId:(NSString *)channelId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate;
+- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate;
 - (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
                                                                             NSError *error))completionHandler;
 - (void)cancelAllRequests;
