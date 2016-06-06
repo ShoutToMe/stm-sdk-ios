@@ -66,9 +66,9 @@ You’ll need your *Shout to Me access token* as well as your *Channel Id* to ac
 
     // Initialize Shout To Me SDK, Replace with your Shout to Me token
     [STM initWithAccessToken:@"STM_ACCESS_TOKEN"];
-
+    
     // Set your channel Id
-    [STM sharedInstance].channelId = @"CHANNEL_ID";
+    [STM setChannelId:@"CHANNEL_ID"];
 
     return YES;
 }

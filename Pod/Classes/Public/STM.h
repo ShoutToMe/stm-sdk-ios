@@ -43,6 +43,7 @@
 + (void)initWithAccessToken:(NSString *)token;
 + (void)saveAll;
 + (void)freeAll;
++ (void)setChannelId:(NSString *)channelId;
 
 /**
  Singleton instance accessors.
@@ -73,6 +74,7 @@
 //- (NSURLRequest *)urlRequestForPage:(NSString *)strPage;
 //- (NSURLRequest *)urlRequestForStats;
 //- (void)setChannel:(Channel *)channel;
+
 
 @end
 
