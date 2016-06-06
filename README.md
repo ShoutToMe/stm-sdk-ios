@@ -100,20 +100,22 @@ The SDK provides a STMRecordingOverlay view controller to simplify recording sho
 
 // Add a button and present the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
-    self.overlayController = [[STMRecordingOverlayViewController alloc] init];
-    self.overlayController.delegate = self;
-    [self presentViewController:self.overlayController animated:YES completion:nil];
-
+  self.overlayController = [[STMRecordingOverlayViewController alloc] init];
+  self.overlayController.delegate = self;
+  [self presentViewController:self.overlayController animated:YES completion:nil];
 }
 
 #pragma mark - STMRecordingOverlay delegate methods
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
-    if (err) {
-        NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
-        
-    } else {
-        NSLog(@"Shout Created with Id: %@", shout.str_id);
-    }
+  if (err) {
+    NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
+  } else {
+    NSLog(@"Shout Created with Id: %@", shout.str_id);
+  }
+}
+
+- (void)overlayClosed:(BOOL)bDismissed {
+    self.overlayController = nil;
 }
 
 ```
@@ -137,6 +139,14 @@ The STMRecordingOverlay delegate can be used to respond to recording events from
  * @param err - an error object
  */
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
+
+ /**
+ * overlayClosed
+ * Called when the STMRecordingOverlay has been closed
+ * @param bDismissed - true if the user clicked the top right close button or 
+ *                     the audio was too short.
+ */
+-(void)overlayClosed:(BOOL)bDismissed;
 
 @end
 ```
