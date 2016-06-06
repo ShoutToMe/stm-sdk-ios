@@ -1,6 +1,0 @@
-framework module STM {
-  umbrella header "STM-umbrella.h"
-
-  export *
-  module * { export * }
-}

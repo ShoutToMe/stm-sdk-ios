@@ -139,6 +139,18 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     [RecordingSystem saveAll];
 }
 
+
++ (void)setChannelId:(NSString *)channelId {
+    [[STM channels] requestForChannel:channelId completionHandler:^(STMChannel *channel, NSError *error) {
+        if (!error && channel) {
+            [STM sharedInstance].channelId = channel.strID;
+            [STM settings].channel.strID = channel.strID;
+            [[STM settings] setChannel:[channel copy]];
+            [[STM settings] save];
+        }
+    }];
+}
+
 // returns the singleton
 // (this call is both a container and an object class and the container holds one of itself)
 + (STM *)sharedInstance
@@ -426,9 +438,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     return [STM settings].channel.strID;
 }
 
-- (void)setChannelId:(NSString *)channelId {
-    [STM settings].channel.strID = channelId;
-}
 /*
 - (NSURLRequest *)urlRequestForStats
 {

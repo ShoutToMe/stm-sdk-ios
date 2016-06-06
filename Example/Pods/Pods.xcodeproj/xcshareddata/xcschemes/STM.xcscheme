@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3D137C9F6178FF14C83A0AD4'
+               BlueprintIdentifier = 'A89DD65C037FD4539ACA409F'
                BlueprintName = 'STM'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'STM.framework'>
+               BuildableName = 'libSTM.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
