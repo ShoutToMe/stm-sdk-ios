@@ -37,6 +37,7 @@ Then use `pod install` to install the pod and create an Xcode workspace.
 The STM SDK requires two keys be added to your app's Info.plist.
 
 [NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+
 [NSLocationWhenInUseUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)
 
 Both are strings and should be set to: "Your location is used to find shouts near you."
@@ -46,7 +47,7 @@ Both are strings and should be set to: "Your location is used to find shouts nea
 
 Edit AppDelegate.m :
 
-You’ll need your Shout to Me access token to access the API.
+You’ll need your *Shout to Me access token* as well as your *Channel Id* to access the API.
 
 ```objc
 #import "AppDelegate.h"
@@ -62,12 +63,12 @@ You’ll need your Shout to Me access token to access the API.
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     // Activates your app’s audio session.
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    // Replace with your Shout to Me token
-    [STM sharedInstance].accessToken = @"YOUR_ACCESS_TOKEN";
+
+    // Initialize Shout To Me SDK, Replace with your Shout to Me token
+    [STM initWithAccessToken:@"STM_ACCESS_TOKEN"];
+
     // Set your channel Id
     [STM sharedInstance].channelId = @"CHANNEL_ID";
-    // Initialize Shout To Me SDK
-    [STM initWithAccessToken:@"YourSTMAccessToken"];
 
     return YES;
 }
@@ -99,20 +100,22 @@ The SDK provides a STMRecordingOverlay view controller to simplify recording sho
 
 // Add a button and present the recording overlay when touched
 - (IBAction)RecordTouched:(id)sender {
-    self.overlayController = [[STMRecordingOverlayViewController alloc] init];
-    self.overlayController.delegate = self;
-    [self presentViewController:self.overlayController animated:YES completion:nil];
-
+  self.overlayController = [[STMRecordingOverlayViewController alloc] init];
+  self.overlayController.delegate = self;
+  [self presentViewController:self.overlayController animated:YES completion:nil];
 }
 
 #pragma mark - STMRecordingOverlay delegate methods
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
-    if (err) {
-        NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
-        
-    } else {
-        NSLog(@"Shout Created with Id: %@", shout.str_id);
-    }
+  if (err) {
+    NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
+  } else {
+    NSLog(@"Shout Created with Id: %@", shout.str_id);
+  }
+}
+
+- (void)overlayClosed:(BOOL)bDismissed {
+    self.overlayController = nil;
 }
 
 ```
@@ -136,6 +139,14 @@ The STMRecordingOverlay delegate can be used to respond to recording events from
  * @param err - an error object
  */
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
+
+ /**
+ * overlayClosed
+ * Called when the STMRecordingOverlay has been closed
+ * @param bDismissed - true if the user clicked the top right close button or 
+ *                     the audio was too short.
+ */
+-(void)overlayClosed:(BOOL)bDismissed;
 
 @end
 ```
