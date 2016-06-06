@@ -37,6 +37,7 @@ Then use `pod install` to install the pod and create an Xcode workspace.
 The STM SDK requires two keys be added to your app's Info.plist.
 
 [NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+
 [NSLocationWhenInUseUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)
 
 Both are strings and should be set to: "Your location is used to find shouts near you."
