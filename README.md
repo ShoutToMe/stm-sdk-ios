@@ -47,7 +47,7 @@ Both are strings and should be set to: "Your location is used to find shouts nea
 
 Edit AppDelegate.m :
 
-You’ll need your Shout to Me access token to access the API.
+You’ll need your Shout to Me access token as well as your channel Id to access the API.
 
 ```objc
 #import "AppDelegate.h"
@@ -63,12 +63,12 @@ You’ll need your Shout to Me access token to access the API.
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     // Activates your app’s audio session.
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    // Replace with your Shout to Me token
-    [STM sharedInstance].accessToken = @"YOUR_ACCESS_TOKEN";
+
+    // Initialize Shout To Me SDK, Replace with your Shout to Me token
+    [STM initWithAccessToken:@"YOUR_STM_ACCESS_TOKEN"];
+
     // Set your channel Id
     [STM sharedInstance].channelId = @"CHANNEL_ID";
-    // Initialize Shout To Me SDK
-    [STM initWithAccessToken:@"YourSTMAccessToken"];
 
     return YES;
 }
