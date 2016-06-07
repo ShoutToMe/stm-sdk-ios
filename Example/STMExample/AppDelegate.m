@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <STM.h>
 
 @interface AppDelegate ()
 
