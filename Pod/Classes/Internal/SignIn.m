@@ -25,8 +25,8 @@ typedef enum eSignInRequestType
     SignInRequestType_SignUp,
     SignInRequestType_VerifyAccount,
     SignInRequestType_SetHandle,
-    SignInRequestType_SetLastViewedMessages,
     SignInRequestType_GetLastViewedMessages,
+    SignInRequestType_SetLastReadMessages,
     SignInRequestType_VerificationCode,
     SignInRequestType_CheckAuthCode
 } tSignInRequestType;
@@ -671,7 +671,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     }
 }
 
-- (void)setLastViewedMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
+- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
     if (self.request == nil)
     {
         NSString *strDate = [Utils getISO8601String:date];
@@ -679,7 +679,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
         
         self.request = [[SignInRequest alloc] init];
         self.request.delegate = delegate;
-        self.request.type = SignInRequestType_SetLastViewedMessages;
+        self.request.type = SignInRequestType_SetLastReadMessages;
         
         // set the json data
         self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_READ_MESSAGES_KEY : strDate }];
