@@ -12,7 +12,7 @@
 #import "User.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   3  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
@@ -43,7 +43,7 @@
         self.strPhoneNumber = @"";
         self.strUserID = @"";
         self.strHandle = @"";
-        self.dateLastViewedMessages = [NSDate date];
+        self.dateLastReadMessages = [NSDate date];
     }
     return self;
 }
@@ -62,7 +62,7 @@
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
-            self.dateLastViewedMessages
+            self.dateLastReadMessages
             ]);
 }
 
@@ -118,11 +118,11 @@
             NSDate  *dateVal = [aDecoder decodeObjectForKey:KEY_USER_LAST_VIEWED_MESSAGES];
             if (dateVal)
             {
-                self.dateLastViewedMessages = dateVal;
+                self.dateLastReadMessages = dateVal;
             }
             else
             {
-                self.dateLastViewedMessages = [NSDate date];
+                self.dateLastReadMessages = [NSDate date];
             }
         }
     }
@@ -138,7 +138,7 @@
     [aCoder encodeObject:self.strPhoneNumber forKey:KEY_USER_PHONE_NUMBER];
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
-    [aCoder encodeObject:self.dateLastViewedMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
+    [aCoder encodeObject:self.dateLastReadMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
 }
 
 #pragma mark - Misc Methods
@@ -150,7 +150,7 @@
         self.strUserID = [Utils stringFromKey:@"id" inDictionary:dict];
         self.strHandle = [Utils stringFromKey:@"handle" inDictionary:dict];
         self.bVerified = [Utils boolFromKey:@"verified" inDictionary:dict];
-        self.dateLastViewedMessages = [Utils dateFromString:[Utils stringFromKey:@"last_viewed_messages" inDictionary:dict]];
+        self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:@"last_read_messages_date" inDictionary:dict]];
     }
 }
 

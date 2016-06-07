@@ -14,6 +14,7 @@
 @optional
 
 - (void)MessagesResults:(NSArray *)arrayMessages;
+- (void)UnreadMessageResults:(NSNumber *)count;
 
 @end
 
@@ -24,10 +25,8 @@
 
 + (Messages *)controller;
 
-- (void)requestForMessagesWithChannelId:(NSString *)channelId AndDelegate:(id<MessagesDelegate>)delegate;
-- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndDelegate:(id<MessagesDelegate>)delegate;
-- (void)requestForMessagesWithChannelId:(NSString *)channelId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate;
-- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate;
+- (void)requestForMessagesWithDelegate:(id<MessagesDelegate>)delegate;
+- (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate>)delegate;
 - (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
                                                                             NSError *error))completionHandler;
 - (void)cancelAllRequests;

@@ -53,7 +53,7 @@
 #define SERVER_LAT_KEY                          @"lat"
 #define SERVER_LON_KEY                          @"lon"
 #define SERVER_HANDLE_KEY                       @"handle"
-#define SERVER_LAST_VIEWED_MESSAGES_KEY         @"last_viewed_messages"
+#define SERVER_LAST_READ_MESSAGES_KEY           @"last_read_messages_date"
 #define SERVER_COURSE_KEY                       @"course"
 #define SERVER_SPEED_KEY                        @"speed"
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
@@ -96,7 +96,7 @@
 #define SERVER_RESULTS_MARKET_KEY               @"market"
 #define SERVER_RESULTS_MARKET_NAME_KEY          @"name"
 #define SERVER_RESULTS_MARKET_SUPPORTED_KEY     @"supported"
-#define SERVER_RESULTS_LAST_VIEWED_MESSAGES_KEY @"last_viewed_messages"
+#define SERVER_RESULTS_LAST_READ_MESSAGES_KEY @"last_read_messages_date"
 
 
 #define SERVER_GET_SHOUTS_CHANNEL_ID_ARG        @"channel_id"
