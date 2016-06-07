@@ -12,6 +12,13 @@
 #import "DL_URLServer.h"
 #import "Server.h"
 
+typedef enum eRequestType
+{
+    RequestType_None = 0,
+    RequestType_MessageCount,
+    RequestType_Messages
+} tRequestType;
+
 static BOOL bInitialized = NO;
 
 __strong static Messages *singleton = nil;
@@ -21,6 +28,7 @@ __strong static Messages *singleton = nil;
 }
 @property (nonatomic, weak)     id<MessagesDelegate>    delegate;
 @property (nonatomic, copy)     NSString                *strURL;
+@property (nonatomic, assign)   tRequestType            type;
 
 @end
 
@@ -93,7 +101,7 @@ __strong static Messages *singleton = nil;
 {
     NSMutableArray *arrayMessages = [[NSMutableArray alloc] init];
     
-    if ([results isKindOfClass:[NSDictionary class]] && ((NSDictionary *)results).count >= 1)
+    if ([results isKindOfClass:[NSDictionary class]])
     {
         STMMessage *message = [[STMMessage alloc] initWithDictionary:(NSDictionary *)results];
         [arrayMessages addObject:message];
@@ -113,16 +121,15 @@ __strong static Messages *singleton = nil;
 
 #pragma mark - Public Methods
 
-// request message list from server
-- (void)requestForMessagesWithChannelId:(NSString *)channelId AndDelegate:(id<MessagesDelegate>)delegate {
+- (void)requestForMessagesWithDelegate:(id<MessagesDelegate>)delegate {
     if (!_bPendingRequest)
     {
         MessagesRequest *request = [[MessagesRequest alloc] init];
+        request.type = RequestType_Messages;
         request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@?channel_id=%@",
-                                  [Settings controller].strServerURL,
-                                  SERVER_CMD_GET_MESSAGES,
-                                  channelId];
+        request.strURL = [NSString stringWithFormat:@"%@/%@",
+                          [Settings controller].strServerURL,
+                          SERVER_CMD_GET_MESSAGES];
         
         //NSLog(@"Messages: URL = %@", strURL);
         
@@ -140,69 +147,16 @@ __strong static Messages *singleton = nil;
     }
 }
 
-- (void)requestForMessagesWithChannelId:(NSString *)channelId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate {
+- (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate>)delegate {
     if (!_bPendingRequest)
     {
         MessagesRequest *request = [[MessagesRequest alloc] init];
         request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@?channel_id=%@&last_seen_date=%@",
+        request.type = RequestType_MessageCount;
+        request.strURL = [NSString stringWithFormat:@"%@/%@/%@",
                           [Settings controller].strServerURL,
                           SERVER_CMD_GET_MESSAGES,
-                          channelId,
-                          [Utils getISO8601String:lastSeenDate]];
-        
-        //NSLog(@"Messages: URL = %@", strURL);
-        
-        // create the request
-        _bPendingRequest = YES;
-        [[DL_URLServer controller] issueRequestURL:request.strURL
-                                        methodType:DL_URLRequestMethod_Get
-                                        withParams:nil
-                                        withObject:request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-}
-
-- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndDelegate:(id<MessagesDelegate>)delegate {
-    if (!_bPendingRequest)
-    {
-        MessagesRequest *request = [[MessagesRequest alloc] init];
-        request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@?recipient_id=%@",
-                          [Settings controller].strServerURL,
-                          SERVER_CMD_GET_MESSAGES,
-                          recipientId];
-        
-        //NSLog(@"Messages: URL = %@", strURL);
-        
-        // create the request
-        _bPendingRequest = YES;
-        [[DL_URLServer controller] issueRequestURL:request.strURL
-                                        methodType:DL_URLRequestMethod_Get
-                                        withParams:nil
-                                        withObject:request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-}
-
-- (void)requestForMessagesWithRecipientId:(NSString *)recipientId AndLastSeenDate:(NSDate *)lastSeenDate AndDelegate:(id<MessagesDelegate>)delegate {
-    if (!_bPendingRequest)
-    {
-        MessagesRequest *request = [[MessagesRequest alloc] init];
-        request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@?recipient_id=%@&last_seen_date=%@",
-                          [Settings controller].strServerURL,
-                          SERVER_CMD_GET_MESSAGES,
-                          recipientId,
-                          [Utils getISO8601String:lastSeenDate]];
+                          @"?count_only=true&unread=true"];
         
         //NSLog(@"Messages: URL = %@", strURL);
         
@@ -298,15 +252,19 @@ __strong static Messages *singleton = nil;
         //NSLog(@"decode: %@", dictResults);
         
         NSArray *arrayMessages = nil;
+        NSNumber *messageCount = 0;
         
         if (status == DL_URLRequestStatus_Success)
         {
             if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
             {
                 NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
-                if (dictData)
-                {
-                    arrayMessages = [self processMessagesResults:[dictData objectForKey:@"messages"]];
+                if (dictData) {
+                    if (request.type == RequestType_Messages) {
+                        arrayMessages = [self processMessagesResults:[dictData objectForKey:@"messages"]];
+                    } else if (request.type == RequestType_MessageCount) {
+                        messageCount = [NSNumber numberWithInt:[Utils intFromKey:@"count" inDictionary:dictData]];
+                    }
                 }
             }
             else
@@ -321,10 +279,17 @@ __strong static Messages *singleton = nil;
         
         if (request.delegate)
         {
-            if ([request.delegate respondsToSelector:@selector(MessagesResults:)])
-            {
-                [request.delegate MessagesResults:arrayMessages];
+            if (request.type == RequestType_Messages) {
+                if ([request.delegate respondsToSelector:@selector(MessagesResults:)])
+                {
+                    [request.delegate MessagesResults:arrayMessages];
+                }
+            } else if (request.type == RequestType_MessageCount) {
+                if ([request.delegate respondsToSelector:@selector(UnreadMessageResults:)]) {
+                    [request.delegate UnreadMessageResults:messageCount];
+                }
             }
+            
         }
     }
     

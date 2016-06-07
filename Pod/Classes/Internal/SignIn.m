@@ -165,9 +165,9 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             {
                 [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];
             }
-            NSDate *dateLastViewedMessages = [dictUser objectForKey:SERVER_RESULTS_LAST_VIEWED_MESSAGES_KEY];
+            NSDate *dateLastViewedMessages = [dictUser objectForKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY];
             if (dateLastViewedMessages) {
-                [[UserData controller].user setDateLastViewedMessages:[Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_VIEWED_MESSAGES_KEY inDictionary:dictUser]]];
+                [[UserData controller].user setDateLastReadMessages:[Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY inDictionary:dictUser]]];
             }
             NSString *strAffiliateID = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_KEY];
             if (strAffiliateID)
@@ -675,14 +675,14 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     if (self.request == nil)
     {
         NSString *strDate = [Utils getISO8601String:date];
-        [[UserData controller] setLastViewedMessages:date];
+        [[UserData controller] setLastReadMessages:date];
         
         self.request = [[SignInRequest alloc] init];
         self.request.delegate = delegate;
         self.request.type = SignInRequestType_SetLastViewedMessages;
         
         // set the json data
-        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_VIEWED_MESSAGES_KEY : strDate }];
+        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_READ_MESSAGES_KEY : strDate }];
         NSError *error = nil;
         NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
         NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];

@@ -32,7 +32,7 @@
 - (NSDictionary *)dictStandardRequestHeaders;
 - (void)setHandle:(NSString *)strHandle;
 - (void)setPhone:(NSString *)strPhone;
-- (void)setLastViewedMessages:(NSDate *)date;
+- (void)setLastReadMessages:(NSDate *)date;
 - (void)save;
 - (void)signIn;
 

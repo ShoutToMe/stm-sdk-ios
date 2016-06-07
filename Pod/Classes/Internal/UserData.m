@@ -315,8 +315,8 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
     [self save];
 }
 
-- (void)setLastViewedMessages:(NSDate *)date {
-    self.user.dateLastViewedMessages = date;
+- (void)setLastReadMessages:(NSDate *)date {
+    self.user.dateLastReadMessages = date;
     [self save];
 }
 
