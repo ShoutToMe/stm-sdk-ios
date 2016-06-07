@@ -7,11 +7,8 @@
 //
 
 #import "ViewController.h"
-#import <STMRecordingOverlayViewController.h>
 
 @interface ViewController ()
-@property (nonatomic, strong) STMRecordingOverlayViewController *overlayController;
-@property (weak, nonatomic) IBOutlet UITextField *handleTextField;
 @end
 
 @implementation ViewController
