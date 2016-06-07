@@ -25,8 +25,7 @@ typedef enum eSignInRequestType
     SignInRequestType_SignUp,
     SignInRequestType_VerifyAccount,
     SignInRequestType_SetHandle,
-    SignInRequestType_SetLastViewedMessages,
-    SignInRequestType_GetLastViewedMessages,
+    SignInRequestType_SetLastReadMessages,
     SignInRequestType_VerificationCode,
     SignInRequestType_CheckAuthCode
 } tSignInRequestType;
@@ -671,7 +670,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     }
 }
 
-- (void)setLastViewedMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
+- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
     if (self.request == nil)
     {
         NSString *strDate = [Utils getISO8601String:date];
@@ -679,7 +678,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
         
         self.request = [[SignInRequest alloc] init];
         self.request.delegate = delegate;
-        self.request.type = SignInRequestType_SetLastViewedMessages;
+        self.request.type = SignInRequestType_SetLastReadMessages;
         
         // set the json data
         self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_READ_MESSAGES_KEY : strDate }];
@@ -709,41 +708,6 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
         [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
     }
 }
-
-- (void)getLastViewedMessageswithDelegate:(id<STMSignInDelegate>)delegate {
-    if (self.request == nil)
-    {
-        self.request = [[SignInRequest alloc] init];
-        self.request.delegate = delegate;
-        self.request.type = SignInRequestType_GetLastViewedMessages;
-        
-        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
-                                      [Settings controller].strServerURL,
-                                      SERVER_CMD_PERSONALIZE,
-                                      [STM currentUser].strUserID
-                                      ];
-        
-        // set the json data
-        self.request.dictRequestData = nil;
-        
-        //NSLog(@"Sign In: Query = %@", self.request.strRequestURL);
-        
-        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
-                                        methodType:DL_URLRequestMethod_Get
-                                        withParams:nil
-                                        withObject:self.request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-    else
-    {
-        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
-    }
-}
-
 
 #pragma mark - DL_URLServer Callbacks
 
