@@ -2,7 +2,7 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/STM.svg)](https://cocoapods.org/pods/STM)
 # Shout to Me iOS SDK
 
-[Documenation](https://github.com/ShoutToMe/stm-sdk-ios/wiki)
+[Documentation](https://github.com/ShoutToMe/stm-sdk-ios/wiki)
 
 
 ##Release Workflow
