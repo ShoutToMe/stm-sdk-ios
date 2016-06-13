@@ -16,6 +16,7 @@
 @property (nonatomic, copy)   NSString          *strUserID;
 @property (nonatomic, copy)   NSString          *strHandle;
 @property (nonatomic, copy)   NSDate            *dateLastReadMessages;
+@property (nonatomic, copy)   NSString          *strPlatformEndpointArn;
 
 - (id)initWithDictionary:(NSDictionary *)dictMessage;
 

@@ -15,7 +15,7 @@
 #import "SignIn.h"
 #import "STM.h"
 
-#define USER_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   3  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define USER_DATA_FILENAME              @"UserData"
 
@@ -192,6 +192,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
         [self.user setStrPhoneNumber:@""];
         [self.user setStrUserID:@""];
         [self.user setStrHandle:@""];
+        [self.user setStrPlatformEndpointArn:@""];
         [self save];
     }
 
@@ -317,6 +318,11 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
 
 - (void)setLastReadMessages:(NSDate *)date {
     self.user.dateLastReadMessages = date;
+    [self save];
+}
+
+- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn {
+    self.user.strPlatformEndpointArn = platformEndpointArn;
     [self save];
 }
 

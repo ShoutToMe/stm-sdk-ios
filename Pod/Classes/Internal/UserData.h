@@ -33,6 +33,7 @@
 - (void)setHandle:(NSString *)strHandle;
 - (void)setPhone:(NSString *)strPhone;
 - (void)setLastReadMessages:(NSDate *)date;
+- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn;
 - (void)save;
 - (void)signIn;
 

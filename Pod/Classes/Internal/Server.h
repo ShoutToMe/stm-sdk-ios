@@ -59,6 +59,7 @@
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
 #define SERVER_TAGS_KEY                         @"tags"
 #define SERVER_TOPIC_KEY                        @"topic"
+#define SERVER_PLATFORM_ENDPOINT_ARN_KEY        @"platform_endpoint_arn"
 
 #define SERVER_VERIFY_PHONE_ARG                 @"phone"
 

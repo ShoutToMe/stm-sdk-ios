@@ -12,7 +12,7 @@
 #import "User.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   3  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   4  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
@@ -21,6 +21,7 @@
 #define KEY_USER_USER_ID                @"UserUserId"
 #define KEY_USER_HANDLE                 @"UserHandle"
 #define KEY_USER_LAST_VIEWED_MESSAGES   @"UserLastViewedMessages"
+#define KEY_PLATFORM_ENDPOINT_ARN       @"UserPlatformEndpointARN"
 
 @interface User ()
 {
@@ -44,6 +45,7 @@
         self.strUserID = @"";
         self.strHandle = @"";
         self.dateLastReadMessages = [NSDate date];
+        self.strPlatformEndpointArn = @"";
     }
     return self;
 }
@@ -56,13 +58,14 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@, PlatformEndpointARN: %@",
             self.strUserID,
             self.strHandle,
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
-            self.dateLastReadMessages
+            self.dateLastReadMessages,
+            self.strPlatformEndpointArn
             ]);
 }
 
@@ -124,6 +127,16 @@
             {
                 self.dateLastReadMessages = [NSDate date];
             }
+
+            strVal = [aDecoder decodeObjectForKey:KEY_PLATFORM_ENDPOINT_ARN];
+            if (strVal)
+            {
+                self.strPlatformEndpointArn = strVal;
+            }
+            else
+            {
+                self.strPlatformEndpointArn = @"";
+            }
         }
     }
 
@@ -139,6 +152,7 @@
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
     [aCoder encodeObject:self.dateLastReadMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
+    [aCoder encodeObject:self.strPlatformEndpointArn forKey:KEY_PLATFORM_ENDPOINT_ARN];
 }
 
 #pragma mark - Misc Methods
@@ -151,6 +165,9 @@
         self.strHandle = [Utils stringFromKey:@"handle" inDictionary:dict];
         self.bVerified = [Utils boolFromKey:@"verified" inDictionary:dict];
         self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:@"last_read_messages_date" inDictionary:dict]];
+        if ([dict objectForKey:@"platform_endpoint_arn"] != nil) {
+            self.strPlatformEndpointArn = [Utils stringFromKey:@"platform_endpoint_arn" inDictionary:dict];
+        }
     }
 }
 

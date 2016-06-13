@@ -26,6 +26,7 @@ typedef enum eSignInRequestType
     SignInRequestType_VerifyAccount,
     SignInRequestType_SetHandle,
     SignInRequestType_SetLastReadMessages,
+    SignInRequestType_SetPlatformEndpointARN,
     SignInRequestType_VerificationCode,
     SignInRequestType_CheckAuthCode
 } tSignInRequestType;
@@ -706,6 +707,110 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     else
     {
         [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
+    }
+}
+
+- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withDelegate:(id<STMSignInDelegate>)delegate {
+    if (self.request == nil)
+    {
+        [[UserData controller] setPlatformEndpointArn: platformEndpointArn];
+
+        self.request = [[SignInRequest alloc] init];
+        self.request.delegate = delegate;
+        self.request.type = SignInRequestType_SetPlatformEndpointARN;
+
+        // set the json data
+        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_PLATFORM_ENDPOINT_ARN_KEY : platformEndpointArn }];
+        NSError *error = nil;
+        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
+
+        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
+                                      [Settings controller].strServerURL,
+                                      SERVER_CMD_PERSONALIZE,
+                                      [UserData controller].user.strUserID
+                                      ];
+        //NSLog(@"Personalize: Query = %@, JSON = %@", strServerQuery, strJSON);
+
+        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
+                                        methodType:DL_URLRequestMethod_Put
+                                        withParams:strJSON
+                                        withObject:self.request
+                                      withDelegate:self
+                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                       cacheResult:NO
+                                       contentType:CONTENT_TYPE
+                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
+    }
+    else
+    {
+        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
+    }
+}
+
+- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withCompletionHandler:(void (^)(NSError *))completionHandler {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@",
+                                       [Settings controller].strServerURL,
+                                       SERVER_CMD_PERSONALIZE,
+                                       [UserData controller].user.strUserID
+                                       ]];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSDictionary *headers = [[UserData controller] dictStandardRequestHeaders];
+    [headers setValue:@"application/json" forKey:@"Content-Type"];
+    [config setHTTPAdditionalHeaders:headers];
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"PUT";
+    NSDictionary *dictionary = @{SERVER_PLATFORM_ENDPOINT_ARN_KEY: platformEndpointArn};
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                   options:kNilOptions error:&error];
+
+    if (!error) {
+        NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+                                                                   fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+                                                                       // Check to make sure the server didn't respond with a "Not Authorized"
+                                                                       if ([response respondsToSelector:@selector(statusCode)]) {
+                                                                           if ([(NSHTTPURLResponse *) response statusCode] == 401) {
+                                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                   // Remind the user to update the API Key
+                                                                                   UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Shout To Me API accessToken required"
+                                                                                                                                    message:@"Be sure to set your STM accessToken."
+                                                                                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                                                   [alert show];
+                                                                                   return;
+                                                                               });
+                                                                           }
+                                                                       }
+
+                                                                       if (!error) {
+                                                                           NSDictionary *dictResults = nil;
+                                                                           NSString *strJSONResults = nil;
+
+                                                                           if (data)
+                                                                           {
+                                                                               if ([data length])
+                                                                               {
+                                                                                   strJSONResults = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+                                                                                   if ([Utils stringIsSet:strJSONResults])
+                                                                                   {
+                                                                                       NSData *jsonData = [strJSONResults dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+                                                                                       dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+                                                                                       [[SignIn controller] processData:[dictResults objectForKey:SERVER_RESULTS_DATA_KEY]];
+                                                                                       completionHandler(error);
+                                                                                   }
+                                                                               }
+                                                                           }
+
+                                                                       } else {
+                                                                           completionHandler(error);
+                                                                       }
+                                                                   }];
+        [uploadTask resume];
+    } else {
+        completionHandler(error);
     }
 }
 
