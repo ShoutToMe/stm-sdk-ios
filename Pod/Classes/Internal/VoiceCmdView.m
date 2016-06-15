@@ -580,11 +580,13 @@ typedef enum eVoiceCmdAfterSound
 
 -(void)recorderDetectedSpeech
 {
+    [self setTitle:@"Listening..."];
     [self.silenceTimer invalidate];
     self.bSilence = NO;
     if ([self.dataTempAudio length] > 0)
     {
         [self.dataAudio appendData:self.dataTempAudio];
+        [self.dataTempAudio setLength:0];
     }
 
     
@@ -614,6 +616,7 @@ typedef enum eVoiceCmdAfterSound
 
 -(void)recorderVadStoppedTalking
 {
+    [self setTitle:@"Done Talking?"];
     self.bSilence = YES;
     self.silenceTimer = [NSTimer scheduledTimerWithTimeInterval:MAX_SILENCE_WAIT_TIME_SECS target:self selector:@selector(silenceTimerFired) userInfo:nil repeats:NO];
 }
