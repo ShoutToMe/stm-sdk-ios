@@ -585,6 +585,7 @@ typedef enum eVoiceCmdAfterSound
     if ([self.dataTempAudio length] > 0)
     {
         [self.dataAudio appendData:self.dataTempAudio];
+        [self.dataTempAudio setLength:0];
     }
 
     
