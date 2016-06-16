@@ -174,6 +174,10 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             {
                 [[Settings controller] setStrAffiliateID:strAffiliateID];
             }
+            NSString *strPlatformEndpointARN = [dictUser objectForKey:SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY];
+            if (strPlatformEndpointARN) {
+                [[UserData controller].user setStrPlatformEndpointArn:strPlatformEndpointARN];
+            }
             NSDictionary *dictAffiliate = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_DATA_KEY];
             if (dictAffiliate)
             {

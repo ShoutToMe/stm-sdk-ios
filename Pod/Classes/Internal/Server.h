@@ -97,7 +97,8 @@
 #define SERVER_RESULTS_MARKET_KEY               @"market"
 #define SERVER_RESULTS_MARKET_NAME_KEY          @"name"
 #define SERVER_RESULTS_MARKET_SUPPORTED_KEY     @"supported"
-#define SERVER_RESULTS_LAST_READ_MESSAGES_KEY @"last_read_messages_date"
+#define SERVER_RESULTS_LAST_READ_MESSAGES_KEY       @"last_read_messages_date"
+#define SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY    @"platform_endpoint_arn"
 
 
 #define SERVER_GET_SHOUTS_CHANNEL_ID_ARG        @"channel_id"
