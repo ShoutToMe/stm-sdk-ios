@@ -39,7 +39,6 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 
 @interface Channels () <DL_URLRequestDelegate>
 {
-    BOOL _bPendingRequest;
 }
 
 @end
@@ -85,7 +84,7 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
     self = [super init];
     if (self)
 	{
-        _bPendingRequest = NO;
+
     }
     return self;
 }
@@ -125,26 +124,22 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 // request channel list from server
 - (void)requestForChannelsWithDelegate:(id<ChannelsDelegate>)delegate
 {
-    if (!_bPendingRequest)
-    {
-        ChannelsRequest *request = [[ChannelsRequest alloc] init];
-        request.delegate = delegate;
-        request.strURL = [NSString stringWithFormat:@"%@/%@", [Settings controller].strServerURL, SERVER_CMD_GET_CHANNELS];
-
-        //NSLog(@"Channels: URL = %@", strURL);
-
-        // create the request
-        _bPendingRequest = YES;
-        [[DL_URLServer controller] issueRequestURL:request.strURL
-                                        methodType:DL_URLRequestMethod_Get
-                                        withParams:nil
-                                        withObject:request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
+    ChannelsRequest *request = [[ChannelsRequest alloc] init];
+    request.delegate = delegate;
+    request.strURL = [NSString stringWithFormat:@"%@/%@", [Settings controller].strServerURL, SERVER_CMD_GET_CHANNELS];
+    
+    //NSLog(@"Channels: URL = %@", strURL);
+    
+    // create the request
+    [[DL_URLServer controller] issueRequestURL:request.strURL
+                                    methodType:DL_URLRequestMethod_Get
+                                    withParams:nil
+                                    withObject:request
+                                  withDelegate:self
+                            acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
+                                   cacheResult:NO
+                                   contentType:CONTENT_TYPE
+                                headerRequests:[[UserData controller] dictStandardRequestHeaders]];
 }
 
 - (void)requestForChannel:(NSString *)channelID completionHandler:(void (^)(STMChannel *channel,
@@ -203,7 +198,6 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 - (void)cancelAllRequests
 {
     [[DL_URLServer controller] cancelAllRequestsForDelegate:self];
-    _bPendingRequest = NO;
 }
 
 #pragma mark - DL_URLServer Callbacks
@@ -211,52 +205,47 @@ __strong static Channels *singleton = nil; // this will be the one and only obje
 // this is the results callback from DLURLServer
 - (void)onDL_URLRequestCompleteWithStatus:(tDL_URLRequestStatus)status resultData:(NSData *)data resultObj:(id)object
 {
-    if (_bPendingRequest)
+    ChannelsRequest *request = (ChannelsRequest *)object;
+    
+    NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+    
+    //NSLog(@"Channels: Results download returned: %@", jsonString );
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+    NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+    
+    //NSLog(@"decode: %@", dictResults);
+    
+    NSArray *arrayChannels = nil;
+    
+    if (status == DL_URLRequestStatus_Success)
     {
-        ChannelsRequest *request = (ChannelsRequest *)object;
-
-        NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-
-        //NSLog(@"Channels: Results download returned: %@", jsonString );
-
-        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-        NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
-
-        //NSLog(@"decode: %@", dictResults);
-
-        NSArray *arrayChannels = nil;
-
-        if (status == DL_URLRequestStatus_Success)
+        if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
         {
-            if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
+            NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
+            if (dictData)
             {
-                NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
-                if (dictData)
-                {
-                    arrayChannels = [self processChannelsResults:[dictData objectForKey:@"channels"]];
-                }
-            }
-            else
-            {
-                STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Status check failed.", @"Channel request failed.", request.strURL, nil, jsonString);
+                arrayChannels = [self processChannelsResults:[dictData objectForKey:@"channels"]];
             }
         }
         else
         {
-            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Channel request failed.", request.strURL, nil, jsonString);
-        }
-
-        if (request.delegate)
-        {
-            if ([request.delegate respondsToSelector:@selector(ChannelsResults:)])
-            {
-                [request.delegate ChannelsResults:arrayChannels];
-            }
+            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Status check failed.", @"Channel request failed.", request.strURL, nil, jsonString);
         }
     }
-
-    _bPendingRequest = NO;
+    else
+    {
+        STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Channel request failed.", request.strURL, nil, jsonString);
+    }
+    
+    if (request.delegate)
+    {
+        if ([request.delegate respondsToSelector:@selector(ChannelsResults:)])
+        {
+            [request.delegate ChannelsResults:arrayChannels];
+        }
+    }
 }
 
 @end
