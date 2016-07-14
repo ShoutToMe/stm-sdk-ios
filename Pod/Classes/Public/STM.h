@@ -28,6 +28,7 @@
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
 #import "Messages.h"
+#import "Subscriptions.h"
 
 @protocol STMDelegate;
 
@@ -66,6 +67,7 @@
 + (AudioSystem *)audioSystem;
 + (RecordingSystem *)recordingSystem;
 + (Messages *)messages;
++ (Subscriptions *)subscriptions;
 //+ (tSTMInternalURLType)urlType:(NSString *)strURL;
 //+ (BOOL)stringIsSet:(NSString *)strString;
 
