@@ -43,7 +43,7 @@
         self.strSenderId = @"";
         self.strRecipientId = @"";
         self.strMessage = @"";
-        self.strShoutId = @"";
+        self.strConversationId = @"";
     }
     return self;
 }
@@ -60,13 +60,13 @@
 
 - (NSString *)description
 {
-    NSString *strDesc = [NSString stringWithFormat:@"Message - id: %@, channel_id: %@, sender_id: %@, recipient_id: %@, message: %@, shout_id: %@",
+    NSString *strDesc = [NSString stringWithFormat:@"Message - id: %@, channel_id: %@, sender_id: %@, recipient_id: %@, message: %@, conversation_id: %@",
                          self.strID,
                          self.strChannelId,
                          self.strSenderId,
                          self.strRecipientId,
                          self.strMessage,
-                         self.strShoutId
+                         self.strConversationId
                          ];
     
     return strDesc;
@@ -83,7 +83,7 @@
         self.strSenderId = [Utils stringFromKey:@"sender_id" inDictionary:dictMessage];
         self.strRecipientId = [Utils stringFromKey:@"recipient_id" inDictionary:dictMessage];
         self.strMessage = [Utils stringFromKey:@"message" inDictionary:dictMessage];
-        self.strShoutId = [Utils stringFromKey:@"shout_id" inDictionary:dictMessage];
+        self.strConversationId = [Utils stringFromKey:@"conversation_id" inDictionary:dictMessage];
         self.dateCreated = [Utils dateFromString:[Utils stringFromKey:@"created_date" inDictionary:dictMessage]];
         self.channel = [self channelFromKey:@"channel" inDictionary:dictMessage];
         self.recipient = [self userFromKey:@"recipient" inDictionary:dictMessage];
