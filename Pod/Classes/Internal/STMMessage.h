@@ -18,7 +18,7 @@
 @property (nonatomic, copy)     NSString                    *strSenderId;
 @property (nonatomic, copy)     NSString                    *strRecipientId;
 @property (nonatomic, copy)     NSString                    *strMessage;
-@property (nonatomic, copy)     NSString                    *strShoutId;
+@property (nonatomic, copy)     NSString                    *strConversationId;
 @property (nonatomic, copy)     STMChannel                  *channel;
 @property (nonatomic, retain)   User                        *sender;
 @property (nonatomic, retain)   User                        *recipient;

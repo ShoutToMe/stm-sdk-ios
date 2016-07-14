@@ -29,6 +29,7 @@
 - (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate>)delegate;
 - (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
                                                                             NSError *error))completionHandler;
+- (void)requestForCreateMessageForChannelId:(NSString *)channelId ToRecipientId:(NSString *)recipientId WithConversationId:(NSString *)conversationId AndMessage:(NSString *)message completionHandler:(void (^)(STMMessage *message, NSError *error))completionHandler;
 - (void)cancelAllRequests;
 
 
