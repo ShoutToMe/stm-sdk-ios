@@ -75,6 +75,10 @@
 		DD2095C9423194F64FF8FE221164215F /* STMShout.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D43AC83CC5921562B953923FA9AD4B /* STMShout.m */; };
 		DD5379FF5041815EE56CF80B9557ACF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		E23CAAC04DCE2B8669A5DE56074D6655 /* AudioSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D647F70A2B9406DFFF18FABE903ED44F /* AudioSystem.m */; };
+		E49A436D1D2DBCD300F5DC80 /* STMSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E49A436E1D2DBCD300F5DC80 /* STMSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */; };
+		E49A43711D2DC3DF00F5DC80 /* Subscriptions.h in Headers */ = {isa = PBXBuildFile; fileRef = E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E49A43721D2DC3DF00F5DC80 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */; };
 		E65648723E2B5DF2D98E8AB39EB44878 /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = 841471CBA474F9C681D2712AD5DD33CF /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7EF9E85CC14F5882E4BB40EFF682B9D /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 451174BC0A331DCA3DA5C1F7A2F5996A /* undo.caf */; };
 		E9D39E8AF0249B0E7FC42EE5B47ADA68 /* AudioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 433977C87EAF6EB5514A525B091E293E /* AudioElement.m */; };
@@ -182,6 +186,10 @@
 		DBA2A72948E87CF04AF22D2FA79FEBAE /* STMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMMessage.h; sourceTree = "<group>"; };
 		DDAB7065B887A7D3B0C5B9E05994D089 /* StandardButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = StandardButton.m; sourceTree = "<group>"; };
 		E13399AB05AA92B7CCA25517B0B91430 /* AppUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMSubscription.h; sourceTree = "<group>"; };
+		E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMSubscription.m; sourceTree = "<group>"; };
+		E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscriptions.h; sourceTree = "<group>"; };
+		E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscriptions.m; sourceTree = "<group>"; };
 		E74D9463DA9230AF433DCCAAC4A1DF2A /* VoiceCmdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VoiceCmdView.h; sourceTree = "<group>"; };
 		E76F96738CA8D6011946940DFDDD7F74 /* SendShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SendShout.m; sourceTree = "<group>"; };
 		EDBFC23E03AF7D0173C854435B817AA5 /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
@@ -277,6 +285,10 @@
 				E74D9463DA9230AF433DCCAAC4A1DF2A /* VoiceCmdView.h */,
 				4179E8595F92CB81F3B38F9A84F828F5 /* VoiceCmdView.m */,
 				61E9749B9D784AA7249A530F915D129A /* GraphView */,
+				E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */,
+				E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */,
+				E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */,
+				E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -479,6 +491,7 @@
 				63E2F62D75460F140D58379134648FBC /* AudioSystem.h in Headers */,
 				318769CCBC451C5CA2E78E232A3DFD04 /* Channels.h in Headers */,
 				8BD208C3C42CBBBA3A16D7282EC800E3 /* CircleProgressBar.h in Headers */,
+				E49A43711D2DC3DF00F5DC80 /* Subscriptions.h in Headers */,
 				87A065237AF54154BA58F9E07BF152E9 /* DL_URLServer.h in Headers */,
 				28090B76A8EC399BCB708B9148DDE910 /* Error.h in Headers */,
 				46CC2552A70BF911A9D03D99DDFA7A03 /* GraphView.h in Headers */,
@@ -500,6 +513,7 @@
 				D2A3FD44BDFA9AA278F8FC9A316FE653 /* STMLocation.h in Headers */,
 				0B3D2C420294AC871F1B71D8C3ABAD21 /* STMMessage.h in Headers */,
 				FCA41B1D977762893E783E52B1EF3D85 /* STMRecorder.h in Headers */,
+				E49A436D1D2DBCD300F5DC80 /* STMSubscription.h in Headers */,
 				BE1602FE980CC789BB994DAF8E3AD0D1 /* STMRecordingOverlayViewController.h in Headers */,
 				BB4C78C990B5C690054DB1E45BF16551 /* STMShout.h in Headers */,
 				B6D47C3A95DE90B8EDE714A964534787 /* STMVad.h in Headers */,
@@ -618,6 +632,7 @@
 			files = (
 				BAB3B81E926D7516D4CA221D19B335A9 /* AppUtils.m in Sources */,
 				E9D39E8AF0249B0E7FC42EE5B47ADA68 /* AudioElement.m in Sources */,
+				E49A436E1D2DBCD300F5DC80 /* STMSubscription.m in Sources */,
 				E23CAAC04DCE2B8669A5DE56074D6655 /* AudioSystem.m in Sources */,
 				BE0938193E8E6810868508ABF5FC5F09 /* Channels.m in Sources */,
 				0B25EC3B86068FCC8315379F1FE615BA /* CircleProgressBar.m in Sources */,
@@ -634,6 +649,7 @@
 				D924567A17BE064D4D625E7C1586A1E9 /* SignIn.m in Sources */,
 				050C962BB63D04A130054E982368E09B /* StandardButton.m in Sources */,
 				3D98E7F7BBE786DC4C534B10C8A2342C /* STM-dummy.m in Sources */,
+				E49A43721D2DC3DF00F5DC80 /* Subscriptions.m in Sources */,
 				FE57687BCAAC81B922149B034CFA4FC7 /* STM.m in Sources */,
 				91F060E45749A05AD0D8643BB325CA94 /* STMChannel.m in Sources */,
 				ADCFA33EB3D1504D02CD98D54415827D /* STMConversation.m in Sources */,
