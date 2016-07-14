@@ -217,6 +217,65 @@ __strong static Messages *singleton = nil;
             }] resume];
 }
 
+- (void)requestForCreateMessageForChannelId:(NSString *)channelId ToRecipientId:(NSString *)recipientId WithConversationId:(NSString *)conversationId AndMessage:(NSString *)message completionHandler:(void (^)(STMMessage *, NSError *))completionHandler {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",
+                                       [Settings controller].strServerURL,
+                                       SERVER_CMD_GET_MESSAGES]];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:@"channel_id", channelId, @"recipient_id", recipientId, @"conversation_id", conversationId, @"message", message, nil];
+    NSDictionary *dictionary = @{@"channel_id": channelId, @"recipient_id": recipientId, @"conversation_id": conversationId, @"message": message };
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                   options:kNilOptions error:&error];
+     
+    if (!error) {
+        NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+                //NSLog(@"Subscriptions: Results download returned: %@", jsonString );
+                
+                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+                NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+                NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
+                
+                
+                STMMessage *message;
+                
+                if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
+                    
+                    if (dictData)
+                    {
+                        message = [[STMMessage alloc] initWithDictionary:[dictData objectForKey:@"message"]];
+                    }
+                } else {
+                    //STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Message request failed.", url, nil, jsonString);
+                    if (dictData ) {
+                        if ([dictData isKindOfClass:[NSDictionary class]] && [[dictData allKeys] containsObject:@"reason"]) {
+                            NSString *failureReason = [dictData objectForKey:@"reason"];
+                            NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                            [details setValue:dictData forKey:NSLocalizedDescriptionKey];
+                            error = [NSError errorWithDomain:failureReason code:400 userInfo:details];
+                        }
+                    }
+                    
+                }
+                
+                completionHandler(message, error);
+                
+            }];
+        [uploadTask resume];
+    }
+}
+
 - (void)cancelAllRequests
 {
     [[DL_URLServer controller] cancelAllRequestsForDelegate:self];
