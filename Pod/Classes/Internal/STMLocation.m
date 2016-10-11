@@ -128,15 +128,14 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
             //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         }
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
-            [self.locationManager requestWhenInUseAuthorization];
+            [self.locationManager requestAlwaysAuthorization];
         }
         [self.locationManager startUpdatingLocation];
+        [self.locationManager startMonitoringSignificantLocationChanges];
     }
-    
 }
 
 // stop requesting location
@@ -203,6 +202,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     self.bHaveLocation = YES;
 
     [self announceUpdate:newLocation];
+    
+//    NSLog(@"%@", [newLocation description]);
+    if ([[[self locationManager] monitoredRegions] count] > 20) {
+        [[STM stmGeofenceLocationManager] monitorClosest];
+    }
 
 #ifdef STOP_UPDATING_AT_ACCURACY
 	// if we are at our accuracy then we are done
@@ -276,6 +280,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             
         default: {
             [self.locationManager startUpdatingLocation];
+            [self.locationManager startMonitoringSignificantLocationChanges];
         }
             break;
     }
