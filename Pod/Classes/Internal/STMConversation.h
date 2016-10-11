@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Adam Harris. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "Utils.h"
 
 typedef enum eSTM_Conversation_Severity
 {
@@ -20,6 +21,7 @@ typedef enum eSTM_Conversation_Severity
 @property (nonatomic, assign)   double                  lat;
 @property (nonatomic, assign)   double                  lon;
 @property (nonatomic, copy)     NSString                *str_description;
+@property (nonatomic, assign)   double                  radius_in_meters;
 
 @end
 
@@ -45,6 +47,11 @@ typedef enum eSTM_Conversation_Severity
 @property (nonatomic, strong)   NSDate                      *dateDownloaded;
 @property (nonatomic, strong)   ConversationLocation        *location;
 @property (nonatomic, copy)     NSString                    *str_url;
+@property (nonatomic, copy)     NSString                    *str_channel_id;
+@property (nonatomic, copy)     NSString                    *str_publishing_message;
+@property (nonatomic, copy)     NSString                    *str_topic;
+@property (nonatomic, copy)     NSString                    *str_created_by;
+@property (nonatomic, copy)     NSString                    *str_created_by_handle;
 
 - (id)initWithDictionary:(NSDictionary *)dictConversation;
 
@@ -52,6 +59,7 @@ typedef enum eSTM_Conversation_Severity
 - (NSUInteger)minutesAgoDownloaded;
 - (NSString *)subTitle;
 - (BOOL)isUpdatedVersionOf:(STMConversation *)otherConversation;
+- (BOOL)expired;
 
 
 @end
