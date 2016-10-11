@@ -45,25 +45,45 @@ typedef enum eAfterAudioCmd
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.indicator.center = self.voiceCmdView.center;
-    [self.voiceCmdView addSubview:self.indicator];
-    
-    if (self.voiceCmdView == nil)
-    {
-        // hold the audio as active for this app for the entire time the view is up
-        [[STM audioSystem] setInputType:STMAudioInputType_BluetoothHFP];
-        [[STM audioSystem] holdActive:YES];
-        self.voiceCmdView = [VoiceCmdView CreateWithWidth:self.view.bounds.size.width];
-        if (self.MaxListeningSeconds) {
-            self.voiceCmdView.MaxListeningSeconds = self.MaxListeningSeconds;
-        }
-        [self.voiceCmdView setTitle:@""];
-        self.voiceCmdView.delegate = self;
-        [self.view addSubview:self.voiceCmdView];
-        [self.voiceCmdView setTitleAndStartListening:@"Listening..."];
-    }
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
+        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+            if (granted) {
+                self.indicator.center = self.voiceCmdView.center;
+                [self.voiceCmdView addSubview:self.indicator];
+                
+                if (self.voiceCmdView == nil)
+                {
+                    // hold the audio as active for this app for the entire time the view is up
+                    [[STM audioSystem] setInputType:STMAudioInputType_BluetoothHFP];
+                    [[STM audioSystem] holdActive:YES];
+                    self.voiceCmdView = [VoiceCmdView CreateWithWidth:self.view.bounds.size.width];
+                    if (self.MaxListeningSeconds) {
+                        self.voiceCmdView.MaxListeningSeconds = self.MaxListeningSeconds;
+                    }
+                    [self.voiceCmdView setTitle:@""];
+                    self.voiceCmdView.delegate = self;
+                    [self.view addSubview:self.voiceCmdView];
+                    [self.voiceCmdView setTitleAndStartListening:@"Listening..."];
+                }
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Mic Permissions"
+                                      message:@"Mic permissions are required."
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                [alert show];
+                [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+                if ([self.delegate respondsToSelector:@selector(overlayClosed:)]) {
+                    [self.delegate overlayClosed:YES];
+                }
+            }
+        }];
+    }
+    
 }
 
 - (void)sendShout:(NSData *)dataAudio
