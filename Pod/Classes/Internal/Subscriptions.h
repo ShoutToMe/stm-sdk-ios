@@ -26,6 +26,7 @@
 
 - (void)requestForSubscriptionForChannel:(NSString *)channelId withDelegate:(id<SubscriptionsDelegate>)delegate;
 - (void)requestForSubscriptionForChannel:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler;
+- (void)requestForSubscriptionsWithcompletionHandler:(void (^)(NSArray<STMSubscription *> *subscriptions, NSError *error))completionHandler;
 - (void)requestForSubscribe:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler;
 - (void)requestForUnSubscribe:(NSString *)channelId completionHandler:(void (^)(Boolean *successful, NSError *error))completionHandler;
 @end
