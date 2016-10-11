@@ -79,6 +79,14 @@
 		E49A436E1D2DBCD300F5DC80 /* STMSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */; };
 		E49A43711D2DC3DF00F5DC80 /* Subscriptions.h in Headers */ = {isa = PBXBuildFile; fileRef = E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E49A43721D2DC3DF00F5DC80 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */; };
+		E4C1C8231D8093B20097EAAB /* Conversations.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C1C8211D8093B20097EAAB /* Conversations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4C1C8241D8093B20097EAAB /* Conversations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C8221D8093B20097EAAB /* Conversations.m */; };
+		E4C1C8291D831A050097EAAB /* STMGeofenceLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C1C8271D831A050097EAAB /* STMGeofenceLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4C1C82A1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */; };
+		E4C1C82B1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */; };
+		E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */ = {isa = PBXBuildFile; fileRef = E4DDE7D61D99CF8C00220F13 /* MonitoredConversations.h */; };
+		E4DDE7D91D99CF8C00220F13 /* MonitoredConversations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */; };
+		E4DDE7DA1D99CF8C00220F13 /* MonitoredConversations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */; };
 		E65648723E2B5DF2D98E8AB39EB44878 /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = 841471CBA474F9C681D2712AD5DD33CF /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7EF9E85CC14F5882E4BB40EFF682B9D /* undo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 451174BC0A331DCA3DA5C1F7A2F5996A /* undo.caf */; };
 		E9D39E8AF0249B0E7FC42EE5B47ADA68 /* AudioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 433977C87EAF6EB5514A525B091E293E /* AudioElement.m */; };
@@ -190,6 +198,12 @@
 		E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMSubscription.m; sourceTree = "<group>"; };
 		E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscriptions.h; sourceTree = "<group>"; };
 		E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscriptions.m; sourceTree = "<group>"; };
+		E4C1C8211D8093B20097EAAB /* Conversations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversations.h; sourceTree = "<group>"; };
+		E4C1C8221D8093B20097EAAB /* Conversations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversations.m; sourceTree = "<group>"; };
+		E4C1C8271D831A050097EAAB /* STMGeofenceLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMGeofenceLocationManager.h; sourceTree = "<group>"; };
+		E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMGeofenceLocationManager.m; sourceTree = "<group>"; };
+		E4DDE7D61D99CF8C00220F13 /* MonitoredConversations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoredConversations.h; sourceTree = "<group>"; };
+		E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoredConversations.m; sourceTree = "<group>"; };
 		E74D9463DA9230AF433DCCAAC4A1DF2A /* VoiceCmdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VoiceCmdView.h; sourceTree = "<group>"; };
 		E76F96738CA8D6011946940DFDDD7F74 /* SendShout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SendShout.m; sourceTree = "<group>"; };
 		EDBFC23E03AF7D0173C854435B817AA5 /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
@@ -238,10 +252,15 @@
 				D647F70A2B9406DFFF18FABE903ED44F /* AudioSystem.m */,
 				C908C95DFA6789A7972BF49A0C791DFF /* Channels.h */,
 				B9A855471EE667AD9B64870D60D2B44E /* Channels.m */,
+				E4C1C8211D8093B20097EAAB /* Conversations.h */,
+				E4C1C8221D8093B20097EAAB /* Conversations.m */,
 				CC53F101F6E405BC00042DB993B36AB1 /* Error.h */,
 				AB9736F0DA2BFDA4FA583D7D2B43F964 /* Error.m */,
+				61E9749B9D784AA7249A530F915D129A /* GraphView */,
 				1137F63051792F2DA3D7FF1FD6160E4A /* Messages.h */,
 				D42EBC79089796D739A8013B3C417F8A /* Messages.m */,
+				E4DDE7D61D99CF8C00220F13 /* MonitoredConversations.h */,
+				E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */,
 				D02FBAFD2F02F91802EB4495CEE42B73 /* RecordingSystem.h */,
 				AB5BA5821BBB6090262710C57A88DD74 /* RecordingSystem.m */,
 				797850E0290F43D3893BE046E45D6E6C /* RoundedButton.h */,
@@ -264,6 +283,8 @@
 				1343FF0CEB424FAD157D808C5FA87CD4 /* STMConversation.m */,
 				BD8032DBFDCF486679277805AEA47D6E /* STMCvad.h */,
 				96FD5253FF259CB6D65B7C311C06CA22 /* STMCvad.m */,
+				E4C1C8271D831A050097EAAB /* STMGeofenceLocationManager.h */,
+				E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */,
 				1C0776CF151A9AB3B7BA26BA65B31CA9 /* STMLocation.h */,
 				9ECE45D1AF8D0933AB2478AABAA87864 /* STMLocation.m */,
 				DBA2A72948E87CF04AF22D2FA79FEBAE /* STMMessage.h */,
@@ -274,8 +295,12 @@
 				76BB8C6A21DC0D2B463401EE0E057E69 /* STMRecordingOverlayViewController.m */,
 				4F162A0D8B08ED08CE3A4E7329D11B57 /* STMShout.h */,
 				B4D43AC83CC5921562B953923FA9AD4B /* STMShout.m */,
+				E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */,
+				E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */,
 				2D0667C54BD433E9225B925AA68CB1C7 /* STMVad.h */,
 				CAC0516A8E534B3A199DC968F3EC4066 /* STMVad.m */,
+				E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */,
+				E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */,
 				1F08D1CA95260884E75D72C66F1E8601 /* User.h */,
 				EF97B671958BEE723CA26E94796FC810 /* User.m */,
 				77A5F3FFB176B0C0C73AA2DA18212D5E /* UserData.h */,
@@ -284,11 +309,6 @@
 				062229BF4FE629EA63B7119E8ADDA279 /* Utils.m */,
 				E74D9463DA9230AF433DCCAAC4A1DF2A /* VoiceCmdView.h */,
 				4179E8595F92CB81F3B38F9A84F828F5 /* VoiceCmdView.m */,
-				61E9749B9D784AA7249A530F915D129A /* GraphView */,
-				E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */,
-				E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */,
-				E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */,
-				E49A43701D2DC3DF00F5DC80 /* Subscriptions.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -488,6 +508,7 @@
 			files = (
 				272955C64E1A764F3B0A61B1C19D924B /* AppUtils.h in Headers */,
 				D1C66F2E6C7E838AE3B6078DA3D6EE30 /* AudioElement.h in Headers */,
+				E4C1C8291D831A050097EAAB /* STMGeofenceLocationManager.h in Headers */,
 				63E2F62D75460F140D58379134648FBC /* AudioSystem.h in Headers */,
 				318769CCBC451C5CA2E78E232A3DFD04 /* Channels.h in Headers */,
 				8BD208C3C42CBBBA3A16D7282EC800E3 /* CircleProgressBar.h in Headers */,
@@ -510,6 +531,7 @@
 				56E256FCB4165E898D79C1E5269516F9 /* STMChannel.h in Headers */,
 				2B46CED625AACABBDD1CCEAEF785D874 /* STMConversation.h in Headers */,
 				66BF7F25D636EC89949E9BE711279E8B /* STMCvad.h in Headers */,
+				E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */,
 				D2A3FD44BDFA9AA278F8FC9A316FE653 /* STMLocation.h in Headers */,
 				0B3D2C420294AC871F1B71D8C3ABAD21 /* STMMessage.h in Headers */,
 				FCA41B1D977762893E783E52B1EF3D85 /* STMRecorder.h in Headers */,
@@ -519,6 +541,7 @@
 				B6D47C3A95DE90B8EDE714A964534787 /* STMVad.h in Headers */,
 				34AC766A456B6613FA7FABDBBA292E98 /* User.h in Headers */,
 				FC72D3E020FF199649C9825E77D1213D /* UserData.h in Headers */,
+				E4C1C8231D8093B20097EAAB /* Conversations.h in Headers */,
 				25CA6C7F73A46E1BE515D63C98E2A6E9 /* Utils.h in Headers */,
 				833E333988308DAA7D2A026FBC54825C /* VoiceCmdView.h in Headers */,
 			);
@@ -594,6 +617,15 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
+				es,
+				fr,
+				ja,
+				nl,
+				pt,
+				sq,
+				vi,
+				zh,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
 			productRefGroup = A804F00181A341516954C03A0786407B /* Products */;
@@ -645,9 +677,12 @@
 				126EABEEAA222AA54F0FFE17011BD7BC /* RoundedButton.m in Sources */,
 				126EC64FDA10EC472E1FE87736EEFFB6 /* SendShout.m in Sources */,
 				8350AE5B52B392CA100B066698D66A26 /* Settings.m in Sources */,
+				E4C1C82B1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */,
+				E4DDE7DA1D99CF8C00220F13 /* MonitoredConversations.m in Sources */,
 				21BD146C9C995C08E80D46A698B82294 /* ShoutPlayer.m in Sources */,
 				D924567A17BE064D4D625E7C1586A1E9 /* SignIn.m in Sources */,
 				050C962BB63D04A130054E982368E09B /* StandardButton.m in Sources */,
+				E4C1C8241D8093B20097EAAB /* Conversations.m in Sources */,
 				3D98E7F7BBE786DC4C534B10C8A2342C /* STM-dummy.m in Sources */,
 				E49A43721D2DC3DF00F5DC80 /* Subscriptions.m in Sources */,
 				FE57687BCAAC81B922149B034CFA4FC7 /* STM.m in Sources */,
@@ -672,6 +707,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF2641A3D6DA53B27EE80CB017E5F72 /* Pods-STMExample-dummy.m in Sources */,
+				E4DDE7D91D99CF8C00220F13 /* MonitoredConversations.m in Sources */,
+				E4C1C82A1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +741,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3BF81457C9BB8322C8D8401D907ECC48 /* Pods-STMExample.debug.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MACH_O_TYPE = staticlib;
@@ -795,6 +833,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 220F4FC26F0D7249CB58AE180F91840B /* STM.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				PRODUCT_NAME = STM;
 				SDKROOT = iphoneos;
@@ -807,6 +846,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 220F4FC26F0D7249CB58AE180F91840B /* STM.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/STM/STM-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -825,6 +865,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49A3E68D29CA06451FECC586CFC828AE /* Pods-STMExample.release.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MACH_O_TYPE = staticlib;
@@ -842,6 +883,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 220F4FC26F0D7249CB58AE180F91840B /* STM.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/STM/STM-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -860,6 +902,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 220F4FC26F0D7249CB58AE180F91840B /* STM.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				PRODUCT_NAME = STM;
 				SDKROOT = iphoneos;

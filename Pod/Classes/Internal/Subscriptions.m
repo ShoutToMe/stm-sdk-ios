@@ -170,6 +170,56 @@ __strong static Subscriptions *singleton = nil;
 
 }
 
+- (void)requestForSubscriptionsWithcompletionHandler:(void (^)(NSArray<STMSubscription *> *, NSError *))completionHandler {
+    NSString *url = [NSString stringWithFormat:@"%@/%@/",
+                     [Settings controller].strServerURL,
+                     SERVER_CMD_GET_SUBSCRIPTIONS];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
+    
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:url]
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                
+                NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+                
+                //NSLog(@"Subscriptions: Results download returned: %@", jsonString );
+                
+                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+                NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
+                NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
+                
+                
+                NSArray<STMSubscription *> *subscriptions;
+                
+                if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
+                    
+                    if (dictData)
+                    {
+                        subscriptions = [self processSubscriptionsResults:[dictData objectForKey:@"subscriptions"]];
+                    }
+                } else {
+                    //STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Message request failed.", url, nil, jsonString);
+                    if (dictData ) {
+                        NSString *failureReason = [dictData objectForKey:@"reason"];
+                        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                        [details setValue:dictData forKey:NSLocalizedDescriptionKey];
+                        error = [NSError errorWithDomain:failureReason code:400 userInfo:details];
+                    }
+                    
+                }
+                
+                completionHandler(subscriptions, error);
+                
+            }] resume];
+}
+
 - (void)requestForSubscribe:(NSString *)channelId completionHandler:(void (^)(STMSubscription *, NSError *))completionHandler {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@/%@",
                                        [Settings controller].strServerURL,
@@ -278,6 +328,32 @@ __strong static Subscriptions *singleton = nil;
             }];
         [uploadTask resume];
     }
+}
+
+#pragma mark - Misc Methods
+
+
+// process the results returned from the server
+- (NSArray<STMSubscription *> *)processSubscriptionsResults:(NSObject *)results
+{
+    NSMutableArray<STMSubscription *> *arraySubscriptions = [[NSMutableArray alloc] init];
+    
+    if ([results isKindOfClass:[NSDictionary class]])
+    {
+        STMSubscription *subscription = [[STMSubscription alloc] initWithDictionary:(NSDictionary *)results];
+        [arraySubscriptions addObject:subscription];
+    }
+    else if ([results isKindOfClass:[NSArray class]])
+    {
+        NSArray *arraySubscriptionDictionaries = (NSArray *)results;
+        for (NSDictionary *dictSubscription in arraySubscriptionDictionaries)
+        {
+            STMSubscription *subscription = [[STMSubscription alloc] initWithDictionary:dictSubscription];
+            [arraySubscriptions addObject:subscription];
+        }
+    }
+    
+    return arraySubscriptions;
 }
 
 #pragma mark - DL_URLServer Callbacks

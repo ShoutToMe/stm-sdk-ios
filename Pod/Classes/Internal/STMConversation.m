@@ -75,6 +75,17 @@
     return ([[NSDate date] timeIntervalSinceDate:self.dateDownloaded] / 60.0) + 0.5;
 }
 
+- (BOOL)expired {
+    NSDate *myDate = self.dateExpiration;
+    if ([myDate earlierDate:[NSDate date]] == myDate) {
+        //NSLog(@"myDate is EARLIER than today");
+        return true;
+    } else {
+        //NSLog(@"myDate is LATER than today");
+        return false;
+    }
+}
+
 // returns the subtitle for a given conversation
 - (NSString *)subTitle
 {
@@ -168,6 +179,12 @@
     self.location = [self locationFromKey:@"location" inDictionary:dictConversation];
     self.str_spoken_meta_information = [Utils stringFromKey:@"spoken_meta_information" inDictionary:dictConversation];
     self.str_url = [Utils stringFromKey:@"url" inDictionary:dictConversation];
+    
+    self.str_channel_id = [Utils stringFromKey:@"channel_id" inDictionary:dictConversation];
+    self.str_publishing_message = [Utils stringFromKey:@"publishing_message" inDictionary:dictConversation];
+    self.str_topic = [Utils stringFromKey:@"topic" inDictionary:dictConversation];
+    self.str_created_by = [Utils stringFromKey:@"created_by" inDictionary:dictConversation];
+    self.str_created_by_handle = [Utils stringFromKey:@"created_by_handle" inDictionary:dictConversation];
 
     self.severity = STM_Conversation_Severity_Moderate;
     if ([self.str_severity isEqualToString:SERVER_CONVERSTATION_SEVERITY_MINOR])
@@ -198,6 +215,7 @@
         {
             location.lat = [Utils doubleFromKey:@"lat" inDictionary:dictLocation];
             location.lon = [Utils doubleFromKey:@"lon" inDictionary:dictLocation];
+            location.radius_in_meters = [Utils doubleFromKey:@"radius_in_meters" inDictionary:dictLocation];
             location.str_description = [Utils stringFromKey:@"description" inDictionary:dictLocation];
         }
     }

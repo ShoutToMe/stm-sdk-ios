@@ -29,6 +29,9 @@
 #import "RecordingSystem.h"
 #import "Messages.h"
 #import "Subscriptions.h"
+#import "Conversations.h"
+#import "STMGeofenceLocationManager.h"
+#import "MonitoredConversations.h"
 
 @protocol STMDelegate;
 
@@ -68,6 +71,9 @@
 + (RecordingSystem *)recordingSystem;
 + (Messages *)messages;
 + (Subscriptions *)subscriptions;
++ (Conversations *)conversations;
++ (STMGeofenceLocationManager *)stmGeofenceLocationManager;
++ (MonitoredConversations *)monitoredConversations;
 //+ (tSTMInternalURLType)urlType:(NSString *)strURL;
 //+ (BOOL)stringIsSet:(NSString *)strString;
 
