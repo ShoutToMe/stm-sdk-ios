@@ -30,6 +30,7 @@
 #import "RecordingSystem.h"
 #import "Messages.h"
 #import "Subscriptions.h"
+#import "STMGeofenceLocationManager.h"
 
 static BOOL bInitialized = NO;
 
@@ -96,6 +97,12 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         
         [Subscriptions initAll];
         
+        [Conversations initAll];
+        
+        [STMGeofenceLocationManager initAll];
+        
+        [MonitoredConversations initAll];
+        
         bInitialized = YES;
     }
     if (![[STM signIn] isSignedIn]) {
@@ -128,6 +135,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         
         [Messages freeAll];
         [Subscriptions freeAll];
+        [Conversations freeAll];
+        [STMGeofenceLocationManager freeAll];
+        [MonitoredConversations freeAll];
         
         // release our singleton
         singleton = nil;
@@ -141,6 +151,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //    [Settings saveAll];
 //    [UserData saveAll];
     [RecordingSystem saveAll];
+    [MonitoredConversations saveAll];
 }
 
 
@@ -333,6 +344,21 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (Subscriptions *)subscriptions
 {
     return ([Subscriptions controller]);
+}
+
++ (Conversations *)conversations
+{
+    return ([Conversations controller]);
+}
+
++ (STMGeofenceLocationManager *)stmGeofenceLocationManager
+{
+    return ([STMGeofenceLocationManager controller]);
+}
+
++ (MonitoredConversations *)monitoredConversations
+{
+    return ([MonitoredConversations controller]);
 }
 
 //+ (tSTMInternalURLType)urlType:(NSString *)strURL
