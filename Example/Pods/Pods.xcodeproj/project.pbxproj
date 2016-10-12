@@ -84,7 +84,7 @@
 		E4C1C8291D831A050097EAAB /* STMGeofenceLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C1C8271D831A050097EAAB /* STMGeofenceLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4C1C82A1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */; };
 		E4C1C82B1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C8281D831A050097EAAB /* STMGeofenceLocationManager.m */; };
-		E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */ = {isa = PBXBuildFile; fileRef = E4DDE7D61D99CF8C00220F13 /* MonitoredConversations.h */; };
+		E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */ = {isa = PBXBuildFile; fileRef = E4DDE7D61D99CF8C00220F13 /* MonitoredConversations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4DDE7D91D99CF8C00220F13 /* MonitoredConversations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */; };
 		E4DDE7DA1D99CF8C00220F13 /* MonitoredConversations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DDE7D71D99CF8C00220F13 /* MonitoredConversations.m */; };
 		E65648723E2B5DF2D98E8AB39EB44878 /* STM.h in Headers */ = {isa = PBXBuildFile; fileRef = 841471CBA474F9C681D2712AD5DD33CF /* STM.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -194,6 +194,7 @@
 		DBA2A72948E87CF04AF22D2FA79FEBAE /* STMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMMessage.h; sourceTree = "<group>"; };
 		DDAB7065B887A7D3B0C5B9E05994D089 /* StandardButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = StandardButton.m; sourceTree = "<group>"; };
 		E13399AB05AA92B7CCA25517B0B91430 /* AppUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		E40EEF4A1DAD986600702C47 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		E49A436B1D2DBCD300F5DC80 /* STMSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMSubscription.h; sourceTree = "<group>"; };
 		E49A436C1D2DBCD300F5DC80 /* STMSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMSubscription.m; sourceTree = "<group>"; };
 		E49A436F1D2DC3DF00F5DC80 /* Subscriptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscriptions.h; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E40EEF4A1DAD986600702C47 /* AVFoundation.framework */,
 				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
 			);
 			name = Frameworks;
@@ -531,7 +533,6 @@
 				56E256FCB4165E898D79C1E5269516F9 /* STMChannel.h in Headers */,
 				2B46CED625AACABBDD1CCEAEF785D874 /* STMConversation.h in Headers */,
 				66BF7F25D636EC89949E9BE711279E8B /* STMCvad.h in Headers */,
-				E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */,
 				D2A3FD44BDFA9AA278F8FC9A316FE653 /* STMLocation.h in Headers */,
 				0B3D2C420294AC871F1B71D8C3ABAD21 /* STMMessage.h in Headers */,
 				FCA41B1D977762893E783E52B1EF3D85 /* STMRecorder.h in Headers */,
@@ -543,6 +544,7 @@
 				FC72D3E020FF199649C9825E77D1213D /* UserData.h in Headers */,
 				E4C1C8231D8093B20097EAAB /* Conversations.h in Headers */,
 				25CA6C7F73A46E1BE515D63C98E2A6E9 /* Utils.h in Headers */,
+				E4DDE7D81D99CF8C00220F13 /* MonitoredConversations.h in Headers */,
 				833E333988308DAA7D2A026FBC54825C /* VoiceCmdView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,7 +611,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -759,6 +761,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -768,14 +771,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -799,6 +806,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -808,13 +816,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
