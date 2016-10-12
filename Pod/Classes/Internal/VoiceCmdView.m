@@ -150,6 +150,7 @@ typedef enum eVoiceCmdAfterSound
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self initInternal];
 }
 
