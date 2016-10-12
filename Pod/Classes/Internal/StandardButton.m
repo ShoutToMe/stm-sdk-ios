@@ -30,7 +30,8 @@
 
 - (void)awakeFromNib
 {
-	[self initInternal];
+    [super awakeFromNib];
+    [self initInternal];
 }
 
 #pragma mark - Misc Methods
