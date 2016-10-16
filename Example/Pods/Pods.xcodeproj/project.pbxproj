@@ -17,7 +17,6 @@
 		126EABEEAA222AA54F0FFE17011BD7BC /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB102042A3D75EE5FBE8200E0B6EDE79 /* RoundedButton.m */; };
 		126EC64FDA10EC472E1FE87736EEFFB6 /* SendShout.m in Sources */ = {isa = PBXBuildFile; fileRef = E76F96738CA8D6011946940DFDDD7F74 /* SendShout.m */; };
 		1FF2641A3D6DA53B27EE80CB017E5F72 /* Pods-STMExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDBD6CCB07167615A30C1CEFF42F1B4 /* Pods-STMExample-dummy.m */; };
-		21BD146C9C995C08E80D46A698B82294 /* ShoutPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9181A3F245E529C4EBDFE59CB067FF5 /* ShoutPlayer.m */; };
 		25CA6C7F73A46E1BE515D63C98E2A6E9 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = F3998052862906994E220D2058C653F3 /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		272955C64E1A764F3B0A61B1C19D924B /* AppUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E13399AB05AA92B7CCA25517B0B91430 /* AppUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28090B76A8EC399BCB708B9148DDE910 /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = CC53F101F6E405BC00042DB993B36AB1 /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -68,7 +67,6 @@
 		D2A3FD44BDFA9AA278F8FC9A316FE653 /* STMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C0776CF151A9AB3B7BA26BA65B31CA9 /* STMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D69F9535A68AE4542C73D0B23ECE5631 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EF97B671958BEE723CA26E94796FC810 /* User.m */; };
 		D924567A17BE064D4D625E7C1586A1E9 /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = F293A1B6B58221920B8E960297AD428C /* SignIn.m */; };
-		D9D789B5EAD3E0E85725D1159F2400FE /* ShoutPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 039161428C8AFB4909B413309CC28590 /* ShoutPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA7F5F3E13D1A8EC4658EDFADB63A87F /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = A6E4AACA043299BFE03F01CE168A810D /* sent.caf */; };
 		DBECB9A07C680D79F7140641DAF11D79 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE45D1AF8D0933AB2478AABAA87864 /* STMLocation.m */; };
 		DCDB53516CA5E6B2F019FB50D08A1283 /* finish.caf in Resources */ = {isa = PBXBuildFile; fileRef = 488F3BBAFBBD01820B65FFDEFB1EFFC3 /* finish.caf */; };
@@ -118,7 +116,6 @@
 		004EF199BE823FBE6D3C3613796EE4DC /* STM-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STM-prefix.pch"; sourceTree = "<group>"; };
 		00DD202C051B99034E812A38C28C28FC /* Pods-STMExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-STMExample-frameworks.sh"; sourceTree = "<group>"; };
 		024BCE0947BD2324BA3931BDB3E1499F /* STMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMRecorder.m; sourceTree = "<group>"; };
-		039161428C8AFB4909B413309CC28590 /* ShoutPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ShoutPlayer.h; sourceTree = "<group>"; };
 		062229BF4FE629EA63B7119E8ADDA279 /* Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		0A77D08C47D2A4258E21EF6251B7B8AF /* abort.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = abort.caf; sourceTree = "<group>"; };
 		0B73D05359A9704E14050B17811C81D4 /* AppUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
@@ -168,7 +165,6 @@
 		A6E4AACA043299BFE03F01CE168A810D /* sent.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = sent.caf; sourceTree = "<group>"; };
 		A76FAC63F893F502D7157060EAA36E21 /* SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
 		A84F8BFCF718F055D15708F0BDCA996C /* STMChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMChannel.m; sourceTree = "<group>"; };
-		A9181A3F245E529C4EBDFE59CB067FF5 /* ShoutPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ShoutPlayer.m; sourceTree = "<group>"; };
 		AB5BA5821BBB6090262710C57A88DD74 /* RecordingSystem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RecordingSystem.m; sourceTree = "<group>"; };
 		AB9736F0DA2BFDA4FA583D7D2B43F964 /* Error.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
 		AE2C8AF88AA2FF71C67C57C63FB82EF3 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -271,8 +267,6 @@
 				5BDF84287634183D499930D319C46A36 /* Server.h */,
 				9DCFD4B97802D3BD591528D8C4E7161E /* Settings.h */,
 				6337B3B14B298DC0613D9F9772490A85 /* Settings.m */,
-				039161428C8AFB4909B413309CC28590 /* ShoutPlayer.h */,
-				A9181A3F245E529C4EBDFE59CB067FF5 /* ShoutPlayer.m */,
 				A76FAC63F893F502D7157060EAA36E21 /* SignIn.h */,
 				F293A1B6B58221920B8E960297AD428C /* SignIn.m */,
 				EDBFC23E03AF7D0173C854435B817AA5 /* StandardButton.h */,
@@ -525,7 +519,6 @@
 				5949E14016365F1D6DE95B5ABC4B4CE2 /* SendShout.h in Headers */,
 				5F2A251D24DF2D3034A667EEE296524C /* Server.h in Headers */,
 				7BB275EF7E1F4B8B489738B88A98C8E2 /* Settings.h in Headers */,
-				D9D789B5EAD3E0E85725D1159F2400FE /* ShoutPlayer.h in Headers */,
 				59C5AB8AF912B7B239B5B0762F7F87E6 /* SignIn.h in Headers */,
 				B593DE52FE48E72352D3B961FC5686FE /* StandardButton.h in Headers */,
 				E65648723E2B5DF2D98E8AB39EB44878 /* STM.h in Headers */,
@@ -681,7 +674,6 @@
 				8350AE5B52B392CA100B066698D66A26 /* Settings.m in Sources */,
 				E4C1C82B1D831A050097EAAB /* STMGeofenceLocationManager.m in Sources */,
 				E4DDE7DA1D99CF8C00220F13 /* MonitoredConversations.m in Sources */,
-				21BD146C9C995C08E80D46A698B82294 /* ShoutPlayer.m in Sources */,
 				D924567A17BE064D4D625E7C1586A1E9 /* SignIn.m in Sources */,
 				050C962BB63D04A130054E982368E09B /* StandardButton.m in Sources */,
 				E4C1C8241D8093B20097EAAB /* Conversations.m in Sources */,
