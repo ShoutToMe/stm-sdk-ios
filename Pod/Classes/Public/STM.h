@@ -47,7 +47,7 @@
  Singleton instance accessors.
  */
 + (STM *)sharedInstance;
-+ (User *)currentUser;
++ (STMUser *)currentUser;
 + (Settings *)settings;
 + (UserData *)userData;
 + (Error *)error;

@@ -22,7 +22,7 @@
 		28090B76A8EC399BCB708B9148DDE910 /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = CC53F101F6E405BC00042DB993B36AB1 /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B46CED625AACABBDD1CCEAEF785D874 /* STMConversation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C30F62927285259B5546205AA09BD7A /* STMConversation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		318769CCBC451C5CA2E78E232A3DFD04 /* Channels.h in Headers */ = {isa = PBXBuildFile; fileRef = C908C95DFA6789A7972BF49A0C791DFF /* Channels.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34AC766A456B6613FA7FABDBBA292E98 /* User.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F08D1CA95260884E75D72C66F1E8601 /* User.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34AC766A456B6613FA7FABDBBA292E98 /* STMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F08D1CA95260884E75D72C66F1E8601 /* STMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D98E7F7BBE786DC4C534B10C8A2342C /* STM-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF375C5D7A4F718D5ADD5D6FB896FB1 /* STM-dummy.m */; };
 		411A88CE303361B2B7C45399DF36B6FE /* STMRecordingOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BB8C6A21DC0D2B463401EE0E057E69 /* STMRecordingOverlayViewController.m */; };
 		42259E1362D709B62168975A5D492EB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
@@ -65,7 +65,7 @@
 		D1C66F2E6C7E838AE3B6078DA3D6EE30 /* AudioElement.h in Headers */ = {isa = PBXBuildFile; fileRef = CBC7C003926993B6988C7C8018FC96D4 /* AudioElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D283BF11C5D6EDAB3B3D0F59E0076AD2 /* STM_Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E44F08A8BAE145F0CC9D2574553E073 /* STM_Defs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D2A3FD44BDFA9AA278F8FC9A316FE653 /* STMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C0776CF151A9AB3B7BA26BA65B31CA9 /* STMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D69F9535A68AE4542C73D0B23ECE5631 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EF97B671958BEE723CA26E94796FC810 /* User.m */; };
+		D69F9535A68AE4542C73D0B23ECE5631 /* STMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EF97B671958BEE723CA26E94796FC810 /* STMUser.m */; };
 		D924567A17BE064D4D625E7C1586A1E9 /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = F293A1B6B58221920B8E960297AD428C /* SignIn.m */; };
 		DA7F5F3E13D1A8EC4658EDFADB63A87F /* sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = A6E4AACA043299BFE03F01CE168A810D /* sent.caf */; };
 		DBECB9A07C680D79F7140641DAF11D79 /* STMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE45D1AF8D0933AB2478AABAA87864 /* STMLocation.m */; };
@@ -126,7 +126,7 @@
 		1C0776CF151A9AB3B7BA26BA65B31CA9 /* STMLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMLocation.h; sourceTree = "<group>"; };
 		1CF375C5D7A4F718D5ADD5D6FB896FB1 /* STM-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STM-dummy.m"; sourceTree = "<group>"; };
 		1E062BA4BB3CFD575FAC3C92A74B689F /* STMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMRecorder.h; sourceTree = "<group>"; };
-		1F08D1CA95260884E75D72C66F1E8601 /* User.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		1F08D1CA95260884E75D72C66F1E8601 /* STMUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMUser.h; sourceTree = "<group>"; };
 		220F4FC26F0D7249CB58AE180F91840B /* STM.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STM.xcconfig; sourceTree = "<group>"; };
 		2AD999AA273C8D8E22FB0B1B62A25B77 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		2D0667C54BD433E9225B925AA68CB1C7 /* STMVad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = STMVad.h; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 		E76F96738CA8D6011946940DFDDD7F74 /* Shout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Shout.m; sourceTree = "<group>"; };
 		EDBFC23E03AF7D0173C854435B817AA5 /* StandardButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = StandardButton.h; sourceTree = "<group>"; };
 		EF0BFB253C886FBF6CC34C03A5217DDD /* shout.caf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = shout.caf; sourceTree = "<group>"; };
-		EF97B671958BEE723CA26E94796FC810 /* User.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		EF97B671958BEE723CA26E94796FC810 /* STMUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = STMUser.m; sourceTree = "<group>"; };
 		F293A1B6B58221920B8E960297AD428C /* SignIn.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
 		F3998052862906994E220D2058C653F3 /* Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		F9E246FAA7CE9CDEAF4027AB1C0C5D51 /* CircleProgressBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CircleProgressBar.m; sourceTree = "<group>"; };
@@ -536,8 +536,8 @@
 			children = (
 				A76FAC63F893F502D7157060EAA36E21 /* SignIn.h */,
 				F293A1B6B58221920B8E960297AD428C /* SignIn.m */,
-				1F08D1CA95260884E75D72C66F1E8601 /* User.h */,
-				EF97B671958BEE723CA26E94796FC810 /* User.m */,
+				1F08D1CA95260884E75D72C66F1E8601 /* STMUser.h */,
+				EF97B671958BEE723CA26E94796FC810 /* STMUser.m */,
 				77A5F3FFB176B0C0C73AA2DA18212D5E /* UserData.h */,
 				9F7A60A9B24D5F7D7824CE7E2E53F379 /* UserData.m */,
 			);
@@ -669,7 +669,7 @@
 				BE1602FE980CC789BB994DAF8E3AD0D1 /* STMRecordingOverlayViewController.h in Headers */,
 				BB4C78C990B5C690054DB1E45BF16551 /* STMShout.h in Headers */,
 				B6D47C3A95DE90B8EDE714A964534787 /* STMVad.h in Headers */,
-				34AC766A456B6613FA7FABDBBA292E98 /* User.h in Headers */,
+				34AC766A456B6613FA7FABDBBA292E98 /* STMUser.h in Headers */,
 				FC72D3E020FF199649C9825E77D1213D /* UserData.h in Headers */,
 				E4C1C8231D8093B20097EAAB /* Conversations.h in Headers */,
 				25CA6C7F73A46E1BE515D63C98E2A6E9 /* Utils.h in Headers */,
@@ -825,7 +825,7 @@
 				411A88CE303361B2B7C45399DF36B6FE /* STMRecordingOverlayViewController.m in Sources */,
 				DD2095C9423194F64FF8FE221164215F /* STMShout.m in Sources */,
 				A09A23D2A8F757CA5D805BBFF28D5322 /* STMVad.m in Sources */,
-				D69F9535A68AE4542C73D0B23ECE5631 /* User.m in Sources */,
+				D69F9535A68AE4542C73D0B23ECE5631 /* STMUser.m in Sources */,
 				0ADA5E1EC2D7B3541A03F774F4DA8096 /* UserData.m in Sources */,
 				BE4CCC8F148D3DC089F205D35A9697B1 /* Utils.m in Sources */,
 				AF06ADA5FD631D72B984166793D75058 /* VoiceCmdView.m in Sources */,

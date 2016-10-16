@@ -9,7 +9,7 @@
 //  Copyright 2015 Ditty Labs. All rights reserved.
 //
 
-#import "User.h"
+#import "STMUser.h"
 #import "Utils.h"
 
 #define USER_DATA_VERSION   4  // what version is this object (increased any time new items are added or existing items are changed)
@@ -23,14 +23,14 @@
 #define KEY_USER_LAST_VIEWED_MESSAGES   @"UserLastViewedMessages"
 #define KEY_PLATFORM_ENDPOINT_ARN       @"UserPlatformEndpointARN"
 
-@interface User ()
+@interface STMUser ()
 {
 
 }
 
 @end
 
-@implementation User
+@implementation STMUser
 
 #pragma mark - Object Methods
 

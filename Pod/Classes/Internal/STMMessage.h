@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "STMChannel.h"
-#import "User.h"
+#import "STMUser.h"
 
 @interface STMMessage : NSObject
 
@@ -20,8 +20,8 @@
 @property (nonatomic, copy)     NSString                    *strMessage;
 @property (nonatomic, copy)     NSString                    *strConversationId;
 @property (nonatomic, copy)     STMChannel                  *channel;
-@property (nonatomic, retain)   User                        *sender;
-@property (nonatomic, retain)   User                        *recipient;
+@property (nonatomic, retain)   STMUser                        *sender;
+@property (nonatomic, retain)   STMUser                        *recipient;
 
 - (id)initWithDictionary:(NSDictionary *)dictMessage;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface User : NSObject
+@interface STMUser : NSObject
 
 @property (nonatomic, assign) BOOL              bVerified;
 @property (nonatomic, copy)   NSString          *strAuthCode;

@@ -166,7 +166,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 #pragma mark - Misc Methods
 
-+ (User *)currentUser {
++ (STMUser *)currentUser {
     if (![[STM userData] isSignedIn]) {
         [[STM userData] signIn];
     }
