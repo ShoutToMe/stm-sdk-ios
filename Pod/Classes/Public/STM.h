@@ -17,7 +17,7 @@
 #import "SignIn.h"
 #import "Utils.h"
 #import "STMLocation.h"
-#import "SendShout.h"
+#import "Shout.h"
 #import "Channels.h"
 #import "UserData.h"
 #import "AudioSystem.h"
@@ -53,7 +53,7 @@
 + (Error *)error;
 + (SignIn *)signIn;
 + (STMLocation *)location;
-+ (SendShout *)sendShout;
++ (Shout *)sendShout;
 + (Channels *)channels;
 + (AudioSystem *)audioSystem;
 + (RecordingSystem *)recordingSystem;

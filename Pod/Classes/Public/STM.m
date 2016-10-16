@@ -37,7 +37,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [UserData initAll];
         [Error initAll];
         [SignIn initAll];
-        [SendShout initAll];
+        [Shout initAll];
         [Channels initAll];
         [RecordingSystem initAll];
         [Messages initAll];
@@ -54,7 +54,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [STM saveAll];
         
         [Channels freeAll];
-        [SendShout freeAll];
+        [Shout freeAll];
         [SignIn freeAll];
         [Error freeAll];
         [UserData freeAll];
@@ -118,8 +118,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (STMLocation *)location {
     return ([STMLocation controller]);
 }
-+ (SendShout *)sendShout {
-    return ([SendShout controller]);
++ (Shout *)shout {
+    return ([Shout controller]);
 }
 + (Channels *)channels {
     return ([Channels controller]);

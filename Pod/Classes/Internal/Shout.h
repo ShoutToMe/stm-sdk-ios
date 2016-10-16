@@ -30,12 +30,12 @@ typedef enum eSendShoutStatus
 @end
 
 
-@interface SendShout : NSObject
+@interface Shout : NSObject
 
 + (void)initAll;
 + (void)freeAll;
 
-+ (SendShout *)controller;
++ (Shout *)controller;
 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;

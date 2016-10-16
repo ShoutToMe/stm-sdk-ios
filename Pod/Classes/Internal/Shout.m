@@ -12,7 +12,7 @@
 #import "STM.h"
 #import "Utils.h"
 #import "Settings.h"
-#import "SendShout.h"
+#import "Shout.h"
 #import "DL_URLServer.h"
 #import "Server.h"
 #import "STMLocation.h"
@@ -27,7 +27,7 @@ typedef enum eRequestType
 
 static BOOL bInitialized = NO;
 
-__strong static SendShout *singleton = nil; // this will be the one and only object this static singleton class has
+__strong static Shout *singleton = nil; // this will be the one and only object this static singleton class has
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,7 +84,7 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface SendShout () <DL_URLRequestDelegate>
+@interface Shout () <DL_URLRequestDelegate>
 {
 
 }
@@ -94,7 +94,7 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
 
 @end
 
-@implementation SendShout
+@implementation Shout
 
 #pragma mark - Static methods
 
@@ -105,7 +105,7 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
         [Settings initAll];
         [DL_URLServer initAll];
 
-        singleton = [[SendShout alloc] init];
+        singleton = [[Shout alloc] init];
 
 		bInitialized = YES;
 	}
@@ -124,7 +124,7 @@ __strong static SendShout *singleton = nil; // this will be the one and only obj
 
 // returns the singleton 
 // (this call is both a container and an object class and the container holds one of itself)
-+ (SendShout *)controller
++ (Shout *)controller
 {
     return (singleton);
 }

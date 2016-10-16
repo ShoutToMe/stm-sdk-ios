@@ -7,7 +7,7 @@
 //
 
 #import "STMRecordingOverlayViewController.h"
-#import "SendShout.h"
+#import "Shout.h"
 #import "AppUtils.h"
 
 #define SHOUT_SENT_SOUND                            @"sent.caf"
