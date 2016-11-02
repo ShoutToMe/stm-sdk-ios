@@ -22,6 +22,7 @@
                                          inFunction:[NSString stringWithUTF8String:__func__] \
                                            inSource:[NSString stringWithUTF8String:__FILE__] \
                                              onLine:(int)__LINE__]
+static NSString *ShoutToMeErrorDomain = @"com.ShoutToMe.ErrorDomain";
 
 typedef enum eErrorCategory
 {
@@ -40,6 +41,9 @@ typedef enum eErrorSeverity
     ErrorSeverity_Info
 } tErrorSeverity;
 
+typedef enum eErrorType {
+    MicPermissionNotGranted,
+};
 // this is singleton object class
 // this means it has static methods that create on instance of itself for use by all
 

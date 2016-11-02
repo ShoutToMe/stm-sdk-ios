@@ -65,8 +65,6 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
 {
     [self stop];
     
-    //NSLog(@"Starting location");
-    
     if (NO == [CLLocationManager locationServicesEnabled])
     {
         [self showAlert:NSLocalizedString(@"You have not allowed this application to obtain your location. Therefore, this application will not be able find shouts near you. If you would like this feature, please go to the device settings under \"General / Location Services\" and enable it.", nil)
@@ -86,10 +84,7 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
         {
             [self.locationManager requestAlwaysAuthorization];
         }
-        
-//        [self.locationManager startUpdatingLocation];
     }
-    
 }
 
 // stop requesting location
@@ -103,29 +98,11 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
     }
 }
 
-- (void)monitorWithLat:(double)lat andLon:(double)lon andRadius:(double)radius andConversationId:(NSString *)conversationId {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsPath = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"regions.plist"];
-    
-    NSError *error;
-    
-    NSDictionary *plistDict = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects: [NSNumber numberWithDouble:lat], [NSNumber numberWithDouble:lon], [NSNumber numberWithDouble:radius], conversationId, nil] forKeys:[NSArray arrayWithObjects: @"Lat", @"Lon", @"Radius", @"ConversationId", nil]];
-    
-    NSData *plistData = [NSPropertyListSerialization dataWithPropertyList:plistDict format:NSPropertyListXMLFormat_v1_0 options:0 error:&error];
-    
-    if(plistData)
-    {
-        [plistData writeToFile:plistPath atomically:YES];
-        NSLog(@"Data saved sucessfully");
-    }
-    else
-    {
-        NSLog(@"Data not saved");
-    }
-}
-
 - (void)startMonitoringForRegion:(CLCircularRegion *)region {
+    if (region.radius > [self.locationManager maximumRegionMonitoringDistance]) {
+        // radius is too large, set it to the maximum
+        region = [[CLCircularRegion alloc] initWithCenter:region.center radius:[self.locationManager maximumRegionMonitoringDistance] identifier:region.identifier];
+    }
     if ([[[self locationManager] monitoredRegions] count] < 20) {
         [[self locationManager] startMonitoringForRegion:region];
     } else {
@@ -151,7 +128,6 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
         CLLocation *monitoredRegionLocation = [[CLLocation alloc] initWithLatitude:monitoredRegion.center.latitude longitude:monitoredRegion.center.longitude];
         CLLocationDistance distance =  [usersLocation distanceFromLocation:monitoredRegionLocation] - monitoredRegion.radius;
         [sortedRegions setObject:monitoredRegion forKey:[[NSNumber alloc] initWithDouble:distance]];
-//        NSLog(@"Distance: %f", distance);
     }
     NSArray *sortedKeys = [sortedRegions.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
     
@@ -165,7 +141,7 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
         max = [sortedValues count];
     }
     for (CLCircularRegion *region in [sortedValues subarrayWithRange:NSMakeRange(0, max)]) {
-        [[self locationManager] startMonitoringForRegion:region];
+        [self startMonitoringForRegion:region];
     }
 }
 
@@ -181,7 +157,7 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
     NSMutableArray<STMConversation *> *activeConversations = [[NSMutableArray alloc] init];
     dispatch_group_enter(serviceGroup);
     [[STM subscriptions] requestForSubscriptionsWithcompletionHandler:^(NSArray<STMSubscription *> *subscriptions, NSError *error) {
-        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
+//        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
         
         // Get all active conversations for each channel
         for (STMSubscription *subscription in subscriptions) {
@@ -197,9 +173,7 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
     }];
     
     dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-        // Won't get here until everything has finished
-        // TODO: Monitor the closest 20 conversations
-        NSLog(@"active conversations: %lu", (unsigned long)[activeConversations count]);
+//        NSLog(@"active conversations: %lu", (unsigned long)[activeConversations count]);
         
         [[STM monitoredConversations] removeAllMonitoredConversations];
         for (STMConversation *conversation in activeConversations) {
@@ -273,7 +247,6 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
     NSLog(@"Started Monitoring Region: %@", [region description]);
     [[STM monitoredConversations] addMonitoredRegion:region];
 }
-
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"Failed Monitoring Region: %@, Error: %@", [region description], [error description]);
