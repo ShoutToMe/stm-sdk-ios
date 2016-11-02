@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "STM.h"
 #import "Error.h"
 #import "Server.h"
 #import "RecordingSystem.h"

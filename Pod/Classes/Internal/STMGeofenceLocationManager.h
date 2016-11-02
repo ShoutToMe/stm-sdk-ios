@@ -25,7 +25,6 @@
 
 - (void)start;
 - (void)stop;
-- (void)monitorWithLat:(double)lat andLon:(double)lon andRadius:(double)radius andConversationId:(NSString *)conversationId;
 - (void)startMonitoringForRegion:(CLCircularRegion *)region;
 - (void)stopMonitoringForRegion:(CLCircularRegion *)region;
 - (void)syncMonitoredRegions;

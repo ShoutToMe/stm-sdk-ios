@@ -10,7 +10,6 @@
 //
 
 #import <sys/utsname.h>
-#import "STM.h"
 #import "Utils.h"
 #import "Settings.h"
 #import "Error.h"

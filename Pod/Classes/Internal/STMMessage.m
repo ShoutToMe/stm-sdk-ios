@@ -7,7 +7,7 @@
 //
 
 #import "STMMessage.h"
-#import "User.h"
+#import "STMUser.h"
 #import "STMChannel.h"
 #import "Utils.h"
 #import "Server.h"
@@ -103,13 +103,13 @@
     return channel;
 }
 
-- (User *)userFromKey:(NSString *)strKey inDictionary:(NSDictionary *)dict
+- (STMUser *)userFromKey:(NSString *)strKey inDictionary:(NSDictionary *)dict
 {
-    User *user;
+    STMUser *user;
     if (dict)
     {
         NSDictionary *dictUser = [dict objectForKey:strKey];
-        user = [[User alloc] initWithDictionary: dictUser];
+        user = [[STMUser alloc] initWithDictionary: dictUser];
     }
     
     return user;

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <STMRecordingOverlayViewController.h>
+#import "STMRecordingOverlayViewController.h"
 
 @interface ViewController : UIViewController<STMRecordingOverlayDelegate>
 @property (nonatomic, strong) STMRecordingOverlayViewController *overlayController;

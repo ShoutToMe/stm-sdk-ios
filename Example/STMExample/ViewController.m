@@ -26,10 +26,9 @@
 }
 
 - (IBAction)recordTouched:(id)sender {
-    self.overlayController = [[STMRecordingOverlayViewController alloc] init];
-    self.overlayController.delegate = self;
-    [self presentViewController:self.overlayController animated:YES completion:nil];
-}
+    NSError *error;
+    [STM presentRecordingOverlayWithViewController:self andTags:@"tag1, tag2" andTopic:@"custom topic" andMaxListeningSeconds:[NSNumber numberWithDouble:30.0] andDelegate:self andError:&error];
+   }
 
 - (IBAction)UpdateTouched:(id)sender {
     if (self.handleTextField.text.length > 0) {
@@ -55,7 +54,7 @@
 
 - (void)overlayClosed:(BOOL)bDismissed {
     NSLog(@"bDismissed: %d", bDismissed);
-    self.overlayController = nil;
+//    self.overlayController = nil;
 }
 
 @end

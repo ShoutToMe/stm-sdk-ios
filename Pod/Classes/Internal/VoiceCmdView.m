@@ -253,6 +253,7 @@ typedef enum eVoiceCmdAfterSound
 
 - (void)setTitleAndStartListening:(NSString *)strTitle
 {
+    [self updateDisplay];
     [self prepareResults];
     self.bComplete = NO;
     [self setTitle:strTitle];
@@ -389,6 +390,7 @@ typedef enum eVoiceCmdAfterSound
         self.stmRecorder.delegate = self;
         [self.stmRecorder enabledVad];
         self.circleProgressBar.hintHidden = YES;
+        self.circleProgressBar.hidden = YES;
 
         _bInitialized = YES;
     }
@@ -411,6 +413,8 @@ typedef enum eVoiceCmdAfterSound
             self.labelContextSpecificText.text = @"";//NSLocalizedString(@"Speaking...", nil);
             self.indicator.hidden = YES;
             self.viewGraph.hidden = YES;
+            self.doneButton.hidden = YES;
+            self.circleProgressBar.hidden = YES;
             break;
 
         case VoiceCmdState_Listening:
@@ -418,6 +422,8 @@ typedef enum eVoiceCmdAfterSound
             self.viewGraph.hidden = NO;
             self.labelContextSpecificText.text = self.strListeningMsg;
             self.viewButtonsCancel.hidden = YES;
+            self.circleProgressBar.hidden = NO;
+            self.doneButton.hidden = NO;
             self.viewButtonsYesNo.hidden = !_bYesNoMode;
             self.viewButtonsDone.hidden = _bYesNoMode;
             break;

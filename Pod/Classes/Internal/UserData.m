@@ -15,7 +15,7 @@
 #import "SignIn.h"
 #import "STM.h"
 
-#define USER_DATA_VERSION   3  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   4  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define USER_DATA_FILENAME              @"UserData"
 
@@ -121,7 +121,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
     self = [super init];
     if (self) 
 	{
-        self.user = [[User alloc] init];
+        self.user = [[STMUser alloc] init];
     }
     return self;
 }
@@ -148,7 +148,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
         int version = [aDecoder decodeIntForKey:KEY_USER_DATA_VERSION];
         if (version >= USER_DATA_VERSION)
         {
-            User *user = [aDecoder decodeObjectForKey:KEY_USER_DATA_USER];
+            STMUser *user = [aDecoder decodeObjectForKey:KEY_USER_DATA_USER];
             if (user)
             {
                 self.user = user;

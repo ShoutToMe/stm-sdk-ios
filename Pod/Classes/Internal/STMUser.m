@@ -9,10 +9,10 @@
 //  Copyright 2015 Ditty Labs. All rights reserved.
 //
 
-#import "User.h"
+#import "STMUser.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   2  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   5  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
@@ -21,15 +21,16 @@
 #define KEY_USER_USER_ID                @"UserUserId"
 #define KEY_USER_HANDLE                 @"UserHandle"
 #define KEY_USER_LAST_VIEWED_MESSAGES   @"UserLastViewedMessages"
+#define KEY_PLATFORM_ENDPOINT_ARN       @"UserPlatformEndpointARN"
 
-@interface User ()
+@interface STMUser ()
 {
 
 }
 
 @end
 
-@implementation User
+@implementation STMUser
 
 #pragma mark - Object Methods
 
@@ -43,7 +44,8 @@
         self.strPhoneNumber = @"";
         self.strUserID = @"";
         self.strHandle = @"";
-        self.dateLastViewedMessages = [NSDate date];
+        self.dateLastReadMessages = [NSDate date];
+        self.strPlatformEndpointArn = @"";
     }
     return self;
 }
@@ -56,13 +58,14 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@, PlatformEndpointARN: %@",
             self.strUserID,
             self.strHandle,
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
-            self.dateLastViewedMessages
+            self.dateLastReadMessages,
+            self.strPlatformEndpointArn
             ]);
 }
 
@@ -118,11 +121,21 @@
             NSDate  *dateVal = [aDecoder decodeObjectForKey:KEY_USER_LAST_VIEWED_MESSAGES];
             if (dateVal)
             {
-                self.dateLastViewedMessages = dateVal;
+                self.dateLastReadMessages = dateVal;
             }
             else
             {
-                self.dateLastViewedMessages = [NSDate date];
+                self.dateLastReadMessages = [NSDate date];
+            }
+
+            strVal = [aDecoder decodeObjectForKey:KEY_PLATFORM_ENDPOINT_ARN];
+            if (strVal)
+            {
+                self.strPlatformEndpointArn = strVal;
+            }
+            else
+            {
+                self.strPlatformEndpointArn = @"";
             }
         }
     }
@@ -138,7 +151,8 @@
     [aCoder encodeObject:self.strPhoneNumber forKey:KEY_USER_PHONE_NUMBER];
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
-    [aCoder encodeObject:self.dateLastViewedMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
+    [aCoder encodeObject:self.dateLastReadMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
+    [aCoder encodeObject:self.strPlatformEndpointArn forKey:KEY_PLATFORM_ENDPOINT_ARN];
 }
 
 #pragma mark - Misc Methods
@@ -150,7 +164,10 @@
         self.strUserID = [Utils stringFromKey:@"id" inDictionary:dict];
         self.strHandle = [Utils stringFromKey:@"handle" inDictionary:dict];
         self.bVerified = [Utils boolFromKey:@"verified" inDictionary:dict];
-        self.dateLastViewedMessages = [Utils dateFromString:[Utils stringFromKey:@"last_viewed_messages" inDictionary:dict]];
+        self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:@"last_read_messages_date" inDictionary:dict]];
+        if ([dict objectForKey:@"platform_endpoint_arn"] != nil) {
+            self.strPlatformEndpointArn = [Utils stringFromKey:@"platform_endpoint_arn" inDictionary:dict];
+        }
     }
 }
 

@@ -167,6 +167,132 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
    return ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied);
 }
 
+- (void)startMonitoringForRegion:(CLCircularRegion *)region {
+    if (region.radius > [self.locationManager maximumRegionMonitoringDistance]) {
+        // radius is too large, set it to the maximum
+        region = [[CLCircularRegion alloc] initWithCenter:region.center radius:[self.locationManager maximumRegionMonitoringDistance] identifier:region.identifier];
+    }
+    if ([[[self locationManager] monitoredRegions] count] < 20) {
+        [[self locationManager] startMonitoringForRegion:region];
+    } else {
+        // We have 20 or more regions and need to only monitor the closest ones.
+        [[STM monitoredConversations] addMonitoredRegion:region];
+        [self monitorClosest];
+    }
+}
+
+- (void)monitorClosest {
+    // Stop monitoring all regions
+    for (CLRegion *monitored in [[self locationManager] monitoredRegions])
+        [[self locationManager] stopMonitoringForRegion:monitored];
+    
+    // Get the current user location
+    CLLocation *usersLocation = [[STM location] curLocation];
+    
+    NSMutableDictionary *sortedRegions = [[NSMutableDictionary alloc] init];
+    
+    // Loop through local dictionary of conversations and order them by distance from user location
+    for (CLCircularRegion *conversationId in [[STM monitoredConversations] monitoredConversations]) {
+        CLCircularRegion *monitoredRegion = [[[STM monitoredConversations] monitoredConversations] objectForKey:conversationId];
+        CLLocation *monitoredRegionLocation = [[CLLocation alloc] initWithLatitude:monitoredRegion.center.latitude longitude:monitoredRegion.center.longitude];
+        CLLocationDistance distance =  [usersLocation distanceFromLocation:monitoredRegionLocation] - monitoredRegion.radius;
+        [sortedRegions setObject:monitoredRegion forKey:[[NSNumber alloc] initWithDouble:distance]];
+    }
+    NSArray *sortedKeys = [sortedRegions.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    
+    NSArray *sortedValues = [sortedRegions objectsForKeys:sortedKeys notFoundMarker:@""];
+    
+    // Monitor the closest 20 regions
+    NSInteger max;
+    if ([sortedValues count] > 20) {
+        max = 20;
+    } else {
+        max = [sortedValues count];
+    }
+    for (CLCircularRegion *region in [sortedValues subarrayWithRange:NSMakeRange(0, max)]) {
+        [self startMonitoringForRegion:region];
+    }
+}
+
+- (void)stopMonitoringForRegion:(CLCircularRegion *)region {
+    [[STM monitoredConversations] removeMonitoredConversation:region];
+    [[self locationManager] stopMonitoringForRegion:region];
+}
+
+- (void)syncMonitoredRegions {
+    dispatch_group_t serviceGroup = dispatch_group_create();
+    
+    // Get list of subscriptions ( get to channel ids)
+    NSMutableArray<STMConversation *> *activeConversations = [[NSMutableArray alloc] init];
+    dispatch_group_enter(serviceGroup);
+    [[STM subscriptions] requestForSubscriptionsWithcompletionHandler:^(NSArray<STMSubscription *> *subscriptions, NSError *error) {
+//        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
+        
+        // Get all active conversations for each channel
+        for (STMSubscription *subscription in subscriptions) {
+            dispatch_group_enter(serviceGroup);
+            [[STM conversations]requestForActiveConversationWith:subscription.strChannelId completionHandler:^(NSArray<STMConversation *> *conversations, NSError *error) {
+                if ([conversations count]) {
+                    [activeConversations addObjectsFromArray:conversations];
+                }
+                dispatch_group_leave(serviceGroup);
+            }];
+        }
+        dispatch_group_leave(serviceGroup);
+    }];
+    
+    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+        // Won't get here until everything has finished
+        // TODO: Monitor the closest 20 conversations
+//        NSLog(@"active conversations: %lu", (unsigned long)[activeConversations count]);
+        
+        [[STM monitoredConversations] removeAllMonitoredConversations];
+        for (STMConversation *conversation in activeConversations) {
+            [[STM conversations] requestForSeenConversation:conversation.str_id completionHandler:^(BOOL seen, NSError *error) {
+                NSLog(@"Seen: %@", seen == YES ? @"True" : @"False");
+                if (!error) {
+                    //                        if(true) {
+                    if (!seen) {
+                        if (conversation.location && conversation.location.lat && conversation.location.lon && conversation.location.radius_in_meters) {
+                            // Add conversation to monitored conversations
+                            [[STM monitoredConversations] addMonitoredConversation:conversation];
+                        } else {
+                            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+                                
+                                NSLog(@"Created Message: %@", message);
+                                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+                                    NSDictionary *messageData = @{
+                                                                  @"body": conversation.str_publishing_message,
+                                                                  @"category": @"MESSAGE_CATEGORY",
+                                                                  @"channel_id": conversation.str_channel_id,
+                                                                  @"content-available": @1,
+                                                                  @"conversation_id": conversation.str_id,
+                                                                  @"title": channel.strName,
+                                                                  @"type": @"conversation message",
+                                                                  @"message_id": message.strID
+                                                                  };
+                                    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+                                    localNotification.soundName = @"shout.wav";
+                                    localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:messageData];
+                                    localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:messageData];
+                                    localNotification.userInfo = messageData;
+                                    
+                                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                }];
+                            }];
+                        }
+                    }
+                }
+                
+            }];
+        }
+        if ([[[STM monitoredConversations] monitoredConversations] count] > 0) {
+            [self monitorClosest];
+        }
+    });
+}
+
+
 #pragma mark - Misc Methods
 
 - (void)showAlert:(NSString *)strMsg withTitle:(NSString *)strTitle
@@ -205,7 +331,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     
 //    NSLog(@"%@", [newLocation description]);
     if ([[[self locationManager] monitoredRegions] count] > 20) {
-        [[STM stmGeofenceLocationManager] monitorClosest];
+        [self monitorClosest];
     }
 
 #ifdef STOP_UPDATING_AT_ACCURACY

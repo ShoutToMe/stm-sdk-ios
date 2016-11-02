@@ -16,17 +16,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
-    // This category is appropriate for simultaneous recording and playback, and also for apps that record and play back but not simultaneously.
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    // Activates your app’s audio session.
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    // Initialize Shout To Me SDK, Replace "STM_ACCESS_TOKEN" with your Shout to Me token
+    [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
     
-    // Initialize Shout To Me SDK, Replace with your Shout to Me token
-    [STM initWithAccessToken:@"STM_ACCESS_TOKEN"];
-    
-    // Set your channel Id
+    // Set your Shout to Me Channel ID
     [STM setChannelId:@"CHANNEL_ID"];
     
     return YES;

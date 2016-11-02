@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "STM"
-  s.version          = "0.0.27"
+  s.version          = "0.0.28"
   s.summary          = "Shout To Me iOS SDK"
 
   # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/ShoutToMe/stm-sdk-ios.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/shout_to_me'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
@@ -36,5 +36,6 @@ Pod::Spec.new do |s|
   }
   #s.public_header_files = 'Pod/Classes/Public/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'AWSCore/*.h', 'AWSCore/**/*.h'
+  s.dependency 'AWSSNS', '~> 2.4'
 end

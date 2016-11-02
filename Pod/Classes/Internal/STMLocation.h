@@ -28,6 +28,10 @@
 - (double)speed;
 - (double)course;
 - (BOOL)locationServicesEnabled;
+- (void)startMonitoringForRegion:(CLCircularRegion *)region;
+- (void)stopMonitoringForRegion:(CLCircularRegion *)region;
+- (void)syncMonitoredRegions;
+
 
 
 @end
