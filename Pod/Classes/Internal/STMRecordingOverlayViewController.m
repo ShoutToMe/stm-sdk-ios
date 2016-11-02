@@ -9,6 +9,7 @@
 #import "STMRecordingOverlayViewController.h"
 #import "Shout.h"
 #import "AppUtils.h"
+#import "VoiceCmdView.h"
 
 #define SHOUT_SENT_SOUND                            @"sent.caf"
 #define MIN_AUDIO_LEN_AFTER_ERR     40000
@@ -26,8 +27,6 @@ typedef enum eAfterAudioCmd
 @property (nonatomic, strong)   UIActivityIndicatorView *indicator;
 @property (weak, nonatomic)     IBOutlet UIView         *viewBusy;
 @property (nonatomic)           BOOL                    bDismiss;
-@property NSString *tags;
-@property NSString *topic;
 
 @end
 
@@ -44,47 +43,31 @@ typedef enum eAfterAudioCmd
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.indicator.center = self.voiceCmdView.center;
+    [self.voiceCmdView addSubview:self.indicator];
+    
+    if (self.voiceCmdView == nil)
+    {
+        // hold the audio as active for this app for the entire time the view is up
+        [[STM audioSystem] setInputType:STMAudioInputType_BluetoothHFP];
+        [[STM audioSystem] holdActive:YES];
+        self.voiceCmdView = [VoiceCmdView CreateWithWidth:self.view.bounds.size.width];
+        if (self.MaxListeningSeconds) {
+            self.voiceCmdView.MaxListeningSeconds = self.MaxListeningSeconds;
+        }
+        [self.voiceCmdView setTitle:@""];
+        self.voiceCmdView.delegate = self;
+        [self.view addSubview:self.voiceCmdView];
+        [self.voiceCmdView setTitleAndStartListening:@"Listening..."];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                self.indicator.center = self.voiceCmdView.center;
-                [self.voiceCmdView addSubview:self.indicator];
-                
-                if (self.voiceCmdView == nil)
-                {
-                    // hold the audio as active for this app for the entire time the view is up
-                    [[STM audioSystem] setInputType:STMAudioInputType_BluetoothHFP];
-                    [[STM audioSystem] holdActive:YES];
-                    self.voiceCmdView = [VoiceCmdView CreateWithWidth:self.view.bounds.size.width];
-                    if (self.MaxListeningSeconds) {
-                        self.voiceCmdView.MaxListeningSeconds = self.MaxListeningSeconds;
-                    }
-                    [self.voiceCmdView setTitle:@""];
-                    self.voiceCmdView.delegate = self;
-                    [self.view addSubview:self.voiceCmdView];
-                    [self.voiceCmdView setTitleAndStartListening:@"Listening..."];
-                }
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Mic Permissions"
-                                      message:@"Mic permissions are required."
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                [alert show];
-                [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-                if ([self.delegate respondsToSelector:@selector(overlayClosed:)]) {
-                    [self.delegate overlayClosed:YES];
-                }
-            }
-        }];
-    }
-    
+}
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
+    NSLog(@"navigatioController: %@", [navigationController description]);
 }
 
 - (void)sendShout:(NSData *)dataAudio
@@ -93,7 +76,7 @@ typedef enum eAfterAudioCmd
     
     [self showBusy:YES];
     
-    [[STM sendShout] sendData:dataAudio text:@"" replyToId:nil withDelegate:self];
+    [[STM shout] sendData:dataAudio text:@"" replyToId:nil withDelegate:self];
     
 }
 
@@ -150,7 +133,7 @@ typedef enum eAfterAudioCmd
             [data appendData:dataAudio];
             
             
-            [[STM sendShout] sendData:data text:strText replyToId:nil tags:self.tags topic:self.topic withDelegate:self];
+            [[STM shout] sendData:data text:strText replyToId:nil tags:self.tags topic:self.topic withDelegate:self];
             
         }
     }
