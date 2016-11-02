@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Settings.h"
+#import "STMShout.h"
 
 // this is singleton object class
 // this means it has static methods that create on instance of itself for use by all

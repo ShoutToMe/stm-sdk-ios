@@ -9,7 +9,7 @@
 //  Copyright 2015 Ditty Labs. All rights reserved.
 //
 //#import <AVFoundation/AVAudioPlayer.h>
-#import "STM.h"
+#import "STM_Defs.h"
 #import "Utils.h"
 #import "Settings.h"
 //#import "AudioSystem.h"
