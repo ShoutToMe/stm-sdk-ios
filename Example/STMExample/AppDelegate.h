@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <STM.h>
+#import "STM.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, STMDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
