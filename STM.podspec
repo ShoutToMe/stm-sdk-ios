@@ -34,8 +34,7 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'STM' => ['Pod/Assets/*.{png,xib,caf}']
   }
-  #s.public_header_files = 'Pod/Classes/Public/**/*.h'
+  s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.public_header_files = 'AWSCore/*.h', 'AWSCore/**/*.h'
   s.dependency 'AWSSNS', '~> 2.4'
 end
