@@ -27,7 +27,7 @@
 #import "Messages.h"
 #import "Subscriptions.h"
 #import "Conversations.h"
-#import "MonitoredConversations.h""
+#import "MonitoredConversations.h"
 
 @protocol STMDelegate <NSObject>
 

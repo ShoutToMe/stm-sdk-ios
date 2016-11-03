@@ -23,7 +23,7 @@
 #import "Messages.h"
 #import "Subscriptions.h"
 #import "Conversations.h"
-#import "MonitoredConversations.h""
+#import "MonitoredConversations.h"
 #import "STMRecordingOverlayViewController.h"
 
 static BOOL bInitialized = NO;
@@ -232,7 +232,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
                 overlay.topic = topic;
             }
             if (maxListeningSeconds) {
-                overlay.maxListeningSeconds = [maxListeningSeconds doubleValue];
+                [overlay setMaxListeningSeconds:[maxListeningSeconds doubleValue]];
             }
             overlay.delegate = delegate;
             [vc presentViewController:overlay animated:YES completion:nil];
