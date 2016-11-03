@@ -232,7 +232,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
                 overlay.topic = topic;
             }
             if (maxListeningSeconds) {
-                overlay.maxListeningSeconds = [maxListeningSeconds doubleValue];
+                [overlay setMaxListeningSeconds:[maxListeningSeconds doubleValue]];
             }
             overlay.delegate = delegate;
             [vc presentViewController:overlay animated:YES completion:nil];
