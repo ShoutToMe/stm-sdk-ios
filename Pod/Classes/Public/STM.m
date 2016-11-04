@@ -34,7 +34,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:810633828709:app/APNS/voigo";
 
 @interface STM ()
-@property (nonatomic, strong) NSString *authKey;
 
 + (STMUser *)currentUser;
 + (Settings *)settings;
