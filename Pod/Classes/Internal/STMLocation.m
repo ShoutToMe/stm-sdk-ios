@@ -251,11 +251,44 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             [[STM conversations] requestForSeenConversation:conversation.str_id completionHandler:^(BOOL seen, NSError *error) {
                 NSLog(@"Seen: %@", seen == YES ? @"True" : @"False");
                 if (!error) {
-                    //                        if(true) {
                     if (!seen) {
                         if (conversation.location && conversation.location.lat && conversation.location.lon && conversation.location.radius_in_meters) {
                             // Add conversation to monitored conversations
-                            [[STM monitoredConversations] addMonitoredConversation:conversation];
+                            CLLocationCoordinate2D center = CLLocationCoordinate2DMake(conversation.location.lat,
+                                                                                       conversation.location.lon);
+                            CLCircularRegion *conversation_region = [[CLCircularRegion alloc]initWithCenter:center
+                                                                                                     radius:conversation.location.radius_in_meters
+                                                                                                 identifier:conversation.str_id];
+                            
+                            if ([conversation_region containsCoordinate:[STMLocation controller].curLocation.coordinate]) {
+                                [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+                                    
+                                    NSLog(@"Created Message: %@", message);
+                                    [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+                                        NSDictionary *messageData = @{
+                                                                      @"body": conversation.str_publishing_message,
+                                                                      @"category": @"MESSAGE_CATEGORY",
+                                                                      @"channel_id": conversation.str_channel_id,
+                                                                      @"content-available": @1,
+                                                                      @"conversation_id": conversation.str_id,
+                                                                      @"title": channel.strName,
+                                                                      @"type": @"conversation message",
+                                                                      @"message_id": message.strID
+                                                                      };
+                                        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+                                        localNotification.soundName = @"shout.wav";
+                                        localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:messageData];
+                                        localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:messageData];
+                                        localNotification.userInfo = messageData;
+                                        
+                                        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                    }];
+                                }];
+
+                            } else {
+                                [[STM monitoredConversations] addMonitoredConversation:conversation];
+                            }
+                            
                         } else {
                             [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
                                 
