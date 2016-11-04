@@ -278,7 +278,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
 #pragma mark - Notification Misc
 + (void)setupNotificationsWithApplication:(UIApplication *)application {
 //    application.applicationIconBadgeNumber = 0;
-    
+#if !(TARGET_IPHONE_SIMULATOR)
     UIMutableUserNotificationCategory *messageCategory = [[UIMutableUserNotificationCategory alloc] init];
     messageCategory.identifier = @"MESSAGE_CATEGORY";
     
@@ -289,6 +289,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+#endif
 }
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
