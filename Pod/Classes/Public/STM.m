@@ -70,7 +70,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
         singleton = [[STM alloc] initWithToken:token];
         singleton.delegate = delegate;
         
-        [STMLocation initAll];
+        //[STMLocation initAll];
         [DL_URLServer initAll];
         [Settings initAll];
         [AudioSystem initAll];
