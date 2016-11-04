@@ -34,7 +34,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:810633828709:app/APNS/voigo";
 
 @interface STM ()
-@property (nonatomic, strong) NSString *authKey;
 
 + (STMUser *)currentUser;
 + (Settings *)settings;
@@ -221,6 +220,12 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
 
 + (void)presentRecordingOverlayWithViewController:(UIViewController *)vc andTags:(NSString *)tags andTopic:(NSString *)topic andMaxListeningSeconds:(NSNumber *)maxListeningSeconds andDelegate:(id)delegate andError:(NSError *__autoreleasing *)error {
     
+    if ([[vc presentedViewController] isKindOfClass:[STMRecordingOverlayViewController class]])
+    {
+        [(STMRecordingOverlayViewController *)[vc presentedViewController] userRequestsStopListening];
+        return;
+    }
+    
     STMRecordingOverlayViewController *overlay = [[STMRecordingOverlayViewController alloc] init];
     NSDictionary *userInfo = @{@"error description": @"Unable to record shout, mic permission is not granted."};
     switch ([[AVAudioSession sharedInstance] recordPermission]) {
@@ -236,15 +241,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
             }
             overlay.delegate = delegate;
             [vc presentViewController:overlay animated:YES completion:nil];
-            
             break;
-        //case AVAudioSessionRecordPermissionDenied:
-            
-          //  break;
-        //case AVAudioSessionRecordPermissionUndetermined:
-            // This is the initial state before a user has made any choice
-            // You can use this spot to request permission here if you want
-          //  break;
         default:
             *error = [NSError errorWithDomain:ShoutToMeErrorDomain
                                          code:MicPermissionNotGranted
@@ -252,33 +249,6 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
             NSLog(@"Mic Permissions required to show Shout to Me Recording Overlay");
             break;
     }
-    /*
-    if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                STMRecordingOverlayViewController *overlay = [[STMRecordingOverlayViewController alloc] init];
-                if (tags) {
-                    overlay.tags = tags;
-                }
-                if (topic) {
-                    overlay.topic = topic;
-                }
-                if (maxListeningSeconds) {
-                    overlay.maxListeningSeconds = [maxListeningSeconds doubleValue];
-                }
-                overlay.delegate = delegate;
-                [vc presentViewController:overlay animated:YES completion:nil];
-            } else {
-                NSDictionary *userInfo = @{@"error description": @"Unable to record shout, mic permission is not granted."};
-                
-                *error = [NSError errorWithDomain:ShoutToMeErrorDomain
-                                             code:MicPermissionNotGranted
-                                         userInfo:userInfo];
-                NSLog(@"Mic Permissions required to show Shout to Me Recording Overlay");
-            }
-        }];
-    }
-     */
 }
 
 - (NSString *)channelId {
@@ -314,7 +284,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
 #pragma mark - Notification Misc
 + (void)setupNotificationsWithApplication:(UIApplication *)application {
 //    application.applicationIconBadgeNumber = 0;
-    
+#if !(TARGET_IPHONE_SIMULATOR)
     UIMutableUserNotificationCategory *messageCategory = [[UIMutableUserNotificationCategory alloc] init];
     messageCategory.identifier = @"MESSAGE_CATEGORY";
     
@@ -325,6 +295,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+#endif
 }
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
