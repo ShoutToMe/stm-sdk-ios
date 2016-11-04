@@ -235,15 +235,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
             }
             overlay.delegate = delegate;
             [vc presentViewController:overlay animated:YES completion:nil];
-            
             break;
-        //case AVAudioSessionRecordPermissionDenied:
-            
-          //  break;
-        //case AVAudioSessionRecordPermissionUndetermined:
-            // This is the initial state before a user has made any choice
-            // You can use this spot to request permission here if you want
-          //  break;
         default:
             *error = [NSError errorWithDomain:ShoutToMeErrorDomain
                                          code:MicPermissionNotGranted
@@ -251,33 +243,6 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
             NSLog(@"Mic Permissions required to show Shout to Me Recording Overlay");
             break;
     }
-    /*
-    if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                STMRecordingOverlayViewController *overlay = [[STMRecordingOverlayViewController alloc] init];
-                if (tags) {
-                    overlay.tags = tags;
-                }
-                if (topic) {
-                    overlay.topic = topic;
-                }
-                if (maxListeningSeconds) {
-                    overlay.maxListeningSeconds = [maxListeningSeconds doubleValue];
-                }
-                overlay.delegate = delegate;
-                [vc presentViewController:overlay animated:YES completion:nil];
-            } else {
-                NSDictionary *userInfo = @{@"error description": @"Unable to record shout, mic permission is not granted."};
-                
-                *error = [NSError errorWithDomain:ShoutToMeErrorDomain
-                                             code:MicPermissionNotGranted
-                                         userInfo:userInfo];
-                NSLog(@"Mic Permissions required to show Shout to Me Recording Overlay");
-            }
-        }];
-    }
-     */
 }
 
 - (NSString *)channelId {
