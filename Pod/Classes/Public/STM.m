@@ -220,6 +220,12 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
 
 + (void)presentRecordingOverlayWithViewController:(UIViewController *)vc andTags:(NSString *)tags andTopic:(NSString *)topic andMaxListeningSeconds:(NSNumber *)maxListeningSeconds andDelegate:(id)delegate andError:(NSError *__autoreleasing *)error {
     
+    if ([[vc presentedViewController] isKindOfClass:[STMRecordingOverlayViewController class]])
+    {
+        [(STMRecordingOverlayViewController *)[vc presentedViewController] userRequestsStopListening];
+        return;
+    }
+    
     STMRecordingOverlayViewController *overlay = [[STMRecordingOverlayViewController alloc] init];
     NSDictionary *userInfo = @{@"error description": @"Unable to record shout, mic permission is not granted."};
     switch ([[AVAudioSession sharedInstance] recordPermission]) {
