@@ -67,9 +67,7 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
     
     if (NO == [CLLocationManager locationServicesEnabled])
     {
-        [self showAlert:NSLocalizedString(@"You have not allowed this application to obtain your location. Therefore, this application will not be able find shouts near you. If you would like this feature, please go to the device settings under \"General / Location Services\" and enable it.", nil)
-              withTitle:NSLocalizedString(@"Location Warning", nil)];
-        NSLog(@"No general location to start with");
+        NSLog(@"Shout to Me SDK requires requestAlwaysAuthorization to use the location features.");
     }
     else
     {
@@ -225,20 +223,6 @@ static STMGeofenceLocationManager *singleton = nil;  // this will be the one and
 - (BOOL)locationServicesEnabled
 {
     return ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied);
-}
-
-
-#pragma mark - Misc Methods
-
-- (void)showAlert:(NSString *)strMsg withTitle:(NSString *)strTitle
-{
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:strTitle
-                          message:strMsg
-                          delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil];
-    [alert show];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
