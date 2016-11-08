@@ -264,11 +264,9 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
                                                                            if ([(NSHTTPURLResponse *) response statusCode] == 401) {
                                                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                                                    // Remind the user to update the API Key
-                                                                                   UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Shout To Me API accessToken required"
-                                                                                                                                    message:@"Be sure to set your STM accessToken."
-                                                                                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                                                                   [alert show];
-                                                                                   return;
+                                                                                   NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                                                                                   [details setValue:@"Shout To Me API accessToken required." forKey:NSLocalizedDescriptionKey];
+                                                                                   NSError *error = [NSError errorWithDomain:@"Access Denied" code:400 userInfo:details];                                                                                   return;
                                                                                });
                                                                            }
                                                                        }
