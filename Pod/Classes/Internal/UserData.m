@@ -266,7 +266,10 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
                                                                                    // Remind the user to update the API Key
                                                                                    NSMutableDictionary* details = [NSMutableDictionary dictionary];
                                                                                    [details setValue:@"Shout To Me API accessToken required." forKey:NSLocalizedDescriptionKey];
-                                                                                   NSError *error = [NSError errorWithDomain:@"Access Denied" code:400 userInfo:details];                                                                                   return;
+                                                                                   NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain
+                                                                                                                code:APITokenNotSet
+                                                                                                            userInfo:details];
+                                                                                   return;
                                                                                });
                                                                            }
                                                                        }

@@ -43,6 +43,7 @@ typedef enum eErrorSeverity
 
 typedef enum eErrorType {
     MicPermissionNotGranted,
+    APITokenNotSet
 } eErrorType;
 // this is singleton object class
 // this means it has static methods that create on instance of itself for use by all
