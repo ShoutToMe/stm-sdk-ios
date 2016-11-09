@@ -18,6 +18,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.handleTextField.text = [STM currentUser].strHandle;
+    
+    // Ask the user for location permissions
+    [[[STM location] locationManager] requestAlwaysAuthorization];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,8 +29,24 @@
 }
 
 - (IBAction)recordTouched:(id)sender {
-    NSError *error;
-    [STM presentRecordingOverlayWithViewController:self andTags:@"tag1, tag2" andTopic:@"custom topic" andMaxListeningSeconds:[NSNumber numberWithDouble:30.0] andDelegate:self andError:&error];
+    
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Permission granted");
+                NSError *error;
+                [STM presentRecordingOverlayWithViewController:self andTags:nil andTopic:nil andMaxListeningSeconds:nil andDelegate:self andError:&error];
+                
+                if (error) {
+                    NSLog(@"%@", error.description);
+                }
+            });
+        }
+        else {
+            NSLog(@"Permission denied");
+        }
+    }];
+
    }
 
 - (IBAction)UpdateTouched:(id)sender {

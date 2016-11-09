@@ -71,8 +71,9 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     if (bInitialized && singleton) 
     {
+        NSError *error;
         [singleton stop];
-        [singleton start];
+        [singleton startWithError:&error];
     }
 }
 
@@ -90,11 +91,18 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     self = [super init];
     if (self) 
-	{        
+	{
+        NSError *error;
         self.curLocation = nil;
         _lastValidCourse = -1;
         _lastValidSpeed = -1;
-        [self start];
+        if (!self.locationManager)
+        {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        }
+//        [self startWithError:&error];
     }
     
     return self;
@@ -109,26 +117,23 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 #pragma mark - Public Methods
 
 // start requesting location
-- (void)start
+- (void)startWithError:(NSError **)error
 {
     [self stop];
     
     //NSLog(@"Starting location");
     
-    if (NO == [CLLocationManager locationServicesEnabled])
+    if ((NO == [CLLocationManager locationServicesEnabled]) || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways))
     {
-        [self showAlert:NSLocalizedString(@"You have not allowed this application to obtain your location. Therefore, this application will not be able find shouts near you. If you would like this feature, please go to the device settings under \"General / Location Services\" and enable it.", nil)
-              withTitle:NSLocalizedString(@"Location Warning", nil)];
-        NSLog(@"No general location to start with");
+        NSDictionary *userInfo = @{@"error description": @"Unable to start STMLocation, location services are not enabled or not authorized to kCLAuthorizationStatusAuthorizedAlways."};
+        *error = [NSError errorWithDomain:ShoutToMeErrorDomain
+                                     code:LocationServicesNotEnabledOrAuthorized
+                                 userInfo:userInfo];
+
+        NSLog(@"Shout to Me SDK requires requestAlwaysAuthorization to use the location features.");
     }
     else
     {
-        if (!self.locationManager)
-        {
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        }
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
             [self.locationManager requestAlwaysAuthorization];
@@ -325,20 +330,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     });
 }
 
-
-#pragma mark - Misc Methods
-
-- (void)showAlert:(NSString *)strMsg withTitle:(NSString *)strTitle
-{
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:strTitle 
-						  message:strMsg
-						  delegate:nil
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
-	[alert show];
-}
-
 #pragma mark - CLLocationManagerDelegate Methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -417,11 +408,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 	}
 
     self.bHaveLocation = NO;
-
-    if (msg)
-    {
-        [self showAlert:msg withTitle:@"Location Warning"];
-    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
