@@ -71,8 +71,9 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     if (bInitialized && singleton) 
     {
+        NSError *error;
         [singleton stop];
-        [singleton start];
+        [singleton startWithError:&error];
     }
 }
 
@@ -90,11 +91,18 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     self = [super init];
     if (self) 
-	{        
+	{
+        NSError *error;
         self.curLocation = nil;
         _lastValidCourse = -1;
         _lastValidSpeed = -1;
-        [self start];
+        if (!self.locationManager)
+        {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        }
+//        [self startWithError:&error];
     }
     
     return self;
@@ -109,7 +117,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 #pragma mark - Public Methods
 
 // start requesting location
-- (void)start
+- (void)startWithError:(NSError **)error
 {
     [self stop];
     
@@ -117,16 +125,15 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     
     if ((NO == [CLLocationManager locationServicesEnabled]) || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways))
     {
+        NSDictionary *userInfo = @{@"error description": @"Unable to start STMLocation, location services are not enabled or not authorized to kCLAuthorizationStatusAuthorizedAlways."};
+        *error = [NSError errorWithDomain:ShoutToMeErrorDomain
+                                     code:LocationServicesNotEnabledOrAuthorized
+                                 userInfo:userInfo];
+
         NSLog(@"Shout to Me SDK requires requestAlwaysAuthorization to use the location features.");
     }
     else
     {
-        if (!self.locationManager)
-        {
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        }
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
             [self.locationManager requestAlwaysAuthorization];

@@ -23,7 +23,7 @@
 + (void)freeAll;
 + (STMLocation *)controller;
 
-- (void)start;
+- (void)startWithError:(NSError **)error;
 - (void)stop;
 - (double)speed;
 - (double)course;

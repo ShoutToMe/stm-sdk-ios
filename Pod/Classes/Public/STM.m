@@ -70,7 +70,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
         singleton = [[STM alloc] initWithToken:token];
         singleton.delegate = delegate;
         
-        //[STMLocation initAll];
+        [STMLocation initAll];
         [DL_URLServer initAll];
         [Settings initAll];
         [AudioSystem initAll];
@@ -266,7 +266,8 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-        [[STM location] start];
+        NSError *error;
+        [[STM location] startWithError:&error];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
