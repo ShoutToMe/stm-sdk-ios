@@ -115,7 +115,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     
     //NSLog(@"Starting location");
     
-    if (NO == [CLLocationManager locationServicesEnabled])
+    if ((NO == [CLLocationManager locationServicesEnabled]) || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways))
     {
         NSLog(@"Shout to Me SDK requires requestAlwaysAuthorization to use the location features.");
     }
