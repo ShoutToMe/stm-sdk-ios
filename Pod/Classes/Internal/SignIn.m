@@ -593,7 +593,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                                                                                    NSMutableDictionary* details = [NSMutableDictionary dictionary];
                                                                                    [details setValue:@"Shout To Me API accessToken required." forKey:NSLocalizedDescriptionKey];
                                                                                    NSError *error = [NSError errorWithDomain:@"Access Denied" code:400 userInfo:details];
-                                                                                   return;
+                                                                                   return completionHandler(error);
                                                                                });
                                                                            } else if ([(NSHTTPURLResponse *) response statusCode] == 409) {
                                                                                NSMutableDictionary* details = [NSMutableDictionary dictionary];
@@ -784,7 +784,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                                                                                    NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain
                                                                                                                         code:APITokenNotSet
                                                                                                                     userInfo:details];
-                                                                                   return;
+                                                                                   return completionHandler(error);
                                                                                });
                                                                            }
                                                                        }

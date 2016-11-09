@@ -92,7 +92,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     self = [super init];
     if (self) 
 	{
-        NSError *error;
         self.curLocation = nil;
         _lastValidCourse = -1;
         _lastValidSpeed = -1;
@@ -102,7 +101,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             self.locationManager.delegate = self;
             //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         }
-//        [self startWithError:&error];
     }
     
     return self;
@@ -382,8 +380,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 
 // the location manager had an issue with obtaining the location
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{	
-    NSMutableString *msg = nil;//[[NSMutableString alloc] initWithString:@"The application is having difficulty obtaining your location. Please try again later."];
+{
 	
     //NSLog(@"Location error: %d", (int) [error code]);
     

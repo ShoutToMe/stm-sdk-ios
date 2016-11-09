@@ -264,11 +264,10 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
                                                                            if ([(NSHTTPURLResponse *) response statusCode] == 401) {
                                                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                                                    // Remind the user to update the API Key
-                                                                                   NSMutableDictionary* details = [NSMutableDictionary dictionary];
-                                                                                   [details setValue:@"Shout To Me API accessToken required." forKey:NSLocalizedDescriptionKey];
-                                                                                   NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain
-                                                                                                                code:APITokenNotSet
-                                                                                                            userInfo:details];
+                                                                                   //NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                                                                                   //[details setValue:@"Shout To Me API accessToken required." forKey:NSLocalizedDescriptionKey];
+                                                                                   //NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain code:APITokenNotSet userInfo:details];
+                                                                                   NSLog (@"Shout to Me API Auth Token required");
                                                                                    return;
                                                                                });
                                                                            }
