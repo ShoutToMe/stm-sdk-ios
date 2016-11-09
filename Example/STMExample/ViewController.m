@@ -18,6 +18,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.handleTextField.text = [STM currentUser].strHandle;
+    
+    // Ask the user for location permissions
+    [[[STM location] locationManager] requestAlwaysAuthorization];
 }
 
 - (void)didReceiveMemoryWarning {
