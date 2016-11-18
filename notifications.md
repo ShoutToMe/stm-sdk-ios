@@ -10,47 +10,109 @@ audio content that is sent to mobile users to convey a communication.  A **Notif
 technology term "Push Notification") is the delivery mechanism used to transport a Message.
 
 ## Messages
-The Message object represents a text or audio message that was sent from a broadcaster.  A
-user may receive messages from more than one channel if the client app supports multiple channels.  Some messages have
-audio associated with them. When they do, you can use the conversation ID to get access to the audio.
+The SDK provides a Messages class that can be used to retrieve Messages for the current user, or check if they have
+unread messages.
 
-```java
-public class Message {
-
-    public String getId()
-
-    public Channel getChannel()
-
-    // The actual message text
-    public String getMessage()
-
-    // The name of the sender.  May be null if was sent via a channel-wide notification
-    public String getSenderName()
-
-    public Date getSentDate()
-
-    // A reference to a Shout to Me conversation.  May be null
-    public String getConversationId()
-}
+```objc
+// Request all of the users messages for the current user.
+- (void)requestForMessagesWithDelegate:(id<MessagesDelegate>)delegate;
+// Request the count of unread messages for the current user.
+- (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate>)delegate;
+// Request a specific message by Id
+- (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
+                                                                            NSError *error))completionHandler;
 ```
 
 ### Retrieving messages
 
-A maximum of 1000 messages will be returned.
+#### Import "STM.h" to the header of your view controller:
 
-```java
-stmService.getMessages(new Callback<List<Message>>() {
-    @Override
-    public void onSuccess(StmResponse<List<Message>> messagesResponse) {
-        List<Message> messageList = messagesResponse.get();
-    }
+```objc
+//ViewController.h
 
-    @Override
-    public void onFailure(StmError stmError) {
-        // Could not retrieve message list
-    }
-});
+#import <STM.h>
 ```
+
+#### Implement the MessagesDelegate:
+
+```objc
+//ViewController.h
+
+@interface ViewController : UIViewController<MessagesDelegate>
+
+@end
+```
+
+#### Request messages in your ViewController:
+
+```objc
+//ViewController.m
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[STM messages] requestForMessagesWithDelegate:self];
+}
+```
+
+#### Implement MessagesDelegate MessagesResults delegate:
+
+```objc
+//ViewController.m
+
+#pragma mark - Messages Delegates
+- (void)MessagesResults:(NSArray *)arrayMessages
+{
+    // Do something with arrayMessages, load them into a table view data source...ect
+
+    // Update the user's LastReadMessages date
+    // If this is not updated, the call to requestForUnreadMessageCountWithDelegate will return
+    // the same number even after the user views their messages.
+    [[STM signIn] setLastReadMessages:[NSDate date] withDelegate:self];
+}
+```
+
+### Get Unread Message Count
+
+#### Import "STM.h" to the header of your view controller:
+
+```objc
+//ViewController.h
+
+#import <STM.h>
+```
+
+#### Implement the MessagesDelegate:
+```objc
+
+//ViewController.h
+
+@interface ViewController : UIViewController<MessagesDelegate>
+
+@end
+```
+
+#### Request unread message count in your ViewController:
+
+```objc
+//ViewController.m
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[STM messages] requestForUnreadMessageCountWithDelegate:self];
+}
+```
+
+#### Implement MessagesDelegate UnreadMessageResults delegate:
+
+```objc
+//ViewController.m
+
+#pragma mark - Messages Delegates
+- (void)UnreadMessageResults:(NSNumber *)count {
+    // Do something with count, like setting a label's text, ect...
+}
+```
+
 
 ## Notifications
 The Shout to Me SDK supports receiving push notifications from the Shout to Me platform.  The SDK will only handle
