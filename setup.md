@@ -63,7 +63,7 @@ overlay without the permission will result in a error response indicating that t
 
 Add the following to your Info.plist to request permission to record.
 
-[NSMicrophoneUsageDescription] (https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)
+[NSMicrophoneUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)
 
 Set the value to something like: "Your microphone is used to allow you to shout to the station."
 
@@ -76,8 +76,9 @@ broadcasters.
 
 To enable location permissions, add the following to your Info.plist.
 
-[NSLocationUsageDescription] (https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
-[NSLocationAlwaysUsageDescription] (https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
+[NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+<br>
+[NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
 
 Both are strings and should be set to something like: "Your location is used to let the station know what part of
 town you are in and so you can receive geo-targeted messages."
