@@ -54,6 +54,8 @@
         
           
         
+          
+        
       </div>
     </nav>
 
@@ -70,17 +72,16 @@
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
       <div>Android SDK</div>
       <ul style="margin-left:10px;list-style: none">
-        <li><a href="/stm-sdk-android/">Home</a></li>
+        <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
           <ul>
             <li><a href="setup">Setup</a></li>
             <li><a href="sample-app">Sample App</a></li>
           </ul>
         </li>
-        <li><a href="stm-service">StmService</a></li>
-        <li><a href="recording-overlay">Recording</a></li>
+        <li><a href="user">User</a></li>
+        <li><a href="recording">Recording</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
-        <li><a href="reference">Reference</a></li>
 
       </ul>
     </div>
@@ -93,45 +94,118 @@ audio content that is sent to mobile users to convey a communication.  A <strong
 technology term “Push Notification”) is the delivery mechanism used to transport a Message.</p>
 
 <h2 id="messages">Messages</h2>
-<p>The Message object represents a text or audio message that was sent from a broadcaster.  A
-user may receive messages from more than one channel if the client app supports multiple channels.  Some messages have
-audio associated with them. When they do, you can use the conversation ID to get access to the audio.</p>
+<p>The SDK provides a Messages class that can be used to retrieve Messages for the current user, or check if they have
+unread messages.</p>
 
-<p>```java
-public class Message {</p>
-
-<pre><code>public String getId()
-
-public Channel getChannel()
-
-// The actual message text
-public String getMessage()
-
-// The name of the sender.  May be null if was sent via a channel-wide notification
-public String getSenderName()
-
-public Date getSentDate()
-
-// A reference to a Shout to Me conversation.  May be null
-public String getConversationId() } ```
-</code></pre>
+<p><code>objc
+// Request all of the users messages for the current user.
+- (void)requestForMessagesWithDelegate:(id&lt;MessagesDelegate&gt;)delegate;
+// Request the count of unread messages for the current user.
+- (void)requestForUnreadMessageCountWithDelegate:(id&lt;MessagesDelegate&gt;)delegate;
+// Request a specific message by Id
+- (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
+                                                                            NSError *error))completionHandler;
+</code></p>
 
 <h3 id="retrieving-messages">Retrieving messages</h3>
 
-<p>A maximum of 1000 messages will be returned.</p>
+<h4 id="import-stmh-to-the-header-of-your-view-controller">Import “STM.h” to the header of your view controller:</h4>
 
-<p>```java
-stmService.getMessages(new Callback&lt;List<message>&gt;() {
-    @Override
-    public void onSuccess(StmResponse&lt;List<message>&gt; messagesResponse) {
-        List<message> messageList = messagesResponse.get();
-    }</message></message></message></p>
+<p>```objc
+//ViewController.h</p>
 
-<pre><code>@Override
-public void onFailure(StmError stmError) {
-    // Could not retrieve message list
-} }); ```
-</code></pre>
+<h1 id="import-stmh">import <stm.h></stm.h></h1>
+<p>```</p>
+
+<h4 id="implement-the-messagesdelegate">Implement the MessagesDelegate:</h4>
+
+<p>```objc
+//ViewController.h</p>
+
+<p>@interface ViewController : UIViewController<messagesdelegate></messagesdelegate></p>
+
+<p>@end
+```</p>
+
+<h4 id="request-messages-in-your-viewcontroller">Request messages in your ViewController:</h4>
+
+<p>```objc
+//ViewController.m</p>
+
+<ul>
+  <li>(void)viewDidLoad {
+  [super viewDidLoad];
+  [[STM messages] requestForMessagesWithDelegate:self];
+}
+```</li>
+</ul>
+
+<h4 id="implement-messagesdelegate-messagesresults-delegate">Implement MessagesDelegate MessagesResults delegate:</h4>
+
+<p>```objc
+//ViewController.m</p>
+
+<h1 id="pragma-mark---messages-delegates">pragma mark - Messages Delegates</h1>
+<ul>
+  <li>
+    <p>(void)MessagesResults:(NSArray *)arrayMessages
+{
+  // Do something with arrayMessages, load them into a table view data source…ect</p>
+
+    <p>// Update the user’s LastReadMessages date
+  // If this is not updated, the call to requestForUnreadMessageCountWithDelegate will return
+  // the same number even after the user views their messages.
+  [[STM signIn] setLastReadMessages:[NSDate date] withDelegate:self];
+}
+```</p>
+  </li>
+</ul>
+
+<h3 id="get-unread-message-count">Get Unread Message Count</h3>
+
+<h4 id="import-stmh-to-the-header-of-your-view-controller-1">Import “STM.h” to the header of your view controller:</h4>
+
+<p>```objc
+//ViewController.h</p>
+
+<h1 id="import-stmh-1">import <stm.h></stm.h></h1>
+<p>```</p>
+
+<h4 id="implement-the-messagesdelegate-1">Implement the MessagesDelegate:</h4>
+<p>```objc</p>
+
+<p>//ViewController.h</p>
+
+<p>@interface ViewController : UIViewController<messagesdelegate></messagesdelegate></p>
+
+<p>@end
+```</p>
+
+<h4 id="request-unread-message-count-in-your-viewcontroller">Request unread message count in your ViewController:</h4>
+
+<p>```objc
+//ViewController.m</p>
+
+<ul>
+  <li>(void)viewDidLoad {
+  [super viewDidLoad];
+  [[STM messages] requestForUnreadMessageCountWithDelegate:self];
+}
+```</li>
+</ul>
+
+<h4 id="implement-messagesdelegate-unreadmessageresults-delegate">Implement MessagesDelegate UnreadMessageResults delegate:</h4>
+
+<p>```objc
+//ViewController.m</p>
+
+<h1 id="pragma-mark---messages-delegates-1">pragma mark - Messages Delegates</h1>
+<ul>
+  <li>(void)UnreadMessageResults:(NSNumber *)count {
+  // Do something with count, like setting a label’s text, ect…
+}
+```</li>
+</ul>
 
 <h2 id="notifications">Notifications</h2>
 <p>The Shout to Me SDK supports receiving push notifications from the Shout to Me platform.  The SDK will only handle
@@ -141,86 +215,56 @@ public void onFailure(StmError stmError) {
 
 <ol>
   <li>A message is sent from the Shout to Me Broadcaster Application</li>
-  <li>The message is delivered to the mobile app as a Google Cloud Messaging notification</li>
-  <li>The Shout to Me SDK receives the notification and broadcasts a message</li>
-  <li>A listener in the client app receives a broadcast and can take further action using the data</li>
+  <li>The message is delivered to the mobile app as a Apple Push Notification Service notification</li>
+  <li>The Shout to Me SDK receives the notification and calls a listener</li>
+  <li>A listener in the client app receives the call and can take further action using the data</li>
 </ol>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/android-notifications.png" alt="Notifications" /></p>
+<h4 id="implement-the-stmdelegate-inside-appdelegateh">Implement the <code>STMDelegate</code> inside <code>AppDelegate.h</code></h4>
 
-<h3 id="google-cloud-messaging">Google Cloud Messaging</h3>
-<p>The Shout to Me system uses <a href="https://developers.google.com/cloud-messaging/">Google Cloud Messaging (GCM)</a> to send and receive messages. Add the following to your AndroidManifest.xml if you wish to receive notifications.  Be sure to set your own values for the string resource references.  Check with Shout to Me support for specific values to use.</p>
+<p>```objc
+#import <stm.h></stm.h></p>
 
-<p>```xml
-<service android:name="me.shoutto.sdk.GcmNotificationRegistrationIntentService" android:exported="false">
-    <meta-data android:name="me.shoutto.sdk.GcmDefaultSenderId" android:value="@string/gcm_default_sender_id"></meta-data>
-    <meta-data android:name="me.shoutto.sdk.PlatformApplicationArn" android:value="@string/platform_application_arn"></meta-data>
-    <meta-data android:name="me.shoutto.sdk.IdentityPoolId" android:value="@string/identity_pool_id"></meta-data>
-</service></p>
+<p>@interface AppDelegate : UIResponder &lt;UIApplicationDelegate, STMDelegate&gt;
+@property (strong, nonatomic) UIWindow *window;
+@end
+```</p>
 
-<!-- [START gcm_receiver] -->
-<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
-    <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        <category android:name="me.shoutto.sdk" />
-    </intent-filter>
-</receiver>
-<!-- [END gcm_receiver] -->
+<h4 id="call-setupnotificationswithapplicationapplication-to-setup-notifications-inside-of-didfinishlaunchingwithoptions-of-the-appdelegate">Call <code>setupNotificationsWithApplication:application</code> to setup notifications inside of <code>didFinishLaunchingWithOptions</code> of the AppDelegate.</h4>
 
-<!-- [START gcm_listener] -->
-<service android:name="me.shoutto.sdk.StmGcmListenerService" android:exported="false">
-    <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-    </intent-filter>
-</service>
-<!-- [END gcm_listener] -->
-
-<!-- [START instanceId_listener] -->
-<service android:name="me.shoutto.sdk.GcmInstanceIDListenerService" android:exported="false">
-    <intent-filter>
-        <action android:name="com.google.android.gms.iid.InstanceID" />
-    </intent-filter>
-</service>
-<!-- [END instanceId_listener] -->
-<p>```</p>
-
-<h3 id="geofencing">Geofencing</h3>
-<p>Location based notifications will be created as <a href="https://developers.google.com/android/reference/com/google/android/gms/location/Geofence">geofences</a> in the Shout to Me SDK.  Add this to your AndroidManifest.xml to allow the SDK to listen for geofence events:</p>
-
-<p><code>xml
-&lt;service android:name="me.shoutto.sdk.GeofenceTransitionsIntentService" /&gt;
-</code></p>
-
-<p><strong>Note:</strong> Please contact Shout to Me support if you are already using geofences within your application.</p>
-
-<h3 id="shout-to-me-broadcasts">Shout to Me Broadcasts</h3>
-<p>The Shout to Me SDK uses a standard Android broadcast to send the processed message data to client apps.  Add the following to your AndroidManifest.xml to listen for these broadcasts.</p>
-
-<p><code>xml
-&lt;receiver
-    android:name=".StmNotificationReceiver"
-    android:exported="false"&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name="me.shoutto.sdk.EVENT_MESSAGE_NOTIFICATION_RECEIVED" /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-</code></p>
-
-<p>Of course, you will need to supply your own listener class. In this example, it is called StmNotificationReceiver.</p>
-
-<p>The broadcast receiver class should include something similar to the following to retrieve the broadcast data:</p>
-
-<p><code>java
-@Override
-public void onReceive(Context context, Intent intent) {
-    Bundle data = intent.getExtras();
-    body = data.getString(MessageNotificationIntentWrapper.EXTRA_NOTIFICATION_BODY);
-    channelId = data.getString(MessageNotificationIntentWrapper.EXTRA_CHANNEL_ID);
-    channelImageUrl = data.getString(MessageNotificationIntentWrapper.EXTRA_CHANNEL_IMAGE_URL);
-    title = data.getString(MessageNotificationIntentWrapper.EXTRA_NOTIFICATION_TITLE);
-    type = data.getString(MessageNotificationIntentWrapper.EXTRA_NOTIFICATION_TYPE);
+<p><code>objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [STM setupNotificationsWithApplication:application];
 }
 </code></p>
+
+<h4 id="call-related-shout-to-me-notification-methods-within-the-remote-notification-callbacks-inside-of-the-appdelegate">Call related Shout to Me notification methods within the Remote Notification callbacks inside of the AppDelegate.</h4>
+
+<p>```objc
+- (void)application:(UIApplication<em>)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData</em>)deviceToken{
+    [STM didRegisterForRemoteNotificationsWithDeviceToken: deviceToken];
+}</p>
+
+<ul>
+  <li>(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+  [STM didReceiveRemoteNotification:userInfo ForApplication:application fetchCompletionHandler:completionHandler];
+}
+```</li>
+</ul>
+
+<h4 id="implement-the-stmnotificationrecieved-to-listen-for-shout-to-me-notifications">Implement the <code>STMNotificationRecieved</code> to listen for Shout to Me notifications.</h4>
+
+<p>```objc
+-(void)STMNotificationRecieved:(NSDictionary *)notification {
+    // In this case we are posting a location notification so we can handle it in our app.</p>
+
+<pre><code>UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:notification];
+localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:notification];
+localNotification.userInfo = notification;
+
+[[UIApplication sharedApplication] scheduleLocalNotification:localNotification]; } ```
+</code></pre>
 
 
     </div>

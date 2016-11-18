@@ -54,6 +54,8 @@
         
           
         
+          
+        
       </div>
     </nav>
 
@@ -70,133 +72,99 @@
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
       <div>Android SDK</div>
       <ul style="margin-left:10px;list-style: none">
-        <li><a href="/stm-sdk-android/">Home</a></li>
+        <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
           <ul>
             <li><a href="setup">Setup</a></li>
             <li><a href="sample-app">Sample App</a></li>
           </ul>
         </li>
-        <li><a href="stm-service">StmService</a></li>
-        <li><a href="recording-overlay">Recording</a></li>
+        <li><a href="user">User</a></li>
+        <li><a href="recording">Recording</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
-        <li><a href="reference">Reference</a></li>
 
       </ul>
     </div>
     <div style="width:100%;">
       <h1 id="recording">Recording</h1>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/sample-app-4.png" style="float:right" />
-The StmRecorderActivity class provides client apps a way to capture audio and send it to the Shout to Me platform. It is
-implemented as a native <a href="http://developer.android.com/reference/android/app/Activity.html">Android Activity</a> to allow
-developers to quickly and easily enable recording in a client app.  When the StmRecorderActivity is launched, the
-following will occur:</p>
-
-<ol>
-  <li>The StmRecorderActivity is displayed to the user</li>
-  <li>Audio recording immediately begins</li>
-  <li>The user is presented with two options
-    <ul>
-      <li>A “Done” button; when pressed, this will stop the recording and send the recorded audio to the server.  The StmRecorderActivity will then be closed.</li>
-      <li>A “Cancel” icon; when pressed, the recording will be stopped and the StmRecorderActivity will be closed.</li>
-    </ul>
-  </li>
-</ol>
+<p><img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller-sending.png" height="300px" style="float:right" />
+<img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller.png" height="300px" style="float:right; margin-left: 10px; margin-right: 10px;" />
+The SDK provides a <code>STMRecordingOverlay</code> view controller to simplify recording shouts and sending them to the API.
+Follow the steps below to set-up and use the overlay.</p>
 
 <div style="clear:right">&nbsp;</div>
-<p>There is also the ability to provide an optional callback if you would like to receive a Shout object following the creation of the shout.</p>
+<hr />
 
-<p>```java
-stmService.setShoutCreationCallback(new Callback<shout>() {
-    @Override
-    public void onSuccess(StmResponse<shout> stmResponse) {
-        Shout shout = stmResponse.get();
-    }</shout></shout></p>
+<h3 id="import-stmrecordingoverlayviewcontrollerh-to-the-header-of-your-view-controller">Import “STMRecordingOverlayViewController.h” to the header of your view controller:</h3>
 
-<pre><code>@Override
-public void onFailure(StmError stmError) {
-    // An error occurred during shout creation
-} }); ```
-</code></pre>
+<p>```objc
+//ViewController.h</p>
 
-<h2 id="launching-the-stmrecorderactivity">Launching the StmRecorderActivity</h2>
-<p>Launching the StmRecorderActivity is done using standard Android Activity functionality.  You can pass in certain extras
-to provide additional data.</p>
+<h1 id="import-stmrecordingoverlayviewcontrollerh">import <stmrecordingoverlayviewcontroller.h></stmrecordingoverlayviewcontroller.h></h1>
+<p>```</p>
 
-<p>The first piece of data, the maximum recording time in seconds, is required and will set
-a hard limit for how long the user can recording their shout.  A countdown will also be shown on the overlay to let the
-user know how long they have to record.</p>
+<h3 id="implement-the-stmrecordingoverlaydelegate">Implement the STMRecordingOverlayDelegate:</h3>
 
-<p>The next two pieces of data relate to the content of the shout.  Topic and Tags can be set to help a broadcaster
-filter, sort and manage the data in the broadcaster application.  A Topic refers to the overall subject matter of the shout.
-Tags refers to one or more keywords that reflect key points within the shout.  Topic and Tags are optional and if set,
-they are assigned as metadata to the shout.  If they are not set, the Shout to Me system uses IBM Watson to make its
-best guess of the shout content.</p>
+<p>```objc
+//ViewController.h</p>
 
-<ol>
-  <li>StmRecorderActivity.MAX_RECORDING_TIME_IN_SECONDS - This extra is required. It defines the maximum amount of time the
-  user has to record their shout. Please note that the Shout to Me system currently does not support recording times over 1 minute.</li>
-  <li>StmRecorderActivity.TAGS - A comma separated list of tags that will flow through to the Broadcaster Application.</li>
-  <li>StmRecorderActivity.TOPIC - A topic that will flow through to the Broadcaster Application.</li>
-</ol>
+<p>@interface ViewController : UIViewController<stmrecordingoverlaydelegate></stmrecordingoverlaydelegate></p>
 
-<p><code>java
-Intent intent = new Intent(this, StmRecorderActivity.class);
-intent.putExtra(StmRecorderActivity.MAX_RECORDING_TIME_IN_SECONDS, maxRecordingLengthSeconds);  // Required
-intent.putExtra(StmRecorderActivity.TAGS, tags);                                                // Optional
-intent.putExtra(StmRecorderActivity.TOPIC, topic);                                              // Optional
-startActivityForResult(intent, 1);
-</code></p>
+<p>@end
+```</p>
 
-<h2 id="handling-the-activity-result-of-stmrecorderactivity">Handling the Activity result of StmRecorderActivity</h2>
-<p>The StmRecorderActivity uses the standard Android Activity callback to indicate whether the Activity was closed OK, or whether
-the action was cancelled.  In addition, the StmRecorderActivity will provide data to confirm whether or not the
-recording process completed successfully.  The example below shows how to detect the
-StmRecorderActivity.RECORD_AUDIO_PERMISSION_DENIED failure.</p>
+<h3 id="call-the-recording-overlay-in-this-case-when-a-button-is-touched-before-calling-the-recording-overlay-ensure-that-your-app-has-mic-permissions">Call the Recording overlay, in this case when a button is touched. Before calling the recording overlay, ensure that your app has mic permissions.</h3>
 
-<p>```java
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {</p>
+<p>```objc
+- (IBAction)recordTouched:(id)sender {
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@”Permission granted”);
+                NSError *error;
+                [STM presentRecordingOverlayWithViewController:self andTags:nil andTopic:nil andMaxListeningSeconds:nil andDelegate:self andError:&amp;error];</p>
 
-<pre><code>if (requestCode == MY_REQUEST_CODE) {
-    if (resultCode == RESULT_OK){
-        String recordingResult = data.getStringExtra(StmRecorderActivity.ACTIVITY_RESULT);
-
-        if (recordingResult.equals(StmService.FAILURE)) {
-            String failureReasonCode = data.getStringExtra(StmRecorderActivity.ACTIVITY_REASON);
-            if (failureReasonCode.equals(StmRecorderActivity.RECORD_AUDIO_PERMISSION_DENIED)) {
-                // User has not granted the RECORD_AUDIO permission
+<pre><code>            if (error) {
+                NSLog(@"%@", error.description);
             }
-        }
-   }
-   if (resultCode == RESULT_CANCELED) {
-       // Activity was cancelled.
-   }
-} } ```
+        });
+    }
+    else {
+        NSLog(@"Permission denied");
+    }
+}]; } ```
 </code></pre>
 
-<h2 id="shout">Shout</h2>
-<p>The callback from StmRecorderActivity returns a Shout object.  The Shout object represents the recording a user created
-and its metadata in the Shout to Me system.  This object may be used to allow the user the opportunity to review the
-audio or delete the shout.</p>
+<h3 id="optional-delegates-that-you-can-listen-to">[<em>Optional</em>] Delegates that you can listen to:</h3>
 
-<p>To delete a shout, you call the <code>delete()</code> method of a Shout object. You can provide a callback to inspect the status
-and know when the delete process has completed.</p>
-
-<p>```java
-shout.delete(new Callback<string>() {
-    @Override
-    public void onSuccess(StmResponse<string> stmResponse) {
-        if (stmResponse.get().equals("success")) {
-            // Deletion of shout was successfull
-        }
-    }</string></string></p>
-
-<pre><code>@Override
-public void onFailure(StmError stmError) {
-    // An error occurred deleting shout
-} }); ```
-</code></pre>
+<p><code>objc
+#pragma mark - STMRecordingOverlay delegate methods
+/**
+* shoutCreated
+* Called after the response is received from a call to the create
+* shout server endpoint.  This includes the recorded audio being sent to
+* the server.
+* @param shout - the shout created
+* @param err - an error object
+*/
+-(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
+    if (err) {
+        NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
+    } else {
+        NSLog(@"Shout Created with Id: %@", shout.str_id);
+    }
+}
+/**
+* overlayClosed
+* Called when the STMRecordingOverlay has been closed
+* @param bDismissed - true if the user clicked the top right close button or
+*                     the audio was too short.
+*/
+- (void)overlayClosed:(BOOL)bDismissed {
+    NSLog(@"bDismissed: %d", bDismissed);
+}
+</code></p>
 
     </div>
   </div>

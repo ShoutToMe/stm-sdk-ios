@@ -54,6 +54,8 @@
         
           
         
+          
+        
       </div>
     </nav>
 
@@ -70,17 +72,16 @@
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
       <div>Android SDK</div>
       <ul style="margin-left:10px;list-style: none">
-        <li><a href="/stm-sdk-android/">Home</a></li>
+        <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
           <ul>
             <li><a href="setup">Setup</a></li>
             <li><a href="sample-app">Sample App</a></li>
           </ul>
         </li>
-        <li><a href="stm-service">StmService</a></li>
-        <li><a href="recording-overlay">Recording</a></li>
+        <li><a href="user">User</a></li>
+        <li><a href="recording">Recording</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
-        <li><a href="reference">Reference</a></li>
 
       </ul>
     </div>
@@ -170,6 +171,26 @@ broadcasters.</p>
 <p>Both are strings and should be set to something like: “Your location is used to let the station know what part of
 town you are in and so you can receive geo-targeted messages.”</p>
 
+<p>You then need to request permission from the user to use their location. You can use your own location manager to do this or you can use the Shout to Me SDK Location Manager.</p>
+
+<p>Here’s how to use the STM SDK Location Manager:</p>
+
+<p><code>objc
+[[[STM location] locationManager] requestAlwaysAuthorization];
+</code></p>
+
+<p>This will ask the user to use their location like so: <img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/notification-example.jpg" alt="Notification example" /></p>
+
+<p>If you already have a location manager and want to use that. Inside of the <code>didChangeAuthorizationStatus</code> callback, call this Shout to Me method. You will get an error back if the authorization status isn’t <code>kCLAuthorizationStatusAuthorizedAlways</code> or the user has Location Services disabled.</p>
+
+<p><code>objc
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorizedAlways) {
+        NSError *error;
+       [[STM location] startWithError:&amp;error];
+    }
+}
+</code></p>
 
     </div>
   </div>

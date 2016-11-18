@@ -11,7 +11,7 @@
 ">
 
     <link rel="stylesheet" href="/stm-sdk-ios/css/main.css">
-    <link rel="canonical" href="http://yourdomain.com/stm-sdk-ios/getting-started.html">
+    <link rel="canonical" href="http://yourdomain.com/stm-sdk-ios/user.html">
 </head>
 
 
@@ -86,16 +86,33 @@
       </ul>
     </div>
     <div style="width:100%;">
-      <h1 id="getting-started-with-the-shout-to-me-ios-sdk">Getting Started with the Shout to Me iOS SDK</h1>
-<p>In order to use the Shout to Me iOS SDK, you must first have contacted Shout to Me and been given a client access token and channel ID.  Once you have received these items, you can proceed to the subsequent sections.</p>
+      <h1 id="shout-to-me-user">Shout to Me User</h1>
 
-<div style="width:200px;margin-left:100px">
-<ul style="list-type:none">
-  <li><a href="setup">Setup</a></li>
-  <li><a href="sample-app">Sample App</a></li>
+<p>The SDK provides a <code>currentUser</code> property that can be used to access information about the user.</p>
 
-</ul>
-</div>
+<p>Get User handle:</p>
+
+<p><code>objc
+[STM currentUser].strHandle
+</code></p>
+
+<p>Update User handle:</p>
+
+<p><code>objc
+[[STM signIn] setHandle:@"newHandle" withCompletionHandler:^(NSError *error) {
+    if (error) {
+        // error happened
+    } else {
+        // user handle was updated
+    }
+}
+</code></p>
+
+<p>Date the User last read their Messages:</p>
+
+<p><code>objc
+[STM currentUser].dateLastReadMessages
+</code></p>
 
     </div>
   </div>
