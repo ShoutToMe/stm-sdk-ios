@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+# About the Shout to Me iOS SDK
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+Shout to Me is a SaaS platform that provides a suite of audience engagement tools to broadcasters and podcasters.
+The Shout to Me iOS SDK provides a convenient method for app developers to integrate with the Shout to Me system
+in their iOS apps.  For more information visit [http://shoutto.me](http://shoutto.me).

@@ -11,7 +11,7 @@
 ">
 
     <link rel="stylesheet" href="/stm-sdk-ios/css/main.css">
-    <link rel="canonical" href="http://yourdomain.com/stm-sdk-ios/">
+    <link rel="canonical" href="http://yourdomain.com/stm-sdk-ios/setup.html">
 </head>
 
 
@@ -85,17 +85,90 @@
       </ul>
     </div>
     <div style="width:100%;">
-      <h1 id="shout-to-me-ios-sdk">Shout to Me iOS SDK</h1>
+      <h1 id="setting-up-the-shout-to-me-ios-sdk">Setting up the Shout to Me iOS SDK</h1>
 
-<p>Welcome to the Shout to Me iOS SDK documentation.  The following sections contain information and reference
-documents that describe how to integrate the Shout to Me functionality into your own iOS apps.</p>
+<p>The following describes how to set up your iOS project to use the Shout to Me iOS SDK.</p>
 
-<div style="width:200px;margin-left:100px">
-<ul style="list-type:none">
-  <li><a href="getting-started">Getting Started</a></li>
-  <li><a href="https://www.github.com/ShoutToMe/stm-sdk-ios">Source Code</a></li>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+  <li>A Shout to Me client access token</li>
+  <li>A Shout to Me channel ID</li>
+  <li><a href="https://developer.apple.com/xcode/">Xcode</a></li>
 </ul>
-</div>
+
+<h2 id="ios-version-requirement">iOS version requirement</h2>
+
+<p>The Shout to Me iOS SDK requires iOS 8.0 or greater.</p>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="cocoapods">CocoaPods</h3>
+<p>The easiest way to install STM is to use CocoaPods. To do so, simply add the following line to your Podfile:</p>
+
+<p><code>pod 'STM'</code></p>
+
+<h3 id="manual-installation">Manual Installation</h3>
+
+<p>The other way to install STM, is to drag and drop the Pod folder into your Xcode project. When you do so, check the “Copy items into destination group’s folder” box.</p>
+
+<h2 id="client-access-token-and-channel-id">Client Access Token and Channel ID</h2>
+<p>Developers will need to get a client access token and a channel ID from Shout to Me in order to use this SDK.  A client
+access token is used to authorize the client app in HTTP calls.  The channel ID represents a Shout to Me channel which
+is linked to the broadcaster/podcaster’s account.  You will need to <a href="http://www.shoutto.me/contact">contact Shout to Me</a> in order to get the client access
+  token and channel ID. After you receive the client access token and channel ID from Shout to Me, you can
+  initialize the Shout to Me SDK within the <code>didFinishLaunchingWithOptions</code> function in your AppDelegate.m.</p>
+
+<p>```objc
+//AppDelegate.m</p>
+
+<ul>
+  <li>
+    <p>(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {</p>
+
+    <p>// Initialize Shout To Me SDK, Replace with your Shout to Me token
+[STM initWithAccessToken:@”STM_ACCESS_TOKEN” andApplication:application andDelegate:self];
+// Optional, this will setup notifications from ShoutToMe (additional steps are required)
+[STM setupNotificationsWithApplication:application];
+// Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
+[STMLocation initAll];</p>
+
+    <p>// Set your channel Id
+[STM setChannelId:@”CHANNEL_ID”];</p>
+
+    <p>return YES;
+}
+```</p>
+  </li>
+</ul>
+
+<h2 id="permissions">Permissions</h2>
+
+<h3 id="record-audio">Record Audio</h3>
+
+<p>Being that Shout to Me is an audio-based platform, this permission is considered required. Launching the recording
+overlay without the permission will result in a error response indicating that the record audio permission is denied.</p>
+
+<p>Add the following to your Info.plist to request permission to record.</p>
+
+<p>[NSMicrophoneUsageDescription] (https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)</p>
+
+<p>Set the value to something like: “Your microphone is used to allow you to shout to the station.”</p>
+
+<h3 id="location">Location</h3>
+
+<p>Use of location functionality is optional in the Shout to Me platform. However, if location permission is enabled,
+the coordinates (lat/lon) of the person shouting are included with the Shout creation request and broadcasters will be
+able to see the location of the user.  In addition, users will be enabled to receive geo-targeted messages from
+broadcasters.</p>
+
+<p>To enable location permissions, add the following to your Info.plist.</p>
+
+<p>[NSLocationUsageDescription] (https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+[NSLocationAlwaysUsageDescription] (https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)</p>
+
+<p>Both are strings and should be set to something like: “Your location is used to let the station know what part of
+town you are in and so you can receive geo-targeted messages.”</p>
+
 
     </div>
   </div>
