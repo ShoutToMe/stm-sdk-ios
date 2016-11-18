@@ -6,6 +6,9 @@ layout: home
 ---
 
 # Shout to Me iOS SDK
+[![CocoaPods](https://img.shields.io/cocoapods/p/STM.svg)](https://cocoapods.org/pods/STM)
+[![CocoaPods](https://img.shields.io/cocoapods/v/STM.svg)](https://cocoapods.org/pods/STM)
+
 
 Welcome to the Shout to Me iOS SDK documentation.  The following sections contain information and reference
 documents that describe how to integrate the Shout to Me functionality into your own iOS apps.
