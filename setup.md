@@ -15,7 +15,7 @@ The following describes how to set up your iOS project to use the Shout to Me iO
 
 The Shout to Me iOS SDK requires iOS 8.0 or greater.
 
-##Installation
+## Installation
 
 ### CocoaPods
 The easiest way to install STM is to use CocoaPods. To do so, simply add the following line to your Podfile:
