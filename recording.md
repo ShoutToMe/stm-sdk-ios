@@ -5,8 +5,8 @@ layout: home
 # Recording
 
 <p align="center">
-<img src="https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller.png" height="300px" />
-<img src="https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller-sending.png" height="300px" />
+<img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller.png" height="300px" />
+<img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller-sending.png" height="300px" />
 </p>
 
 The SDK provides a `STMRecordingOverlay` view controller to simplify recording shouts and sending them to the API.
