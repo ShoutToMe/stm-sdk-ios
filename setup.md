@@ -95,6 +95,7 @@ This will ask the user to use their location like so: ![Notification example](ht
 
 
 If you already have a location manager and want to use that. Inside of the `didChangeAuthorizationStatus` callback, call this Shout to Me method. You will get an error back if the authorization status isn't `kCLAuthorizationStatusAuthorizedAlways` or the user has Location Services disabled.
+
 ```objc
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status == kCLAuthorizationStatusAuthorizedAlways) {
