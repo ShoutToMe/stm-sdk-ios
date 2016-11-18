@@ -25,6 +25,7 @@ below to create your own sample app.
         Set to something like: "Your microphone is used to allow you to shout to the station."
 
 2. Import "STM.h" to the header of AppDelegate.h:
+
 ```objc
 //AppDelegate.h
 
@@ -32,6 +33,7 @@ below to create your own sample app.
 ```
 
 3. Initialize STM SDK within `didFinishLaunchingWithOptions` in your AppDelegate.m
+
   ```objc
   //AppDelegate.m
 
