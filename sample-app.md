@@ -8,7 +8,7 @@ The iOS sample app included with this project demonstrates how to correctly setu
 be found under the [Example directory](https://github.com/ShoutToMe/stm-sdk-ios/tree/master/Example).  Follow the steps
 below to create your own sample app.
 
-1. Edit Info.plist
+## Edit Info.plist
     * Add the location permissions keys.
 
         [NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
@@ -24,7 +24,7 @@ below to create your own sample app.
 
         Set to something like: "Your microphone is used to allow you to shout to the station."
 
-2. Import "STM.h" to the header of AppDelegate.h:
+## Import "STM.h" to the header of AppDelegate.h:
 
 ```objc
 //AppDelegate.h
@@ -32,7 +32,7 @@ below to create your own sample app.
 #import <STM.h>
 ```
 
-3. Initialize STM SDK within `didFinishLaunchingWithOptions` in your AppDelegate.m
+## Initialize STM SDK within `didFinishLaunchingWithOptions` in your AppDelegate.m
 
 ```objc
 //AppDelegate.m
