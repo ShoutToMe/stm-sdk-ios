@@ -5,8 +5,8 @@ layout: home
 # Recording
 
 <p align="center">
-[[https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller.png | height = 300px]]
-[[https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller-sending.png | height = 300px]]
+![Recording Overlay 1](https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller.png | height = 300px)
+![Recording Overlay 2](https://github.com/ShoutToMe/stm-sdk-ios/blob/master/screen-shots/stm-recording-overlay-view-controller-sending.png | height = 300px)
 </p>
 
 The SDK provides a `STMRecordingOverlay` view controller to simplify recording shouts and sending them to the API.
@@ -39,4 +39,3 @@ ___
                 NSLog(@"Permission granted");
                 NSError *error;
                 [STM presentRecordingOverlayWithViewController:self andTags:nil andTopic:nil andMaxListeningSeconds:nil andDelegate:self andError:&error];
-       
