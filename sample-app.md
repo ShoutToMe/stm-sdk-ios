@@ -9,20 +9,21 @@ be found under the [Example directory](https://github.com/ShoutToMe/stm-sdk-ios/
 below to create your own sample app.
 
 ## Edit Info.plist
-    * Add the location permissions keys.
 
-        [NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+* Add the location permissions keys.
 
-        [NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
+    [NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
 
-        Both are strings and should be set to something like: "Your location is used to let the station know what part of
-        town you are in and so you can receive geo-targeted messages."
+    [NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
 
-    * Add the record audio key.
+    Both are strings and should be set to something like: "Your location is used to let the station know what part of
+    town you are in and so you can receive geo-targeted messages."
 
-        [NSMicrophoneUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)
+* Add the record audio key.
 
-        Set to something like: "Your microphone is used to allow you to shout to the station."
+    [NSMicrophoneUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)
+
+    Set to something like: "Your microphone is used to allow you to shout to the station."
 
 ## Import "STM.h" to the header of AppDelegate.h:
 
