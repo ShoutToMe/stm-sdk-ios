@@ -5,7 +5,7 @@ layout: home
 # Recording
 
 <img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller-sending.png" height="300px" style="float:right" />
-<img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller.png" height="300px" style="float:right" />
+<img src="https://s3-us-west-2.amazonaws.com/sdk-public-images/stm-recording-overlay-view-controller.png" height="300px" style="float:right; margin-left: 10px; margin-right: 10px;" />
 The SDK provides a `STMRecordingOverlay` view controller to simplify recording shouts and sending them to the API.
 Follow the steps below to set-up and use the overlay.
 
