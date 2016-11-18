@@ -83,3 +83,23 @@ To enable location permissions, add the following to your Info.plist.
 Both are strings and should be set to something like: "Your location is used to let the station know what part of
 town you are in and so you can receive geo-targeted messages."
 
+You then need to request permission from the user to use their location. You can use your own location manager to do this or you can use the Shout to Me SDK Location Manager.
+
+Here's how to use the STM SDK Location Manager:
+
+```objc
+[[[STM location] locationManager] requestAlwaysAuthorization];
+```
+
+This will ask the user to use their location like so: ![Notification example](https://s3-us-west-2.amazonaws.com/sdk-public-images/notification-example.jpg)
+
+
+If you already have a location manager and want to use that. Inside of the `didChangeAuthorizationStatus` callback, call this Shout to Me method. You will get an error back if the authorization status isn't `kCLAuthorizationStatusAuthorizedAlways` or the user has Location Services disabled.
+```objc
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorizedAlways) {
+        NSError *error;
+       [[STM location] startWithError:&error];
+    }
+}
+```
