@@ -34,24 +34,24 @@ below to create your own sample app.
 
 3. Initialize STM SDK within `didFinishLaunchingWithOptions` in your AppDelegate.m
 
-  ```objc
-  //AppDelegate.m
+```objc
+//AppDelegate.m
 
 
-  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-      // Initialize Shout To Me SDK, Replace with your Shout to Me token
-      [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
-      // Optional, this will setup notifications from ShoutToMe (additional steps are required)
-      [STM setupNotificationsWithApplication:application];
-      // Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
-      [STMLocation initAll];
+  // Initialize Shout To Me SDK, Replace with your Shout to Me token
+  [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
+  // Optional, this will setup notifications from ShoutToMe (additional steps are required)
+  [STM setupNotificationsWithApplication:application];
+  // Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
+  [STMLocation initAll];
 
-      // Set your channel Id
-      [STM setChannelId:@"CHANNEL_ID"];
+  // Set your channel Id
+  [STM setChannelId:@"CHANNEL_ID"];
 
-      return YES;
-  }
-  ```
+  return YES;
+}
+```
 
 You will now be able to use the Shout to Me SDK in your app.
