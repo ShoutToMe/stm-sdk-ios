@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "STMChannel.h"
 
-#define SETTINGS_DATA_VERSION   4  // what version is this object (increased any time new items are added or existing items are changed)
+#define SETTINGS_DATA_VERSION   5  // what version is this object (increased any time new items are added or existing items are changed)
 
 typedef enum eSettingsAcctPref
 {

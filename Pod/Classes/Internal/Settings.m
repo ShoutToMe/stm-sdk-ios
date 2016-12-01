@@ -25,6 +25,7 @@
 #define KEY_SETTINGS_CHANNEL                @"SettingsChannel"
 #define KEY_SETTINGS_AFFILIATE_ID           @"SettingsAffiliateId"
 #define KEY_SETTINGS_SERVER_URL             @"SettingsServerURL"
+#define KEY_SETTINGS_DEVICE_ID              @"SettingsDeviceId"
 
 static BOOL bInitialized = NO;
 
@@ -95,9 +96,12 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
         // just create a new one
         singleton = [[Settings alloc] init];
     }
-
-    // load the device id
-    [singleton loadDeviceID];
+    
+    if ([@"" isEqual:singleton.strDeviceID])
+    {
+        // load the device id
+        [singleton loadDeviceID];
+    }
 
     //NSLog(@"Settings: %@", singleton);
 }
@@ -157,7 +161,7 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
     if (nil != (self = [self init]))
     {
         int version = [aDecoder decodeIntForKey:KEY_SETTINGS_DATA_VERSION];
-        if (version >= SETTINGS_DATA_VERSION)
+        if (version >= 3) // Baseline version
         {
             STMChannel *channel = [aDecoder decodeObjectForKey:KEY_SETTINGS_CHANNEL];
             if (channel)
@@ -176,6 +180,11 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
             {
                 self.strServerURL = strVal;
             }
+            strVal = [aDecoder decodeObjectForKey:KEY_SETTINGS_DEVICE_ID];
+            if (strVal)
+            {
+                self.strDeviceID = strVal;
+            }
         }
     }
 
@@ -188,11 +197,13 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
     [aCoder encodeObject:self.channel forKey:KEY_SETTINGS_CHANNEL];
     [aCoder encodeObject:self.strAffiliateID forKey:KEY_SETTINGS_AFFILIATE_ID];
     [aCoder encodeObject:self.strServerURL forKey:KEY_SETTINGS_SERVER_URL];
+    [aCoder encodeObject:self.strDeviceID forKey:KEY_SETTINGS_DEVICE_ID];
 }
 
 #pragma mark - Misc Methods
 
-// this loads or creates the device id. unlike the other settings, this is store in the keychain so it persists even after app deletion
+// This loads or creates the device id. If device ID was previously stored in the keychain, it migrates it
+// to the normal settings.
 - (void)loadDeviceID
 {
     KeychainItemWrapper *wrapperKeychainDeviceID = [[KeychainItemWrapper alloc] initWithIdentifier:KEY_DEVICE_ID accessGroup:nil];
@@ -205,13 +216,18 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
     {
         //NSLog(@"Loaded device id: %@", strDeviceID);
         self.strDeviceID = strDeviceID;
+        [self save];
+        
+        // Due to previous versions storing device ID in the keychain, we need to remove it from the
+        // keychain if it was there.  Eventually this can be removed.
+        [wrapperKeychainDeviceID resetKeychainItem];
     }
     else
     {
         // create a device id
         self.strDeviceID = [Utils createGUID];
+        [self save];
         //NSLog(@"No device id set. New device id: %@", self.strDeviceID);
-        [wrapperKeychainDeviceID setObject:self.strDeviceID forKey:(__bridge id)kSecValueData];
     }
 }
 
