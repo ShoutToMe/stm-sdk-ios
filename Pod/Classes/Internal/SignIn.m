@@ -161,6 +161,10 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             {
                 [[UserData controller].user setStrHandle:strHandle];
             }
+            else
+            {
+                [[UserData controller].user setStrHandle:@""];
+            }
             if ([dictUser objectForKey:SERVER_RESULTS_VERIFIED_KEY])
             {
                 [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];

@@ -50,15 +50,13 @@
    }
 
 - (IBAction)UpdateTouched:(id)sender {
-    if (self.handleTextField.text.length > 0) {
-        [[STM signIn] setHandle:self.handleTextField.text withCompletionHandler:^(NSError *error) {
-            if (error) {
-                NSLog(@"Error:  %@", [error userInfo]);
-            } else {
-                NSLog(@"Updated User handle!");
-            }
-        }];
-    }
+    [[STM signIn] setHandle:self.handleTextField.text withCompletionHandler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Error:  %@", [error userInfo]);
+        } else {
+            NSLog(@"Updated User handle!");
+        }
+    }];
 }
 
 
