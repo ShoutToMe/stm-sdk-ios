@@ -428,7 +428,38 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    NSLog(@"Entered Region: %@", [region description]);
+    [[STM conversations] requestForConversation:[region identifier] completionHandler:^(STMConversation *conversation, NSError *error) {
+        if (!conversation.expired) {
+            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+                NSLog(@"Created Message: %@", message);
 
+                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+                    NSDictionary *localNotificationData =
+                    @{
+                      @"body": message.strMessage,
+                      @"category": @"MESSAGE_CATEGORY",
+                      @"channel_id": message.strChannelId,
+                      @"conversation_id": message.strConversationId,
+                      @"title": channel.strName,
+                      @"type": @"conversation message",
+                      @"message_id": message.strID
+                      };
+
+                    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+                    localNotification.soundName = @"shout.wav";
+                    localNotification.alertTitle = channel.strName;
+                    localNotification.alertBody = conversation.str_publishing_message;
+                    localNotification.userInfo = localNotificationData;
+
+                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                }];
+            }];
+        }
+        [self stopMonitoringForRegion:region];
+    }];
+}
 
 @end
 
