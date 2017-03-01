@@ -137,6 +137,9 @@ In your project Capabilities tab in Xcode, enable both Push Notifications and Ba
 
 ![Background Modes in Xcode](images/background-modes.png)
 
+#### APNs certificate
+Pushing notifications requires the creation of an APNs certificate that is subsequently included in the app.  This certificate must also be registered with the AWS SNS service.  Contact Shout to Me to complete this process.  For more information, visit the [Apple Notification Programming Guide](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1).
+
 #### Implement the `STMDelegate` inside `AppDelegate.h`
 
 ```objc
