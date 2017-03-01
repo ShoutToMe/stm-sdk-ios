@@ -125,20 +125,48 @@ The Shout to Me SDK supports receiving push notifications from the Shout to Me p
 3. The Shout to Me SDK receives the notification and calls a listener
 4. A listener in the client app receives the call and can take further action using the data
 
-#### Amazon AWS configuration
+### Amazon AWS configuration
 The notification systems uses Amazon's AWS SNS platform.  As such, the SDK includes the AWS iOS SDK and must be configured properly to work. Add the following sections to your info.plist file.  (Note: If you already use the AWS iOS SDK and have conflicting values in your file, contact Shout to Me support.)
 
 ![AWS configuration](images/aws-config.png)
 
-#### Enable project capabilities
+### Enable Project Capabilities
 In your project Capabilities tab in Xcode, enable both Push Notifications and Background Modes > Remote Notifications.
 
 ![Push Notifications in Xcode](images/push-notifications.png)
 
 ![Background Modes in Xcode](images/background-modes.png)
 
-#### APNs certificate
+### APNs Certificate
 Pushing notifications requires the creation of an APNs certificate that is subsequently included in the app.  This certificate must also be registered with the AWS SNS service.  Contact Shout to Me to complete this process.  For more information, visit the [Apple Notification Programming Guide](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1).
+
+### Enabling/Disabling Notifications
+To enable or disable notifications at the user's request, add code that subscribes/unsubscribes to/from the specified channel.  The follow code sample shows how to accomplish this.
+
+#### Subscribe to a channel
+
+```objc
+[[STM subscriptions] requestForSubscribe:(NSString *)channelId completionHandler:^(STMSubscription *subscription, NSError *error) {
+    if (error) {    
+         NSLog(@"Error occurred subscribing to channel");
+    } else {
+         NSLog(@"Subscribe succeeded");
+    }
+}];
+```
+
+```objc
+#### Unsubscribe from a channel
+[[STM subscriptions] requestForUnSubscribe:(NSString *)channelId completionHandler:^(Boolean *successful, NSError *error) {
+    if (error) {    
+         NSLog(@"Error occurred unsubscribing from channel");
+    } else {
+         NSLog(@"Unsubscribe succeeded");
+    }
+}];
+```
+
+### Notification Events
 
 #### Implement the `STMDelegate` inside `AppDelegate.h`
 
