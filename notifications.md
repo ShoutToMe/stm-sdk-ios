@@ -125,6 +125,11 @@ The Shout to Me SDK supports receiving push notifications from the Shout to Me p
 3. The Shout to Me SDK receives the notification and calls a listener
 4. A listener in the client app receives the call and can take further action using the data
 
+### Amazon AWS Configuration
+The notification systems uses Amazon's AWS SNS platform.  As such, the SDK includes the AWS iOS SDK and must be configured properly to work. Add the following sections to your info.plist file.  (Note: If you already use the AWS iOS SDK and have conflicting values in your file, contact Shout to Me support.)
+
+![AWS configuration](images/aws-config.png) 
+
 #### Implement the `STMDelegate` inside `AppDelegate.h`
 
 ```objc
