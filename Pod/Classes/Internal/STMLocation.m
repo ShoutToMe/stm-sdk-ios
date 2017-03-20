@@ -254,8 +254,12 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         [[STM monitoredConversations] removeAllMonitoredConversations];
         [self stopMonitoringForAllRegions];
         
+        
+        dispatch_group_t conversationsSeenGroup = dispatch_group_create();
+        
         // Now add relevant conversations back in
         for (STMConversation *conversation in activeConversations) {
+            dispatch_group_enter(conversationsSeenGroup);
             [[STM conversations] requestForSeenConversation:conversation.str_id completionHandler:^(BOOL seen, NSError *error) {
                 NSLog(@"Seen: %@", seen == YES ? @"True" : @"False");
                 if (!error) {
@@ -290,11 +294,13 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                                         localNotification.userInfo = messageData;
                                         
                                         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                        dispatch_group_leave(conversationsSeenGroup);
                                     }];
                                 }];
 
                             } else {
                                 [[STM monitoredConversations] addMonitoredConversation:conversation];
+                                dispatch_group_leave(conversationsSeenGroup);
                             }
                             
                         } else {
@@ -319,19 +325,27 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                                     localNotification.userInfo = messageData;
                                     
                                     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                    dispatch_group_leave(conversationsSeenGroup);
                                 }];
                             }];
                         }
+                    } else {
+                        dispatch_group_leave(conversationsSeenGroup);
                     }
+                } else {
+                    NSLog(@"%@", error);
+                    dispatch_group_leave(conversationsSeenGroup);
                 }
                 
             }];
         }
         
-        // Add geofences based in using helper method
-        if ([[[STM monitoredConversations] monitoredConversations] count] > 0) {
-            [self monitorClosest];
-        }
+        dispatch_group_notify(conversationsSeenGroup, dispatch_get_main_queue(), ^{
+            // Add geofences based in using helper method
+            if ([[[STM monitoredConversations] monitoredConversations] count] > 0) {
+                [self monitorClosest];
+            }
+        });
     });
 }
 
