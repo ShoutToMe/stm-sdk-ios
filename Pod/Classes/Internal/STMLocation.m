@@ -171,15 +171,17 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 }
 
 - (void)startMonitoringForRegion:(CLCircularRegion *)region {
+    
     if (region.radius > [self.locationManager maximumRegionMonitoringDistance]) {
         // radius is too large, set it to the maximum
         region = [[CLCircularRegion alloc] initWithCenter:region.center radius:[self.locationManager maximumRegionMonitoringDistance] identifier:region.identifier];
     }
+    
+    [[STM monitoredConversations] addMonitoredRegion:region];
     if ([[[self locationManager] monitoredRegions] count] < 20) {
         [[self locationManager] startMonitoringForRegion:region];
     } else {
         // We have 20 or more regions and need to only monitor the closest ones.
-        [[STM monitoredConversations] addMonitoredRegion:region];
         [self monitorClosest];
     }
 }
