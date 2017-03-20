@@ -188,8 +188,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 
 - (void)monitorClosest {
     // Stop monitoring all regions
-    for (CLRegion *monitored in [[self locationManager] monitoredRegions])
-        [[self locationManager] stopMonitoringForRegion:monitored];
+    [self stopMonitoringForAllRegions];
     
     // Get the current user location
     CLLocation *usersLocation = [[STM location] curLocation];
@@ -251,7 +250,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         // TODO: Monitor the closest 20 conversations
 //        NSLog(@"active conversations: %lu", (unsigned long)[activeConversations count]);
         
+        // Clear out all monitored conversations and geofences
         [[STM monitoredConversations] removeAllMonitoredConversations];
+        [self stopMonitoringForAllRegions];
+        
+        // Now add relevant conversations back in
         for (STMConversation *conversation in activeConversations) {
             [[STM conversations] requestForSeenConversation:conversation.str_id completionHandler:^(BOOL seen, NSError *error) {
                 NSLog(@"Seen: %@", seen == YES ? @"True" : @"False");
@@ -324,6 +327,8 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                 
             }];
         }
+        
+        // Add geofences based in using helper method
         if ([[[STM monitoredConversations] monitoredConversations] count] > 0) {
             [self monitorClosest];
         }
@@ -463,6 +468,12 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             [self stopMonitoringForRegion:region];
         }
     }];
+}
+
+- (void) stopMonitoringForAllRegions {
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        [self.locationManager stopMonitoringForRegion:region];
+    }
 }
 
 @end
