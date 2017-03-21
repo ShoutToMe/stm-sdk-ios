@@ -30,9 +30,6 @@ static BOOL bInitialized = NO;
 
 __strong static STM *singleton = nil; // this will be the one and only object this static singleton class has
 
-//static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:810633828709:app/APNS_SANDBOX/voigo-test";
-static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:810633828709:app/APNS/voigo";
-
 @interface STM ()
 
 + (STMUser *)currentUser;
@@ -299,6 +296,23 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
 #endif
 }
 
++ (void)setupNotificationsWithApplication:(UIApplication *)application andStmApplicationArn:(NSString *)applicationArn {
+    singleton.applicationArn = applicationArn;
+    
+#if !(TAGET_IPHONE_SIMULATOR)
+    UIMutableUserNotificationCategory *messageCategory = [[UIMutableUserNotificationCategory alloc] init];
+    messageCategory.identifier = @"MESSAGE_CATEGORY";
+    
+    NSSet *categories = [NSSet setWithObject:messageCategory];
+    
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+#endif
+}
+
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (userInfo) {
         NSDictionary *data = [userInfo objectForKey:@"aps"];
@@ -456,7 +470,7 @@ static NSString *const SNSPlatformApplicationArn = @"arn:aws:sns:us-west-2:81063
     AWSSNS *sns = [AWSSNS defaultSNS];
     AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
     request.token = token;
-    request.platformApplicationArn = SNSPlatformApplicationArn;
+    request.platformApplicationArn = singleton.applicationArn;
     request.customUserData = [NSString stringWithFormat:@"UserHandle: %@", [STM currentUser].strHandle];
     return [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
         if (task.error != nil) {
