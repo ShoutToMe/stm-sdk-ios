@@ -25,6 +25,7 @@
 #import "Conversations.h"
 #import "MonitoredConversations.h"
 #import "STMRecordingOverlayViewController.h"
+#import "Server.h"
 
 static BOOL bInitialized = NO;
 
@@ -296,7 +297,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 #endif
 }
 
-+ (void)setupNotificationsWithApplication:(UIApplication *)application andStmApplicationArn:(NSString *)applicationArn {
++ (void)setupNotificationsWithApplication:(UIApplication *)application pushNotificationAppId:(NSString *)pushNotificationAppId {
+    NSString *applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_APPLICATION_ARN_PREFIX, pushNotificationAppId];
     singleton.applicationArn = applicationArn;
     
 #if !(TAGET_IPHONE_SIMULATOR)

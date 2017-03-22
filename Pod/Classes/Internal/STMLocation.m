@@ -136,7 +136,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         {
             [self.locationManager requestAlwaysAuthorization];
         }
-        [self.locationManager startUpdatingLocation];
+//        [self.locationManager startUpdatingLocation];
         [self.locationManager startMonitoringSignificantLocationChanges];
     }
 }
@@ -178,10 +178,10 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     }
     
     [[STM monitoredConversations] addMonitoredRegion:region];
-    if ([[[self locationManager] monitoredRegions] count] < 20) {
+    if ([[[self locationManager] monitoredRegions] count] < STM_MAX_GEOFENCES) {
         [[self locationManager] startMonitoringForRegion:region];
     } else {
-        // We have 20 or more regions and need to only monitor the closest ones.
+        // We have more than the maximum regions and need to only monitor the closest ones.
         [self monitorClosest];
     }
 }
@@ -205,11 +205,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     NSArray *sortedKeys = [sortedRegions.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
     
     NSArray *sortedValues = [sortedRegions objectsForKeys:sortedKeys notFoundMarker:@""];
-    
-    // Monitor the closest 20 regions
+
+    // Monitor the closest regions
     NSInteger max;
-    if ([sortedValues count] > 20) {
-        max = 20;
+    if ([sortedValues count] > STM_MAX_GEOFENCES) {
+        max = STM_MAX_GEOFENCES;
     } else {
         max = [sortedValues count];
     }
@@ -246,15 +246,12 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     }];
     
     dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-        // Won't get here until everything has finished
-        // TODO: Monitor the closest 20 conversations
-//        NSLog(@"active conversations: %lu", (unsigned long)[activeConversations count]);
-        
+
         // Clear out all monitored conversations and geofences
         [[STM monitoredConversations] removeAllMonitoredConversations];
         [self stopMonitoringForAllRegions];
         
-        
+    
         dispatch_group_t conversationsSeenGroup = dispatch_group_create();
         
         // Now add relevant conversations back in
@@ -350,41 +347,36 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
-
--(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    self.bHaveLocation = YES;
-    self.curLocation = newLocation;
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.curLocation = [locations lastObject];
     
-    //NSLog(@"Aquired location: %lf, %lf (%lf), course: %lf, speed: %lf", newLocation.coordinate.latitude, newLocation.coordinate.longitude, newLocation.horizontalAccuracy, newLocation.course, newLocation.speed);
-
-    if (newLocation.course >= 0.0)
-    {
-        _lastValidCourse = newLocation.course;
-    }
-
-    if (newLocation.speed >= 0.0)
-    {
-        _lastValidSpeed = newLocation.speed;
-    }
-
     self.bHaveLocation = YES;
-
-    [self announceUpdate:newLocation];
     
-//    NSLog(@"%@", [newLocation description]);
-    if ([[[self locationManager] monitoredRegions] count] > 20) {
+    if (self.curLocation.course >= 0.0)
+    {
+        _lastValidCourse = self.curLocation.course;
+    }
+    
+    if (self.curLocation.speed >= 0.0)
+    {
+        _lastValidSpeed = self.curLocation.speed;
+    }
+    
+    [self announceUpdate:self.curLocation];
+    
+    //    NSLog(@"%@", [newLocation description]);
+    if ([[[self locationManager] monitoredRegions] count] >= STM_MAX_GEOFENCES) {
         [self monitorClosest];
     }
-
+    
 #ifdef STOP_UPDATING_AT_ACCURACY
-	// if we are at our accuracy then we are done
-	if (newLocation.horizontalAccuracy <= ACCURACY_METERS)
-	{
+    // if we are at our accuracy then we are done
+    if (self.curLocation.horizontalAccuracy <= ACCURACY_METERS)
+    {
         [self stop];
-
+        
         NSLog(@"Location is accurate enough");
-	}
+    }
 #endif
 }
 
@@ -442,7 +434,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             break;
             
         default: {
-            [self.locationManager startUpdatingLocation];
+//            [self.locationManager startUpdatingLocation];
             [self.locationManager startMonitoringSignificantLocationChanges];
         }
             break;
