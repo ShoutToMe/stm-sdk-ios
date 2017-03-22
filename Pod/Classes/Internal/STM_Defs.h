@@ -46,6 +46,7 @@
 
 #define STM_LOCATION_INVALID_COURSE                             -1.0
 
+#define STM_MAX_GEOFENCES                                       20
 
 
 typedef enum eSTMInternalURLType

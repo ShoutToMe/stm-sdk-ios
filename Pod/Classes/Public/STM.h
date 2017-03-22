@@ -46,6 +46,7 @@
 
 @property (nonatomic, copy)   NSString          *accessToken;
 @property (nonatomic, copy)   NSString          *channelId;
+@property (nonatomic, copy)   NSString          *applicationArn;
 @property (nonatomic, weak)   id<STMDelegate>   delegate;
 @property AWSTask *task;
 
@@ -55,7 +56,8 @@
 + (void)saveAll;
 + (void)freeAll;
 + (void)setChannelId:(NSString *)channelId;
-+ (void)setupNotificationsWithApplication:(UIApplication *)application;
++ (void)setupNotificationsWithApplication:(UIApplication *)application __deprecated;
++ (void)setupNotificationsWithApplication:(UIApplication *)application pushNotificationAppId:(nonnull NSString *)pushNotificationAppId;
 + (void)presentRecordingOverlayWithViewController:(UIViewController *)vc andTags:(NSString *)tags andTopic:(NSString *)topic andMaxListeningSeconds:(NSNumber *)maxListeningSeconds andDelegate:(id)delegate andError:(NSError **)error;
 
 /**

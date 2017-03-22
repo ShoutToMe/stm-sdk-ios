@@ -180,6 +180,7 @@ __strong static Settings *singleton = nil; // this will be the one and only obje
             {
                 self.strServerURL = strVal;
             }
+
             strVal = [aDecoder decodeObjectForKey:KEY_SETTINGS_DEVICE_ID];
             if (strVal)
             {
