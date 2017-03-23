@@ -62,7 +62,8 @@
 #define SERVER_TAGS_KEY                         @"tags"
 #define SERVER_TOPIC_KEY                        @"topic"
 #define SERVER_PLATFORM_ENDPOINT_ARN_KEY        @"platform_endpoint_arn"
-#define SERVER_SNS_APPLICATION_ARN_PREFIX       @"arn:aws:sns:us-west-2:810633828709:app/APNS_SANDBOX/"
+#define SERVER_SNS_APPLICATION_ARN_PREFIX       @"arn:aws:sns:us-west-2:810633828709:app/APNS/"
+#define SERVER_SNS_TEST_APPLICATION_ARN_PREFIX  @"arn:aws:sns:us-west-2:810633828709:app/APNS_SANDBOX/"
 
 #define SERVER_VERIFY_PHONE_ARG                 @"phone"
 

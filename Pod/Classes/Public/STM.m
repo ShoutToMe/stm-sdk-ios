@@ -298,7 +298,15 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 }
 
 + (void)setupNotificationsWithApplication:(UIApplication *)application pushNotificationAppId:(NSString *)pushNotificationAppId {
-    NSString *applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_APPLICATION_ARN_PREFIX, pushNotificationAppId];
+    
+    NSRange testSubstring = [[STM settings].strServerURL rangeOfString:@"test"];
+    NSString *applicationArn;
+    if (testSubstring.location == NSNotFound) {
+        applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_APPLICATION_ARN_PREFIX, pushNotificationAppId];
+    } else {
+        applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_TEST_APPLICATION_ARN_PREFIX, pushNotificationAppId];
+    }
+    
     singleton.applicationArn = applicationArn;
     
 #if !(TAGET_IPHONE_SIMULATOR)
