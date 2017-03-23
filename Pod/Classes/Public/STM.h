@@ -35,7 +35,7 @@
 
 @optional
 
-- (void)STMNotificationRecieved:(nullable NSDictionary *)notification;
+- (void)STMNotificationReceived:(nullable NSDictionary *)notification;
 
 @end
 

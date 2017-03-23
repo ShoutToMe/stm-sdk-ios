@@ -353,9 +353,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                                     NSMutableDictionary *messageData = [data mutableCopy];
                                     [messageData setValue:message.strID forKey:@"message_id"];
                                     
-                                    if ([singleton.delegate respondsToSelector:@selector(STMNotificationRecieved:)])
+                                    if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
                                     {
-                                        [singleton.delegate STMNotificationRecieved:messageData];
+                                        [singleton.delegate STMNotificationReceived:messageData];
                                     }
     
                                     completionHandler(UIBackgroundFetchResultNewData);
@@ -373,9 +373,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                                 NSMutableDictionary *messageData = [data mutableCopy];
                                 [messageData setValue:message.strID forKey:@"message_id"];
                                 
-                                if ([singleton.delegate respondsToSelector:@selector(STMNotificationRecieved:)])
+                                if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
                                 {
-                                    [singleton.delegate STMNotificationRecieved:messageData];
+                                    [singleton.delegate STMNotificationReceived:messageData];
                                 }
                                 completionHandler(UIBackgroundFetchResultNewData);
                             }];
@@ -389,9 +389,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
             }];
         } else if ([messageType isEqualToString:@"user message"]) {
             
-            if ([singleton.delegate respondsToSelector:@selector(STMNotificationRecieved:)])
+            if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
             {
-                [singleton.delegate STMNotificationRecieved:data];
+                [singleton.delegate STMNotificationReceived:data];
             }
             completionHandler(UIBackgroundFetchResultNewData);
         }
