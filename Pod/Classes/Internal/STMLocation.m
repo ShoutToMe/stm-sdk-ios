@@ -467,11 +467,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                     localNotification.userInfo = localNotificationData;
 
                     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-                    [self stopMonitoringForRegion:region];
+                    [self stopMonitoringForRegion:(CLCircularRegion *)region];
                 }];
             }];
         } else {
-            [self stopMonitoringForRegion:region];
+            [self stopMonitoringForRegion:(CLCircularRegion *)region];
         }
     }];
 }
