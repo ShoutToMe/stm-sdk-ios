@@ -136,7 +136,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         {
             [self.locationManager requestAlwaysAuthorization];
         }
-//        [self.locationManager startUpdatingLocation];
+        [self.locationManager startUpdatingLocation];
         [self.locationManager startMonitoringSignificantLocationChanges];
     }
 }
@@ -364,7 +364,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     
     [self announceUpdate:self.curLocation];
     
-    //    NSLog(@"%@", [newLocation description]);
+    // NSLog(@"%@", self.curLocation);
     if ([[[self locationManager] monitoredRegions] count] >= STM_MAX_GEOFENCES) {
         [self monitorClosest];
     }
@@ -434,7 +434,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             break;
             
         default: {
-//            [self.locationManager startUpdatingLocation];
+            [self.locationManager startUpdatingLocation];
             [self.locationManager startMonitoringSignificantLocationChanges];
         }
             break;
