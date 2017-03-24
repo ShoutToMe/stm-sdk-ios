@@ -198,10 +198,10 @@ To enable or disable notifications at the user's request, add code that subscrib
 }
 ```
 
-#### Implement the `STMNotificationRecieved` to listen for Shout to Me notifications.
+#### Implement the `STMNotificationReceived` to listen for Shout to Me notifications.
 
 ```objc
--(void)STMNotificationRecieved:(NSDictionary *)notification {
+-(void)STMNotificationReceived:(NSDictionary *)notification {
     // In this case we are posting a location notification so we can handle it in our app.
 
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];

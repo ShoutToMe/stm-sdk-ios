@@ -44,7 +44,7 @@ below to create your own sample app.
   // Initialize Shout To Me SDK, Replace with your Shout to Me token
   [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
   // Optional, this will setup notifications from ShoutToMe (additional steps are required)
-  [STM setupNotificationsWithApplication:application];
+  [STM setupNotificationsWithApplication:application pushNotificationAppId:@"PUSH_NOTIFICATION_APP_ID"];
   // Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
   [STMLocation initAll];
 

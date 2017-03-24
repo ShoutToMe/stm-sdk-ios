@@ -27,11 +27,16 @@ The easiest way to install STM is to use CocoaPods. To do so, simply add the fol
 The other way to install STM, is to drag and drop the Pod folder into your Xcode project. When you do so, check the "Copy items into destination group's folder" box.
 
 
-## Client Access Token and Channel ID
+## Client Access Token, Channel ID, and Push Notification App ID
 Developers will need to get a client access token and a channel ID from Shout to Me in order to use this SDK.  A client
 access token is used to authorize the client app in HTTP calls.  The channel ID represents a Shout to Me channel which
-is linked to the broadcaster/podcaster's account.  You will need to [contact Shout to Me](http://www.shoutto.me/contact) in order to get the client access
-  token and channel ID. After you receive the client access token and channel ID from Shout to Me, you can
+is linked to the broadcaster/podcaster's account.
+
+If you would like to enable your application to receive push notifications, you will also need to provide an APNs certificate
+ and get a push notification app ID.  This setting wires up the app to Shout to Me's push notification system.
+
+You will need to [contact Shout to Me](http://www.shoutto.me/contact) in order to get the client access
+  token, channel ID and push notification app ID. Once you receive these items from Shout to Me, you can
   initialize the Shout to Me SDK within the `didFinishLaunchingWithOptions` function in your AppDelegate.m.
 
 ```objc
@@ -43,7 +48,7 @@ is linked to the broadcaster/podcaster's account.  You will need to [contact Sho
   // Initialize Shout To Me SDK, Replace with your Shout to Me token
   [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
   // Optional, this will setup notifications from ShoutToMe (additional steps are required)
-  [STM setupNotificationsWithApplication:application];
+  [STM setupNotificationsWithApplication:application pushNotificationAppId:@"PUSH_NOTIFICATION_APP_ID"];
   // Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
   [STMLocation initAll];
 
