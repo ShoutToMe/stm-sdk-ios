@@ -27,6 +27,8 @@
 #import "STMRecordingOverlayViewController.h"
 #import "Server.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 static BOOL bInitialized = NO;
 
 __strong static STM *singleton = nil; // this will be the one and only object this static singleton class has
@@ -272,7 +274,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [STM saveAll];
         [STM freeAll];
     }];
-        
 }
 
 #pragma mark - Life Cycle Events
@@ -297,8 +298,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 #endif
 }
 
-+ (void)setupNotificationsWithApplication:(UIApplication *)application pushNotificationAppId:(NSString *)pushNotificationAppId {
-    
++ (void)setupPushNotificationsWithAppId:(NSString *)pushNotificationAppId {
     NSRange testSubstring = [[STM settings].strServerURL rangeOfString:@"test"];
     NSString *applicationArn;
     if (testSubstring.location == NSNotFound) {
@@ -308,27 +308,16 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     }
     
     singleton.applicationArn = applicationArn;
-    
-#if !(TAGET_IPHONE_SIMULATOR)
-    UIMutableUserNotificationCategory *messageCategory = [[UIMutableUserNotificationCategory alloc] init];
-    messageCategory.identifier = @"MESSAGE_CATEGORY";
-    
-    NSSet *categories = [NSSet setWithObject:messageCategory];
-    
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
-    
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-#endif
 }
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+
+    NSLog(@"application.applicationState: %ld", (long)[application applicationState]);
+
     if (userInfo) {
         NSDictionary *data = [userInfo objectForKey:@"aps"];
         
         NSString *messageType = [Utils stringFromKey:@"type" inDictionary:data];
-        NSLog(@"application.applicationState: %ld", (long)application.applicationState);
         if ([messageType isEqualToString:@"conversation message"]) {
             NSString *conversationId = [Utils stringFromKey:@"conversation_id" inDictionary:data];
             
@@ -402,6 +391,10 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *deviceTokenString = [[[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
     
+    if (!singleton.applicationArn) {
+        NSLog(@"Warning. You must call setupPushNotificationsWithAppId: before registering for notifications");
+    }
+
     singleton.task = [AWSTask taskWithResult:nil];
     
     // if (the platform endpoint ARN is not stored)
