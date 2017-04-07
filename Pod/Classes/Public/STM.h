@@ -57,7 +57,7 @@
 + (void)freeAll;
 + (void)setChannelId:(nonnull NSString *)channelId;
 + (void)setupNotificationsWithApplication:(nonnull UIApplication *)application __deprecated;
-+ (void)setupNotificationsWithApplication:(nonnull UIApplication *)application pushNotificationAppId:(nonnull NSString *)pushNotificationAppId;
++ (void)setupPushNotificationsWithAppId:(nonnull NSString *)pushNotificationAppId;
 + (void)presentRecordingOverlayWithViewController:(nonnull UIViewController *)vc andTags:(nullable NSString *)tags andTopic:(nullable NSString *)topic andMaxListeningSeconds:(nullable NSNumber *)maxListeningSeconds andDelegate:(nonnull id)delegate andError:(NSError * _Nullable * _Null_unspecified)error;
 
 /**
