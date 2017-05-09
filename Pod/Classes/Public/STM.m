@@ -73,7 +73,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (void)initAllWithDelegate:(id<STMDelegate>)delegate andToken:(NSString *)token {
     if (NO == bInitialized)
     {
-        [AWSLogger defaultLogger].logLevel = AWSLogLevelWarn;
+        [AWSDDLog sharedInstance].logLevel = AWSDDLogLevelWarning;
         
         singleton = [[STM alloc] initWithToken:token];
         singleton.delegate = delegate;
