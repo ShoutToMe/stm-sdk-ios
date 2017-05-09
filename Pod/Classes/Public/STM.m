@@ -30,6 +30,14 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 static BOOL bInitialized = NO;
+static BOOL appIsStarting = NO;
+
+static NSString *const STM_NOTIFICATION_BACKGROUND = @"stm_notification_background";
+static NSString *const STM_NOTIFICATION_FOREGROUND = @"stm_notification_foreground";
+static NSString *const STM_NOTIFICATION_USER_TAP = @"stm_notification_user_tap";
+
+static NSString *const MESSAGE_CATEGORY = @"MESSAGE_CATEGORY";
+static NSString *const COMMAND_CATEGORY = @"COMMAND_CATEGORY";
 
 __strong static STM *singleton = nil; // this will be the one and only object this static singleton class has
 
@@ -257,15 +265,18 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 + (void)setupLifeCycleEvents {
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        appIsStarting = NO;
         [[STM location] syncMonitoredRegions];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        appIsStarting = NO;
         [[STM location] stop];
         [STM saveAll];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        appIsStarting = YES;
         NSError *error;
         [[STM location] startWithError:&error];
     }];
@@ -273,6 +284,19 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [STM saveAll];
         [STM freeAll];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        appIsStarting = NO;
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (note && note.userInfo) {
+            NSDictionary *notificationData = [note.userInfo objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+            if (notificationData) {
+                appIsStarting = YES;
+            }
+        }
     }];
 }
 
@@ -299,97 +323,100 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 }
 
 + (void)setupPushNotificationsWithAppId:(NSString *)pushNotificationAppId {
-    NSRange testSubstring = [[STM settings].strServerURL rangeOfString:@"test"];
-    NSString *applicationArn;
-    if (testSubstring.location == NSNotFound) {
-        applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_APPLICATION_ARN_PREFIX, pushNotificationAppId];
-    } else {
-        applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_TEST_APPLICATION_ARN_PREFIX, pushNotificationAppId];
-    }
     
-    singleton.applicationArn = applicationArn;
+    singleton.applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_APPLICATION_ARN_PREFIX, pushNotificationAppId];
+//    singleton.applicationArn = [NSString stringWithFormat:@"%@%@", SERVER_SNS_TEST_APPLICATION_ARN_PREFIX, pushNotificationAppId];
 }
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
-    NSLog(@"application.applicationState: %ld", (long)[application applicationState]);
+    UIApplicationState applicationState = [application applicationState];
+    
+    NSLog(@"STM- didReceiveRemoteNotification. userInfo=%@", userInfo);
 
+    NSString *notificationState;
+    if (applicationState == UIApplicationStateBackground || (applicationState == UIApplicationStateInactive && !appIsStarting)) {
+        // In the background. If conversation has location, treat as geofence. If package has alert, ignore background.
+        notificationState = STM_NOTIFICATION_BACKGROUND;
+    } else if (applicationState == UIApplicationStateInactive && appIsStarting) {
+        // User tapped the remote notificication while app was in background. Transition to message
+        notificationState = STM_NOTIFICATION_USER_TAP;
+    } else {
+        // App is active in foreground. Should we show it?
+        notificationState = STM_NOTIFICATION_FOREGROUND;
+    }
+    NSLog(@"STM- notification state = %@", notificationState);
+    
     if (userInfo) {
         NSDictionary *data = [userInfo objectForKey:@"aps"];
-        
-        NSString *messageType = [Utils stringFromKey:@"type" inDictionary:data];
-        if ([messageType isEqualToString:@"conversation message"]) {
-            NSString *conversationId = [Utils stringFromKey:@"conversation_id" inDictionary:data];
+        if (data) {
+            NSString *notificationCategory = [Utils stringFromKey:@"category" inDictionary:data];
+            NSString *notificationType = [Utils stringFromKey:@"type" inDictionary:data];
             
-            // check if conversation has been heard before
-            [[STM conversations] requestForSeenConversation:conversationId completionHandler:^(BOOL seen, NSError *error) {
-//                NSLog(@"Seen: %@", seen == YES ? @"True" : @"False");
-                if (!seen) {
-                    // We have not seen this conversation message before, go get the conversation
-                    [[STM conversations] requestForConversation:conversationId completionHandler:^(STMConversation *conversation, NSError *error) {
-                        if (conversation.location && conversation.location.lat && conversation.location.lon && conversation.location.radius_in_meters) {
-                            // it has a location, it's a specific location shout so create a geofence
-                            
-                            CLLocationCoordinate2D center = CLLocationCoordinate2DMake(conversation.location.lat,
-                                                                                       conversation.location.lon);
-                            CLCircularRegion *conversation_region = [[CLCircularRegion alloc]initWithCenter:center
-                                                                                                     radius:conversation.location.radius_in_meters
-                                                                                                 identifier:conversation.str_id];
-                            
-                            if ([conversation_region containsCoordinate:[STMLocation controller].curLocation.coordinate]) {
-                                // we are within the region, skip geo fence and show message
+            if ([MESSAGE_CATEGORY isEqual:notificationCategory]) {
+                if ([STM_NOTIFICATION_FOREGROUND isEqual:notificationState] || [STM_NOTIFICATION_USER_TAP isEqual:notificationState]) {
+                    if (notificationType && [notificationType isEqual:@"user message"]) {
+                        NSLog(@"STM- User direct message. About to notify client");
+                        [STM broadcastSTMNotifications:[NSSet setWithObject:data]];
+                        completionHandler(UIBackgroundFetchResultNewData);
+                    } else if (notificationType && [notificationType isEqual:@"conversation message"]) {
+                        NSString *conversationId = [Utils stringFromKey:@"conversation_id" inDictionary:data];
+                        
+                        NSLog(@"STM- Processing conversation notification for conversation: %@. About to see if converation has been seen.", conversationId);
+                        
+                        // check if conversation has been heard before
+                        [[STM conversations] requestForSeenConversation:conversationId completionHandler:^(BOOL seen, NSError *error) {
+                            NSLog(@"STM- Conversation been seen: %@. If false, show channel wide message.", seen == YES ? @"True" : @"False");
+                            if (!seen) {
+                                NSLog(@"STM- Channel wide message received. Prepare to show notification to user.");
+                                // this is a channel wide notification, create local notification
                                 [[STM messages] requestForCreateMessageForChannelId:[Utils stringFromKey:@"channel_id" inDictionary:data] ToRecipientId:[STM currentUser].strUserID WithConversationId:[Utils stringFromKey:@"conversation_id" inDictionary:data] AndMessage:[Utils stringFromKey:@"body" inDictionary:data] completionHandler:^(STMMessage *message, NSError *error) {
+                                    
+                                    NSLog(@"STM- Created a message at the server. Data: %@", message);
+                                    if (error) {
+                                        NSLog(@"STM- Error received creating message. Error: %@", error);
+                                    }
                                     NSMutableDictionary *messageData = [data mutableCopy];
                                     [messageData setValue:message.strID forKey:@"message_id"];
-                                    
-                                    if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
-                                    {
-                                        [singleton.delegate STMNotificationReceived:messageData];
-                                    }
-    
+                                    [STM broadcastSTMNotifications:[NSSet setWithObject:messageData]];
                                     completionHandler(UIBackgroundFetchResultNewData);
                                 }];
                             } else {
-                                // we are not in the same location, create a geo fence
-                                [[STM location] startMonitoringForRegion:conversation_region];
+                                // we have seen this conversation before
+                                NSLog(@"STM- Conversation has been seen before");
                                 completionHandler(UIBackgroundFetchResultNewData);
                             }
-                        } else {
-                            // this is a channel wide notification, create local notification
-                            [[STM messages] requestForCreateMessageForChannelId:[Utils stringFromKey:@"channel_id" inDictionary:data] ToRecipientId:[STM currentUser].strUserID WithConversationId:[Utils stringFromKey:@"conversation_id" inDictionary:data] AndMessage:[Utils stringFromKey:@"body" inDictionary:data] completionHandler:^(STMMessage *message, NSError *error) {
-                                
-                                NSLog(@"Created Message: %@", message);
-                                NSMutableDictionary *messageData = [data mutableCopy];
-                                [messageData setValue:message.strID forKey:@"message_id"];
-                                
-                                if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
-                                {
-                                    [singleton.delegate STMNotificationReceived:messageData];
-                                }
-                                completionHandler(UIBackgroundFetchResultNewData);
-                            }];
-                        }
-                    }];
+                        }];
+                    } else {
+                       completionHandler(UIBackgroundFetchResultNoData);
+                    }
                 } else {
-                    // we have seen this conversation before, updated?
-                    completionHandler(UIBackgroundFetchResultNewData);
+                    completionHandler(UIBackgroundFetchResultNoData);
                 }
-                
-            }];
-        } else if ([messageType isEqualToString:@"user message"]) {
-            
-            if ([singleton.delegate respondsToSelector:@selector(STMNotificationReceived:)])
-            {
-                [singleton.delegate STMNotificationReceived:data];
+            } else if ([COMMAND_CATEGORY isEqual:notificationCategory]) {
+                NSLog(@"STM- Notification sync command received. About to begin syncing messages and notifications");
+                [[STM location] syncMonitoredRegionsWithCompletionHandler:^void (void){
+                    NSLog(@"STM- Done syncing messages and geofences");
+                    if ([[[STM monitoredConversations] monitoredConversations] count ] > 0) {
+                        completionHandler(UIBackgroundFetchResultNewData);
+                    } else {
+                        completionHandler(UIBackgroundFetchResultNoData);
+                    }
+                }];
+            } else {
+                completionHandler(UIBackgroundFetchResultNoData);
             }
-            completionHandler(UIBackgroundFetchResultNewData);
+        } else {
+            completionHandler(UIBackgroundFetchResultNoData);
         }
     } else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
 }
+
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *deviceTokenString = [[[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"STM- device token string = %@", deviceTokenString);
     
     if (!singleton.applicationArn) {
         NSLog(@"Warning. You must call setupPushNotificationsWithAppId: before registering for notifications");
@@ -398,7 +425,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     singleton.task = [AWSTask taskWithResult:nil];
     
     // if (the platform endpoint ARN is not stored)
+    NSLog(@"%@", [[STM currentUser] strPlatformEndpointArn]);
     if ([[[STM currentUser] strPlatformEndpointArn] length] < 1) {
+        NSLog(@"STM- strPlatformEndpointArn is null, going to create one");
         // this is a first-time registration
         // call create platform endpoint
         // store the returned platform endpoint ARN
@@ -407,16 +436,20 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     
     [singleton.task continueWithBlock:^id(AWSTask *task) {
         [[[self getEndpointAttributes]continueWithSuccessBlock:^id(AWSTask *task) {
+            NSLog(@"STM- got endpoint attributes with success %@", task);
             return task;
         }]continueWithBlock:^id _Nullable(AWSTask * task) {
             if ([task.error code] == AWSSNSErrorNotFound) {
+                NSLog(@"STM- task error code = AWSSNSErrorNotFound. going to create new platform endpoint arn again");
                 return [self createPlatformEndpointWithDeviceToken:deviceTokenString];
             } else {
                 AWSSNSGetEndpointAttributesResponse *getEndpointAttributesResponse = task.result;
+                NSLog(@"STM- endpoint attributes response = %@", getEndpointAttributesResponse.attributes);
                 BOOL enabled = [Utils boolFromKey:@"Enabled" inDictionary:getEndpointAttributesResponse.attributes];
                 NSString *token = [getEndpointAttributesResponse.attributes objectForKey:@"Token"];
                 if (![token isEqualToString:deviceTokenString] || !enabled) {
                     // call set endpoint attributes to set the latest device token and then enable the platform endpoint
+                    NSLog(@"STM- token doesn't equal so we're going to update the attributes");
                     [self updateEndpointAttributesWithEndpointArn:[[STM currentUser] strPlatformEndpointArn] AndToken:deviceTokenString];
                 }
             }
@@ -427,20 +460,28 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 }
 
++ (void)broadcastSTMNotifications:(NSSet *)notifications {
+    if ([singleton.delegate respondsToSelector:@selector(STMNotificationsReceived:)]) {
+        [singleton.delegate STMNotificationsReceived:notifications];
+    }
+}
+
 #pragma mark - AWS Calls
 
 + (AWSTask *)updateEndpointAttributesWithEndpointArn:(NSString *) endpointArn AndToken:(NSString *)token {
+    NSString *userHandle = [[[STM currentUser].strHandle stringByReplacingOccurrencesOfString:@"\"" withString:@"_"] stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
     AWSSNS *sns = [AWSSNS defaultSNS];
     AWSSNSSetEndpointAttributesInput *request = [AWSSNSSetEndpointAttributesInput new];
     request.endpointArn = endpointArn;
-    request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [NSString stringWithFormat:@"UserHandle: %@", [STM currentUser].strHandle]};
+    request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID]};
     
     return [[sns setEndpointAttributes:request] continueWithBlock:^id(AWSTask *task) {
         if (task.error != nil) {
-            NSLog(@"setEndpointAttributes Error: %@", [task.error description]);
+            NSLog(@"STM- setEndpointAttributes Error: %@", [task.error description]);
+            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to update platform endpoint attributes with AWS SNS.", @"SNS setEndpointAttributes failed.", endpointArn, nil, [task.error localizedDescription]);
             return nil;
         } else {
-            NSLog(@"Updated PlatformEndpoint Attributes");
+            NSLog(@"STM- Updated PlatformEndpoint Attributes");
             return nil;
         }
     }];
@@ -460,6 +501,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [[STM signIn] setPlatformEndpointArn:platformEndpointArn withCompletionHandler:^(NSError *error) {
             if (error) {
                 NSLog(@"Error setting platformendpoint: %@", [error description]);
+                STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to set platform endpoint on STM User.", @"[STM signIn] setPlatformEndpoint failed.", nil, nil, [error localizedDescription]);
                 [task setError:error];
             } else {
                 NSLog(@"Updated User's PlatformEndpoint");
@@ -470,17 +512,21 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     return task.task;
 }
 + (AWSTask *)createPlatformEndpointWithDeviceToken:(NSString *)token {
+    NSLog(@"STM- Going to create platform endpoint arn with application %@", singleton.applicationArn);
+    NSString *userHandle = [[[STM currentUser].strHandle stringByReplacingOccurrencesOfString:@"\"" withString:@"_"] stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
     AWSSNS *sns = [AWSSNS defaultSNS];
     AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
     request.token = token;
     request.platformApplicationArn = singleton.applicationArn;
-    request.customUserData = [NSString stringWithFormat:@"UserHandle: %@", [STM currentUser].strHandle];
+    request.customUserData = [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID];
     return [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
         if (task.error != nil) {
             NSLog(@"Error: %@",task.error);
+            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to create platform endpoint with AWS SNS.", @"SNS createPlatformEndpoint failed.", singleton.applicationArn, nil, [task.error localizedDescription]);
             return task;
         } else {
             AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
+            NSLog(@"STM- Successfully registered for platform endpoint arn = %@", createEndPointResponse.endpointArn);
             return [self setPlatformEndpointArn:createEndPointResponse.endpointArn];
         }
         
