@@ -14,8 +14,8 @@
 #import "STM.h"
 #import "STM_Defs.h"
 
-//#define STOP_UPDATING_AT_ACCURACY // define this if don't want the location system to keep updating
-#define ACCURACY_METERS 1
+#define STOP_UPDATING_AT_ACCURACY // define this if don't want the location system to keep updating
+#define ACCURACY_METERS 10
 
 static BOOL bInitialized = NO;
 
@@ -95,11 +95,15 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         self.curLocation = nil;
         _lastValidCourse = -1;
         _lastValidSpeed = -1;
+        self.bIsMonitoringSignificantLocationChanges = NO;
         if (!self.locationManager)
         {
             self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
+            [self.locationManager setDelegate:self];
             //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            [self.locationManager setPausesLocationUpdatesAutomatically:YES];
+            [self.locationManager setActivityType:CLActivityTypeOther];
+            [self.locationManager startUpdatingLocation];
         }
     }
     
@@ -136,8 +140,8 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         {
             [self.locationManager requestAlwaysAuthorization];
         }
+
         [self.locationManager startUpdatingLocation];
-        [self.locationManager startMonitoringSignificantLocationChanges];
     }
 }
 
@@ -149,6 +153,24 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     if (self.locationManager)
     {
         [self.locationManager stopUpdatingLocation];
+    }
+}
+
+- (void) startSignificantLocationChangeUpdates {
+    if (self.locationManager && !self.bIsMonitoringSignificantLocationChanges)
+    {
+        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+        [self.locationManager startMonitoringSignificantLocationChanges];
+        self.bIsMonitoringSignificantLocationChanges = YES;
+    }
+}
+
+- (void)stopSignificantLocationChangeUpdates {
+    if (self.locationManager && self.bIsMonitoringSignificantLocationChanges)
+    {
+        [self.locationManager stopMonitoringSignificantLocationChanges];
+        [self.locationManager setAllowsBackgroundLocationUpdates:NO];
+        self.bIsMonitoringSignificantLocationChanges = NO;
     }
 }
 
@@ -172,17 +194,18 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 
 - (void)startMonitoringForRegion:(CLCircularRegion *)region {
     
-    if (region.radius > [self.locationManager maximumRegionMonitoringDistance]) {
-        // radius is too large, set it to the maximum
-        region = [[CLCircularRegion alloc] initWithCenter:region.center radius:[self.locationManager maximumRegionMonitoringDistance] identifier:region.identifier];
-    }
+    region = [self checkRegionDistance:region];
     
     [[STM monitoredConversations] addMonitoredRegion:region];
-    if ([[[self locationManager] monitoredRegions] count] < STM_MAX_GEOFENCES) {
+    NSUInteger monitoredRegionCount = [[[self locationManager] monitoredRegions] count];
+    if (monitoredRegionCount < STM_MAX_GEOFENCES) {
+        NSLog(@"STM- Number of geofences=%lu.  About to add new geofence to iOS geofences.", (unsigned long)monitoredRegionCount);
         [[self locationManager] startMonitoringForRegion:region];
     } else {
         // We have more than the maximum regions and need to only monitor the closest ones.
+        NSLog(@"STM- We have more than the max iOS geofences. Reshuffle geofences by location and start significant location change updates.");
         [self monitorClosest];
+        [self startSignificantLocationChangeUpdates];
     }
 }
 
@@ -213,24 +236,45 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     } else {
         max = [sortedValues count];
     }
-    for (CLCircularRegion *region in [sortedValues subarrayWithRange:NSMakeRange(0, max)]) {
-        [self startMonitoringForRegion:region];
+    for (__strong CLCircularRegion *region in [sortedValues subarrayWithRange:NSMakeRange(0, max)]) {
+        region = [self checkRegionDistance:region];
+        [[self locationManager] startMonitoringForRegion:region];
+    }
+}
+
+- (CLCircularRegion *) checkRegionDistance: (CLCircularRegion *) region {
+    if (region.radius > [self.locationManager maximumRegionMonitoringDistance]) {
+        // radius is too large, set it to the maximum
+        return [[CLCircularRegion alloc] initWithCenter:region.center radius:[self.locationManager maximumRegionMonitoringDistance] identifier:region.identifier];
+    } else {
+        return region;
     }
 }
 
 - (void)stopMonitoringForRegion:(CLCircularRegion *)region {
     [[STM monitoredConversations] removeMonitoredConversation:region];
     [[self locationManager] stopMonitoringForRegion:region];
+    
+    if ([[[STM monitoredConversations] monitoredConversations] count] > STM_MAX_GEOFENCES)
+    {
+        [self monitorClosest];
+        [self startSignificantLocationChangeUpdates];
+    }
+    else {
+        [self stopSignificantLocationChangeUpdates];
+    }
 }
 
-- (void)syncMonitoredRegions {
+- (void)syncMonitoredRegionsWithCompletionHandler:(void (^)(void))completionHandler {
     dispatch_group_t serviceGroup = dispatch_group_create();
     
     // Get list of subscriptions ( get to channel ids)
     NSMutableArray<STMConversation *> *activeConversations = [[NSMutableArray alloc] init];
+    NSMutableSet *newMessages = [[NSMutableSet alloc] init];
+    
     dispatch_group_enter(serviceGroup);
     [[STM subscriptions] requestForSubscriptionsWithcompletionHandler:^(NSArray<STMSubscription *> *subscriptions, NSError *error) {
-//        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
+        //        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
         
         // Get all active conversations for each channel
         for (STMSubscription *subscription in subscriptions) {
@@ -246,12 +290,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     }];
     
     dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-
+        
         // Clear out all monitored conversations and geofences
         [[STM monitoredConversations] removeAllMonitoredConversations];
         [self stopMonitoringForAllRegions];
         
-    
         dispatch_group_t conversationsSeenGroup = dispatch_group_create();
         
         // Now add relevant conversations back in
@@ -284,17 +327,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                                                                       @"type": @"conversation message",
                                                                       @"message_id": message.strID
                                                                       };
-                                        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-                                        localNotification.soundName = @"shout.wav";
-                                        localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:messageData];
-                                        localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:messageData];
-                                        localNotification.userInfo = messageData;
-                                        
-                                        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                        [newMessages addObject:messageData];
                                         dispatch_group_leave(conversationsSeenGroup);
                                     }];
                                 }];
-
+                                
                             } else {
                                 [[STM monitoredConversations] addMonitoredConversation:conversation];
                                 dispatch_group_leave(conversationsSeenGroup);
@@ -315,13 +352,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                                                                   @"type": @"conversation message",
                                                                   @"message_id": message.strID
                                                                   };
-                                    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-                                    localNotification.soundName = @"shout.wav";
-                                    localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:messageData];
-                                    localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:messageData];
-                                    localNotification.userInfo = messageData;
-                                    
-                                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                                    [newMessages addObject:messageData];
                                     dispatch_group_leave(conversationsSeenGroup);
                                 }];
                             }];
@@ -338,12 +369,34 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         }
         
         dispatch_group_notify(conversationsSeenGroup, dispatch_get_main_queue(), ^{
-            // Add geofences based in using helper method
+            // Send any new notifications
+            if (newMessages.count > 0) {
+                [STM broadcastSTMNotifications:[NSSet setWithSet:newMessages]];
+            }
+            
+            // Add geofences back in using helper method
             if ([[[STM monitoredConversations] monitoredConversations] count] > 0) {
                 [self monitorClosest];
             }
+            
+            if ([[[STM monitoredConversations] monitoredConversations] count ] > STM_MAX_GEOFENCES)
+            {
+                [self startSignificantLocationChangeUpdates];
+            }
+            else if ([[[STM monitoredConversations] monitoredConversations] count] <= STM_MAX_GEOFENCES)
+            {
+                [self stopSignificantLocationChangeUpdates];
+            }
+            
+            if (completionHandler != nil) {
+                completionHandler();
+            }
         });
     });
+}
+
+- (void)syncMonitoredRegions {
+    [self syncMonitoredRegionsWithCompletionHandler:nil];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
@@ -371,6 +424,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     
 #ifdef STOP_UPDATING_AT_ACCURACY
     // if we are at our accuracy then we are done
+    // NSLog(@"%f", self.curLocation.horizontalAccuracy);
     if (self.curLocation.horizontalAccuracy <= ACCURACY_METERS)
     {
         [self stop];
@@ -396,6 +450,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
 	
     //NSLog(@"Location error: %d", (int) [error code]);
+    [self stopSignificantLocationChangeUpdates];
     
 	if ([error domain] == kCLErrorDomain) 
 	{
@@ -429,13 +484,17 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         case kCLAuthorizationStatusRestricted:
         case kCLAuthorizationStatusDenied:
         {
-            
+            [self stopSignificantLocationChangeUpdates];
+            [self.locationManager stopUpdatingLocation];
         }
             break;
             
         default: {
             [self.locationManager startUpdatingLocation];
-            [self.locationManager startMonitoringSignificantLocationChanges];
+            if ([[[self locationManager] monitoredRegions] count] > STM_MAX_GEOFENCES)
+            {
+                [self startSignificantLocationChangeUpdates];
+            }
         }
             break;
     }
@@ -451,7 +510,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                 [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
                     NSDictionary *localNotificationData =
                     @{
-                      @"body": message.strMessage,
+                      @"body": conversation.str_publishing_message,
                       @"category": @"MESSAGE_CATEGORY",
                       @"channel_id": message.strChannelId,
                       @"conversation_id": message.strConversationId,
@@ -460,13 +519,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                       @"message_id": message.strID
                       };
 
-                    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-                    localNotification.soundName = @"shout.wav";
-                    localNotification.alertTitle = channel.strName;
-                    localNotification.alertBody = conversation.str_publishing_message;
-                    localNotification.userInfo = localNotificationData;
-
-                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                    [STM broadcastSTMNotifications:[NSSet setWithObject:localNotificationData]];
                     [self stopMonitoringForRegion:(CLCircularRegion *)region];
                 }];
             }];

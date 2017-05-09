@@ -17,6 +17,7 @@
 @property (nonatomic, strong, nullable) CLLocationManager	*locationManager;
 @property (nonatomic, strong, nullable) CLLocation        *curLocation;
 @property (nonatomic, assign) BOOL              bHaveLocation;
+@property (nonatomic, assign) BOOL              bIsMonitoringSignificantLocationChanges;
 
 // static methods
 + (void)initAll;
@@ -31,6 +32,7 @@
 - (void)startMonitoringForRegion:(CLCircularRegion * _Nonnull)region;
 - (void)stopMonitoringForRegion:(CLCircularRegion * _Nonnull)region;
 - (void)syncMonitoredRegions;
+- (void)syncMonitoredRegionsWithCompletionHandler:(void (^_Nullable)(void))completionHandler;
 
 
 
