@@ -9,7 +9,7 @@ The following describes how to set up your iOS project to use the Shout to Me iO
 ## Prerequisites
 * A Shout to Me client access token
 * A Shout to Me channel ID
-* [Xcode](https://developer.apple.com/xcode/)
+* <a href="https://developer.apple.com/xcode/" target="_blank">Xcode</a>
 
 ## iOS version requirement
 
