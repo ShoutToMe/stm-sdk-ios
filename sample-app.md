@@ -17,13 +17,13 @@ below to create your own sample app.
     [NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
 
     Both are strings and should be set to something like: "Your location is used to let the station know what part of
-    town you are in and so you can receive geo-targeted messages."
+    town you are in when you shout and to allow you to receive location-specific messages."
 
 * Add the record audio key.
 
     [NSMicrophoneUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25)
 
-    Set to something like: "Your microphone is used to allow you to shout to the station."
+    Set to something like: "Your microphone is used to allow you to send audio to us."
 
 ## Import "STM.h" to the header of AppDelegate.h:
 
@@ -43,10 +43,9 @@ below to create your own sample app.
 
   // Initialize Shout To Me SDK, Replace with your Shout to Me token
   [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
-  // Optional, this will setup notifications from ShoutToMe (additional steps are required)
+
+  // Optional, this will setup notifications from ShoutToMe (additional steps are required. See the Messages and Notifications section in documentation)
   [STM setupNotificationsWithApplication:application pushNotificationAppId:@"PUSH_NOTIFICATION_APP_ID"];
-  // Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
-  [STMLocation initAll];
 
   // Set your channel Id
   [STM setChannelId:@"CHANNEL_ID"];
