@@ -447,9 +447,16 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 NSLog(@"STM- endpoint attributes response = %@", getEndpointAttributesResponse.attributes);
                 BOOL enabled = [Utils boolFromKey:@"Enabled" inDictionary:getEndpointAttributesResponse.attributes];
                 NSString *token = [getEndpointAttributesResponse.attributes objectForKey:@"Token"];
-                if (![token isEqualToString:deviceTokenString] || !enabled) {
+                
+                BOOL userDataIsDirty = YES;
+                NSString *userData = [getEndpointAttributesResponse.attributes objectForKey:@"CustomUserData"];
+                if (userData) {
+                    userDataIsDirty = ![userData isEqualToString:[self buildSNSEndpointUserDataString]];
+                }
+                
+                if (![token isEqualToString:deviceTokenString] || !enabled || userDataIsDirty) {
                     // call set endpoint attributes to set the latest device token and then enable the platform endpoint
-                    NSLog(@"STM- token doesn't equal so we're going to update the attributes");
+                    NSLog(@"STM- Attributes do not match. Update them now");
                     [self updateEndpointAttributesWithEndpointArn:[[STM currentUser] strPlatformEndpointArn] AndToken:deviceTokenString];
                 }
             }
@@ -469,11 +476,11 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 #pragma mark - AWS Calls
 
 + (AWSTask *)updateEndpointAttributesWithEndpointArn:(NSString *) endpointArn AndToken:(NSString *)token {
-    NSString *userHandle = [[[STM currentUser].strHandle stringByReplacingOccurrencesOfString:@"\"" withString:@"_"] stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
+
     AWSSNS *sns = [AWSSNS defaultSNS];
     AWSSNSSetEndpointAttributesInput *request = [AWSSNSSetEndpointAttributesInput new];
     request.endpointArn = endpointArn;
-    request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID]};
+    request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [self buildSNSEndpointUserDataString]};
     
     return [[sns setEndpointAttributes:request] continueWithBlock:^id(AWSTask *task) {
         if (task.error != nil) {
@@ -487,7 +494,11 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     }];
 }
 
-
++ (NSString *)buildSNSEndpointUserDataString {
+    NSString *userHandle = [[[STM currentUser].strHandle stringByReplacingOccurrencesOfString:@"\"" withString:@"_"] stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
+    NSString *userDataString = [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID];
+    return userDataString;
+}
 
 + (AWSTask *)getEndpointAttributes {
     AWSSNS *sns = [AWSSNS defaultSNS];
@@ -495,6 +506,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     request.endpointArn = [[STM currentUser] strPlatformEndpointArn];
     return [sns getEndpointAttributes:request];
 }
+
 + (AWSTask *)setPlatformEndpointArn:(NSString *)platformEndpointArn {
     AWSTaskCompletionSource *task = [AWSTaskCompletionSource taskCompletionSource];
     if ([[STM signIn] respondsToSelector:@selector(setPlatformEndpointArn:withCompletionHandler:)]) {
