@@ -47,13 +47,13 @@ IB_DESIGNABLE
 
 /** Used to set block that generates NSString according to progress, to show it in Hint View
  
- @param StringGenerationBlock block with CGFloat progress parameter, that returns NSString*
+ @param generationBlock block with CGFloat progress parameter, that returns NSString*
  */
 - (void)setHintTextGenerationBlock:(StringGenerationBlock)generationBlock;
 
 /** Used to set block that generates NSAttributedString according to progress, to show it in Hint View
  
- @param AttributedStringGenerationBlock block with CGFloat progress parameter, that returns NSAttributedString*
+ @param generationBlock block with CGFloat progress parameter, that returns NSAttributedString*
  */
 - (void)setHintAttributedGenerationBlock:(AttributedStringGenerationBlock)generationBlock;
 
