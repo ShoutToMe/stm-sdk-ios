@@ -534,7 +534,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     return [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
         if (task.error != nil) {
             NSLog(@"Error: %@",task.error);
-            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to create platform endpoint with AWS SNS.", @"SNS createPlatformEndpoint failed.", singleton.applicationArn, nil, [task.error localizedDescription]);
+            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to create platform endpoint with AWS SNS.", @"SNS createPlatformEndpoint failed.", singleton.applicationArn, request, [task.error localizedDescription]);
             return task;
         } else {
             AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
