@@ -290,6 +290,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         appIsStarting = NO;
     }];
     
+    // TODO: Add SNS configuration
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         if (note && note.userInfo) {
             NSDictionary *notificationData = [note.userInfo objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -297,12 +298,27 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 appIsStarting = YES;
             }
         }
+        
+        AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1
+                                                                                                        identityPoolId:SERVER_AWS_COGNITO_POOL_ID];
+        AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest1
+                                                                             credentialsProvider:credentialsProvider];
+        [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
+        
+        
+        AWSServiceConfiguration *s3Configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2
+                                                                             credentialsProvider:credentialsProvider];
+        [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:s3Configuration forKey:SERVER_AWS_S3_CONFIGURATION_KEY];
+
     }];
 }
 
 #pragma mark - Life Cycle Events
-+ (void) applicationDidBecomeActive {
-    
++ (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(nonnull NSString *)identifier completionHandler:(nonnull void (^)())completionHandler
+{
+    [AWSS3TransferUtility interceptApplication:application
+           handleEventsForBackgroundURLSession:identifier
+                             completionHandler:completionHandler];
 }
 
 #pragma mark - Notification Misc

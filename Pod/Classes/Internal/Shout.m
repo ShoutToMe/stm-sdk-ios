@@ -17,6 +17,7 @@
 #import "Server.h"
 #import "STMLocation.h"
 #import "Error.h"
+#import "ShoutUploader.h"
 
 typedef enum eRequestType
 {
@@ -37,6 +38,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 @property (nonatomic, assign)   tSendShoutStatus        status;
 @property (nonatomic, copy)     NSString                *strShoutFilename;
 @property (nonatomic, strong)   NSData                  *dataAudio;
+@property (nonatomic, copy)     NSString                *mediaFileUrl;
 @property (nonatomic, copy)     NSString                *strText;
 @property (nonatomic, copy)     NSString                *strReplyToId;
 @property (nonatomic, weak)     id<SendShoutDelegate>   delegate;
@@ -59,6 +61,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
         self.type = RequestType_None;
         self.status = SendShoutStatus_NotStarted;
         self.dataAudio = nil;
+        self.mediaFileUrl = nil;
         self.delegate = nil;
         self.dictRequestData = nil;
         self.strText = @"";
@@ -77,7 +80,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"SendShoutRequest: ShoutFilename=%@", self.strShoutFilename]);
+    return([NSString stringWithFormat:@"Type=%u, Status=%u, Media File URL=%@, Topic=%@, Tags=%@", self.type, self.status, self.mediaFileUrl, self.topic, self.tags]);
 }
 
 @end
@@ -190,15 +193,22 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
         request.dictRequestData = [[NSMutableDictionary alloc] init];
         [request.dictRequestData setObject:[Settings controller].channel.strID forKey:SERVER_CHANNEL_ID_KEY];
         [request.dictRequestData setObject:[Settings controller].strDeviceID forKey:SERVER_DEVICE_ID_KEY];
-        [request.dictRequestData setObject:[request.dataAudio base64EncodedStringWithOptions:0] forKey:SERVER_AUDIO_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].curLocation.coordinate.latitude] forKey:SERVER_LAT_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].curLocation.coordinate.longitude] forKey:SERVER_LON_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].course] forKey:SERVER_COURSE_KEY];
         [request.dictRequestData setObject:[NSNumber numberWithDouble:[STMLocation controller].speed] forKey:SERVER_SPEED_KEY];
-        [request.dictRequestData setObject:request.strText forKey:SERVER_SPOKEN_TEXT_KEY];
+        if (request.dataAudio) {
+            [request.dictRequestData setObject:[request.dataAudio base64EncodedStringWithOptions:0] forKey:SERVER_AUDIO_KEY];
+        }
+        if (request.mediaFileUrl) {
+            [request.dictRequestData setObject:request.mediaFileUrl forKey:SERVER_MEDIA_FILE_URL_KEY];
+        }
         if ([Utils stringIsSet:request.strReplyToId])
         {
             [request.dictRequestData setObject:request.strReplyToId forKey:SERVER_REPLY_TO_ID_KEY];
+        }
+        if ([Utils stringIsSet:request.strText]) {
+            [request.dictRequestData setObject:request.strText forKey:SERVER_SPOKEN_TEXT_KEY];
         }
         if ([Utils stringIsSet:request.tags]) {
             [request.dictRequestData setObject:request.tags forKey:SERVER_TAGS_KEY];
@@ -260,6 +270,45 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate
 {
     [self sendData:dataShout text:strText replyToId:strReplyToId tags:@"" topic:@"" withDelegate:delegate];
+}
+
+/**
+ * Sends a shout from a saved file.  This method is intended to be called in the foreground while the user 
+ * is actively recording a shout.
+ */
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate
+{
+    ShoutUploader *shoutUploader = [ShoutUploader new];
+    [shoutUploader upload:localFileURL completion:^(NSString *remoteFileUrl, NSError *error){
+        if (error) {
+            NSLog(@"An error occurred uploading media file: %@", error);
+            
+            if ([delegate respondsToSelector:@selector(onSendShoutCompleteWithStatus:)])
+            {
+                [delegate onSendShoutCompleteWithStatus:SendShoutStatus_Failure];
+            }
+            
+            if ([delegate respondsToSelector:@selector(onSendShoutCompleteWithShout:WithStatus:)])
+            {
+                // give the delegate the results
+                [delegate onSendShoutCompleteWithShout:nil WithStatus:SendShoutStatus_Failure];
+            }
+        } else {
+            SendShoutRequest *request = [[SendShoutRequest alloc] init];
+            
+            self.dateLastSend = nil;
+            
+            request = [[SendShoutRequest alloc] init];
+            request.type = RequestType_SendShout;
+            request.delegate = delegate;
+            request.mediaFileUrl = remoteFileUrl;
+            request.strText = strText;
+            request.tags = tags;
+            request.topic = topic;
+            
+            [self postShout:request];
+        }
+    }];
 }
 
 // takes back the last sent shout

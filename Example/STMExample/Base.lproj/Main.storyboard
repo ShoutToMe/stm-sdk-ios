@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,40 +23,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFu-Eg-XaB">
+                                <rect key="frame" x="20" y="64" width="106" height="30"/>
                                 <state key="normal" title="Record a Shout"/>
                                 <connections>
                                     <action selector="recordTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bl4-b5-Z27"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ufs-tP-NtH">
+                                <rect key="frame" x="117" y="230" width="250" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Handle:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlz-jf-A76">
+                                <rect key="frame" x="20" y="236" width="89" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4fA-4V-4AR">
+                                <rect key="frame" x="20" y="268" width="103" height="30"/>
                                 <state key="normal" title="Update Handle"/>
                                 <connections>
                                     <action selector="UpdateTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J6G-ud-dUZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1Q-1D-mk6">
+                                <rect key="frame" x="20" y="108" width="106" height="30"/>
+                                <state key="normal" title="Upload a Shout"/>
+                                <connections>
+                                    <action selector="uploadShout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kiV-eJ-O1k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="i1Q-1D-mk6" firstAttribute="top" secondItem="eFu-Eg-XaB" secondAttribute="bottom" constant="14" id="2T5-K9-3UI"/>
                             <constraint firstItem="Ufs-tP-NtH" firstAttribute="leading" secondItem="rlz-jf-A76" secondAttribute="trailing" constant="8" id="72S-SU-x8B"/>
                             <constraint firstItem="4fA-4V-4AR" firstAttribute="top" secondItem="Ufs-tP-NtH" secondAttribute="bottom" constant="8" id="9fi-Ax-ape"/>
                             <constraint firstItem="eFu-Eg-XaB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="Ikc-3b-hK6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ufs-tP-NtH" secondAttribute="trailing" constant="-221" id="Qjy-FN-AhM"/>
                             <constraint firstItem="rlz-jf-A76" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="Rwe-vK-Bbj"/>
+                            <constraint firstAttribute="trailing" secondItem="Ufs-tP-NtH" secondAttribute="trailing" constant="8" id="e85-2o-DJF"/>
                             <constraint firstItem="eFu-Eg-XaB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="fcN-38-FZm"/>
-                            <constraint firstItem="rlz-jf-A76" firstAttribute="top" secondItem="eFu-Eg-XaB" secondAttribute="bottom" constant="12" id="jXs-Fb-jSF"/>
+                            <constraint firstItem="rlz-jf-A76" firstAttribute="top" secondItem="eFu-Eg-XaB" secondAttribute="bottom" constant="142" id="jXs-Fb-jSF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ufs-tP-NtH" secondAttribute="trailing" constant="467" id="mwj-KZ-Roq"/>
-                            <constraint firstItem="Ufs-tP-NtH" firstAttribute="top" secondItem="eFu-Eg-XaB" secondAttribute="bottom" constant="6" id="n7u-O4-bOi"/>
+                            <constraint firstItem="Ufs-tP-NtH" firstAttribute="top" secondItem="eFu-Eg-XaB" secondAttribute="bottom" constant="136" id="n7u-O4-bOi"/>
                             <constraint firstItem="4fA-4V-4AR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="nNg-iu-DCx"/>
                             <constraint firstItem="Ufs-tP-NtH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uCl-2i-vIx"/>
+                            <constraint firstItem="i1Q-1D-mk6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="vXS-2C-z0K"/>
                             <constraint firstItem="Ufs-tP-NtH" firstAttribute="top" secondItem="rlz-jf-A76" secondAttribute="bottom" constant="8" id="yei-Ik-J0F"/>
                         </constraints>
                         <variation key="default">

@@ -37,7 +37,7 @@
 
 - (NSString *)description
 {
-    NSString *strDesc = [NSString stringWithFormat:@"Shout - id: %@, conf_id: %@, spoken_text: %@",
+    NSString *strDesc = [NSString stringWithFormat:@"Shout - id: %@, conversation_id: %@, spoken_text: %@",
                          self.str_id,
                          self.str_conversation_id,
                          self.str_spoken_text
