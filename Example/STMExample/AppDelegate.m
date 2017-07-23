@@ -26,4 +26,8 @@
     return YES;
 }
 
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
+    [STM application:application handleEventsForBackgroundURLSession:identifier completionHandler:completionHandler];
+}
+
 @end

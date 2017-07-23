@@ -50,6 +50,7 @@
 #define SERVER_CHANNEL_ID_KEY                   @"channel_id"
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_AUDIO_KEY                        @"audio"
+#define SERVER_MEDIA_FILE_URL_KEY               @"media_file_url"
 #define SERVER_SPOKEN_TEXT_KEY                  @"spoken_text"
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_LAT_KEY                          @"lat"
@@ -152,5 +153,9 @@
 #define SERVER_URL_PREFIX_STATS_MONTH           @"stats-month:"
 #define SERVER_URL_PREFIX_STATS_YEAR            @"stats-year:"
 
+#define SERVER_AWS_COGNITO_POOL_ID              @"us-east-1:4ec2b44e-0dde-43e6-a279-6ee1cf241b05"
+#define SERVER_AWS_S3_CONFIGURATION_KEY         @"S2M-S3"
+#define SERVER_AWS_S3_UPLOAD_BUCKET_NAME        @"s2m-shout-upload-inbox"
+#define SERVER_AWS_S3_UPLOAD_URL_PREFIX         @"https://s3-us-west-2.amazonaws.com/"SERVER_AWS_S3_UPLOAD_BUCKET_NAME@"/"
 
 #endif

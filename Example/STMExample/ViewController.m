@@ -49,6 +49,41 @@
 
    }
 
+- (IBAction)uploadShout:(id)sender {
+    [self startMediaBrowserFromViewController:self usingDelegate:self];
+}
+
+- (BOOL)startMediaBrowserFromViewController:(UIViewController *)controller usingDelegate:(id)delegate {
+    // Validations
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
+        || (delegate == nil)
+        || (controller == nil)) {
+        return NO;
+    }
+    
+    // Get image picker
+    UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
+    mediaUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    mediaUI.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
+    mediaUI.allowsEditing = YES;
+    mediaUI.delegate = delegate;
+    
+    // Display image picker
+    [controller presentViewController:mediaUI animated:YES completion:nil];
+    return YES;
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    NSLog(@"%@", info);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSURL *localFileURL = [info objectForKey:UIImagePickerControllerMediaURL];
+    [[STM shout] sendFile:localFileURL text:nil tags:@"Tag 1,Tag 2" topic:@"My Topic" withDelegate:self];
+}
+
 - (IBAction)UpdateTouched:(id)sender {
     [[STM signIn] setHandle:self.handleTextField.text withCompletionHandler:^(NSError *error) {
         if (error) {
@@ -73,5 +108,35 @@
     NSLog(@"bDismissed: %d", bDismissed);
 //    self.overlayController = nil;
 }
+
+#pragma mark - SendShoutDelegate
+//- (void)onSendShoutCompleteWithStatus:(tSendShoutStatus)status
+//{
+//    if (status == SendShoutStatus_Success) {
+//        NSLog(@"Shout sent successfully");
+//    } else if (status == SendShoutStatus_Failure) {
+//        NSLog(@"Failure occurred sending shout");
+//    }
+//}
+
+- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status
+{
+    NSLog(@"Shout: %@", shout);
+    if (status == SendShoutStatus_Success) {
+        NSLog(@"Shout sent successfully");
+    } else if (status == SendShoutStatus_Failure) {
+        NSLog(@"Failure occurred sending shout");
+    }
+}
+
+- (void)onUndoLastSendCompleteWithStatus:(tSendShoutStatus)status
+{
+    if (status == SendShoutStatus_Success) {
+        NSLog(@"Shout undo successful");
+    } else if (status == SendShoutStatus_Failure) {
+        NSLog(@"Failure occurred during shout undo");
+    }
+}
+
 
 @end

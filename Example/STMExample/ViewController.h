@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "STMRecordingOverlayViewController.h"
+#import <MobileCoreServices/UTCoreTypes.h>
 
-@interface ViewController : UIViewController<STMRecordingOverlayDelegate>
+@interface ViewController : UIViewController<STMRecordingOverlayDelegate, UIImagePickerControllerDelegate, SendShoutDelegate>
 @property (nonatomic, strong) STMRecordingOverlayViewController *overlayController;
 @property (weak, nonatomic) IBOutlet UITextField *handleTextField;
 @end

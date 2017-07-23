@@ -6,6 +6,7 @@
 //  Copyright 2014 Ditty Labs. All rights reserved.
 //
 
+#import <AWSS3/AWSS3.h>
 #import <Foundation/Foundation.h>
 #import "Settings.h"
 #import "STMShout.h"
@@ -40,6 +41,7 @@ typedef enum eSendShoutStatus
 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)undoLastSend;
 - (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate;
 - (NSDate *)dateOfLastSend;

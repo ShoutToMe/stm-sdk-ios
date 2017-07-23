@@ -53,6 +53,7 @@
 + (void)initWithAccessToken:(nonnull NSString *)token andApplication:(nonnull UIApplication *)application andDelegate:(nonnull id)delegate;
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData*)deviceToken;
 + (void)didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo ForApplication:(nonnull UIApplication *)application fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler;
++ (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler;
 + (void)saveAll;
 + (void)freeAll;
 + (void)setChannelId:(nonnull NSString *)channelId;
