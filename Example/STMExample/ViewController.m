@@ -81,7 +81,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     NSURL *localFileURL = [info objectForKey:UIImagePickerControllerMediaURL];
-    [[STM shout] sendFile:localFileURL text:nil tags:@"Tag 1,Tag 2" topic:@"My Topic" withDelegate:self];
+    [[STM shout] uploadFromFile:localFileURL text:nil tags:@"Tag 1, Tag 2" topic:@"My topic" withDelegate:self];
 }
 
 - (IBAction)UpdateTouched:(id)sender {
@@ -95,7 +95,7 @@
 }
 
 
-#pragma mark - STMRecordingOverlay delegate methods
+#pragma mark - Create shout delegate methods
 -(void)shoutCreated:(STMShout*)shout error:(NSError*)err {
     if (err) {
         NSLog(@"[shoutCreated] error: %@", [err localizedDescription]);
@@ -104,38 +104,10 @@
     }
 }
 
+// Overlay only
 - (void)overlayClosed:(BOOL)bDismissed {
     NSLog(@"bDismissed: %d", bDismissed);
 //    self.overlayController = nil;
-}
-
-#pragma mark - SendShoutDelegate
-//- (void)onSendShoutCompleteWithStatus:(tSendShoutStatus)status
-//{
-//    if (status == SendShoutStatus_Success) {
-//        NSLog(@"Shout sent successfully");
-//    } else if (status == SendShoutStatus_Failure) {
-//        NSLog(@"Failure occurred sending shout");
-//    }
-//}
-
-- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status
-{
-    NSLog(@"Shout: %@", shout);
-    if (status == SendShoutStatus_Success) {
-        NSLog(@"Shout sent successfully");
-    } else if (status == SendShoutStatus_Failure) {
-        NSLog(@"Failure occurred sending shout");
-    }
-}
-
-- (void)onUndoLastSendCompleteWithStatus:(tSendShoutStatus)status
-{
-    if (status == SendShoutStatus_Success) {
-        NSLog(@"Shout undo successful");
-    } else if (status == SendShoutStatus_Failure) {
-        NSLog(@"Failure occurred during shout undo");
-    }
 }
 
 

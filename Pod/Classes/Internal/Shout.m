@@ -18,6 +18,7 @@
 #import "STMLocation.h"
 #import "Error.h"
 #import "ShoutUploader.h"
+#import "SendShoutDelegateHandler.h"
 
 typedef enum eRequestType
 {
@@ -41,7 +42,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 @property (nonatomic, copy)     NSString                *mediaFileUrl;
 @property (nonatomic, copy)     NSString                *strText;
 @property (nonatomic, copy)     NSString                *strReplyToId;
-@property (nonatomic, weak)     id<SendShoutDelegate>   delegate;
+@property (nonatomic, strong)     id<SendShoutDelegate>   delegate;
 @property (nonatomic, copy)     NSString                *strURL;
 @property (nonatomic, strong)   NSMutableDictionary     *dictRequestData;
 @property (nonatomic, copy)     NSString                *topic;
@@ -242,6 +243,17 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 
 #pragma mark - Public Methods
 
+/**
+ * Uploads a shout from a local file.  This method is intended to be called in the foreground while the user
+ * is actively recording a shout.
+ */
+- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<CreateShoutDelegate>)delegate
+{
+    SendShoutDelegateHandler *sendShoutDelegate = [SendShoutDelegateHandler new];
+    sendShoutDelegate.createShoutDelegate = delegate;
+    [self sendFile:localFileURL text:text tags:tags topic:topic withDelegate:sendShoutDelegate];
+}
+
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate {
     
     //[[Analytics controller] increment:@"shouts recorded" by:1];
@@ -272,10 +284,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
     [self sendData:dataShout text:strText replyToId:strReplyToId tags:@"" topic:@"" withDelegate:delegate];
 }
 
-/**
- * Sends a shout from a saved file.  This method is intended to be called in the foreground while the user 
- * is actively recording a shout.
- */
+
 - (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate
 {
     ShoutUploader *shoutUploader = [ShoutUploader new];
