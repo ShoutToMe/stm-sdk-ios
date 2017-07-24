@@ -31,6 +31,11 @@ typedef enum eSendShoutStatus
 
 @end
 
+@protocol CreateShoutDelegate <NSObject>
+
+-(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
+
+@end
 
 @interface Shout : NSObject
 
@@ -39,6 +44,7 @@ typedef enum eSendShoutStatus
 
 + (Shout *)controller;
 
+- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<CreateShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
