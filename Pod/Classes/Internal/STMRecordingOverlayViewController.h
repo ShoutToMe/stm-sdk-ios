@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "VoiceCmdView.h"
 
-@protocol STMRecordingOverlayDelegate;
+@protocol STMRecordingOverlayDelegate <CreateShoutDelegate>
+
+-(void)overlayClosed:(BOOL)bDismissed;
+
+@end
 
 @interface STMRecordingOverlayViewController : UIViewController<VoiceCmdViewDelegate, SendShoutDelegate>
 @property (atomic) id<STMRecordingOverlayDelegate> delegate;
@@ -19,11 +23,5 @@
 
 -(void)userRequestsStopListening;
 -(id)initWithTags:(NSString *)tags andTopic:(NSString *)topic;
-@end
 
-@protocol STMRecordingOverlayDelegate <NSObject>
-
-
--(void)shoutCreated:(STMShout*)shout error:(NSError*)err;
--(void)overlayClosed:(BOOL)bDismissed;
 @end
