@@ -18,7 +18,6 @@
 #import "STMLocation.h"
 #import "Error.h"
 #import "ShoutUploader.h"
-#import "SendShoutDelegateHandler.h"
 
 typedef enum eRequestType
 {
@@ -82,6 +81,32 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 - (NSString *)description
 {
     return([NSString stringWithFormat:@"Type=%u, Status=%u, Media File URL=%@, Topic=%@, Tags=%@", self.type, self.status, self.mediaFileUrl, self.topic, self.tags]);
+}
+
+@end
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface SendShoutDelegateHandler : NSObject<SendShoutDelegate>
+
+@property (weak) id<CreateShoutDelegate> createShoutDelegate;
+
+- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status;
+
+@end
+
+@implementation SendShoutDelegateHandler
+
+- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status
+{
+    if ([self.createShoutDelegate respondsToSelector:@selector(shoutCreated:error:)]) {
+        if (status == SendShoutStatus_Success) {
+            [self.createShoutDelegate shoutCreated:shout error:nil];
+        } else if (status == SendShoutStatus_Failure) {
+            NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain code:STMErrorUnknown userInfo:nil];
+            [self.createShoutDelegate shoutCreated:nil error:error];
+        }
+    }
 }
 
 @end
