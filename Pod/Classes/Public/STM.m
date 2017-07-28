@@ -68,6 +68,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     [self initAllWithDelegate:delegate andToken:token];
     //[self setupNotificationsWithApplication:application];
     [self setupLifeCycleEvents];
+    [self initializeAWSServices];
 }
 
 + (void)initAllWithDelegate:(id<STMDelegate>)delegate andToken:(NSString *)token {
@@ -290,7 +291,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         appIsStarting = NO;
     }];
     
-    // TODO: Add SNS configuration
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         if (note && note.userInfo) {
             NSDictionary *notificationData = [note.userInfo objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -298,18 +298,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 appIsStarting = YES;
             }
         }
-        
-        AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1
-                                                                                                        identityPoolId:SERVER_AWS_COGNITO_POOL_ID];
-        AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest1
-                                                                             credentialsProvider:credentialsProvider];
-        [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
-        
-        
-        AWSServiceConfiguration *s3Configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2
-                                                                             credentialsProvider:credentialsProvider];
-        [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:s3Configuration forKey:SERVER_AWS_S3_CONFIGURATION_KEY];
-
     }];
 }
 
@@ -450,36 +438,38 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         singleton.task = [self createPlatformEndpointWithDeviceToken:deviceTokenString];
     }
     
-    [singleton.task continueWithBlock:^id(AWSTask *task) {
-        [[[self getEndpointAttributes]continueWithSuccessBlock:^id(AWSTask *task) {
-            NSLog(@"STM- got endpoint attributes with success %@", task);
-            return task;
-        }]continueWithBlock:^id _Nullable(AWSTask * task) {
-            if ([task.error code] == AWSSNSErrorNotFound) {
-                NSLog(@"STM- task error code = AWSSNSErrorNotFound. going to create new platform endpoint arn again");
-                return [self createPlatformEndpointWithDeviceToken:deviceTokenString];
-            } else {
-                AWSSNSGetEndpointAttributesResponse *getEndpointAttributesResponse = task.result;
-                NSLog(@"STM- endpoint attributes response = %@", getEndpointAttributesResponse.attributes);
-                BOOL enabled = [Utils boolFromKey:@"Enabled" inDictionary:getEndpointAttributesResponse.attributes];
-                NSString *token = [getEndpointAttributesResponse.attributes objectForKey:@"Token"];
-                
-                BOOL userDataIsDirty = YES;
-                NSString *userData = [getEndpointAttributesResponse.attributes objectForKey:@"CustomUserData"];
-                if (userData) {
-                    userDataIsDirty = ![userData isEqualToString:[self buildSNSEndpointUserDataString]];
+    if (singleton.task) {
+        [singleton.task continueWithBlock:^id(AWSTask *task) {
+            [[[self getEndpointAttributes]continueWithSuccessBlock:^id(AWSTask *task) {
+                NSLog(@"STM- got endpoint attributes with success %@", task);
+                return task;
+            }]continueWithBlock:^id _Nullable(AWSTask * task) {
+                if ([task.error code] == AWSSNSErrorNotFound) {
+                    NSLog(@"STM- task error code = AWSSNSErrorNotFound. going to create new platform endpoint arn again");
+                    return [self createPlatformEndpointWithDeviceToken:deviceTokenString];
+                } else {
+                    AWSSNSGetEndpointAttributesResponse *getEndpointAttributesResponse = task.result;
+                    NSLog(@"STM- endpoint attributes response = %@", getEndpointAttributesResponse.attributes);
+                    BOOL enabled = [Utils boolFromKey:@"Enabled" inDictionary:getEndpointAttributesResponse.attributes];
+                    NSString *token = [getEndpointAttributesResponse.attributes objectForKey:@"Token"];
+                    
+                    BOOL userDataIsDirty = YES;
+                    NSString *userData = [getEndpointAttributesResponse.attributes objectForKey:@"CustomUserData"];
+                    if (userData) {
+                        userDataIsDirty = ![userData isEqualToString:[self buildSNSEndpointUserDataString]];
+                    }
+                    
+                    if (![token isEqualToString:deviceTokenString] || !enabled || userDataIsDirty) {
+                        // call set endpoint attributes to set the latest device token and then enable the platform endpoint
+                        NSLog(@"STM- Attributes do not match. Update them now");
+                        [self updateEndpointAttributesWithEndpointArn:[[STM currentUser] strPlatformEndpointArn] AndToken:deviceTokenString];
+                    }
                 }
-                
-                if (![token isEqualToString:deviceTokenString] || !enabled || userDataIsDirty) {
-                    // call set endpoint attributes to set the latest device token and then enable the platform endpoint
-                    NSLog(@"STM- Attributes do not match. Update them now");
-                    [self updateEndpointAttributesWithEndpointArn:[[STM currentUser] strPlatformEndpointArn] AndToken:deviceTokenString];
-                }
-            }
+                return nil;
+            }];
             return nil;
         }];
-        return nil;
-    }];
+    }
 
 }
 
@@ -491,23 +481,45 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 #pragma mark - AWS Calls
 
++ (void)initializeAWSServices
+{
+    AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1
+                                                                                                    identityPoolId:SERVER_AWS_COGNITO_POOL_ID];
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest1
+                                                                         credentialsProvider:credentialsProvider];
+    [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
+    
+    
+    AWSServiceConfiguration *s3Configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2
+                                                                           credentialsProvider:credentialsProvider];
+    [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:s3Configuration forKey:SERVER_AWS_S3_CONFIGURATION_KEY];
+    
+    AWSServiceConfiguration *snsConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2 credentialsProvider:credentialsProvider];
+    [AWSSNS registerSNSWithConfiguration:snsConfiguration forKey:SERVER_AWS_SNS_CONFIGURATION_KEY];
+}
+
 + (AWSTask *)updateEndpointAttributesWithEndpointArn:(NSString *) endpointArn AndToken:(NSString *)token {
 
-    AWSSNS *sns = [AWSSNS defaultSNS];
-    AWSSNSSetEndpointAttributesInput *request = [AWSSNSSetEndpointAttributesInput new];
-    request.endpointArn = endpointArn;
-    request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [self buildSNSEndpointUserDataString]};
-    
-    return [[sns setEndpointAttributes:request] continueWithBlock:^id(AWSTask *task) {
-        if (task.error != nil) {
-            NSLog(@"STM- setEndpointAttributes Error: %@", [task.error description]);
-            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to update platform endpoint attributes with AWS SNS.", @"SNS setEndpointAttributes failed.", endpointArn, nil, [task.error localizedDescription]);
-            return nil;
-        } else {
-            NSLog(@"STM- Updated PlatformEndpoint Attributes");
-            return nil;
-        }
-    }];
+    AWSSNS *sns = [AWSSNS SNSForKey:SERVER_AWS_SNS_CONFIGURATION_KEY];
+    if (sns) {
+        AWSSNSSetEndpointAttributesInput *request = [AWSSNSSetEndpointAttributesInput new];
+        request.endpointArn = endpointArn;
+        request.attributes =@{@"Enabled": @"True", @"Token": token, @"CustomUserData": [self buildSNSEndpointUserDataString]};
+        
+        return [[sns setEndpointAttributes:request] continueWithBlock:^id(AWSTask *task) {
+            if (task.error != nil) {
+                NSLog(@"STM- setEndpointAttributes Error: %@", [task.error description]);
+                STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to update platform endpoint attributes with AWS SNS.", @"SNS setEndpointAttributes failed.", endpointArn, nil, [task.error localizedDescription]);
+                return nil;
+            } else {
+                NSLog(@"STM- Updated PlatformEndpoint Attributes");
+                return nil;
+            }
+        }];
+    } else {
+        NSLog(@"Could not get Shout to Me SNS object");
+        return nil;
+    }
 }
 
 + (NSString *)buildSNSEndpointUserDataString {
@@ -517,10 +529,15 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 }
 
 + (AWSTask *)getEndpointAttributes {
-    AWSSNS *sns = [AWSSNS defaultSNS];
-    AWSSNSGetEndpointAttributesInput *request = [AWSSNSGetEndpointAttributesInput new];
-    request.endpointArn = [[STM currentUser] strPlatformEndpointArn];
-    return [sns getEndpointAttributes:request];
+    AWSSNS *sns = [AWSSNS SNSForKey:SERVER_AWS_SNS_CONFIGURATION_KEY];
+    if (sns) {
+        AWSSNSGetEndpointAttributesInput *request = [AWSSNSGetEndpointAttributesInput new];
+        request.endpointArn = [[STM currentUser] strPlatformEndpointArn];
+        return [sns getEndpointAttributes:request];
+    } else {
+        NSLog(@"Could not get Shout to Me SNS object");
+        return nil;
+    }
 }
 
 + (AWSTask *)setPlatformEndpointArn:(NSString *)platformEndpointArn {
@@ -542,23 +559,29 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (AWSTask *)createPlatformEndpointWithDeviceToken:(NSString *)token {
     NSLog(@"STM- Going to create platform endpoint arn with application %@", singleton.applicationArn);
     NSString *userHandle = [[[STM currentUser].strHandle stringByReplacingOccurrencesOfString:@"\"" withString:@"_"] stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
-    AWSSNS *sns = [AWSSNS defaultSNS];
-    AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
-    request.token = token;
-    request.platformApplicationArn = singleton.applicationArn;
-    request.customUserData = [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID];
-    return [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
-        if (task.error != nil) {
-            NSLog(@"Error: %@",task.error);
-            STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to create platform endpoint with AWS SNS.", @"SNS createPlatformEndpoint failed.", singleton.applicationArn, request, [task.error localizedDescription]);
-            return task;
-        } else {
-            AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
-            NSLog(@"STM- Successfully registered for platform endpoint arn = %@", createEndPointResponse.endpointArn);
-            return [self setPlatformEndpointArn:createEndPointResponse.endpointArn];
-        }
-        
-    }];
+    
+    AWSSNS *sns = [AWSSNS SNSForKey:SERVER_AWS_SNS_CONFIGURATION_KEY];
+    if (sns) {
+        AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
+        request.token = token;
+        request.platformApplicationArn = singleton.applicationArn;
+        request.customUserData = [NSString stringWithFormat:@"{ \"user_handle\": \"%@\", \"user_id\": \"%@\" }", userHandle, [STM currentUser].strUserID];
+        return [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
+            if (task.error != nil) {
+                NSLog(@"Error: %@",task.error);
+                STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to create platform endpoint with AWS SNS.", @"SNS createPlatformEndpoint failed.", singleton.applicationArn, request, [task.error localizedDescription]);
+                return task;
+            } else {
+                AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
+                NSLog(@"STM- Successfully registered for platform endpoint arn = %@", createEndPointResponse.endpointArn);
+                return [self setPlatformEndpointArn:createEndPointResponse.endpointArn];
+            }
+            
+        }];
+    } else {
+        NSLog(@"Could not get Shout to Me SNS object");
+        return nil;
+    }
 }
 
 

@@ -154,8 +154,9 @@
 #define SERVER_URL_PREFIX_STATS_YEAR            @"stats-year:"
 
 #define SERVER_AWS_COGNITO_POOL_ID              @"us-east-1:4ec2b44e-0dde-43e6-a279-6ee1cf241b05"
-#define SERVER_AWS_S3_CONFIGURATION_KEY         @"S2M-S3"
+#define SERVER_AWS_S3_CONFIGURATION_KEY         @"me.shoutto.S3"
 #define SERVER_AWS_S3_UPLOAD_BUCKET_NAME        @"s2m-shout-upload-inbox"
 #define SERVER_AWS_S3_UPLOAD_URL_PREFIX         @"https://s3-us-west-2.amazonaws.com/"SERVER_AWS_S3_UPLOAD_BUCKET_NAME@"/"
+#define SERVER_AWS_SNS_CONFIGURATION_KEY        @"me.shoutto.SNS"
 
 #endif
