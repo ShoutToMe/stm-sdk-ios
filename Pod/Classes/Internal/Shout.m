@@ -103,7 +103,8 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
         if (status == SendShoutStatus_Success) {
             [self.createShoutDelegate shoutCreated:shout error:nil];
         } else if (status == SendShoutStatus_Failure) {
-            NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain code:STMErrorUnknown userInfo:nil];
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"An error occurred sending the shout" };
+            NSError *error = [NSError errorWithDomain:ShoutToMeErrorDomain code:STMErrorUnknown userInfo:userInfo];
             [self.createShoutDelegate shoutCreated:nil error:error];
         }
     }

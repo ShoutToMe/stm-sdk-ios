@@ -6,6 +6,7 @@
 //
 //
 
+#import "Error.h"
 #import "ShoutUploader.h"
 #import "Server.h"
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -50,11 +51,17 @@
     };
     
     AWSS3TransferUtility *transferUtility = [AWSS3TransferUtility S3TransferUtilityForKey:SERVER_AWS_S3_CONFIGURATION_KEY];
-    [transferUtility uploadFile:localFileURL
-                          bucket:SERVER_AWS_S3_UPLOAD_BUCKET_NAME
-                             key:s3FileKey
-                     contentType:contentType
-                      expression:nil
-               completionHandler:completionHandler];
+    if (transferUtility) {
+        [transferUtility uploadFile:localFileURL
+                             bucket:SERVER_AWS_S3_UPLOAD_BUCKET_NAME
+                                key:s3FileKey
+                        contentType:contentType
+                         expression:nil
+                  completionHandler:completionHandler];
+    } else {
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"AWS components not initialized correctly" };
+        NSError *awsInitializationError = [NSError errorWithDomain:ShoutToMeErrorDomain code:STMInitializationError userInfo:userInfo];
+        callback(nil, awsInitializationError);
+    }
 }
 @end
