@@ -16,7 +16,7 @@
 #import "DL_URLServer.h"
 #import "Server.h"
 #import "STMLocation.h"
-#import "Error.h"
+#import "STMError.h"
 #import "ShoutUploader.h"
 
 typedef enum eRequestType

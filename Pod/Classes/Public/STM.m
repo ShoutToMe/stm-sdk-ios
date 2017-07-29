@@ -11,7 +11,6 @@
 #import "DL_URLServer.h"
 #import "STMShout.h"
 #import "Settings.h"
-#import "Error.h"
 #import "SignIn.h"
 #import "Utils.h"
 #import "STMLocation.h"
@@ -46,7 +45,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (STMUser *)currentUser;
 + (Settings *)settings;
 + (UserData *)userData;
-+ (Error *)error;
++ (STMError *)error;
 + (SignIn *)signIn;
 + (STMLocation *)location;
 + (Shout *)shout;
@@ -84,7 +83,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [Settings initAll];
         [AudioSystem initAll];
         [UserData initAll];
-        [Error initAll];
+        [STMError initAll];
         [SignIn initAll];
         [Shout initAll];
         [Channels initAll];
@@ -112,7 +111,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [Channels freeAll];
         [Shout freeAll];
         [SignIn freeAll];
-        [Error freeAll];
+        [STMError freeAll];
         [UserData freeAll];
         [AudioSystem freeAll];
         [Settings freeAll];
@@ -164,8 +163,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (UserData *)userData {
     return ([UserData controller]);
 }
-+ (Error *)error {
-    return ([Error controller]);
++ (STMError *)error {
+    return ([STMError controller]);
 }
 + (SignIn *)signIn {
     return ([SignIn controller]);

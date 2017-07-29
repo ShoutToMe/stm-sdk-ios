@@ -1,25 +1,24 @@
 //
-//  Error.m
-//  ShoutToMeDev
+//  STMError.m
 //
 //  Description:
 //      This module provides the functionality for handling errors (e.g., send to server log)
 //
-//  Created by Adam Harris on 1/12/15.
-//  Copyright 2015 Ditty Labs. All rights reserved.
+//  Created by Tracy Rojas on 7/28/17.
+//  Copyright 2017 Shout to Me. All rights reserved.
 //
 
+#import "STMError.h"
 #import <sys/utsname.h>
 #import "Utils.h"
 #import "Settings.h"
-#import "Error.h"
 #import "DL_URLServer.h"
 #import "Server.h"
 #import "UserData.h"
 
 static BOOL bInitialized = NO;
 
-__strong static Error *singleton = nil; // this will be the one and only object this static singleton class has
+__strong static STMError *singleton = nil; // this will be the one and only object this static singleton class has
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -81,49 +80,49 @@ __strong static Error *singleton = nil; // this will be the one and only object 
 - (NSString *)nameForSeverity:(tErrorSeverity)severity
 {
     NSString *strRet = @"Unknown";
-
+    
     switch (severity)
     {
         case ErrorSeverity_Fatal:
             strRet = @"Fatal";
             break;
-
+            
         case ErrorSeverity_Warning:
             strRet = @"Warning";
             break;
-
+            
         case ErrorSeverity_Info:
             strRet = @"Info";
             break;
-
+            
         default:
             break;
     }
-
+    
     return strRet;
 }
 
 - (NSString *)nameForCategory:(tErrorCategory)category
 {
     NSString *strRet = @"Unknown";
-
+    
     switch (category)
     {
         case ErrorCategory_Internal:
             strRet = @"Internal";
             break;
-
+            
         case ErrorCategory_Network:
             strRet = @"Network";
             break;
-
+            
         case ErrorCategory_VoiceCmd:
             strRet = @"Voice Command";
             break;
         case ErrorCategory_Analytics:
             strRet = @"Analytics";
             break;
-
+            
         default:
             break;
     }
@@ -135,43 +134,43 @@ __strong static Error *singleton = nil; // this will be the one and only object 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface Error () <DL_URLRequestDelegate>
+@interface STMError () <DL_URLRequestDelegate>
 {
 }
 
 @end
 
-@implementation Error
+@implementation STMError
 
 #pragma mark - Static methods
 
 + (void)initAll
 {
-	if (NO == bInitialized)
-	{
+    if (NO == bInitialized)
+    {
         [Settings initAll];
         [DL_URLServer initAll];
-
-        singleton = [[Error alloc] init];
-
-		bInitialized = YES;
-	}
+        
+        singleton = [[STMError alloc] init];
+        
+        bInitialized = YES;
+    }
 }
 
 + (void)freeAll
 {
-	if (YES == bInitialized)
-	{
+    if (YES == bInitialized)
+    {
         // release our singleton
         singleton = nil;
-		
-		bInitialized = NO;
-	}
+        
+        bInitialized = NO;
+    }
 }
 
-// returns the singleton 
+// returns the singleton
 // (this call is both a container and an object class and the container holds one of itself)
-+ (Error *)controller
++ (STMError *)controller
 {
     return (singleton);
 }
@@ -181,9 +180,9 @@ __strong static Error *singleton = nil; // this will be the one and only object 
 - (id)init
 {
     self = [super init];
-    if (self) 
-	{
-
+    if (self)
+    {
+        
     }
     return self;
 }
@@ -206,7 +205,7 @@ __strong static Error *singleton = nil; // this will be the one and only object 
         NSString *strModelName = [Utils modelNameFrom:strModelInfo];
         UIDevice *curDevice = [UIDevice currentDevice];
         NSString *strOS = [NSString stringWithFormat:@"iOS v%@", [curDevice systemVersion]];
-
+        
         // set the json data
         NSMutableDictionary *dictData = [[NSMutableDictionary alloc] init];
         [dictData setObject:[data nameForCategory:data.category] forKey:@"Category"];
@@ -231,20 +230,20 @@ __strong static Error *singleton = nil; // this will be the one and only object 
         [dictData setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"Version"];
         [dictData setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] forKey:@"Build"];
         [dictData setObject:[NSString stringWithFormat:@"%@", [NSDate date]] forKey:@"Timestamp"];
-
+        
         NSError *error = nil;
         NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:dictData options:NSJSONWritingPrettyPrinted error:&error];
         NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
         //NSLog(@"Error Send: data = %@", strJSON);
-
+        
         NSString *strURL = [NSString stringWithFormat:@"%@/%@",
                             [Settings controller].strServerURL,
                             SERVER_CMD_POST_ERROR];
-
+        
         //NSLog(@"Error Send: URL = %@", strURL);
-
+        
         //[[Analytics controller] event:@"error" info:dictData];
-
+        
         [[DL_URLServer controller] issueRequestURL:strURL
                                         methodType:DL_URLRequestMethod_Post
                                         withParams:strJSON
@@ -262,7 +261,7 @@ __strong static Error *singleton = nil; // this will be the one and only object 
 - (void)logErrorWithCategory:(tErrorCategory)cat withSeverity:(tErrorSeverity)severity andDescription:(NSString *)strDescription andDetails:(NSString *)strDetails andRequest:(NSString *)strRequest andRequestData:(NSObject *)RequestData andResults:(NSString *)strResults inFunction:(NSString *)strFunction inSource:(NSString *)strSource onLine:(int)nLine
 {
     ErrorData *data = [[ErrorData alloc] init];
-
+    
     data.category = cat;
     data.severity = severity;
     data.strFunction = strFunction;
@@ -273,9 +272,9 @@ __strong static Error *singleton = nil; // this will be the one and only object 
     data.strDescription = strDescription;
     data.strResults = strResults ? strResults : @"";
     data.strDetails = strDetails;
-
+    
     NSLog(@"%@", data);
-
+    
     [self sendError:data];
 }
 
@@ -285,26 +284,25 @@ __strong static Error *singleton = nil; // this will be the one and only object 
 - (void)onDL_URLRequestCompleteWithStatus:(tDL_URLRequestStatus)status resultData:(NSData *)data resultObj:(id)object
 {
     BOOL bSuccess = NO;
-
+    
     NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-
+    
     NSLog(@"Error: Results download returned: %@", jsonString );
-
+    
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
     NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
     NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
-
+    
     NSLog(@"decode: %@", dictResults);
-
+    
     if (status == DL_URLRequestStatus_Success)
     {
         if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS])
         {
             bSuccess = YES;
-
         }
     }
-
+    
     if (bSuccess)
     {
         NSLog(@"STM Error: Error successfully sent to server");
