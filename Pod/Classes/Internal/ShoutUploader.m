@@ -6,7 +6,7 @@
 //
 //
 
-#import "Error.h"
+#import "STMError.h"
 #import "ShoutUploader.h"
 #import "Server.h"
 #import <MobileCoreServices/MobileCoreServices.h>

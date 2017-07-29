@@ -4,7 +4,7 @@ PODS:
     - AWSCore (= 2.5.9)
   - AWSSNS (2.5.9):
     - AWSCore (= 2.5.9)
-  - STM (0.0.42):
+  - STM (0.0.44):
     - AWSCore (~> 2.5)
     - AWSS3 (~> 2.5)
     - AWSSNS (~> 2.5)
@@ -20,7 +20,7 @@ SPEC CHECKSUMS:
   AWSCore: c71840dd51f271dc0af8de8fd6f352767ebde8b4
   AWSS3: c36b91edb50ccd676be4a92836bb72f0c2ac312b
   AWSSNS: 158640bc69947f179eff6ac96a9ab9d4893675c1
-  STM: 3cf56bc3a3b434afb8d3e8950772cab42895b5cf
+  STM: c2582e9946156a194635355711d1fe8c39642304
 
 PODFILE CHECKSUM: a5122e996f6721b34923aef14532c64680a9d6be
 

@@ -15,7 +15,7 @@
 #import "DL_URLServer.h"
 #import "STMShout.h"
 #import "Settings.h"
-#import "Error.h"
+#import "STMError.h"
 #import "SignIn.h"
 #import "Utils.h"
 #import "STMLocation.h"
@@ -69,7 +69,7 @@
 + (nullable STMUser *)currentUser;
 + (nullable Settings *)settings;
 + (nullable UserData *)userData;
-+ (nullable Error *)error;
++ (nullable STMError *)error;
 + (nullable SignIn *)signIn;
 + (nullable STMLocation *)location;
 + (nullable Shout *)shout;
