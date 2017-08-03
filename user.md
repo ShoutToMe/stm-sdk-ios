@@ -12,6 +12,8 @@ Get User handle:
 [STM currentUser].strHandle
 ```
 
+## Updating User Properties
+
 To update the user's properties, call the `setProperties:withCompletionHandler:` method on the User service.  The
 parameter object for the method call is a `SetUserPropertiesInput` object and has the following fields available for
 update:
