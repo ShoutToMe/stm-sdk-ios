@@ -31,32 +31,6 @@
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
         </svg>
       </a>
-
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/stm-sdk-ios/about/">About</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
     </nav>
 
   </div>
@@ -70,7 +44,7 @@
 
   <div style="width:100%">
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
-      <div>Android SDK</div>
+      <div>iOS SDK</div>
       <ul style="margin-left:10px;list-style: none">
         <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
@@ -80,7 +54,7 @@
           </ul>
         </li>
         <li><a href="user">User</a></li>
-        <li><a href="recording">Recording</a></li>
+        <li><a href="create-shout.html">Creating a Shout</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
 
       </ul>
@@ -96,23 +70,43 @@
 [STM currentUser].strHandle
 </code></p>
 
-<p>Update User handle:</p>
+<p>To update the user’s properties, call the <code>setProperties:withCompletionHandler:</code> method on the User service.  The
+parameter object for the method call is a <code>SetUserPropertiesInput</code> object and has the following fields available for
+update:</p>
 
-<p><code>objc
-[[STM signIn] setHandle:@"newHandle" withCompletionHandler:^(NSError *error) {
+<p>```objc
+@interface SetUserPropertiesInput : NSObject</p>
+
+<p>@property (nonatomic, nullable) NSString *email;
+@property (nonatomic, nullable) NSString *handle;
+@property (nonatomic, nullable) NSString *phoneNumber;</p>
+
+<p>//…</p>
+
+<p>@end
+```</p>
+
+<p>Pass <code>nil</code> or an empty string to remove any properties.  If there were no errors, the completion handler will return an
+STMUser object which will contain the updated user info.</p>
+
+<p>```objc
+SetUserPropertiesInput *setUserPropertiesInput = [SetUserPropertiesInput new];
+[setUserPropertiesInput setHandle:self.handleTextField.text];</p>
+
+<p>// Delete properties with nil or an empty string
+[setUserPropertiesInput setEmail:@””];
+[setUserPropertiesInput setPhoneNumber:nil];</p>
+
+<p>[[STM user] setProperties:setUserPropertiesInput withCompletionHandler:^(NSError *error, id obj) {
     if (error) {
-        // error happened
+        NSLog(@”Error: %@”, [error userInfo]);
     } else {
-        // user handle was updated
+        NSLog(@”Updated user handle!”);
+        STMUser *user = (STMUser *)obj;
+        NSLog(@”%@”, user);
     }
-}
-</code></p>
-
-<p>Date the User last read their Messages:</p>
-
-<p><code>objc
-[STM currentUser].dateLastReadMessages
-</code></p>
+}];
+```</p>
 
     </div>
   </div>

@@ -31,32 +31,6 @@
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
         </svg>
       </a>
-
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/stm-sdk-ios/about/">About</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
     </nav>
 
   </div>
@@ -70,7 +44,7 @@
 
   <div style="width:100%">
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
-      <div>Android SDK</div>
+      <div>iOS SDK</div>
       <ul style="margin-left:10px;list-style: none">
         <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
@@ -80,7 +54,7 @@
           </ul>
         </li>
         <li><a href="user">User</a></li>
-        <li><a href="recording">Recording</a></li>
+        <li><a href="create-shout.html">Creating a Shout</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
 
       </ul>
@@ -103,14 +77,14 @@ below to create your own sample app.</p>
     <p><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18">NSLocationAlwaysUsageDescription</a></p>
 
     <p>Both are strings and should be set to something like: “Your location is used to let the station know what part of
-  town you are in and so you can receive geo-targeted messages.”</p>
+  town you are in when you shout and to allow you to receive location-specific messages.”</p>
   </li>
   <li>
     <p>Add the record audio key.</p>
 
     <p><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25">NSMicrophoneUsageDescription</a></p>
 
-    <p>Set to something like: “Your microphone is used to allow you to shout to the station.”</p>
+    <p>Set to something like: “Your microphone is used to allow you to send audio to us.”</p>
   </li>
 </ul>
 
@@ -132,11 +106,10 @@ below to create your own sample app.</p>
     <p>(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {</p>
 
     <p>// Initialize Shout To Me SDK, Replace with your Shout to Me token
-[STM initWithAccessToken:@”STM_ACCESS_TOKEN” andApplication:application andDelegate:self];
-// Optional, this will setup notifications from ShoutToMe (additional steps are required)
-[STM setupNotificationsWithApplication:application];
-// Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
-[STMLocation initAll];</p>
+[STM initWithAccessToken:@”STM_ACCESS_TOKEN” andApplication:application andDelegate:self];</p>
+
+    <p>// Optional, this will setup notifications from ShoutToMe (additional steps are required. See the Messages and Notifications section in documentation)
+[STM setupNotificationsWithApplication:application pushNotificationAppId:@”PUSH_NOTIFICATION_APP_ID”];</p>
 
     <p>// Set your channel Id
 [STM setChannelId:@”CHANNEL_ID”];</p>

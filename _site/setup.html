@@ -31,32 +31,6 @@
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
         </svg>
       </a>
-
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/stm-sdk-ios/about/">About</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
     </nav>
 
   </div>
@@ -70,7 +44,7 @@
 
   <div style="width:100%">
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
-      <div>Android SDK</div>
+      <div>iOS SDK</div>
       <ul style="margin-left:10px;list-style: none">
         <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
@@ -80,7 +54,7 @@
           </ul>
         </li>
         <li><a href="user">User</a></li>
-        <li><a href="recording">Recording</a></li>
+        <li><a href="create-shout.html">Creating a Shout</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
 
       </ul>
@@ -94,7 +68,7 @@
 <ul>
   <li>A Shout to Me client access token</li>
   <li>A Shout to Me channel ID</li>
-  <li><a href="https://developer.apple.com/xcode/">Xcode</a></li>
+  <li><a href="https://developer.apple.com/xcode/" target="_blank">Xcode</a></li>
 </ul>
 
 <h2 id="ios-version-requirement">iOS version requirement</h2>
@@ -112,11 +86,16 @@
 
 <p>The other way to install STM, is to drag and drop the Pod folder into your Xcode project. When you do so, check the “Copy items into destination group’s folder” box.</p>
 
-<h2 id="client-access-token-and-channel-id">Client Access Token and Channel ID</h2>
+<h2 id="client-access-token-channel-id-and-push-notification-app-id">Client Access Token, Channel ID, and Push Notification App ID</h2>
 <p>Developers will need to get a client access token and a channel ID from Shout to Me in order to use this SDK.  A client
 access token is used to authorize the client app in HTTP calls.  The channel ID represents a Shout to Me channel which
-is linked to the broadcaster/podcaster’s account.  You will need to <a href="http://www.shoutto.me/contact">contact Shout to Me</a> in order to get the client access
-  token and channel ID. After you receive the client access token and channel ID from Shout to Me, you can
+is linked to the broadcaster/podcaster’s account.</p>
+
+<p>If you would like to enable your application to receive push notifications, you will also need to provide an APNs certificate
+ and get a push notification app ID.  This setting wires up the app to Shout to Me’s push notification system.</p>
+
+<p>You will need to <a href="http://www.shoutto.me/contact">contact Shout to Me</a> in order to get the client access
+  token, channel ID and push notification app ID. Once you receive these items from Shout to Me, you can
   initialize the Shout to Me SDK within the <code>didFinishLaunchingWithOptions</code> function in your AppDelegate.m.</p>
 
 <p>```objc
@@ -127,11 +106,10 @@ is linked to the broadcaster/podcaster’s account.  You will need to <a href="h
     <p>(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {</p>
 
     <p>// Initialize Shout To Me SDK, Replace with your Shout to Me token
-[STM initWithAccessToken:@”STM_ACCESS_TOKEN” andApplication:application andDelegate:self];
-// Optional, this will setup notifications from ShoutToMe (additional steps are required)
-[STM setupNotificationsWithApplication:application];
-// Initialize the STM Location manager, this will ask for the required permissions. Or you can ask for the required location permissions and call this after.
-[STMLocation initAll];</p>
+[STM initWithAccessToken:@”STM_ACCESS_TOKEN” andApplication:application andDelegate:self];</p>
+
+    <p>// Optional, this will setup notifications from ShoutToMe (additional steps are required. See the Messages and Notifications section in documentation)
+[STM setupNotificationsWithApplication:application pushNotificationAppId:@”PUSH_NOTIFICATION_APP_ID”];</p>
 
     <p>// Set your channel Id
 [STM setChannelId:@”CHANNEL_ID”];</p>
@@ -153,7 +131,7 @@ overlay without the permission will result in a error response indicating that t
 
 <p><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW25">NSMicrophoneUsageDescription</a></p>
 
-<p>Set the value to something like: “Your microphone is used to allow you to shout to the station.”</p>
+<p>Set the value to something like: “Your microphone is used to allow you to send audio to us.”</p>
 
 <h3 id="location">Location</h3>
 
@@ -169,7 +147,7 @@ broadcasters.</p>
 <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18">NSLocationAlwaysUsageDescription</a></p>
 
 <p>Both are strings and should be set to something like: “Your location is used to let the station know what part of
-town you are in and so you can receive geo-targeted messages.”</p>
+town you are in when you shout and to allow you to receive location-specific messages.”</p>
 
 <p>You then need to request permission from the user to use their location. You can use your own location manager to do this or you can use the Shout to Me SDK Location Manager.</p>
 

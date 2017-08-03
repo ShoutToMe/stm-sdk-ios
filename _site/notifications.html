@@ -31,32 +31,6 @@
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
         </svg>
       </a>
-
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/stm-sdk-ios/about/">About</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
     </nav>
 
   </div>
@@ -70,7 +44,7 @@
 
   <div style="width:100%">
     <div style="float:left;width:170px;margin-top:50px;margin-left: -170px;">
-      <div>Android SDK</div>
+      <div>iOS SDK</div>
       <ul style="margin-left:10px;list-style: none">
         <li><a href="/stm-sdk-ios/">Home</a></li>
         <li><a href="getting-started">Getting Started</a>
@@ -80,7 +54,7 @@
           </ul>
         </li>
         <li><a href="user">User</a></li>
-        <li><a href="recording">Recording</a></li>
+        <li><a href="create-shout.html">Creating a Shout</a></li>
         <li><a href="notifications">Messages and Notifications</a></li>
 
       </ul>
@@ -89,27 +63,31 @@
       <h1 id="messages-and-notifications">Messages and Notifications</h1>
 
 <p>The Shout to Me platform allows you to enable your app to receive communications sent from Shout to Me’s Broadcaster
-Application.  Messages and notifications are two separate concepts in the Shout to Me system.  A <strong>Message</strong> is text or
-audio content that is sent to mobile users to convey a communication.  A <strong>Notification</strong> (which is taken from the mobile
-technology term “Push Notification”) is the delivery mechanism used to transport a Message.</p>
+Application.  Messages and notifications are two separate concepts in the Shout to Me system.  A <strong>Message</strong> is text,
+audio or video content that is sent to mobile users to convey a communication.  A <strong>Notification</strong> is the delivery
+mechanism used to transport a Message.</p>
 
 <h2 id="messages">Messages</h2>
-<p>The SDK provides a Messages class that can be used to retrieve Messages for the current user, or check if they have
+<p>The SDK provides a class that can be used to retrieve messages for the current user, or check if they have
 unread messages.</p>
 
-<p><code>objc
-// Request all of the users messages for the current user.
-- (void)requestForMessagesWithDelegate:(id&lt;MessagesDelegate&gt;)delegate;
-// Request the count of unread messages for the current user.
-- (void)requestForUnreadMessageCountWithDelegate:(id&lt;MessagesDelegate&gt;)delegate;
-// Request a specific message by Id
+<p>```objc
+// Request all of the messages for the current user.
+- (void)requestForMessagesWithDelegate:(id<messagesdelegate>)delegate;</messagesdelegate></p>
+
+<p>// Request the count of unread messages for the current user.
+- (void)requestForUnreadMessageCountWithDelegate:(id<messagesdelegate>)delegate;</messagesdelegate></p>
+
+<p>// Request a specific message by ID
 - (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
                                                                             NSError *error))completionHandler;
-</code></p>
+```</p>
 
 <h3 id="retrieving-messages">Retrieving messages</h3>
 
-<h4 id="import-stmh-to-the-header-of-your-view-controller">Import “STM.h” to the header of your view controller:</h4>
+<p>Follow these steps to retrieve messages:</p>
+
+<h4 id="import-stmh-to-the-header-of-your-view-controller">Import “STM.h” to the header of your view controller</h4>
 
 <p>```objc
 //ViewController.h</p>
@@ -117,7 +95,7 @@ unread messages.</p>
 <h1 id="import-stmh">import <stm.h></stm.h></h1>
 <p>```</p>
 
-<h4 id="implement-the-messagesdelegate">Implement the MessagesDelegate:</h4>
+<h4 id="implement-the-messagesdelegate">Implement the MessagesDelegate</h4>
 
 <p>```objc
 //ViewController.h</p>
@@ -127,7 +105,7 @@ unread messages.</p>
 <p>@end
 ```</p>
 
-<h4 id="request-messages-in-your-viewcontroller">Request messages in your ViewController:</h4>
+<h4 id="request-messages-in-your-viewcontroller">Request messages in your ViewController</h4>
 
 <p>```objc
 //ViewController.m</p>
@@ -140,7 +118,7 @@ unread messages.</p>
 ```</li>
 </ul>
 
-<h4 id="implement-messagesdelegate-messagesresults-delegate">Implement MessagesDelegate MessagesResults delegate:</h4>
+<h4 id="implement-the-messagesresults-method-of--messagesdelegate">Implement the MessagesResults method of  MessagesDelegate</h4>
 
 <p>```objc
 //ViewController.m</p>
@@ -150,11 +128,10 @@ unread messages.</p>
   <li>
     <p>(void)MessagesResults:(NSArray *)arrayMessages
 {
-  // Do something with arrayMessages, load them into a table view data source…ect</p>
+  // Do something with arrayMessages, load them into a table view data source, etc.</p>
 
     <p>// Update the user’s LastReadMessages date
-  // If this is not updated, the call to requestForUnreadMessageCountWithDelegate will return
-  // the same number even after the user views their messages.
+  // This method must be called to ensure that requestForUnreadMessageCountWithDelegate stays in sync with what the user has actually seen
   [[STM signIn] setLastReadMessages:[NSDate date] withDelegate:self];
 }
 ```</p>
@@ -163,7 +140,9 @@ unread messages.</p>
 
 <h3 id="get-unread-message-count">Get Unread Message Count</h3>
 
-<h4 id="import-stmh-to-the-header-of-your-view-controller-1">Import “STM.h” to the header of your view controller:</h4>
+<p>Follow these steps to get the unread message count:</p>
+
+<h4 id="import-stmh-to-the-header-of-your-view-controller-1">Import “STM.h” to the header of your view controller</h4>
 
 <p>```objc
 //ViewController.h</p>
@@ -171,7 +150,7 @@ unread messages.</p>
 <h1 id="import-stmh-1">import <stm.h></stm.h></h1>
 <p>```</p>
 
-<h4 id="implement-the-messagesdelegate-1">Implement the MessagesDelegate:</h4>
+<h4 id="implement-the-messagesdelegate-1">Implement the MessagesDelegate</h4>
 <p>```objc</p>
 
 <p>//ViewController.h</p>
@@ -181,7 +160,7 @@ unread messages.</p>
 <p>@end
 ```</p>
 
-<h4 id="request-unread-message-count-in-your-viewcontroller">Request unread message count in your ViewController:</h4>
+<h4 id="request-unread-message-count-in-your-viewcontroller">Request unread message count in your ViewController</h4>
 
 <p>```objc
 //ViewController.m</p>
@@ -194,7 +173,7 @@ unread messages.</p>
 ```</li>
 </ul>
 
-<h4 id="implement-messagesdelegate-unreadmessageresults-delegate">Implement MessagesDelegate UnreadMessageResults delegate:</h4>
+<h4 id="implement-the-unreadmessageresults-method-of-messagesdelegate">Implement the UnreadMessageResults method of MessagesDelegate</h4>
 
 <p>```objc
 //ViewController.m</p>
@@ -202,25 +181,77 @@ unread messages.</p>
 <h1 id="pragma-mark---messages-delegates-1">pragma mark - Messages Delegates</h1>
 <ul>
   <li>(void)UnreadMessageResults:(NSNumber *)count {
-  // Do something with count, like setting a label’s text, ect…
+  // Do something with count like setting a label’s text, etc.
 }
 ```</li>
 </ul>
 
 <h2 id="notifications">Notifications</h2>
 <p>The Shout to Me SDK supports receiving push notifications from the Shout to Me platform.  The SDK will only handle
-  notifications sent from the Shout to Me system.  There are a number of technologies used in receiving notifications,
-  and consequently, there are a number of items that need to be wired up. The following high level steps occur in the
-  notifications system:</p>
+notifications sent from the Shout to Me system.  There are a number of components used in sending and receiving notifications,
+and consequently, there are a number of items that need to be wired up. The following high level steps occur when a message
+is sent from the Shout to Me system:</p>
 
 <ol>
   <li>A message is sent from the Shout to Me Broadcaster Application</li>
-  <li>The message is delivered to the mobile app as a Apple Push Notification Service notification</li>
-  <li>The Shout to Me SDK receives the notification and calls a listener</li>
-  <li>A listener in the client app receives the call and can take further action using the data</li>
+  <li>The message is delivered to the client app as an Apple Push Notification Service (APNs) notification</li>
+  <li>The client app passes the notification data received from iOS to the Shout to Me SDK</li>
+  <li>The Shout to Me SDK processes the notification data and calls a listener if applicable</li>
+  <li>A listener in the client app receives the call from the Shout to Me SDK and can take further action using the data</li>
 </ol>
 
-<h4 id="implement-the-stmdelegate-inside-appdelegateh">Implement the <code>STMDelegate</code> inside <code>AppDelegate.h</code></h4>
+<h3 id="amazon-aws-configuration">Amazon AWS configuration</h3>
+<p>Shout to Me’s notification systems uses the Amazon AWS SNS platform.  As such, the Shout to Me SDK includes the AWS iOS SDK and must be configured properly to work. Add the following sections to your info.plist file.  (Note: If you already use the AWS iOS SDK and have conflicting values in your configuration, contact Shout to Me support.)</p>
+
+<p><img src="images/aws-config.png" alt="AWS configuration" /></p>
+
+<h3 id="enable-project-capabilities">Enable Project Capabilities</h3>
+<p>In your project Capabilities tab in Xcode, enable Push Notifications and Background Modes. Under Background Modes select Location Updates and Remote Notifications.
+(Note: The Location Updates mode allows the Shout to Me SDK to manage location based messages. Location services are
+only turned on for notifications when the number of pending location based messages exceeds the maximum number of iOS geofences allowed.)</p>
+
+<p><img src="images/push-notifications.png" alt="Push Notifications in Xcode" /></p>
+
+<p><img src="images/background-modes.png" alt="Background Modes in Xcode" /></p>
+
+<h3 id="apns-certificate">APNs Certificate</h3>
+<p>Pushing notifications requires the creation of an APNs certificate that is subsequently included in the app’s provisioning profile.
+Shout to Me will also use this certificate to register with its push notification platform.  Once these two items are done,
+you will receive a push notification App ID that will be used to register for push notifications.
+Contact Shout to Me to complete this process.
+For more information, visit the <a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1">Apple Notification Programming Guide</a>.</p>
+
+<h3 id="enablingdisabling-notifications">Enabling/Disabling Notifications</h3>
+<p>To enable or disable notifications at the user’s request, add code that subscribes/unsubscribes to/from the specified channel.  The following code sample shows how to accomplish this.</p>
+
+<h4 id="subscribe-to-a-channel">Subscribe to a channel</h4>
+
+<p><code>objc
+[[STM subscriptions] requestForSubscribe:(NSString *)channelId completionHandler:^(STMSubscription *subscription, NSError *error) {
+    if (error) {    
+         NSLog(@"Error occurred subscribing to channel");
+    } else {
+         NSLog(@"Subscribe succeeded");
+    }
+}];
+</code></p>
+
+<p><code>objc
+#### Unsubscribe from a channel
+[[STM subscriptions] requestForUnSubscribe:(NSString *)channelId completionHandler:^(Boolean *successful, NSError *error) {
+    if (error) {    
+         NSLog(@"Error occurred unsubscribing from channel");
+    } else {
+         NSLog(@"Unsubscribe succeeded");
+    }
+}];
+</code></p>
+
+<h3 id="notification-events">Notification Events</h3>
+
+<p>To integrate with the Shout to Me notification system, follow these instructions:</p>
+
+<h4 id="implement-the-stmdelegate-in-appdelegateh">Implement the <code>STMDelegate</code> in <code>AppDelegate.h</code></h4>
 
 <p>```objc
 #import <stm.h></stm.h></p>
@@ -230,15 +261,46 @@ unread messages.</p>
 @end
 ```</p>
 
-<h4 id="call-setupnotificationswithapplicationapplication-to-setup-notifications-inside-of-didfinishlaunchingwithoptions-of-the-appdelegate">Call <code>setupNotificationsWithApplication:application</code> to setup notifications inside of <code>didFinishLaunchingWithOptions</code> of the AppDelegate.</h4>
+<h4 id="include-the-following-in-your-didfinishlaunchingwithoptions-callback">Include the following in your <code>didFinishLaunchingWithOptions</code> callback</h4>
+<p>First, call the <code>setupPushNotificationsWithAppId:(NSString *)pushNotificationAppId</code>
+method with your App ID (see APNs Certificate above) to register for notifications from the Shout to Me system.
+Then register to receive remote notifications from iOS.  Your specific registration may vary depending
+on other types of notifications you receive, however, a simple registration is shown below.</p>
 
-<p><code>objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [STM setupNotificationsWithApplication:application];
-}
-</code></p>
+<p>(Note: The following iOS notification code is for iOS 10 and above.  You may need additional code to support iOS versions below iOS 10.)</p>
 
-<h4 id="call-related-shout-to-me-notification-methods-within-the-remote-notification-callbacks-inside-of-the-appdelegate">Call related Shout to Me notification methods within the Remote Notification callbacks inside of the AppDelegate.</h4>
+<p>```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {</p>
+
+<pre><code>// ...
+
+[STM setupPushNotificationsWithAppId:@"YOUR_APP_ID"];
+
+// Register for remote iOS notifications
+UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge;
+UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+center.delegate = self;
+[center requestAuthorizationWithOptions:(options) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    if (!granted)
+    {
+        NSLog(@"One or more notification permissions are not granted.");
+    }
+    else if (!error)
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        NSLog(@"Push registration success.");
+    }
+    else
+    {
+        NSLog(@"Push registration FAILED");
+        NSLog(@"ERROR: %@", error);
+    }
+}];
+
+// ... } ```
+</code></pre>
+
+<h4 id="implement-the-following-ios-lifecycle-events-to-pass-required-data-to-the-shout-to-me-sdk">Implement the following iOS lifecycle events to pass required data to the Shout to Me SDK.</h4>
 
 <p>```objc
 - (void)application:(UIApplication<em>)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData</em>)deviceToken{
@@ -246,24 +308,33 @@ unread messages.</p>
 }</p>
 
 <ul>
-  <li>(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+  <li>
+    <p>(void)application:(UIApplication<em>)application didFailToRegisterForRemoteNotificationsWithError:(NSError</em>)error{
+  // There is no data to pass to the Shout to Me SDK, however, this method is helpful to troubleshoot push notification registration failures.
+  NSLog(@”Failed to register with error : %@”, error);
+}</p>
+  </li>
+  <li>
+    <p>(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
   [STM didReceiveRemoteNotification:userInfo ForApplication:application fetchCompletionHandler:completionHandler];
 }
-```</li>
+```</p>
+  </li>
 </ul>
 
-<h4 id="implement-the-stmnotificationrecieved-to-listen-for-shout-to-me-notifications">Implement the <code>STMNotificationRecieved</code> to listen for Shout to Me notifications.</h4>
+<h4 id="implement-the-stmnotificationsreceived-method-to-listen-for-shout-to-me-notifications">Implement the <code>STMNotificationsReceived</code> method to listen for Shout to Me notifications.</h4>
 
 <p>```objc
--(void)STMNotificationRecieved:(NSDictionary *)notification {
-    // In this case we are posting a location notification so we can handle it in our app.</p>
+-(void)STMNotificationsReceived:(NSSet *)notification {</p>
 
-<pre><code>UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-localNotification.alertTitle = [Utils stringFromKey:@"title" inDictionary:notification];
-localNotification.alertBody = [Utils stringFromKey:@"body" inDictionary:notification];
-localNotification.userInfo = notification;
-
-[[UIApplication sharedApplication] scheduleLocalNotification:localNotification]; } ```
+<pre><code>// Each set can include 1 or more notifications.  Each notification is represented as a dictionary with the following fields:
+// @"body":             Typically the body of a UI notification
+// @"category":         @"MESSAGE_CATEGORY" for message notifications
+// @"channel_id":       Your channel ID - necessary for apps containing multiple channels
+// @"conversation_id":  The Shout to Me conversation ID which can be used to retrieve more detailed data from the Shout to Me API
+// @"title":            Typically the title of a UI notification
+// @"type":             @"conversation message" for notifications directed at a whole channel or @"user message" for messages directed to a specific user
+// @"message_id":       The ID of the message stored in the Shout to Me system. } ```
 </code></pre>
 
 
