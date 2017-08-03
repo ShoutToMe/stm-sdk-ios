@@ -44,6 +44,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 + (STMUser *)currentUser;
 + (Settings *)settings;
++ (User *)user;
 + (UserData *)userData;
 + (STMError *)error;
 + (SignIn *)signIn;
@@ -82,6 +83,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [DL_URLServer initAll];
         [Settings initAll];
         [AudioSystem initAll];
+        [User initAll];
         [UserData initAll];
         [STMError initAll];
         [SignIn initAll];
@@ -112,6 +114,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [Shout freeAll];
         [SignIn freeAll];
         [STMError freeAll];
+        [User freeAll];
         [UserData freeAll];
         [AudioSystem freeAll];
         [Settings freeAll];
@@ -159,6 +162,9 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 + (Settings *)settings {
     return ([Settings controller]);
+}
++ (User *)user {
+    return ([User controller]);
 }
 + (UserData *)userData {
     return ([UserData controller]);

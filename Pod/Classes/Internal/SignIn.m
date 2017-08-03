@@ -165,6 +165,18 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             {
                 [[UserData controller].user setStrHandle:@""];
             }
+            NSString *strEmail = [dictUser objectForKey:SERVER_RESULTS_USER_EMAIL_KEY];
+            if (strEmail) {
+                [[UserData controller].user setStrEmail:strEmail];
+            } else {
+                [[UserData controller].user setStrEmail:@""];
+            }
+            NSString *strPhoneNumber = [dictUser objectForKey:SERVER_PHONE_NUMBER_KEY];
+            if (strPhoneNumber) {
+                [[UserData controller].user setStrPhoneNumber:strPhoneNumber];
+            } else {
+                [[UserData controller].user setStrPhoneNumber:@""];
+            }
             if ([dictUser objectForKey:SERVER_RESULTS_VERIFIED_KEY])
             {
                 [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];
@@ -635,47 +647,6 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     } else {
         completionHandler(error);
     }
-
-
-}
-
-- (void)setHandle:(NSString *)strHandle withDelegate:(id<STMSignInDelegate>)delegate
-{
-    if (self.request == nil)
-    {
-        [[UserData controller] setHandle:strHandle];
-
-        self.request = [[SignInRequest alloc] init];
-        self.request.delegate = delegate;
-        self.request.type = SignInRequestType_SetHandle;
-
-        // set the json data
-        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_HANDLE_KEY : strHandle }];
-        NSError *error = nil;
-        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
-
-        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
-                                      [Settings controller].strServerURL,
-                                      SERVER_CMD_PERSONALIZE,
-                                      [UserData controller].user.strUserID
-                                      ];
-        //NSLog(@"Personalize: Query = %@, JSON = %@", strServerQuery, strJSON);
-
-        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
-                                        methodType:DL_URLRequestMethod_Put
-                                        withParams:strJSON
-                                        withObject:self.request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-    else
-    {
-        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
-    }
 }
 
 - (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
@@ -717,45 +688,9 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     }
 }
 
-- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withDelegate:(id<STMSignInDelegate>)delegate {
-    if (self.request == nil)
-    {
-        [[UserData controller] setPlatformEndpointArn: platformEndpointArn];
-
-        self.request = [[SignInRequest alloc] init];
-        self.request.delegate = delegate;
-        self.request.type = SignInRequestType_SetPlatformEndpointARN;
-
-        // set the json data
-        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_PLATFORM_ENDPOINT_ARN_KEY : platformEndpointArn }];
-        NSError *error = nil;
-        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
-
-        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
-                                      [Settings controller].strServerURL,
-                                      SERVER_CMD_PERSONALIZE,
-                                      [UserData controller].user.strUserID
-                                      ];
-        //NSLog(@"Personalize: Query = %@, JSON = %@", strServerQuery, strJSON);
-
-        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
-                                        methodType:DL_URLRequestMethod_Put
-                                        withParams:strJSON
-                                        withObject:self.request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-    else
-    {
-        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
-    }
-}
-
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withCompletionHandler:(void (^)(NSError *))completionHandler {
+    //TODO: Migrate setPlatformEndpointArn to User service
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@",
                                        [Settings controller].strServerURL,
                                        SERVER_CMD_PERSONALIZE,

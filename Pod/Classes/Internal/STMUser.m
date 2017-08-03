@@ -10,13 +10,15 @@
 //
 
 #import "STMUser.h"
+#import "Server.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   5  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   6  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
 #define KEY_USER_AUTH_CODE              @"UserAuthCode"
+#define KEY_USER_EMAIL                  @"UserEmail"
 #define KEY_USER_PHONE_NUMBER           @"UserPhoneNumber"
 #define KEY_USER_USER_ID                @"UserUserId"
 #define KEY_USER_HANDLE                 @"UserHandle"
@@ -41,6 +43,7 @@
 	{
         self.bVerified = NO;
         self.strAuthCode = @"";
+        self.strEmail = @"";
         self.strPhoneNumber = @"";
         self.strUserID = @"";
         self.strHandle = @"";
@@ -58,9 +61,10 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@, PlatformEndpointARN: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, Email: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@, PlatformEndpointARN: %@",
             self.strUserID,
             self.strHandle,
+            self.strEmail,
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
@@ -89,6 +93,12 @@
             else
             {
                 self.strAuthCode = @"";
+            }
+            strVal = [aDecoder decodeObjectForKey:KEY_USER_EMAIL];
+            if (strVal) {
+                self.strEmail = strVal;
+            } else {
+                self.strEmail = @"";
             }
             strVal = [aDecoder decodeObjectForKey:KEY_USER_PHONE_NUMBER];
             if (strVal)
@@ -148,6 +158,7 @@
     [aCoder encodeInt:USER_DATA_VERSION forKey:KEY_USER_DATA_VERSION];
     [aCoder encodeBool:self.bVerified forKey:KEY_USER_VERIFIED];
     [aCoder encodeObject:self.strAuthCode forKey:KEY_USER_AUTH_CODE];
+    [aCoder encodeObject:self.strEmail forKey:KEY_USER_EMAIL];
     [aCoder encodeObject:self.strPhoneNumber forKey:KEY_USER_PHONE_NUMBER];
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
@@ -161,12 +172,15 @@
 {
     if (dict)
     {
-        self.strUserID = [Utils stringFromKey:@"id" inDictionary:dict];
-        self.strHandle = [Utils stringFromKey:@"handle" inDictionary:dict];
-        self.bVerified = [Utils boolFromKey:@"verified" inDictionary:dict];
-        self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:@"last_read_messages_date" inDictionary:dict]];
-        if ([dict objectForKey:@"platform_endpoint_arn"] != nil) {
-            self.strPlatformEndpointArn = [Utils stringFromKey:@"platform_endpoint_arn" inDictionary:dict];
+        self.strUserID = [Utils stringFromKey:SERVER_RESULTS_USER_ID_KEY inDictionary:dict];
+        self.strAuthCode = [Utils stringFromKey:SERVER_RESULTS_AUTH_TOKEN_KEY inDictionary:dict];
+        self.strHandle = [Utils stringFromKey:SERVER_RESULTS_HANDLE_ID_KEY inDictionary:dict];
+        self.strEmail = [Utils stringFromKey:SERVER_RESULTS_USER_EMAIL_KEY inDictionary:dict];
+        self.strPhoneNumber = [Utils stringFromKey:SERVER_PHONE_NUMBER_KEY inDictionary:dict];
+        self.bVerified = [Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dict];
+        self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY inDictionary:dict]];
+        if ([dict objectForKey:SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY] != nil) {
+            self.strPlatformEndpointArn = [Utils stringFromKey:SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY inDictionary:dict];
         }
     }
 }

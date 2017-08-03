@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) BOOL              bVerified;
 @property (nonatomic, copy)   NSString          *strAuthCode;
+@property (nonatomic, copy)   NSString          *strEmail;
 @property (nonatomic, copy)   NSString          *strPhoneNumber;
 @property (nonatomic, copy)   NSString          *strUserID;
 @property (nonatomic, copy)   NSString          *strHandle;

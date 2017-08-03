@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "STM.h"
 
 @interface ViewController ()
 @end
@@ -85,11 +86,21 @@
 }
 
 - (IBAction)UpdateTouched:(id)sender {
-    [[STM signIn] setHandle:self.handleTextField.text withCompletionHandler:^(NSError *error) {
+    
+    SetUserPropertiesInput *setUserPropertiesInput = [SetUserPropertiesInput new];
+    [setUserPropertiesInput setHandle:self.handleTextField.text];
+    
+    // Delete properties with nil or an empty string
+    [setUserPropertiesInput setEmail:@""];
+    [setUserPropertiesInput setPhoneNumber:nil];
+    
+    [[STM user] setProperties:setUserPropertiesInput withCompletionHandler:^(NSError *error, id obj) {
         if (error) {
-            NSLog(@"Error:  %@", [error userInfo]);
+            NSLog(@"Error: %@", [error userInfo]);
         } else {
-            NSLog(@"Updated User handle!");
+            NSLog(@"Updated user handle!");
+            STMUser *user = (STMUser *)obj;
+            NSLog(@"%@", user);
         }
     }];
 }
