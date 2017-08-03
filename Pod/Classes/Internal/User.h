@@ -29,9 +29,9 @@
 
 /**
  <p>Updates the logged in user's properties.</p>
- @param userUpdateInput The object containing the updated user properties
+ @param setUserPropertiesInput The object containing the updated user properties
  @param completionHandler A block that returns void and contains a signature of (NSError *, id). The id will be a pointer to an STMUser object.
  */
-- (void)setProperties:(SetUserPropertiesInput *_Nonnull)userUpdateInput withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (void)setProperties:(SetUserPropertiesInput *_Nonnull)setUserPropertiesInput withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
 
 @end
