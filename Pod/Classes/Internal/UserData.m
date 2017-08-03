@@ -15,7 +15,7 @@
 #import "SignIn.h"
 #import "STM.h"
 
-#define USER_DATA_VERSION   4  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   5  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define USER_DATA_FILENAME              @"UserData"
 
@@ -189,6 +189,7 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
     if (self.user) {
         [self.user setBVerified:NO];
         [self.user setStrAuthCode:@""];
+        [self.user setStrEmail:@""];
         [self.user setStrPhoneNumber:@""];
         [self.user setStrUserID:@""];
         [self.user setStrHandle:@""];
@@ -307,6 +308,12 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
 - (void)setHandle:(NSString *)strHandle
 {
     self.user.strHandle = strHandle;
+    [self save];
+}
+
+- (void)setEmail:(NSString *)strEmail
+{
+    self.user.strEmail = strEmail;
     [self save];
 }
 

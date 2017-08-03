@@ -31,6 +31,7 @@
 - (NSDictionary *)dictBasicRequestHeaders;
 - (NSDictionary *)dictStandardRequestHeaders;
 - (void)setHandle:(NSString *)strHandle;
+- (void)setEmail:(NSString *)strEmail;
 - (void)setPhone:(NSString *)strPhone;
 - (void)setLastReadMessages:(NSDate *)date;
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn;

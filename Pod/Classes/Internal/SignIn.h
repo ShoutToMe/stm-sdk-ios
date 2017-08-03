@@ -52,10 +52,8 @@ typedef enum eSTMSignInResult
 - (void)signInWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
 - (void)signUpWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
 - (void)verifyWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
-- (void)setHandle:(NSString *)strHandle withDelegate:(id<STMSignInDelegate>)delegate;
-- (void)setHandle:(NSString *)strHandle withCompletionHandler:(void (^)(NSError *))completionHandler;
-- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate;
-- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withDelegate:(id<STMSignInDelegate>)delegate;
+- (void)setHandle:(NSString *)strHandle withCompletionHandler:(void (^)(NSError *))completionHandler __deprecated_msg("Use [[STM user] setProperties:withCompletionHandler] instead");
+- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate __deprecated_msg("This method is no longer used");
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withCompletionHandler:(void (^)(NSError *))completionHandler;
 - (void)processData:(NSDictionary *)dictData;
 

@@ -95,6 +95,7 @@
 #define SERVER_RESULTS_WIT_ACCESS_TOKEN_KEY     @"mobile"
 #define SERVER_RESULTS_HANDLE_ID_KEY            @"handle"
 #define SERVER_RESULTS_USER_ID_KEY              @"id"
+#define SERVER_RESULTS_USER_EMAIL_KEY           @"email"
 #define SERVER_RESULTS_SHOUT_KEY                @"shout"
 #define SERVER_RESULTS_SHOUT_AMOUNT_KEY         @"distance"
 #define SERVER_RESULTS_SHOUT_UNIT_KEY           @"unit"

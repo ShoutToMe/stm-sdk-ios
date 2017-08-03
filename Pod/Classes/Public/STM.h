@@ -21,6 +21,7 @@
 #import "STMLocation.h"
 #import "Shout.h"
 #import "Channels.h"
+#import "User.h"
 #import "UserData.h"
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
@@ -69,6 +70,7 @@
 + (nullable STMUser *)currentUser;
 + (nullable Settings *)settings;
 + (nullable UserData *)userData;
++ (nullable User *)user;
 + (nullable STMError *)error;
 + (nullable SignIn *)signIn;
 + (nullable STMLocation *)location;
