@@ -87,14 +87,6 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface SendShoutDelegateHandler : NSObject<SendShoutDelegate>
-
-@property (weak) id<CreateShoutDelegate> createShoutDelegate;
-
-- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status;
-
-@end
-
 @implementation SendShoutDelegateHandler
 
 - (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status
@@ -277,12 +269,11 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 {
     SendShoutDelegateHandler *sendShoutDelegate = [SendShoutDelegateHandler new];
     sendShoutDelegate.createShoutDelegate = delegate;
-    [self sendFile:localFileURL text:text tags:tags topic:topic withDelegate:sendShoutDelegate];
+    self.sendShoutDelegate = sendShoutDelegate;
+    [self sendFile:localFileURL text:text tags:tags topic:topic];
 }
 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate {
-    
-    //[[Analytics controller] increment:@"shouts recorded" by:1];
     
     SendShoutRequest *request = [[SendShoutRequest alloc] init];
     
@@ -311,37 +302,52 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 }
 
 
-- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic
 {
     ShoutUploader *shoutUploader = [ShoutUploader new];
     [shoutUploader upload:localFileURL completion:^(NSString *remoteFileUrl, NSError *error){
         if (error) {
             NSLog(@"An error occurred uploading media file: %@", error);
             
-            if ([delegate respondsToSelector:@selector(onSendShoutCompleteWithStatus:)])
+            if ([self.sendShoutDelegate respondsToSelector:@selector(onSendShoutCompleteWithStatus:)])
             {
-                [delegate onSendShoutCompleteWithStatus:SendShoutStatus_Failure];
+                [self.sendShoutDelegate onSendShoutCompleteWithStatus:SendShoutStatus_Failure];
             }
             
-            if ([delegate respondsToSelector:@selector(onSendShoutCompleteWithShout:WithStatus:)])
+            if ([self.sendShoutDelegate respondsToSelector:@selector(onSendShoutCompleteWithShout:WithStatus:)])
             {
                 // give the delegate the results
-                [delegate onSendShoutCompleteWithShout:nil WithStatus:SendShoutStatus_Failure];
+                [self.sendShoutDelegate onSendShoutCompleteWithShout:nil WithStatus:SendShoutStatus_Failure];
             }
         } else {
-            SendShoutRequest *request = [[SendShoutRequest alloc] init];
-            
             self.dateLastSend = nil;
             
-            request = [[SendShoutRequest alloc] init];
-            request.type = RequestType_SendShout;
-            request.delegate = delegate;
-            request.mediaFileUrl = remoteFileUrl;
-            request.strText = strText;
-            request.tags = tags;
-            request.topic = topic;
+            NSMutableDictionary *requestData = [NSMutableDictionary new];
+            [requestData setObject:[Settings controller].channel.strID forKey:SERVER_CHANNEL_ID_KEY];
+            [requestData setObject:[Settings controller].strDeviceID forKey:SERVER_DEVICE_ID_KEY];
+            [requestData setObject:[NSNumber numberWithDouble:[STMLocation controller].curLocation.coordinate.latitude] forKey:SERVER_LAT_KEY];
+            [requestData setObject:[NSNumber numberWithDouble:[STMLocation controller].curLocation.coordinate.longitude] forKey:SERVER_LON_KEY];
+            [requestData setObject:[NSNumber numberWithDouble:[STMLocation controller].course] forKey:SERVER_COURSE_KEY];
+            [requestData setObject:[NSNumber numberWithDouble:[STMLocation controller].speed] forKey:SERVER_SPEED_KEY];
+            if (remoteFileUrl) {
+                [requestData setObject:remoteFileUrl forKey:SERVER_MEDIA_FILE_URL_KEY];
+            }
+            if ([Utils stringIsSet:strText]) {
+                [requestData setObject:strText forKey:SERVER_SPOKEN_TEXT_KEY];
+            }
+            if ([Utils stringIsSet:tags]) {
+                [requestData setObject:tags forKey:SERVER_TAGS_KEY];
+            }
+            if ([Utils stringIsSet:topic]) {
+                [requestData setObject:topic forKey:SERVER_TOPIC_KEY];
+            }
             
-            [self postShout:request];
+            NSString *requestUrl = [NSString stringWithFormat:@"%@/%@",
+                              [Settings controller].strServerURL,
+                              SERVER_CMD_POST_SHOUT];
+            
+            STMUploadRequest *uploadRequest = [STMUploadRequest new];
+            [uploadRequest sendInBackground:[requestData copy] toUrl:[NSURL URLWithString:requestUrl] usingHTTPMethod:@"POST" responseType:@"Shout" delegate:self];
         }
     }];
 }
@@ -512,6 +518,24 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
         [self performSelector:@selector(processResults:) withObject:request afterDelay:0.0];
     } else if (request.type == RequestType_Undo) {
         [self performSelector:@selector(processResults:) withObject:request afterDelay:0.0];
+    }
+}
+
+#pragma mark - STMUploadResponseHandlerDelegate
+- (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    STMShout *shout = [[STMShout alloc] initWithDictionary:[responseData objectForKey:SERVER_RESULTS_SHOUT_KEY]];
+    
+    if (completionHandler) {
+        completionHandler(nil, shout);
+    }
+    
+    if (self.sendShoutDelegate) {
+        if (shout && ![@"" isEqualToString:shout.str_id]) {
+            [self.sendShoutDelegate onSendShoutCompleteWithShout:shout WithStatus:SendShoutStatus_Success];
+        } else {
+            [self.sendShoutDelegate onSendShoutCompleteWithShout:shout WithStatus:SendShoutStatus_Failure];
+        }
     }
 }
 

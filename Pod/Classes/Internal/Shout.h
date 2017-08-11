@@ -9,6 +9,7 @@
 #import <AWSS3/AWSS3.h>
 #import <Foundation/Foundation.h>
 #import "Settings.h"
+#import "STMNetworking.h"
 #import "STMShout.h"
 
 // this is singleton object class
@@ -37,7 +38,17 @@ typedef enum eSendShoutStatus
 
 @end
 
-@interface Shout : NSObject
+@interface SendShoutDelegateHandler : NSObject<SendShoutDelegate>
+
+@property (weak) id<CreateShoutDelegate> createShoutDelegate;
+
+- (void)onSendShoutCompleteWithShout:(STMShout *) shout WithStatus:(tSendShoutStatus)status;
+
+@end
+
+@interface Shout : NSObject <STMUploadResponseHandlerDelegate>
+
+@property SendShoutDelegateHandler *sendShoutDelegate;
 
 + (void)initAll;
 + (void)freeAll;
@@ -47,7 +58,7 @@ typedef enum eSendShoutStatus
 - (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<CreateShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
-- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic;
 - (void)undoLastSend;
 - (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate;
 - (NSDate *)dateOfLastSend;
