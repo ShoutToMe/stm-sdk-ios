@@ -51,6 +51,7 @@
 @property (nonatomic, copy)     NSString            *str_mime_type;
 @property (nonatomic, copy)     NSString            *str_channel;
 @property (nonatomic, copy)     NSString            *str_spoken_text;
+@property (nonatomic, copy)     NSString            *str_description;
 @property (nonatomic, copy)     NSString            *str_icon_url;
 @property (nonatomic, assign)   double              my_vote;
 @property (nonatomic, strong)   STMShoutTrafficInfo    *trafficInfo;

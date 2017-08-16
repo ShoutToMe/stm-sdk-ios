@@ -265,12 +265,12 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
  * Uploads a shout from a local file.  This method is intended to be called in the foreground while the user
  * is actively recording a shout.
  */
-- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<CreateShoutDelegate>)delegate
+- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic description:(NSString *)description withDelegate:(id<CreateShoutDelegate>)delegate
 {
     SendShoutDelegateHandler *sendShoutDelegate = [SendShoutDelegateHandler new];
     sendShoutDelegate.createShoutDelegate = delegate;
     self.sendShoutDelegate = sendShoutDelegate;
-    [self sendFile:localFileURL text:text tags:tags topic:topic];
+    [self sendFile:localFileURL text:text tags:tags topic:topic description:description];
 }
 
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate {
@@ -302,7 +302,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
 }
 
 
-- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic description:(NSString *)description
 {
     ShoutUploader *shoutUploader = [ShoutUploader new];
     [shoutUploader upload:localFileURL completion:^(NSString *remoteFileUrl, NSError *error){
@@ -340,6 +340,9 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
             }
             if ([Utils stringIsSet:topic]) {
                 [requestData setObject:topic forKey:SERVER_TOPIC_KEY];
+            }
+            if ([Utils stringIsSet:description]) {
+                [requestData setObject:description forKey:SERVER_DESCRIPTION_KEY];
             }
             
             NSString *requestUrl = [NSString stringWithFormat:@"%@/%@",

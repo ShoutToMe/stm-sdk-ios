@@ -55,10 +55,10 @@ typedef enum eSendShoutStatus
 
 + (Shout *)controller;
 
-- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<CreateShoutDelegate>)delegate;
+- (void)uploadFromFile:(NSURL *)localFileURL text:(NSString *)text tags:(NSString *)tags topic:(NSString *)topic description:(NSString *)description withDelegate:(id<CreateShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId tags:(NSString *)tags topic:(NSString *)topic withDelegate:(id<SendShoutDelegate>)delegate;
 - (void)sendData:(NSData *)dataShout text:(NSString *)strText replyToId:(NSString *)strReplyToId withDelegate:(id<SendShoutDelegate>)delegate;
-- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic;
+- (void)sendFile:(NSURL *)localFileURL text:(NSString *)strText tags:(NSString *)tags topic:(NSString *)topic description:(NSString *)description;
 - (void)undoLastSend;
 - (void)undoLastSendWithDelegate:(id<SendShoutDelegate>)delegate;
 - (NSDate *)dateOfLastSend;

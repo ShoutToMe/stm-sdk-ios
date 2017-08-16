@@ -82,7 +82,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     NSURL *localFileURL = [info objectForKey:UIImagePickerControllerMediaURL];
-    [[STM shout] uploadFromFile:localFileURL text:nil tags:@"Tag 1, Tag 2" topic:@"My topic" withDelegate:self];
+    [[STM shout] uploadFromFile:localFileURL text:nil tags:@"Tag 1, Tag 2" topic:@"My topic" description:@"This is a user provided description of the shout" withDelegate:self];
 }
 
 - (IBAction)UpdateTouched:(id)sender {

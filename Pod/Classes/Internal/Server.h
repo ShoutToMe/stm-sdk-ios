@@ -52,6 +52,7 @@
 #define SERVER_AUDIO_KEY                        @"audio"
 #define SERVER_MEDIA_FILE_URL_KEY               @"media_file_url"
 #define SERVER_SPOKEN_TEXT_KEY                  @"spoken_text"
+#define SERVER_DESCRIPTION_KEY                  @"description"
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_LAT_KEY                          @"lat"
 #define SERVER_LON_KEY                          @"lon"
