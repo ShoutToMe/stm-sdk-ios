@@ -87,6 +87,7 @@
     self.str_mime_type = [Utils stringFromKey:@"mime_type" inDictionary:dictShout];
     self.str_channel = [Utils stringFromKey:@"channel" inDictionary:dictShout];
     self.str_spoken_text = [Utils stringFromKey:@"spoken_text" inDictionary:dictShout];
+    self.str_description = [Utils stringFromKey:@"description" inDictionary:dictShout];
     self.str_icon_url = [Utils stringFromKey:@"icon_url" inDictionary:dictShout];
     self.my_vote = [Utils doubleFromKey:@"my_vote" inDictionary:dictShout];
     self.trafficInfo = [self trafficInfoFromKey:@"traffic_info" inDictionary:dictShout];
