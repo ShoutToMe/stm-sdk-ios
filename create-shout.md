@@ -130,6 +130,6 @@ types to media files only.  Contact Shout to Me support if you have any question
 
 ### Uploading the file
 ```objc
-[[STM shout] uploadFromFile:localFileURL text:nil tags:@"Tag 1, Tag 2" topic:@"My topic" withDelegate:self];
+[[STM shout] uploadFromFile:localFileURL text:nil tags:@"Tag 1, Tag 2" topic:@"My topic" description:@"This is a user provided description of the shout" withDelegate:self];
 ```
 
