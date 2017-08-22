@@ -273,21 +273,18 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     NSMutableSet *newMessages = [[NSMutableSet alloc] init];
     
     dispatch_group_enter(serviceGroup);
-    [[STM subscriptions] requestForSubscriptionsWithcompletionHandler:^(NSArray<STMSubscription *> *subscriptions, NSError *error) {
-        //        NSLog(@"Number of subscriptions: %lu", (unsigned long)[subscriptions count]);
-        
-        // Get all active conversations for each channel
-        for (STMSubscription *subscription in subscriptions) {
-            dispatch_group_enter(serviceGroup);
-            [[STM conversations]requestForActiveConversationWith:subscription.strChannelId completionHandler:^(NSArray<STMConversation *> *conversations, NSError *error) {
-                if ([conversations count]) {
-                    [activeConversations addObjectsFromArray:conversations];
-                }
-                dispatch_group_leave(serviceGroup);
-            }];
-        }
-        dispatch_group_leave(serviceGroup);
-    }];
+    
+    // Get all active conversations for each channel
+    for (NSString *channelId in [STM currentUser].channelSubscriptions) {
+        dispatch_group_enter(serviceGroup);
+        [[STM conversations]requestForActiveConversationWith:channelId completionHandler:^(NSArray<STMConversation *> *conversations, NSError *error) {
+            if ([conversations count]) {
+                [activeConversations addObjectsFromArray:conversations];
+            }
+            dispatch_group_leave(serviceGroup);
+        }];
+    }
+    dispatch_group_leave(serviceGroup);
     
     dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
         

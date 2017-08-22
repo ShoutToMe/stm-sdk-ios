@@ -10,16 +10,17 @@
 
 @interface STMUser : NSObject
 
-@property (nonatomic, assign) BOOL              bVerified;
-@property (nonatomic, copy)   NSString          *strAuthCode;
-@property (nonatomic, copy)   NSString          *strEmail;
-@property (nonatomic, copy)   NSString          *strPhoneNumber;
-@property (nonatomic, copy)   NSString          *strUserID;
-@property (nonatomic, copy)   NSString          *strHandle;
-@property (nonatomic, copy)   NSDate            *dateLastReadMessages;
-@property (nonatomic, copy)   NSString          *strPlatformEndpointArn;
+@property (nonatomic, assign) BOOL                  bVerified;
+@property (nonatomic, copy)   NSString              *strAuthCode;
+@property (nonatomic, copy)   NSString              *strEmail;
+@property (nonatomic, copy)   NSString              *strPhoneNumber;
+@property (nonatomic, copy)   NSString              *strUserID;
+@property (nonatomic, copy)   NSString              *strHandle;
+@property (nonatomic, copy)   NSDate                *dateLastReadMessages;
+@property (nonatomic, copy)   NSString              *strPlatformEndpointArn;
+@property (nonatomic, copy)   NSArray<NSString*>    *channelSubscriptions;
+@property (nonatomic, copy)   NSArray<NSString*>    *topicPreferences;
 
 - (id)initWithDictionary:(NSDictionary *)dictMessage;
 
 @end
-

@@ -253,6 +253,16 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                 }
                  */
             }
+            
+            NSArray *arrChannelSubscriptions = [dictUser objectForKey:SERVER_RESULTS_CHANNEL_SUBSCRIPTIONS];
+            if (arrChannelSubscriptions) {
+                [[UserData controller].user setChannelSubscriptions:arrChannelSubscriptions];
+            }
+            
+            NSArray *arrTopicPreferences = [dictUser objectForKey:SERVER_RESULTS_TOPIC_PREFERENCES];
+            if (arrTopicPreferences) {
+                [[UserData controller].user setTopicPreferences:arrTopicPreferences];
+            }
 
             [Settings saveAll];
         }
