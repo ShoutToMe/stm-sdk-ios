@@ -24,9 +24,9 @@
 
 + (Subscriptions *)controller;
 
-- (void)requestForSubscriptionForChannel:(NSString *)channelId withDelegate:(id<SubscriptionsDelegate>)delegate;
-- (void)requestForSubscriptionForChannel:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler;
-- (void)requestForSubscriptionsWithcompletionHandler:(void (^)(NSArray<STMSubscription *> *subscriptions, NSError *error))completionHandler;
-- (void)requestForSubscribe:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler;
-- (void)requestForUnSubscribe:(NSString *)channelId completionHandler:(void (^)(Boolean *successful, NSError *error))completionHandler;
+- (void)requestForSubscriptionForChannel:(NSString *)channelId withDelegate:(id<SubscriptionsDelegate>)delegate __deprecated;
+- (void)requestForSubscriptionForChannel:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler __deprecated;
+- (void)requestForSubscriptionsWithcompletionHandler:(void (^)(NSArray<STMSubscription *> *subscriptions, NSError *error))completionHandler __deprecated_msg("See STMUser.channelSubscriptions");
+- (void)requestForSubscribe:(NSString *)channelId completionHandler:(void (^)(STMSubscription *subscription, NSError *error))completionHandler __deprecated_msg("Use User.subscribeTo");
+- (void)requestForUnSubscribe:(NSString *)channelId completionHandler:(void (^)(Boolean *successful, NSError *error))completionHandler __deprecated_msg("Use User.unsubscribeFrom");
 @end

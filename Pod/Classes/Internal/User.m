@@ -9,6 +9,7 @@
 #import "User.h"
 #import "Server.h"
 #import "Settings.h"
+#import "STM.h"
 #import "STMNetworking.h"
 #import "UserData.h"
 #import "Utils.h"
@@ -64,6 +65,15 @@ __strong static User *singleton = nil;
     }
 }
 
+@end
+
+@interface UserResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
+@end
+
+@interface ChannelSubscriptionResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
+@end
+
+@interface TopicPreferenceResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
 @end
 
 @implementation User
@@ -124,9 +134,7 @@ __strong static User *singleton = nil;
     return(@"User");
 }
 
-#pragma mark - Public Methods
-
-- (void)setProperties:(SetUserPropertiesInput *)setUserPropertiesInput withCompletionHandler:(void (^)(NSError *, id))completionHandler
+- (void)updateProperties:(NSDictionary *)properties withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@",
                                        [Settings controller].strServerURL,
@@ -135,10 +143,108 @@ __strong static User *singleton = nil;
                                        ]];
     
     STMUploadRequest *uploadRequest = [STMUploadRequest new];
-    [uploadRequest send:[setUserPropertiesInput getPropertyDictionary] toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:completionHandler];
+    [uploadRequest send:properties toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:[UserResponseHandler new] withCompletionHandler:completionHandler];
 }
 
-#pragma mark - STMUploadResponseHandlerDelegate
+- (NSURL *)getSubscriptionUrl
+{
+    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
+                        [Settings controller].strServerURL,
+                        SERVER_CMD_PERSONALIZE,
+                        [UserData controller].user.strUserID,
+                        SERVER_CMD_CHANNEL_SUBSCRIPTION];
+    NSURL *url = [NSURL URLWithString:strUrl];
+    return url;
+}
+
+- (NSURL *)getTopicPreferenceUrl
+{
+    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
+                        [Settings controller].strServerURL,
+                        SERVER_CMD_PERSONALIZE,
+                        [UserData controller].user.strUserID,
+                        SERVER_CMD_TOPIC_PREFERENCE];
+    NSURL *url = [NSURL URLWithString:strUrl];
+    return url;
+}
+
+#pragma mark - Public Methods
+
+- (void)setProperties:(SetUserPropertiesInput *)setUserPropertiesInput withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    [self updateProperties:[setUserPropertiesInput getPropertyDictionary] withCompletionHandler:completionHandler];
+}
+
+- (void)enableNotifications
+{
+    [self updateProperties:[[NSDictionary alloc] initWithObjectsAndKeys:@"true", SERVER_PLATFORM_ENDPOINT_ENABLED_KEY, nil] withCompletionHandler:nil];
+}
+
+- (void)subscribeTo:(NSString *)channelId withCompletionHandler:(void (^)(NSError * _Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_CHANNEL_ID_KEY: channelId } toUrl:[self getSubscriptionUrl] usingHTTPMethod:@"PUT" responseHandlerDelegate:[ChannelSubscriptionResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (void)unsubscribeFrom:(NSString *)channelId withCompletionHandler:(void (^)(NSError * _Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_CHANNEL_ID_KEY: channelId } toUrl:[self getSubscriptionUrl] usingHTTPMethod:@"DELETE" responseHandlerDelegate:[ChannelSubscriptionResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (void)setChannelSubscriptions:(NSArray<NSString *> *)channelIds withCompletionHandler:(void (^)(NSError * _Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_CHANNEL_ID_KEY: channelIds } toUrl:[self getSubscriptionUrl] usingHTTPMethod:@"POST" responseHandlerDelegate:[ChannelSubscriptionResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (BOOL)isSubscribedToChannel:(NSString *)channelId
+{
+    BOOL userIsSubscribed = NO;
+    NSLog(@"%@", [STM currentUser].channelSubscriptions);
+    for (NSString *subscribedChannelId in [STM currentUser].channelSubscriptions) {
+        if ([subscribedChannelId isEqualToString:channelId]) {
+            userIsSubscribed = YES;
+            break;
+        }
+    }
+    return userIsSubscribed;
+}
+
+- (void)addTopicPreference:(NSString *_Nonnull)topic withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_TOPIC_KEY: topic } toUrl:[self getTopicPreferenceUrl] usingHTTPMethod:@"PUT" responseHandlerDelegate:[TopicPreferenceResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (void)removeTopicPreference:(NSString *_Nonnull)topic withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_TOPIC_KEY: topic } toUrl:[self getTopicPreferenceUrl] usingHTTPMethod:@"DELETE" responseHandlerDelegate:[TopicPreferenceResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (void)setTopicPreferences:(NSArray<NSString *>*_Nonnull)topics withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler
+{
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:@{ SERVER_TOPIC_KEY: topics } toUrl:[self getTopicPreferenceUrl] usingHTTPMethod:@"POST" responseHandlerDelegate:[TopicPreferenceResponseHandler new] withCompletionHandler:completionHandler];
+}
+
+- (BOOL)isFollowingTopic:(NSString *_Nonnull)topic
+{
+    BOOL isFollowingTopic = NO;
+    for (NSString *followedTopic in [STM currentUser].topicPreferences) {
+        if ([followedTopic isEqualToString:topic]) {
+            isFollowingTopic = YES;
+            break;
+        }
+    }
+    return isFollowingTopic;
+}
+
+@end
+
+@implementation UserResponseHandler
+
 - (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
     NSMutableDictionary *mutableUserDict = [[NSMutableDictionary alloc] initWithDictionary:[responseData objectForKey:SERVER_RESULTS_USER_KEY]];
@@ -164,7 +270,45 @@ __strong static User *singleton = nil;
     }
     [UserData saveAll];
     
-    completionHandler(nil, user);
+    if (completionHandler) {
+        completionHandler(nil, user);
+    }
+}
+
+@end
+
+@implementation ChannelSubscriptionResponseHandler
+
+- (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    NSArray<NSString *> *channelSubscriptions = [NSArray<NSString *> new];
+    if (responseData && responseData.count > 0) {
+        channelSubscriptions = [responseData objectForKey:SERVER_RESULTS_CHANNEL_SUBSCRIPTIONS];
+    }
+    
+    [[STM userData] setChannelSubscriptions:channelSubscriptions];
+    
+    if (completionHandler) {
+        completionHandler(nil, channelSubscriptions);
+    }
+}
+
+@end
+
+@implementation TopicPreferenceResponseHandler
+
+- (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    NSArray<NSString *> *topicPreferences = [NSArray<NSString *> new];
+    if (responseData && responseData.count > 0) {
+        topicPreferences = [responseData objectForKey:SERVER_RESULTS_TOPIC_PREFERENCES];
+    }
+    
+    [[STM userData] setTopicPreferences:topicPreferences];
+    
+    if (completionHandler) {
+        completionHandler(nil, topicPreferences);
+    }
 }
 
 @end

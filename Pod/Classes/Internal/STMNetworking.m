@@ -52,7 +52,9 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
                                                                    fromData:requestData completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
                                                                        
                                                                        if (error) {
-                                                                           return completionHandler(error, nil);
+                                                                           if (completionHandler) {
+                                                                               return completionHandler(error, nil);
+                                                                           }
                                                                        }
                                                                        
                                                                        NSString *strJSONResults = [self extractJSONStringFromData:responseData];
@@ -75,7 +77,9 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
                                                                                }
                                                                                
                                                                                NSError *httpError = [NSError errorWithDomain:ShoutToMeErrorDomain code:statusCode userInfo:details];
-                                                                               return completionHandler(httpError, nil);
+                                                                               if (completionHandler) {
+                                                                                    return completionHandler(httpError, nil);
+                                                                               }
                                                                            }
                                                                        }
                                                                        
@@ -85,12 +89,16 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
                                                                        } else {
                                                                            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Shout to Me response parsing error" };
                                                                            NSError *parsingError = [NSError errorWithDomain:ShoutToMeErrorDomain code:STMErrorUnknown userInfo:userInfo];
-                                                                           return completionHandler(parsingError, nil);
+                                                                           if (completionHandler) {
+                                                                                return completionHandler(parsingError, nil);
+                                                                           }
                                                                        }
                                                                    }];
         [uploadTask resume];
     } else {
-        completionHandler(error, nil);
+        if (completionHandler) {
+            completionHandler(error, nil);    
+        }
     }
 
 }

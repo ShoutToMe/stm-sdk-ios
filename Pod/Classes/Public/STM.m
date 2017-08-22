@@ -556,6 +556,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to set platform endpoint on STM User.", @"[STM signIn] setPlatformEndpoint failed.", nil, nil, [error localizedDescription]);
                 [task setError:error];
             } else {
+                [[self user] enableNotifications];
                 NSLog(@"Updated User's PlatformEndpoint");
                 [task setResult:nil];
             }
@@ -580,6 +581,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 return task;
             } else {
                 AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
+                [[self user] enableNotifications];
                 NSLog(@"STM- Successfully registered for platform endpoint arn = %@", createEndPointResponse.endpointArn);
                 return [self setPlatformEndpointArn:createEndPointResponse.endpointArn];
             }
