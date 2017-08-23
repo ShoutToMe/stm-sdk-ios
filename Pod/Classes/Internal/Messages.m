@@ -149,7 +149,7 @@ __strong static Messages *singleton = nil;
     request.strURL = [NSString stringWithFormat:@"%@/%@/%@",
                       [Settings controller].strServerURL,
                       SERVER_CMD_GET_MESSAGES,
-                      @"?count_only=true&unread=true"];
+                      @"?count_only=true&unread_only=true"];
     
     //NSLog(@"Messages: URL = %@", strURL);
     
