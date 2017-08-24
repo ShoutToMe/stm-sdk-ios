@@ -35,8 +35,7 @@ static NSString *const STM_NOTIFICATION_BACKGROUND = @"stm_notification_backgrou
 static NSString *const STM_NOTIFICATION_FOREGROUND = @"stm_notification_foreground";
 static NSString *const STM_NOTIFICATION_USER_TAP = @"stm_notification_user_tap";
 
-static NSString *const MESSAGE_CATEGORY = @"MESSAGE_CATEGORY";
-static NSString *const COMMAND_CATEGORY = @"COMMAND_CATEGORY";
+static NSString *const MESSAGE_CATEGORY = @"SHOUTTOME_MESSAGE";
 
 __strong static STM *singleton = nil; // this will be the one and only object this static singleton class has
 
@@ -277,14 +276,11 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         appIsStarting = NO;
-        [[STM location] stop];
         [STM saveAll];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         appIsStarting = YES;
-        NSError *error;
-        [[STM location] startWithError:&error];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -321,7 +317,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 //    application.applicationIconBadgeNumber = 0;
 #if !(TARGET_IPHONE_SIMULATOR)
     UIMutableUserNotificationCategory *messageCategory = [[UIMutableUserNotificationCategory alloc] init];
-    messageCategory.identifier = @"MESSAGE_CATEGORY";
+    messageCategory.identifier = MESSAGE_CATEGORY;
     
     NSSet *categories = [NSSet setWithObject:messageCategory];
     
@@ -341,6 +337,10 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 
 + (void)didReceiveRemoteNotification:(NSDictionary *)userInfo ForApplication:(UIApplication *)application fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
+    if (!userInfo) {
+        return completionHandler(UIBackgroundFetchResultNoData);
+    }
+    
     UIApplicationState applicationState = [application applicationState];
     
     NSLog(@"STM- didReceiveRemoteNotification. userInfo=%@", userInfo);
@@ -358,65 +358,17 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     }
     NSLog(@"STM- notification state = %@", notificationState);
     
-    if (userInfo) {
-        NSDictionary *data = [userInfo objectForKey:@"aps"];
-        if (data) {
-            NSString *notificationCategory = [Utils stringFromKey:@"category" inDictionary:data];
-            NSString *notificationType = [Utils stringFromKey:@"type" inDictionary:data];
-            
-            if ([MESSAGE_CATEGORY isEqual:notificationCategory]) {
-                if ([STM_NOTIFICATION_FOREGROUND isEqual:notificationState] || [STM_NOTIFICATION_USER_TAP isEqual:notificationState]) {
-                    if (notificationType && [notificationType isEqual:@"user message"]) {
-                        NSLog(@"STM- User direct message. About to notify client");
-                        [STM broadcastSTMNotifications:[NSSet setWithObject:data]];
-                        completionHandler(UIBackgroundFetchResultNewData);
-                    } else if (notificationType && [notificationType isEqual:@"conversation message"]) {
-                        NSString *conversationId = [Utils stringFromKey:@"conversation_id" inDictionary:data];
-                        
-                        NSLog(@"STM- Processing conversation notification for conversation: %@. About to see if converation has been seen.", conversationId);
-                        
-                        // check if conversation has been heard before
-                        [[STM conversations] requestForSeenConversation:conversationId completionHandler:^(BOOL seen, NSError *error) {
-                            NSLog(@"STM- Conversation been seen: %@. If false, show channel wide message.", seen == YES ? @"True" : @"False");
-                            if (!seen) {
-                                NSLog(@"STM- Channel wide message received. Prepare to show notification to user.");
-                                // this is a channel wide notification, create local notification
-                                [[STM messages] requestForCreateMessageForChannelId:[Utils stringFromKey:@"channel_id" inDictionary:data] ToRecipientId:[STM currentUser].strUserID WithConversationId:[Utils stringFromKey:@"conversation_id" inDictionary:data] AndMessage:[Utils stringFromKey:@"body" inDictionary:data] completionHandler:^(STMMessage *message, NSError *error) {
-                                    
-                                    NSLog(@"STM- Created a message at the server. Data: %@", message);
-                                    if (error) {
-                                        NSLog(@"STM- Error received creating message. Error: %@", error);
-                                    }
-                                    NSMutableDictionary *messageData = [data mutableCopy];
-                                    [messageData setValue:message.strID forKey:@"message_id"];
-                                    [STM broadcastSTMNotifications:[NSSet setWithObject:messageData]];
-                                    completionHandler(UIBackgroundFetchResultNewData);
-                                }];
-                            } else {
-                                // we have seen this conversation before
-                                NSLog(@"STM- Conversation has been seen before");
-                                completionHandler(UIBackgroundFetchResultNewData);
-                            }
-                        }];
-                    } else {
-                       completionHandler(UIBackgroundFetchResultNoData);
-                    }
-                } else {
-                    completionHandler(UIBackgroundFetchResultNoData);
-                }
-            } else if ([COMMAND_CATEGORY isEqual:notificationCategory]) {
-                NSLog(@"STM- Notification sync command received. About to begin syncing messages and notifications");
-                [[STM location] syncMonitoredRegionsWithCompletionHandler:^void (void){
-                    NSLog(@"STM- Done syncing messages and geofences");
-                    if ([[[STM monitoredConversations] monitoredConversations] count ] > 0) {
-                        completionHandler(UIBackgroundFetchResultNewData);
-                    } else {
-                        completionHandler(UIBackgroundFetchResultNoData);
-                    }
-                }];
-            } else {
-                completionHandler(UIBackgroundFetchResultNoData);
-            }
+    NSDictionary *data = [userInfo objectForKey:STM_APS_ROOT_KEY];
+    if (!data) {
+        return completionHandler(UIBackgroundFetchResultNoData);
+    }
+    
+    NSString *notificationCategory = [Utils stringFromKey:STM_APS_CATEGORY_KEY inDictionary:data];
+    if ([MESSAGE_CATEGORY isEqual:notificationCategory]) {
+        if ([STM_NOTIFICATION_FOREGROUND isEqual:notificationState] || [STM_NOTIFICATION_USER_TAP isEqual:notificationState]) {
+            NSLog(@"STM- Message received while app active. About to notify client");
+            [STM broadcastSTMNotifications:[NSSet setWithObject:data]];
+            completionHandler(UIBackgroundFetchResultNewData);
         } else {
             completionHandler(UIBackgroundFetchResultNoData);
         }
@@ -432,6 +384,8 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     if (!singleton.applicationArn) {
         NSLog(@"Warning. You must call setupPushNotificationsWithAppId: before registering for notifications");
     }
+    
+    [[self user] enableNotifications];
 
     singleton.task = [AWSTask taskWithResult:nil];
     
@@ -556,7 +510,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Failed to set platform endpoint on STM User.", @"[STM signIn] setPlatformEndpoint failed.", nil, nil, [error localizedDescription]);
                 [task setError:error];
             } else {
-                [[self user] enableNotifications];
                 NSLog(@"Updated User's PlatformEndpoint");
                 [task setResult:nil];
             }
@@ -581,7 +534,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 return task;
             } else {
                 AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
-                [[self user] enableNotifications];
                 NSLog(@"STM- Successfully registered for platform endpoint arn = %@", createEndPointResponse.endpointArn);
                 return [self setPlatformEndpointArn:createEndPointResponse.endpointArn];
             }

@@ -48,6 +48,9 @@
 
 #define STM_MAX_GEOFENCES                                       20
 
+// APS notification structure
+#define STM_APS_ROOT_KEY                                        @"aps"
+#define STM_APS_CATEGORY_KEY                                    @"category"
 
 typedef enum eSTMInternalURLType
 {

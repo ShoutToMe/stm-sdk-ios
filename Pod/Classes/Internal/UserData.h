@@ -33,7 +33,6 @@
 - (void)setHandle:(NSString *)strHandle;
 - (void)setEmail:(NSString *)strEmail;
 - (void)setPhone:(NSString *)strPhone;
-- (void)setLastReadMessages:(NSDate *)date;
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn;
 - (void)setChannelSubscriptions:(NSArray<NSString*>*)channelIds;
 - (void)setTopicPreferences:(NSArray<NSString*>*)topics;
