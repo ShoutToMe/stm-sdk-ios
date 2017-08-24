@@ -17,6 +17,7 @@
 #define STOP_UPDATING_AT_ACCURACY // define this if don't want the location system to keep updating
 #define ACCURACY_METERS 10
 
+static NSString *const MESSAGE_CATEGORY = @"SHOUTTOME_MESSAGE";
 static BOOL bInitialized = NO;
 
 static STMLocation *singleton = nil;  // this will be the one and only object this static singleton class has
@@ -310,24 +311,24 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                                                                                                  identifier:conversation.str_id];
                             
                             if ([conversation_region containsCoordinate:[STMLocation controller].curLocation.coordinate]) {
-                                [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
-                                    
-                                    NSLog(@"Created Message: %@", message);
-                                    [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
-                                        NSDictionary *messageData = @{
-                                                                      @"body": conversation.str_publishing_message,
-                                                                      @"category": @"MESSAGE_CATEGORY",
-                                                                      @"channel_id": conversation.str_channel_id,
-                                                                      @"content-available": @1,
-                                                                      @"conversation_id": conversation.str_id,
-                                                                      @"title": channel.strName,
-                                                                      @"type": @"conversation message",
-                                                                      @"message_id": message.strID
-                                                                      };
-                                        [newMessages addObject:messageData];
+//                                [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+//                                    
+//                                    NSLog(@"Created Message: %@", message);
+//                                    [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+//                                        NSDictionary *messageData = @{
+//                                                                      @"body": conversation.str_publishing_message,
+//                                                                      @"category": MESSAGE_CATEGORY,
+//                                                                      @"channel_id": conversation.str_channel_id,
+//                                                                      @"content-available": @1,
+//                                                                      @"conversation_id": conversation.str_id,
+//                                                                      @"title": channel.strName,
+//                                                                      @"type": @"conversation message",
+//                                                                      @"message_id": message.strID
+//                                                                      };
+//                                        [newMessages addObject:messageData];
                                         dispatch_group_leave(conversationsSeenGroup);
-                                    }];
-                                }];
+//                                    }];
+//                                }];
                                 
                             } else {
                                 [[STM monitoredConversations] addMonitoredConversation:conversation];
@@ -335,24 +336,24 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
                             }
                             
                         } else {
-                            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
-                                
-                                NSLog(@"Created Message: %@", message);
-                                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
-                                    NSDictionary *messageData = @{
-                                                                  @"body": conversation.str_publishing_message,
-                                                                  @"category": @"MESSAGE_CATEGORY",
-                                                                  @"channel_id": conversation.str_channel_id,
-                                                                  @"content-available": @1,
-                                                                  @"conversation_id": conversation.str_id,
-                                                                  @"title": channel.strName,
-                                                                  @"type": @"conversation message",
-                                                                  @"message_id": message.strID
-                                                                  };
-                                    [newMessages addObject:messageData];
+//                            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+//                                
+//                                NSLog(@"Created Message: %@", message);
+//                                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+//                                    NSDictionary *messageData = @{
+//                                                                  @"body": conversation.str_publishing_message,
+//                                                                  @"category": MESSAGE_CATEGORY,
+//                                                                  @"channel_id": conversation.str_channel_id,
+//                                                                  @"content-available": @1,
+//                                                                  @"conversation_id": conversation.str_id,
+//                                                                  @"title": channel.strName,
+//                                                                  @"type": @"conversation message",
+//                                                                  @"message_id": message.strID
+//                                                                  };
+//                                    [newMessages addObject:messageData];
                                     dispatch_group_leave(conversationsSeenGroup);
-                                }];
-                            }];
+//                                }];
+//                            }];
                         }
                     } else {
                         dispatch_group_leave(conversationsSeenGroup);
@@ -501,25 +502,25 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     NSLog(@"Entered Region: %@", [region description]);
     [[STM conversations] requestForConversation:[region identifier] completionHandler:^(STMConversation *conversation, NSError *error) {
         if (!conversation.expired) {
-            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
-                NSLog(@"Created Message: %@", message);
-
-                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
-                    NSDictionary *localNotificationData =
-                    @{
-                      @"body": conversation.str_publishing_message,
-                      @"category": @"MESSAGE_CATEGORY",
-                      @"channel_id": message.strChannelId,
-                      @"conversation_id": message.strConversationId,
-                      @"title": channel.strName,
-                      @"type": @"conversation message",
-                      @"message_id": message.strID
-                      };
-
-                    [STM broadcastSTMNotifications:[NSSet setWithObject:localNotificationData]];
-                    [self stopMonitoringForRegion:(CLCircularRegion *)region];
-                }];
-            }];
+//            [[STM messages] requestForCreateMessageForChannelId:conversation.str_channel_id ToRecipientId:[STM currentUser].strUserID WithConversationId:conversation.str_id AndMessage:conversation.str_publishing_message completionHandler:^(STMMessage *message, NSError *error) {
+//                NSLog(@"Created Message: %@", message);
+//
+//                [[STM channels] requestForChannel:conversation.str_channel_id completionHandler:^(STMChannel *channel, NSError *error) {
+//                    NSDictionary *localNotificationData =
+//                    @{
+//                      @"body": conversation.str_publishing_message,
+//                      @"category": MESSAGE_CATEGORY,
+//                      @"channel_id": message.strChannelId,
+//                      @"conversation_id": message.strConversationId,
+//                      @"title": channel.strName,
+//                      @"type": @"conversation message",
+//                      @"message_id": message.strID
+//                      };
+//
+//                    [STM broadcastSTMNotifications:[NSSet setWithObject:localNotificationData]];
+//                    [self stopMonitoringForRegion:(CLCircularRegion *)region];
+//                }];
+//            }];
         } else {
             [self stopMonitoringForRegion:(CLCircularRegion *)region];
         }

@@ -6,6 +6,7 @@
 //
 //
 #import "STM.h"
+#import "STMNetworking.h"
 #import "Utils.h"
 #import "Settings.h"
 #import "Messages.h"
@@ -165,119 +166,15 @@ __strong static Messages *singleton = nil;
                                 headerRequests:[[UserData controller] dictStandardRequestHeaders]];
 }
 
-- (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *, NSError *))completionHandler {
+- (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(NSError *, id))completionHandler {
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
+    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@",
                      [Settings controller].strServerURL,
                      SERVER_CMD_GET_MESSAGES,
                      messageId];
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
-    
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    
-    [[session dataTaskWithURL:[NSURL URLWithString:url]
-            completionHandler:^(NSData *data,
-                                NSURLResponse *response,
-                                NSError *error) {
-                
-                NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-                
-                //NSLog(@"Messages: Results download returned: %@", jsonString );
-                
-                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-                NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-                NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
-                NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
-                
-                
-                STMMessage *message;
-                
-                if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
-                    
-                    if (dictData)
-                    {
-                        message = [[STMMessage alloc] initWithDictionary:[dictData objectForKey:@"message"]];
-                    }
-                } else {
-                    //STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Message request failed.", url, nil, jsonString);
-                    if (dictData ) {
-                        NSString *failureReason = [dictData objectForKey:@"reason"];
-                        NSMutableDictionary* details = [NSMutableDictionary dictionary];
-                        [details setValue:dictData forKey:NSLocalizedDescriptionKey];
-                        error = [NSError errorWithDomain:failureReason code:400 userInfo:details];
-                    }
-                    
-                }
-                
-                completionHandler(message, error);
-                
-            }] resume];
-}
-
-- (void)requestForCreateMessageForChannelId:(NSString *)channelId ToRecipientId:(NSString *)recipientId WithConversationId:(NSString *)conversationId AndMessage:(NSString *)message completionHandler:(void (^)(STMMessage *, NSError *))completionHandler {
-    NSLog(@"requestForCreateMessageForChannelId:%@ ToRecipientId:%@ WithConversationId:%@ AndMessage:%@", channelId, recipientId, conversationId, message);
-    NSError *error;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",
-                                       [Settings controller].strServerURL,
-                                       SERVER_CMD_GET_MESSAGES]];
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    [config setHTTPAdditionalHeaders:[[UserData controller] dictStandardRequestHeaders]];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPMethod:@"POST"];
-    NSDictionary *postBodyData = @{@"channel_id": channelId,
-                                   @"recipient_id": recipientId,
-                                   @"conversation_id": conversationId,
-                                   @"message": message };
-    
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:postBodyData options:0 error:&error];
-    [request setHTTPBody:postData];
-    
-    if (!error) {
-        [[session dataTaskWithRequest:request
-                    completionHandler:^(NSData * _Nullable data,
-                                        NSURLResponse * _Nullable response,
-                                        NSError * _Nullable error) {
-                        NSString *jsonString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-                        //NSLog(@"Subscriptions: Results download returned: %@", jsonString );
-                        
-                        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-                        NSDictionary *dictResults = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-                        NSString *strStatus = [dictResults objectForKey:SERVER_RESULTS_STATUS_KEY];
-                        NSDictionary *dictData = [dictResults objectForKey:SERVER_RESULTS_DATA_KEY];
-                        
-                        
-                        STMMessage *message;
-                        
-                        if ([strStatus isEqualToString:SERVER_RESULTS_STATUS_SUCCESS]) {
-                            
-                            if (dictData)
-                            {
-                                message = [[STMMessage alloc] initWithDictionary:[dictData objectForKey:@"message"]];
-                            }
-                        } else {
-                            //STM_ERROR(ErrorCategory_Network, ErrorSeverity_Warning, @"Network error.", @"Message request failed.", url, nil, jsonString);
-                            if (dictData ) {
-                                if ([dictData isKindOfClass:[NSDictionary class]] && [[dictData allKeys] containsObject:@"reason"]) {
-                                    NSString *failureReason = [dictData objectForKey:@"reason"];
-                                    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-                                    [details setValue:dictData forKey:NSLocalizedDescriptionKey];
-                                    error = [NSError errorWithDomain:failureReason code:400 userInfo:details];
-                                }
-                            }
-                            
-                        }
-                        
-                        completionHandler(message, error);
-                        
-                    }] resume];
-    }
+    NSURL *url = [NSURL URLWithString:strUrl];
+    STMDataRequest *dataRequest = [STMDataRequest new];
+    [dataRequest sendToUrl:url responseHandlerDelegate:self withCompletionHandler:completionHandler];
 }
 
 - (void)cancelAllRequests
@@ -344,5 +241,18 @@ __strong static Messages *singleton = nil;
     }
 }
 
+#pragma mark - STMHTTPResponseHandlerDelegate
+
+- (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    STMMessage *message = nil;
+    if (responseData) {
+            message = [[STMMessage alloc] initWithDictionary:[responseData objectForKey:SERVER_RESULTS_MESSAGE_KEY]];
+    }
+    
+    if (completionHandler) {
+        completionHandler(nil, message);
+    }
+}
 
 @end

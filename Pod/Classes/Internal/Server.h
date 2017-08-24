@@ -108,6 +108,7 @@
 #define SERVER_RESULTS_MARKET_KEY               @"market"
 #define SERVER_RESULTS_MARKET_NAME_KEY          @"name"
 #define SERVER_RESULTS_MARKET_SUPPORTED_KEY     @"supported"
+#define SERVER_RESULTS_MESSAGE_KEY              @"message"
 #define SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY    @"platform_endpoint_arn"
 
 

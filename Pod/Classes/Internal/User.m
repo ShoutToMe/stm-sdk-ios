@@ -67,13 +67,13 @@ __strong static User *singleton = nil;
 
 @end
 
-@interface UserResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
+@interface UserResponseHandler : NSObject <STMHTTPResponseHandlerDelegate>
 @end
 
-@interface ChannelSubscriptionResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
+@interface ChannelSubscriptionResponseHandler : NSObject <STMHTTPResponseHandlerDelegate>
 @end
 
-@interface TopicPreferenceResponseHandler : NSObject <STMUploadResponseHandlerDelegate>
+@interface TopicPreferenceResponseHandler : NSObject <STMHTTPResponseHandlerDelegate>
 @end
 
 @implementation User
