@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "STMMessage.h"
+#import "STMNetworking.h"
 
 @protocol MessagesDelegate <NSObject>
 
