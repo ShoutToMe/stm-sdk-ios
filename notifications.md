@@ -147,7 +147,7 @@ For more information, visit the [Apple Notification Programming Guide](https://d
 ### Enabling/Disabling Notifications
 To enable or disable notifications at the user's request, add code that subscribes/unsubscribes to/from the specified channel.  The following code sample shows how to accomplish this.
 
-#### Subscribe to a channel
+#### Subscribe to / unsubscribe from a channel
 
 ```objc
 [[STM user] subscribeTo:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
@@ -161,7 +161,6 @@ To enable or disable notifications at the user's request, add code that subscrib
 ```
 
 ```objc
-#### Unsubscribe from a channel
 [[STM user] unsubscribeFrom:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred unsubscribing from channel");
@@ -172,7 +171,7 @@ To enable or disable notifications at the user's request, add code that subscrib
 }];
 ```
 
-#### Subscribe to a topic
+#### Follow / unfollow a topic
 The Shout to Me system allows users to follow specific topics.  These examples show how to programmatically opt in and out of topics.
 
 ```objc
@@ -187,7 +186,6 @@ The Shout to Me system allows users to follow specific topics.  These examples s
 ```
 
 ```objc
-#### Opt out of a topic
 [[STM user] removeTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
     if (error) {
          NSLog(@"Error occurred unfollowing from topic");
