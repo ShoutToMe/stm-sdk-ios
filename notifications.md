@@ -150,25 +150,55 @@ To enable or disable notifications at the user's request, add code that subscrib
 #### Subscribe to a channel
 
 ```objc
-[[STM subscriptions] requestForSubscribe:(NSString *)channelId completionHandler:^(STMSubscription *subscription, NSError *error) {
+[[STM user] subscribeTo:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred subscribing to channel");
     } else {
-         NSLog(@"Subscribe succeeded");
+         NSArray<NSString *> *channelSubscriptionsArray = channelSubscriptions;
+         NSLog(@"Subscribe succeeded. New list of subscriptions: %@", channelSubscriptionsArray);
     }
 }];
 ```
 
 ```objc
 #### Unsubscribe from a channel
-[[STM subscriptions] requestForUnSubscribe:(NSString *)channelId completionHandler:^(Boolean *successful, NSError *error) {
+[[STM user] unsubscribeFrom:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred unsubscribing from channel");
     } else {
-         NSLog(@"Unsubscribe succeeded");
+         NSArray<NSString *> *channelSubscriptionsArray = channelSubscriptions;
+         NSLog(@"Unsubscribe succeeded. New list of subscriptions: %@", channelSubscriptionsArray);
     }
 }];
 ```
+
+#### Subscribe to a topic
+The Shout to Me system allows users to follow specific topics.  These examples show how to programmatically opt in and out of topics.
+
+```objc
+[[STM user] addTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+    if (error) {
+         NSLog(@"Error occurred following to topic");
+    } else {
+         NSArray<NSString *> *topicPreferencesArray = topicPreferences;
+         NSLog(@"New list of topic preferences: %@", topicPreferencesArray);
+    }
+}];
+```
+
+```objc
+#### Opt out of a topic
+[[STM user] removeTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+    if (error) {
+         NSLog(@"Error occurred unfollowing from topic");
+    } else {
+         NSArray<NSString *> *topicPreferencesArray = topicPreferences;
+         NSLog(@"New list of topic preferences: %@", topicPreferencesArray);
+    }
+}];
+```
+
+
 
 ### Notification Events
 
@@ -248,12 +278,10 @@ on other types of notifications you receive, however, a simple registration is s
 -(void)STMNotificationsReceived:(NSSet *)notification {
 
     // Each set can include 1 or more notifications.  Each notification is represented as a dictionary with the following fields:
-    // @"body":             Typically the body of a UI notification
-    // @"category":         @"MESSAGE_CATEGORY" for message notifications
+    // @"alert":            Typically the body of a UI notification
+    // @"category":         @"SHOUTTOME_MESSAGE" the identifier that alerts the Shout to Me SDK to act on the message
     // @"channel_id":       Your channel ID - necessary for apps containing multiple channels
-    // @"conversation_id":  The Shout to Me conversation ID which can be used to retrieve more detailed data from the Shout to Me API
-    // @"title":            Typically the title of a UI notification
-    // @"type":             @"conversation message" for notifications directed at a whole channel or @"user message" for messages directed to a specific user
+    // @"message_type":             @"conversation message" for notifications directed at a whole channel or @"user message" for messages directed to a specific user
     // @"message_id":       The ID of the message stored in the Shout to Me system.
 }
 ```
