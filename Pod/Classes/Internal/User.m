@@ -312,3 +312,65 @@ __strong static User *singleton = nil;
 }
 
 @end
+
+@implementation UserLocation
+
+@synthesize timestamp;
+@synthesize lat;
+@synthesize lon;
+
+NSString *fingerprint;
+NSString *const STM_USER_DEFAULTS_FINGERPRINT_KEY = @"me.shoutto.sdk.UserLocation.fingerprint";
+
+- (id)init
+{
+    self = [super init];
+    
+    if (self) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        fingerprint = [userDefaults stringForKey:STM_USER_DEFAULTS_FINGERPRINT_KEY];
+        if (!fingerprint) {
+            fingerprint = [[NSUUID UUID] UUIDString];
+            [userDefaults setObject:fingerprint forKey:STM_USER_DEFAULTS_FINGERPRINT_KEY];
+        }
+    }
+    
+    return self;
+}
+
+- (void)update
+{
+    NSDictionary *mapData = @{
+                              @"location": @{
+                                      @"type": @"circle",
+                                      @"coordinates": @[ [NSNumber numberWithDouble:[self lon]], [NSNumber numberWithDouble:[self lat]] ],
+                                      @"radius": [NSString stringWithFormat:@"%f", STM_USER_GEOFENCE_RADIUS]
+                                      },
+                              @"date": [self getUTCFormateDate]
+                              };
+    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
+                        [Settings controller].strServerURL,
+                        SERVER_CMD_PERSONALIZE,
+                        [UserData controller].user.strUserID,
+                        SERVER_CMD_LOCATION];
+    NSURL *url = [NSURL URLWithString:strUrl];
+    STMUploadRequest *uploadRequest = [STMUploadRequest new];
+    [uploadRequest send:mapData toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:nil];
+}
+
+- (NSString *)getUTCFormateDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    NSString *dateString = [dateFormatter stringFromDate:[self timestamp]];
+    return dateString;
+}
+
+#pragma mark - STMHTTPResponseHandlerDelegate
+- (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    NSLog(@"UserLocation sent %@", responseData);
+}
+@end

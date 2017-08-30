@@ -25,12 +25,12 @@
 + (MonitoredConversations *)controller;
 
 
-- (void)addMonitoredRegion:(CLCircularRegion *)region;
-- (void)removeMonitoredConversation:(CLCircularRegion *)region;
-- (void)removeAllMonitoredConversations;
+- (void)addMonitoredRegion:(CLCircularRegion *)region __deprecated;
+- (void)removeMonitoredConversation:(CLCircularRegion *)region __deprecated;
+- (void)removeAllMonitoredConversations __deprecated;
 
-- (void)addMonitoredConversation:(STMConversation *)conversation;
+- (void)addMonitoredConversation:(STMConversation *)conversation __deprecated;
 
-- (void)save;
+- (void)save __deprecated;
 
 @end

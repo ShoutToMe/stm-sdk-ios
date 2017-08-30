@@ -45,6 +45,7 @@
 #define SERVER_CMD_GET_SUBSCRIPTIONS            @"subscriptions"
 #define SERVER_CMD_CHANNEL_SUBSCRIPTION         @"channel_subscription"
 #define SERVER_CMD_TOPIC_PREFERENCE             @"topic_preference"
+#define SERVER_CMD_LOCATION                     @"location"
 
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
 #define SERVER_PHONE_NUMBER_KEY                 @"phone"
