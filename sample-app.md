@@ -45,7 +45,7 @@ below to create your own sample app.
   [STM initWithAccessToken:@"STM_ACCESS_TOKEN" andApplication:application andDelegate:self];
 
   // Optional, this will setup notifications from ShoutToMe (additional steps are required. See the Messages and Notifications section in documentation)
-  [STM setupNotificationsWithApplication:application pushNotificationAppId:@"PUSH_NOTIFICATION_APP_ID"];
+  [STM setupPushNotificationsWithAppId:@"PUSH_NOTIFICATION_APP_ID"];
 
   // Set your channel Id
   [STM setChannelId:@"CHANNEL_ID"];

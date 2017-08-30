@@ -67,10 +67,6 @@ Follow these steps to retrieve messages:
 - (void)MessagesResults:(NSArray *)arrayMessages
 {
     // Do something with arrayMessages, load them into a table view data source, etc.
-
-    // Update the user's LastReadMessages date
-    // This method must be called to ensure that requestForUnreadMessageCountWithDelegate stays in sync with what the user has actually seen
-    [[STM signIn] setLastReadMessages:[NSDate date] withDelegate:self];
 }
 ```
 
@@ -131,15 +127,11 @@ is sent from the Shout to Me system:
 4. The Shout to Me SDK processes the notification data and calls a listener if applicable
 5. A listener in the client app receives the call from the Shout to Me SDK and can take further action using the data
 
-### Amazon AWS configuration
-Shout to Me's notification systems uses the Amazon AWS SNS platform.  As such, the Shout to Me SDK includes the AWS iOS SDK and must be configured properly to work. Add the following sections to your info.plist file.  (Note: If you already use the AWS iOS SDK and have conflicting values in your configuration, contact Shout to Me support.)
-
-![AWS configuration](images/aws-config.png)
-
 ### Enable Project Capabilities
-In your project Capabilities tab in Xcode, enable Push Notifications and Background Modes. Under Background Modes select Location Updates and Remote Notifications.
-(Note: The Location Updates mode allows the Shout to Me SDK to manage location based messages. Location services are
-only turned on for notifications when the number of pending location based messages exceeds the maximum number of iOS geofences allowed.)
+In your project Capabilities tab in Xcode, enable Push Notifications and Background Modes. Under Background Modes select Location Updates.
+Location Updates allows the Shout to Me SDK to monitor the user's location in the background in order to delivery geo-targeted messages.
+The Shout to Me SDK uses Apple's [Significant Change Location Service](https://developer.apple.com/documentation/corelocation/getting_the_user_s_location/using_the_significant_change_location_service)
+to minimize power consumption.
 
 ![Push Notifications in Xcode](images/push-notifications.png)
 
