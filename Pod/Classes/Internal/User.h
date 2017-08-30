@@ -45,3 +45,13 @@
 - (BOOL)isFollowingTopic:(NSString *_Nonnull)topic;
 
 @end
+
+@interface UserLocation : NSObject <STMHTTPResponseHandlerDelegate>
+
+@property NSDate * _Nonnull timestamp;
+@property double lat;
+@property double lon;
+
+- (void)update;
+
+@end

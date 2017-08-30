@@ -271,7 +271,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (void)setupLifeCycleEvents {
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         appIsStarting = NO;
-        [[STM location] syncMonitoredRegions];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -281,6 +280,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         appIsStarting = YES;
+        [[STM location] processGeofenceUpdate];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {

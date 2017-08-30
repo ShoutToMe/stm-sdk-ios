@@ -16,8 +16,6 @@
 
 @property (nonatomic, strong, nullable) CLLocationManager	*locationManager;
 @property (nonatomic, strong, nullable) CLLocation        *curLocation;
-@property (nonatomic, assign) BOOL              bHaveLocation;
-@property (nonatomic, assign) BOOL              bIsMonitoringSignificantLocationChanges;
 
 // static methods
 + (void)initAll;
@@ -28,12 +26,16 @@
 - (void)stop;
 - (double)speed;
 - (double)course;
-- (BOOL)locationServicesEnabled;
-- (void)startMonitoringForRegion:(CLCircularRegion * _Nonnull)region;
-- (void)stopMonitoringForRegion:(CLCircularRegion * _Nonnull)region;
-- (void)syncMonitoredRegions;
-- (void)syncMonitoredRegionsWithCompletionHandler:(void (^_Nullable)(void))completionHandler;
+- (void)processGeofenceUpdate;
 
+@end
+
+@interface STMGeofence : CLCircularRegion
+
+- (instancetype _Nullable )initWithCenter:(CLLocationCoordinate2D)center;
+
+extern NSString * _Nonnull const STMGeofenceIdentifier;
+extern CLLocationDistance const STMGeofenceRadius;
 
 
 @end
