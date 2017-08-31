@@ -150,7 +150,7 @@ To enable or disable notifications at the user's request, add code that subscrib
 #### Subscribe to / unsubscribe from a channel
 
 ```objc
-[[STM user] subscribeTo:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+[[STM user] subscribeTo:@"my-channel-id" withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred subscribing to channel");
     } else {
@@ -161,7 +161,7 @@ To enable or disable notifications at the user's request, add code that subscrib
 ```
 
 ```objc
-[[STM user] unsubscribeFrom:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+[[STM user] unsubscribeFrom:@"my-channel-id" withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred unsubscribing from channel");
     } else {
@@ -175,7 +175,7 @@ To enable or disable notifications at the user's request, add code that subscrib
 The Shout to Me system allows users to follow specific topics.  These examples show how to programmatically opt in and out of topics.
 
 ```objc
-[[STM user] addTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+[[STM user] addTopicPreference:@"sports" withCompletionHandler:^(NSError *error, id topicPreferences) {
     if (error) {
          NSLog(@"Error occurred following to topic");
     } else {
@@ -186,7 +186,7 @@ The Shout to Me system allows users to follow specific topics.  These examples s
 ```
 
 ```objc
-[[STM user] removeTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+[[STM user] removeTopicPreference:@"sports" withCompletionHandler:^(NSError *error, id topicPreferences) {
     if (error) {
          NSLog(@"Error occurred unfollowing from topic");
     } else {
@@ -196,6 +196,32 @@ The Shout to Me system allows users to follow specific topics.  These examples s
 }];
 ```
 
+#### Replacement methods
+If you wish to replace the list of channel subscriptions or topics in batch, you can use these methods
+
+```objc
+// Replace all channel subscriptions
+NSArray<NSString *> *newChannelIds = @[ @"channel1-id", @"channel2-id" ];
+[[STM user] setChannelSubscriptions:(NSArray<NSString *>*)newChannelIds withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+    if (error) {
+         NSLog(@"Error occurred setting channel subscriptions");
+    } else {
+         NSArray<NSString *> *channelSubscriptionsArray = channelSubscriptions;
+         NSLog(@"Subscribe succeeded. New list of subscriptions: %@", channelSubscriptionsArray);
+    }
+}];
+
+// Replace all topics
+NSArray<NSString *> *newTopics = @[ @"sports", @"politics" ];
+[[STM user] setTopicPreferences:newTopics withCompletionHandler:^(NSError *error, id topicPreferences) {
+    if (error) {
+         NSLog(@"Error occurred setting topic preferences");
+    } else {
+         NSArray<NSString *> *topicPreferencesArray = topicPreferences;
+         NSLog(@"New list of topic preferences: %@", topicPreferencesArray);
+    }
+}];
+```
 
 
 ### Notification Events
