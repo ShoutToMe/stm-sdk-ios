@@ -202,7 +202,7 @@ If you wish to replace the list of channel subscriptions or topics in batch, you
 ```objc
 // Replace all channel subscriptions
 NSArray<NSString *> *newChannelIds = @[ @"channel1-id", @"channel2-id" ];
-[[STM user] setChannelSubscriptions:(NSArray<NSString *>*)newChannelIds withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+[[STM user] setChannelSubscriptions:newChannelIds withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {
          NSLog(@"Error occurred setting channel subscriptions");
     } else {
