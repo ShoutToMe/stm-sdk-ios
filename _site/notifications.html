@@ -217,7 +217,7 @@ For more information, visit the <a href="https://developer.apple.com/library/con
 <h4 id="subscribe-to--unsubscribe-from-a-channel">Subscribe to / unsubscribe from a channel</h4>
 
 <p><code>objc
-[[STM user] subscribeTo:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+[[STM user] subscribeTo:@"my-channel-id" withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred subscribing to channel");
     } else {
@@ -228,7 +228,7 @@ For more information, visit the <a href="https://developer.apple.com/library/con
 </code></p>
 
 <p><code>objc
-[[STM user] unsubscribeFrom:(NSString *)channelId withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+[[STM user] unsubscribeFrom:@"my-channel-id" withCompletionHandler:^(NSError *error, id channelSubscriptions) {
     if (error) {    
          NSLog(@"Error occurred unsubscribing from channel");
     } else {
@@ -242,7 +242,7 @@ For more information, visit the <a href="https://developer.apple.com/library/con
 <p>The Shout to Me system allows users to follow specific topics.  These examples show how to programmatically opt in and out of topics.</p>
 
 <p><code>objc
-[[STM user] addTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+[[STM user] addTopicPreference:@"sports" withCompletionHandler:^(NSError *error, id topicPreferences) {
     if (error) {
          NSLog(@"Error occurred following to topic");
     } else {
@@ -253,7 +253,7 @@ For more information, visit the <a href="https://developer.apple.com/library/con
 </code></p>
 
 <p><code>objc
-[[STM user] removeTopicPreference:(NSString *)topic withCompletionHandler:^(NSError *error, id topicPreferences) {
+[[STM user] removeTopicPreference:@"sports" withCompletionHandler:^(NSError *error, id topicPreferences) {
     if (error) {
          NSLog(@"Error occurred unfollowing from topic");
     } else {
@@ -262,6 +262,33 @@ For more information, visit the <a href="https://developer.apple.com/library/con
     }
 }];
 </code></p>
+
+<h4 id="replacement-methods">Replacement methods</h4>
+<p>If you wish to replace the list of channel subscriptions or topics in batch, you can use these methods</p>
+
+<p>```objc
+// Replace all channel subscriptions
+NSArray&lt;NSString *&gt; *newChannelIds = @[ @”channel1-id”, @”channel2-id” ];
+[[STM user] setChannelSubscriptions:newChannelIds withCompletionHandler:^(NSError *error, id channelSubscriptions) {
+    if (error) {
+         NSLog(@”Error occurred setting channel subscriptions”);
+    } else {
+         NSArray&lt;NSString *&gt; *channelSubscriptionsArray = channelSubscriptions;
+         NSLog(@”Subscribe succeeded. New list of subscriptions: %@”, channelSubscriptionsArray);
+    }
+}];</p>
+
+<p>// Replace all topics
+NSArray&lt;NSString *&gt; *newTopics = @[ @”sports”, @”politics” ];
+[[STM user] setTopicPreferences:newTopics withCompletionHandler:^(NSError *error, id topicPreferences) {
+    if (error) {
+         NSLog(@”Error occurred setting topic preferences”);
+    } else {
+         NSArray&lt;NSString *&gt; *topicPreferencesArray = topicPreferences;
+         NSLog(@”New list of topic preferences: %@”, topicPreferencesArray);
+    }
+}];
+```</p>
 
 <h3 id="notification-events">Notification Events</h3>
 
