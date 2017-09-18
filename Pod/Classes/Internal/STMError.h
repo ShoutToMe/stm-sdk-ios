@@ -28,6 +28,7 @@ typedef enum eErrorCategory
 {
     ErrorCategory_Unknown,
     ErrorCategory_Internal,
+    ErrorCategory_Location,
     ErrorCategory_Network,
     ErrorCategory_VoiceCmd,
     ErrorCategory_Analytics

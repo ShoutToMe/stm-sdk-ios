@@ -154,10 +154,13 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 - (void)processGeofenceUpdate
 {
     if (!updateLocationTimer) {
+        
         if (![self deviceSupportsRegionMonitoring]) {
             NSLog(@"Region monitoring not supported or always authorizationStatus not set.");
             return;
         }
+        
+        self.curLocation = nil;
         
         // Start location listening
         [self.locationManager startUpdatingLocation];
@@ -184,9 +187,24 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     if (updateLocationTimer) {
         [self setLocation:location];
     } else if (![self locationInGeofenceAreaWithLocation:location]) {
+
+        // [self sendSignificantLocationNotInGeofenceEmail:location];
+        
         [self deleteGeofence];
         [self processGeofenceUpdate];
     }
+}
+
+- (void)sendSignificantLocationNotInGeofenceEmail:(CLLocation *)location {
+    NSString *locationCoordinates = [NSString stringWithFormat:@"%f, %f", location.coordinate.latitude, location.coordinate.longitude];
+    NSString *geofenceCoordinates = @"";
+    CLCircularRegion *region = [self findSTMGeofence];
+    if (region) {
+        geofenceCoordinates = [NSString stringWithFormat:@"%f, %f", region.center.latitude, region.center.longitude];
+    }
+    NSString *locationData = [NSString stringWithFormat:@"Current location: %@ | Geofence location: %@", locationCoordinates, geofenceCoordinates];
+    
+    [[STMError controller] logErrorWithCategory:ErrorCategory_Location withSeverity:ErrorSeverity_Warning andDescription:@"User not in geofence" andDetails:@"Significant Change Location Service detected that user was not within the current geofence bounds" andRequest:nil andRequestData:nil andResults:locationData inFunction:[NSString stringWithUTF8String:__func__] inSource:[NSString stringWithUTF8String:__FILE__] onLine:(int)__LINE__];
 }
 
 #pragma mark - Timer methods
@@ -281,7 +299,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     if (self.curLocation) {
         NSTimeInterval secondsSinceLastUpdate = fabs([location.timestamp timeIntervalSinceDate:self.curLocation.timestamp]);
-        if (location.horizontalAccuracy < self.curLocation.horizontalAccuracy || secondsSinceLastUpdate > RECENT_UPDATE_MAX_SECONDS) {
+        if (location.horizontalAccuracy <= self.curLocation.horizontalAccuracy || secondsSinceLastUpdate > RECENT_UPDATE_MAX_SECONDS) {
             [self setCurLocation:location];
         }
     } else {
