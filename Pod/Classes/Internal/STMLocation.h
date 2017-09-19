@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong, nullable) CLLocationManager	*locationManager;
 @property (nonatomic, strong, nullable) CLLocation        *curLocation;
+@property (nonatomic, strong, nullable) CLLocation        *prevLocation;
 
 // static methods
 + (void)initAll;

@@ -340,22 +340,26 @@ NSString *const STM_USER_DEFAULTS_FINGERPRINT_KEY = @"me.shoutto.sdk.UserLocatio
 
 - (void)update
 {
-    NSDictionary *mapData = @{
-                              @"location": @{
-                                      @"type": @"circle",
-                                      @"coordinates": @[ [NSNumber numberWithDouble:[self lon]], [NSNumber numberWithDouble:[self lat]] ],
-                                      @"radius": [NSString stringWithFormat:@"%f", STM_USER_GEOFENCE_RADIUS]
-                                      },
-                              @"date": [self getUTCFormateDate]
-                              };
+    NSMutableDictionary *requestData = [NSMutableDictionary new];
+    [requestData setObject:@{
+                             @"type": @"circle",
+                             @"coordinates": @[ [NSNumber numberWithDouble:self.lon], [NSNumber numberWithDouble:self.lat]],
+                             @"radius": [NSString stringWithFormat:@"%f", STM_USER_GEOFENCE_RADIUS]
+                             } forKey:@"location"];
+    [requestData setObject:[self getUTCFormateDate] forKey:@"date"];
+    if (self.metersSinceLastUpdate) {
+        [requestData setObject:self.metersSinceLastUpdate forKey:@"meters_since_last_update"];
+    }
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
                         [Settings controller].strServerURL,
                         SERVER_CMD_PERSONALIZE,
                         [UserData controller].user.strUserID,
                         SERVER_CMD_LOCATION];
     NSURL *url = [NSURL URLWithString:strUrl];
+    
     STMUploadRequest *uploadRequest = [STMUploadRequest new];
-    [uploadRequest send:mapData toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:nil];
+    [uploadRequest send:requestData toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:nil];
 }
 
 - (NSString *)getUTCFormateDate
@@ -371,6 +375,6 @@ NSString *const STM_USER_DEFAULTS_FINGERPRINT_KEY = @"me.shoutto.sdk.UserLocatio
 #pragma mark - STMHTTPResponseHandlerDelegate
 - (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
-    NSLog(@"UserLocation sent %@", responseData);
+    NSLog(@"UserLocation response %@", responseData);
 }
 @end

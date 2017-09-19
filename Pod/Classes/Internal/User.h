@@ -51,6 +51,7 @@
 @property NSDate * _Nonnull timestamp;
 @property double lat;
 @property double lon;
+@property NSNumber * _Nullable metersSinceLastUpdate;
 
 - (void)update;
 
