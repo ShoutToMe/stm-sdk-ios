@@ -36,6 +36,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 
 @synthesize locationManager = m_locationManager;
 @synthesize curLocation = m_curLocation;
+@synthesize prevLocation = m_prevLocation;
 
 #pragma mark - Static Methods
 
@@ -74,6 +75,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     if (self) 
 	{
         self.curLocation = nil;
+        self.prevLocation = nil;
         _lastValidCourse = -1;
         _lastValidSpeed = -1;
         if (!self.locationManager)
@@ -94,6 +96,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     self.locationManager = nil;
     self.curLocation = nil;
+    self.prevLocation = nil;
 }
 
 #pragma mark - Public Methods
@@ -137,6 +140,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         [self deleteGeofence];
     }
     self.curLocation = nil;
+    self.prevLocation = nil;
     _lastValidCourse = -1;
     _lastValidSpeed = -1;
 }
@@ -160,6 +164,7 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
             return;
         }
         
+        self.prevLocation = self.curLocation;
         self.curLocation = nil;
         
         // Start location listening
@@ -222,12 +227,13 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 {
     [self.locationManager stopUpdatingLocation];
     updateLocationTimer = nil;
-    [self createGeofence];
+    
     [self updateUserLocation];
+    
+    [self createGeofence];
 }
 
 #pragma mark - Client notification methods
-// TODO: Not sure which ones we'll need or not
 
 - (void)announceUpdate:(STMGeofence *)stmGeofence
 {
@@ -329,6 +335,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         [userLocation setTimestamp:self.curLocation.timestamp];
         [userLocation setLat:self.curLocation.coordinate.latitude];
         [userLocation setLon:self.curLocation.coordinate.longitude];
+        
+        if (self.prevLocation) {
+            [userLocation setMetersSinceLastUpdate:[NSNumber numberWithDouble:[self.curLocation distanceFromLocation:self.prevLocation]]];
+        }
+        
         [userLocation update];
     }
 }
