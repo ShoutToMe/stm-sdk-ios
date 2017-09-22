@@ -159,7 +159,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 - (void) startSignificantLocationChangeUpdates {
     if (self.locationManager && !self.bIsMonitoringSignificantLocationChanges)
     {
-        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
         [self.locationManager startMonitoringSignificantLocationChanges];
         self.bIsMonitoringSignificantLocationChanges = YES;
     }
@@ -169,7 +168,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     if (self.locationManager && self.bIsMonitoringSignificantLocationChanges)
     {
         [self.locationManager stopMonitoringSignificantLocationChanges];
-        [self.locationManager setAllowsBackgroundLocationUpdates:NO];
         self.bIsMonitoringSignificantLocationChanges = NO;
     }
 }
