@@ -145,6 +145,23 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     _lastValidSpeed = -1;
 }
 
+- (void) startSignificantLocationChangeUpdates {
+    if (self.locationManager && !self.bIsMonitoringSignificantLocationChanges)
+    {
+        [self.locationManager startMonitoringSignificantLocationChanges];
+        self.bIsMonitoringSignificantLocationChanges = YES;
+    }
+}
+
+- (void)stopSignificantLocationChangeUpdates {
+    if (self.locationManager && self.bIsMonitoringSignificantLocationChanges)
+    {
+        [self.locationManager stopMonitoringSignificantLocationChanges];
+        self.bIsMonitoringSignificantLocationChanges = NO;
+    }
+}
+
+// get the current speed
 - (double)speed
 {
     return _lastValidSpeed;

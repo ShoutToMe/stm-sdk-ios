@@ -519,7 +519,7 @@ typedef enum eVoiceCmdAfterSound
         tVoiceCmdSound sound = VoiceCmdSound_None;
         tVoiceCmdAfterSound cmdAfterSound = VoiceCmdAfterSound_None;
         
-        if (true)
+        if (/* DISABLES CODE */ (true))
         {
             if (self.results.buttonTouched != VoiceCmdButton_None)
             {
