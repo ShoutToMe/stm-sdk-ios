@@ -4,24 +4,20 @@ PODS:
     - AWSCore (= 2.6.1)
   - AWSSNS (2.6.1):
     - AWSCore (= 2.6.1)
-  - STM (0.0.48):
+  - STM (0.1.0):
     - AWSCore (~> 2.5)
     - AWSS3 (~> 2.5)
     - AWSSNS (~> 2.5)
 
 DEPENDENCIES:
-  - STM (from `../`)
-
-EXTERNAL SOURCES:
-  STM:
-    :path: ../
+  - STM (~> 0.1.0)
 
 SPEC CHECKSUMS:
   AWSCore: e7d37fa0715def975acf1b0d75556576780088b8
   AWSS3: 2e18ede28199a5530955dc1a65434da43dcc4d2c
   AWSSNS: c92b66ebd6f434ae106d3ba49f9432436daba37e
-  STM: 00aac4db8e99e99a71d0c26d16de49d029c14f0d
+  STM: 418be6a01515b45de382a8fbbaf07ff50e406bee
 
-PODFILE CHECKSUM: a5122e996f6721b34923aef14532c64680a9d6be
+PODFILE CHECKSUM: d77d902320b439feeca265d2606cfb009414c0b3
 
 COCOAPODS: 1.3.1
