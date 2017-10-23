@@ -13,7 +13,7 @@
 #import "Server.h"
 #import "Utils.h"
 
-#define USER_DATA_VERSION   6  // what version is this object (increased any time new items are added or existing items are changed)
+#define USER_DATA_VERSION   7  // what version is this object (increased any time new items are added or existing items are changed)
 
 #define KEY_USER_DATA_VERSION           @"UserDataVer"
 #define KEY_USER_VERIFIED               @"UserVerified"
@@ -22,8 +22,9 @@
 #define KEY_USER_PHONE_NUMBER           @"UserPhoneNumber"
 #define KEY_USER_USER_ID                @"UserUserId"
 #define KEY_USER_HANDLE                 @"UserHandle"
-#define KEY_USER_LAST_VIEWED_MESSAGES   @"UserLastViewedMessages"
 #define KEY_PLATFORM_ENDPOINT_ARN       @"UserPlatformEndpointARN"
+#define KEY_USER_CHANNEL_SUBSCRIPTIONS  @"UserChannelSubscriptions"
+#define KEY_USER_TOPIC_PREFERENCES      @"UserTopicPreferences"
 
 @interface STMUser ()
 {
@@ -47,8 +48,9 @@
         self.strPhoneNumber = @"";
         self.strUserID = @"";
         self.strHandle = @"";
-        self.dateLastReadMessages = [NSDate date];
         self.strPlatformEndpointArn = @"";
+        self.channelSubscriptions = [NSArray new];
+        self.topicPreferences = [NSArray new];
     }
     return self;
 }
@@ -61,14 +63,13 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, Email: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, LastViewedMessages: %@, PlatformEndpointARN: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, Email: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, PlatformEndpointARN: %@",
             self.strUserID,
             self.strHandle,
             self.strEmail,
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
-            self.dateLastReadMessages,
             self.strPlatformEndpointArn
             ]);
 }
@@ -127,16 +128,6 @@
             {
                 self.strHandle = @"";
             }
-            
-            NSDate  *dateVal = [aDecoder decodeObjectForKey:KEY_USER_LAST_VIEWED_MESSAGES];
-            if (dateVal)
-            {
-                self.dateLastReadMessages = dateVal;
-            }
-            else
-            {
-                self.dateLastReadMessages = [NSDate date];
-            }
 
             strVal = [aDecoder decodeObjectForKey:KEY_PLATFORM_ENDPOINT_ARN];
             if (strVal)
@@ -146,6 +137,26 @@
             else
             {
                 self.strPlatformEndpointArn = @"";
+            }
+            
+            NSArray *channelSubscriptions = [aDecoder decodeObjectForKey:KEY_USER_CHANNEL_SUBSCRIPTIONS];
+            if (channelSubscriptions)
+            {
+                self.channelSubscriptions = channelSubscriptions;
+            }
+            else
+            {
+                self.channelSubscriptions = [NSArray new];
+            }
+            
+            NSArray *topicPreferences = [aDecoder decodeObjectForKey:KEY_USER_TOPIC_PREFERENCES];
+            if (topicPreferences)
+            {
+                self.topicPreferences = topicPreferences;
+            }
+            else
+            {
+                self.topicPreferences = [NSArray new];
             }
         }
     }
@@ -162,8 +173,9 @@
     [aCoder encodeObject:self.strPhoneNumber forKey:KEY_USER_PHONE_NUMBER];
     [aCoder encodeObject:self.strUserID forKey:KEY_USER_USER_ID];
     [aCoder encodeObject:self.strHandle forKey:KEY_USER_HANDLE];
-    [aCoder encodeObject:self.dateLastReadMessages forKey:KEY_USER_LAST_VIEWED_MESSAGES];
     [aCoder encodeObject:self.strPlatformEndpointArn forKey:KEY_PLATFORM_ENDPOINT_ARN];
+    [aCoder encodeObject:self.channelSubscriptions forKey:KEY_USER_CHANNEL_SUBSCRIPTIONS];
+    [aCoder encodeObject:self.topicPreferences forKey:KEY_USER_TOPIC_PREFERENCES];
 }
 
 #pragma mark - Misc Methods
@@ -178,9 +190,18 @@
         self.strEmail = [Utils stringFromKey:SERVER_RESULTS_USER_EMAIL_KEY inDictionary:dict];
         self.strPhoneNumber = [Utils stringFromKey:SERVER_PHONE_NUMBER_KEY inDictionary:dict];
         self.bVerified = [Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dict];
-        self.dateLastReadMessages = [Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY inDictionary:dict]];
         if ([dict objectForKey:SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY] != nil) {
             self.strPlatformEndpointArn = [Utils stringFromKey:SERVER_RESULTS_PLATFORM_ENDPOINT_ARN_KEY inDictionary:dict];
+        }
+        
+        NSArray *channelSubscriptions = [dict objectForKey:SERVER_RESULTS_CHANNEL_SUBSCRIPTIONS];
+        if (channelSubscriptions) {
+            self.channelSubscriptions = channelSubscriptions;
+        }
+        
+        NSArray *topicPreferences = [dict objectForKey:SERVER_RESULTS_TOPIC_PREFERENCES];
+        if (topicPreferences) {
+            self.topicPreferences = topicPreferences;
         }
     }
 }

@@ -524,7 +524,7 @@ __strong static Shout *singleton = nil; // this will be the one and only object 
     }
 }
 
-#pragma mark - STMUploadResponseHandlerDelegate
+#pragma mark - STMHTTPResponseHandlerDelegate
 - (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
     STMShout *shout = [[STMShout alloc] initWithDictionary:[responseData objectForKey:SERVER_RESULTS_SHOUT_KEY]];

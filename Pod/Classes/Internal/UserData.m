@@ -194,6 +194,8 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
         [self.user setStrUserID:@""];
         [self.user setStrHandle:@""];
         [self.user setStrPlatformEndpointArn:@""];
+        [self.user setChannelSubscriptions:[NSArray new]];
+        [self.user setTopicPreferences:[NSArray new]];
         [self save];
     }
 
@@ -323,13 +325,20 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
     [self save];
 }
 
-- (void)setLastReadMessages:(NSDate *)date {
-    self.user.dateLastReadMessages = date;
+- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn {
+    self.user.strPlatformEndpointArn = platformEndpointArn;
     [self save];
 }
 
-- (void)setPlatformEndpointArn:(NSString *)platformEndpointArn {
-    self.user.strPlatformEndpointArn = platformEndpointArn;
+- (void)setChannelSubscriptions:(NSArray<NSString *> *)channelIds
+{
+    self.user.channelSubscriptions = channelIds;
+    [self save];
+}
+
+- (void)setTopicPreferences:(NSArray<NSString *> *)topics
+{
+    self.user.topicPreferences = topics;
     [self save];
 }
 

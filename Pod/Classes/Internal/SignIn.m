@@ -25,7 +25,6 @@ typedef enum eSignInRequestType
     SignInRequestType_SignUp,
     SignInRequestType_VerifyAccount,
     SignInRequestType_SetHandle,
-    SignInRequestType_SetLastReadMessages,
     SignInRequestType_SetPlatformEndpointARN,
     SignInRequestType_VerificationCode,
     SignInRequestType_CheckAuthCode
@@ -181,10 +180,6 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
             {
                 [[UserData controller].user setBVerified:[Utils boolFromKey:SERVER_RESULTS_VERIFIED_KEY inDictionary:dictUser]];
             }
-            NSDate *dateLastViewedMessages = [dictUser objectForKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY];
-            if (dateLastViewedMessages) {
-                [[UserData controller].user setDateLastReadMessages:[Utils dateFromString:[Utils stringFromKey:SERVER_RESULTS_LAST_READ_MESSAGES_KEY inDictionary:dictUser]]];
-            }
             NSString *strAffiliateID = [dictUser objectForKey:SERVER_RESULTS_AFFILIATE_KEY];
             if (strAffiliateID)
             {
@@ -252,6 +247,16 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
                     }
                 }
                  */
+            }
+            
+            NSArray *arrChannelSubscriptions = [dictUser objectForKey:SERVER_RESULTS_CHANNEL_SUBSCRIPTIONS];
+            if (arrChannelSubscriptions) {
+                [[UserData controller].user setChannelSubscriptions:arrChannelSubscriptions];
+            }
+            
+            NSArray *arrTopicPreferences = [dictUser objectForKey:SERVER_RESULTS_TOPIC_PREFERENCES];
+            if (arrTopicPreferences) {
+                [[UserData controller].user setTopicPreferences:arrTopicPreferences];
             }
 
             [Settings saveAll];
@@ -646,45 +651,6 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
         [uploadTask resume];
     } else {
         completionHandler(error);
-    }
-}
-
-- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate {
-    if (self.request == nil)
-    {
-        NSString *strDate = [Utils getISO8601String:date];
-        [[UserData controller] setLastReadMessages:date];
-        
-        self.request = [[SignInRequest alloc] init];
-        self.request.delegate = delegate;
-        self.request.type = SignInRequestType_SetLastReadMessages;
-        
-        // set the json data
-        self.request.dictRequestData = [[NSMutableDictionary alloc] initWithDictionary:@{ SERVER_LAST_READ_MESSAGES_KEY : strDate }];
-        NSError *error = nil;
-        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:self.request.dictRequestData options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *strJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
-        
-        self.request.strRequestURL = [NSString stringWithFormat:@"%@/%@/%@",
-                                      [Settings controller].strServerURL,
-                                      SERVER_CMD_PERSONALIZE,
-                                      [UserData controller].user.strUserID
-                                      ];
-        //NSLog(@"Personalize: Query = %@, JSON = %@", strServerQuery, strJSON);
-        
-        [[DL_URLServer controller] issueRequestURL:self.request.strRequestURL
-                                        methodType:DL_URLRequestMethod_Put
-                                        withParams:strJSON
-                                        withObject:self.request
-                                      withDelegate:self
-                                acceptableCacheAge:DL_URLSERVER_CACHE_AGE_NEVER
-                                       cacheResult:NO
-                                       contentType:CONTENT_TYPE
-                                    headerRequests:[[UserData controller] dictStandardRequestHeaders]];
-    }
-    else
-    {
-        [self sendResult:STMSignInResult_AlreadyServicing toDelegate:delegate];
     }
 }
 

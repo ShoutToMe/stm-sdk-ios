@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol STMUploadResponseHandlerDelegate <NSObject>
+@protocol STMHTTPResponseHandlerDelegate <NSObject>
 
 - (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler;
 
@@ -26,12 +26,44 @@
 
 @end
 
-@interface STMUploadRequest : NSObject <NSURLSessionDataDelegate, STMBackgroundSession>
+@interface STMServerResponse : NSObject
 
-@property id<STMUploadResponseHandlerDelegate> delegate;
+@property NSError *error;
+@property NSDictionary *responseDict;
 
-- (void)send:(NSDictionary *)data toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseHandlerDelegate:(id<STMUploadResponseHandlerDelegate>)responseHandlerDelegate withCompletionHandler:(void (^)(NSError *, id))completionHandler;
+- (id)initWithData:(NSData *)data andNSURLResponse:(NSURLResponse *)nsURLResponse;
 
-- (void)sendInBackground:(NSDictionary *)data toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseType:(NSString *)responseType delegate:(id<STMUploadResponseHandlerDelegate>)delegate;
+@end
+
+@interface STMBackgroundServerResponse : STMServerResponse <NSURLSessionDataDelegate, STMBackgroundSession>
+
+@property id<STMHTTPResponseHandlerDelegate> delegate;
+
+@end
+
+@interface STMBaseHTTPRequest : NSObject
+
+@end
+
+@interface STMUploadRequest : STMBaseHTTPRequest
+
+- (void)send:(NSDictionary *)data toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseHandlerDelegate:(id<STMHTTPResponseHandlerDelegate>)responseHandlerDelegate withCompletionHandler:(void (^)(NSError *, id))completionHandler;
+
+- (void)sendInBackground:(NSDictionary *)data toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseType:(NSString *)responseType delegate:(id<STMHTTPResponseHandlerDelegate>)delegate;
+
+@end
+
+@interface STMDataRequest : STMBaseHTTPRequest
+
+@property id<STMHTTPResponseHandlerDelegate> delegate;
+
+- (void)sendToUrl:(NSURL *)url responseHandlerDelegate:(id<STMHTTPResponseHandlerDelegate>)responseHandlerDelegate withCompletionHandler:(void (^)(NSError *, id))completionHandler;
+
+@end
+
+@interface STMBackgroundRequestFileManager : NSObject
+
+- (NSURL *)persistDataToFileFromDictionary:(NSDictionary *)dict withIdentifier:(NSString *)identifier;
+- (NSString *)buildFilePathFromName:(NSString *)fileName;
 
 @end

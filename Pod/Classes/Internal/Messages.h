@@ -8,28 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "STMMessage.h"
+#import "STMNetworking.h"
 
 @protocol MessagesDelegate <NSObject>
 
 @optional
 
-- (void)MessagesResults:(NSArray *)arrayMessages;
-- (void)UnreadMessageResults:(NSNumber *)count;
+- (void)MessagesResults:(NSArray *_Nullable)arrayMessages;
+- (void)UnreadMessageResults:(NSNumber *_Nullable)count;
 
 @end
 
-@interface Messages : NSObject
+@interface Messages : NSObject <STMHTTPResponseHandlerDelegate>
 
 + (void)initAll;
 + (void)freeAll;
 
-+ (Messages *)controller;
++ (Messages *_Nonnull)controller;
 
-- (void)requestForMessagesWithDelegate:(id<MessagesDelegate>)delegate;
-- (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate>)delegate;
-- (void)requestForMessage:(NSString *)messageId completionHandler:(void (^)(STMMessage *message,
-                                                                            NSError *error))completionHandler;
-- (void)requestForCreateMessageForChannelId:(NSString *)channelId ToRecipientId:(NSString *)recipientId WithConversationId:(NSString *)conversationId AndMessage:(NSString *)message completionHandler:(void (^)(STMMessage *message, NSError *error))completionHandler;
+- (void)requestForMessagesWithDelegate:(id<MessagesDelegate> _Nullable)delegate;
+- (void)requestForUnreadMessageCountWithDelegate:(id<MessagesDelegate> _Nullable)delegate;
+- (void)requestForMessage:(NSString * _Nonnull)messageId completionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
 - (void)cancelAllRequests;
 
 
