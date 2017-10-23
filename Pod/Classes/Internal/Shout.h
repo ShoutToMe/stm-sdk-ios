@@ -46,7 +46,7 @@ typedef enum eSendShoutStatus
 
 @end
 
-@interface Shout : NSObject <STMUploadResponseHandlerDelegate>
+@interface Shout : NSObject <STMHTTPResponseHandlerDelegate>
 
 @property SendShoutDelegateHandler *sendShoutDelegate;
 

@@ -53,7 +53,6 @@ typedef enum eSTMSignInResult
 - (void)signUpWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
 - (void)verifyWithPhone:(NSString *)strPhone andCode:(NSString *)strCode andDelegate:(id<STMSignInDelegate>)delegate;
 - (void)setHandle:(NSString *)strHandle withCompletionHandler:(void (^)(NSError *))completionHandler __deprecated_msg("Use [[STM user] setProperties:withCompletionHandler] instead");
-- (void)setLastReadMessages:(NSDate *)date withDelegate:(id<STMSignInDelegate>)delegate __deprecated_msg("This method is no longer used");
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn withCompletionHandler:(void (^)(NSError *))completionHandler;
 - (void)processData:(NSDictionary *)dictData;
 

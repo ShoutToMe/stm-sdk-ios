@@ -46,8 +46,11 @@
 
 #define STM_LOCATION_INVALID_COURSE                             -1.0
 
-#define STM_MAX_GEOFENCES                                       20
+#define STM_USER_GEOFENCE_RADIUS                                3219.0  // 2 miles
 
+// APS notification structure
+#define STM_APS_ROOT_KEY                                        @"aps"
+#define STM_APS_CATEGORY_KEY                                    @"category"
 
 typedef enum eSTMInternalURLType
 {

@@ -20,7 +20,7 @@
 
 @end
 
-@interface User : NSObject <DL_URLRequestDelegate, STMUploadResponseHandlerDelegate>
+@interface User : NSObject <DL_URLRequestDelegate>
 
 + (void)initAll;
 + (void)freeAll;
@@ -33,5 +33,26 @@
  @param completionHandler A block that returns void and contains a signature of (NSError *, id). The id will be a pointer to an STMUser object.
  */
 - (void)setProperties:(SetUserPropertiesInput *_Nonnull)setUserPropertiesInput withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+
+- (void)enableNotifications;
+- (void)subscribeTo:(NSString *_Nonnull)channelId withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (void)unsubscribeFrom:(NSString *_Nonnull)channelId withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (void)setChannelSubscriptions:(NSArray<NSString *>*_Nonnull)channelIds withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (BOOL)isSubscribedToChannel:(NSString *_Nonnull)channelId;
+- (void)addTopicPreference:(NSString *_Nonnull)topic withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (void)removeTopicPreference:(NSString *_Nonnull)topic withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (void)setTopicPreferences:(NSArray<NSString *>*_Nonnull)topics withCompletionHandler:(void (^_Nullable)(NSError *_Nullable, id _Nullable))completionHandler;
+- (BOOL)isFollowingTopic:(NSString *_Nonnull)topic;
+
+@end
+
+@interface UserLocation : NSObject <STMHTTPResponseHandlerDelegate>
+
+@property NSDate * _Nonnull timestamp;
+@property double lat;
+@property double lon;
+@property NSNumber * _Nullable metersSinceLastUpdate;
+
+- (void)update;
 
 @end
