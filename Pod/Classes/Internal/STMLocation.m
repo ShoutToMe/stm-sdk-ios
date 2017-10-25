@@ -146,19 +146,11 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 }
 
 - (void) startSignificantLocationChangeUpdates {
-    if (self.locationManager && !self.bIsMonitoringSignificantLocationChanges)
-    {
-        [self.locationManager startMonitoringSignificantLocationChanges];
-        self.bIsMonitoringSignificantLocationChanges = YES;
-    }
+    [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
 - (void)stopSignificantLocationChangeUpdates {
-    if (self.locationManager && self.bIsMonitoringSignificantLocationChanges)
-    {
-        [self.locationManager stopMonitoringSignificantLocationChanges];
-        self.bIsMonitoringSignificantLocationChanges = NO;
-    }
+    [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
 // get the current speed
@@ -327,21 +319,6 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
         }
     } else {
         [self setCurLocation:location];
-    }
-}
-
-- (void) startSignificantLocationChangeUpdates {
-    if (self.locationManager)
-    {
-        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
-        [self.locationManager startMonitoringSignificantLocationChanges];
-    }
-}
-
-- (void)stopSignificantLocationChangeUpdates {
-    if (self.locationManager) {
-        [self.locationManager setAllowsBackgroundLocationUpdates:NO];
-        [self.locationManager stopMonitoringSignificantLocationChanges];
     }
 }
 

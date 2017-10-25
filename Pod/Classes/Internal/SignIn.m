@@ -670,7 +670,7 @@ __strong static SignIn *singleton = nil; // this will be the one and only object
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"PUT";
-    NSDictionary *dictionary = @{SERVER_PLATFORM_ENDPOINT_ARN_KEY: platformEndpointArn};
+    NSDictionary *dictionary = @{SERVER_PLATFORM_ENDPOINT_ARN_KEY: platformEndpointArn, SERVER_PLATFORM_ENDPOINT_ENABLED: @YES};
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
                                                    options:kNilOptions error:&error];

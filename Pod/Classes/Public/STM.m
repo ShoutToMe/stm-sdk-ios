@@ -384,8 +384,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
     if (!singleton.applicationArn) {
         NSLog(@"Warning. You must call setupPushNotificationsWithAppId: before registering for notifications");
     }
-    
-    [[self user] enableNotifications];
 
     singleton.task = [AWSTask taskWithResult:nil];
     
@@ -424,6 +422,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                         // call set endpoint attributes to set the latest device token and then enable the platform endpoint
                         NSLog(@"STM- Attributes do not match. Update them now");
                         [self updateEndpointAttributesWithEndpointArn:[[STM currentUser] strPlatformEndpointArn] AndToken:deviceTokenString];
+                        
                     }
                 }
                 return nil;
@@ -474,6 +473,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
                 return nil;
             } else {
                 NSLog(@"STM- Updated PlatformEndpoint Attributes");
+                [[self user] enableNotifications];
                 return nil;
             }
         }];
