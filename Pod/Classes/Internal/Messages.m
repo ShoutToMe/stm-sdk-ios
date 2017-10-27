@@ -129,7 +129,7 @@ __strong static Messages *singleton = nil;
                       [Settings controller].strServerURL,
                       SERVER_CMD_GET_MESSAGES];
     
-    //NSLog(@"Messages: URL = %@", strURL);
+//    NSLog(@"Messages URL = %@", request.strURL);
     
     // create the request
     [[DL_URLServer controller] issueRequestURL:request.strURL
@@ -152,7 +152,7 @@ __strong static Messages *singleton = nil;
                       SERVER_CMD_GET_MESSAGES,
                       @"?count_only=true&unread_only=true"];
     
-    //NSLog(@"Messages: URL = %@", strURL);
+//    NSLog(@"Message count URL = %@", request.strURL);
     
     // create the request
     [[DL_URLServer controller] issueRequestURL:request.strURL
