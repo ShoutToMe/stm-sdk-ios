@@ -20,7 +20,7 @@ The Shout to Me iOS SDK requires iOS 8.0 or greater.
 ### CocoaPods
 The easiest way to install STM is to use CocoaPods. To do so, simply add the following line to your Podfile:
 
-`pod 'STM'`
+`pod 'STM', '~> 0.2.1'`
 
 ### Manual Installation
 
@@ -80,12 +80,17 @@ broadcasters.
 
 To enable location permissions, add the following to your Info.plist.
 
-[NSLocationUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW27)
+[NSLocationWhenInUseUsageDescription](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) (For legacy iOS version support)
 <br>
-[NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)
+[NSLocationAlwaysUsageDescription](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) (For legacy iOS version support)
+<br>
+NSLocationAlwaysAndWhenInUseUsageDescription
 
-Both are strings and should be set to something like: "Your location is used to let the station know what part of
-town you are in when you shout and to allow you to receive location-specific messages."
+You should put descriptions that best describe all of your location usages, however, here are examples based on Shout to Me's location usage:
+
+For "when in use" location tracking: "We use this information to help us pinpoint your messages."
+<br>
+For "always" location tracking: "We use this information to send you notifications based on your current location."
 
 You then need to request permission from the user to use their location. You can use your own location manager to do this or you can use the Shout to Me SDK Location Manager.
 
