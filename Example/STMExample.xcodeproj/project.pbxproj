@@ -181,11 +181,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-STMExample/Pods-STMExample-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/STM/STM.bundle",
+				"${PODS_ROOT}/../../Pod/Classes/Internal/STMData.xcdatamodeld",
+				"${PODS_CONFIGURATION_BUILD_DIR}/STM/STM.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/STMData.momd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/STM.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

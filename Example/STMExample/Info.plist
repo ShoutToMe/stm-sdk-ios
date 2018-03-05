@@ -28,6 +28,8 @@
 	<string>Your location is used to find shouts near you.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is used to find shouts near you.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location is used to find shouts near you.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your microphone is used to shout to your favorite radio station.</string>
 	<key>UILaunchStoryboardName</key>

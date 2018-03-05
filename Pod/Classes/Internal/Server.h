@@ -21,7 +21,6 @@
 
 #define SERVER_URL                              @"https://app.shoutto.me/api/v1"
 
-
 #define SERVER_PAGE_STATS                       @"webviews/me#/me"
 
 #define SERVER_CMD_SKIP                         @"users/skip"
@@ -46,15 +45,19 @@
 #define SERVER_CMD_CHANNEL_SUBSCRIPTION         @"channel_subscription"
 #define SERVER_CMD_TOPIC_PREFERENCE             @"topic_preference"
 #define SERVER_CMD_LOCATION                     @"location"
+#define SERVER_CMD_LOCATIONS                    @"locations"
 
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
 #define SERVER_PHONE_NUMBER_KEY                 @"phone"
 #define SERVER_VERIFICATION_CODE_KEY            @"verification_code"
 #define SERVER_CHANNEL_ID_KEY                   @"channel_id"
+#define SERVER_COORDINATES_KEY                  @"coordinates"
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_AUDIO_KEY                        @"audio"
 #define SERVER_MEDIA_FILE_URL_KEY               @"media_file_url"
+#define SERVER_METERS_SINCE_LAST_UPDATE_KEY     @"meters_since_last_update"
 #define SERVER_SPOKEN_TEXT_KEY                  @"spoken_text"
+#define SERVER_DATE_KEY                         @"date"
 #define SERVER_DESCRIPTION_KEY                  @"description"
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_LAT_KEY                          @"lat"
@@ -63,8 +66,11 @@
 #define SERVER_COURSE_KEY                       @"course"
 #define SERVER_SPEED_KEY                        @"speed"
 #define SERVER_DEVICE_ID_KEY                    @"device_id"
+#define SERVER_RADIUS_KEY                       @"radius"
 #define SERVER_TAGS_KEY                         @"tags"
 #define SERVER_TOPIC_KEY                        @"topic"
+#define SERVER_TYPE_KEY                         @"type"
+#define SERVER_TYPE_SHAPE_CIRCLE                @"circle"
 #define SERVER_PLATFORM_ENDPOINT_ENABLED_KEY    @"platform_endpoint_enabled"
 #define SERVER_PLATFORM_ENDPOINT_ARN_KEY        @"platform_endpoint_arn"
 #define SERVER_PLATFORM_ENDPOINT_ENABLED        @"platform_endpoint_enabled"
