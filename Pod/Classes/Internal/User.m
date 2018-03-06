@@ -13,6 +13,7 @@
 #import "STMNetworking.h"
 #import "UserData.h"
 #import "Utils.h"
+#import "UserLocationRetryDataController.h"
 
 static BOOL bInitialized = NO;
 
@@ -321,6 +322,7 @@ __strong static User *singleton = nil;
 
 NSString *fingerprint;
 NSString *const STM_USER_DEFAULTS_FINGERPRINT_KEY = @"me.shoutto.sdk.UserLocation.fingerprint";
+NSString *const TIME_ZONE_UTC = @"UTC";
 
 - (id)init
 {
@@ -340,41 +342,86 @@ NSString *const STM_USER_DEFAULTS_FINGERPRINT_KEY = @"me.shoutto.sdk.UserLocatio
 
 - (void)update
 {
-    NSMutableDictionary *requestData = [NSMutableDictionary new];
-    [requestData setObject:@{
-                             @"type": @"circle",
-                             @"coordinates": @[ [NSNumber numberWithDouble:self.lon], [NSNumber numberWithDouble:self.lat]],
-                             @"radius": [NSString stringWithFormat:@"%f", STM_USER_GEOFENCE_RADIUS]
-                             } forKey:@"location"];
-    [requestData setObject:[self getUTCFormateDate] forKey:@"date"];
-    if (self.metersSinceLastUpdate) {
-        [requestData setObject:self.metersSinceLastUpdate forKey:@"meters_since_last_update"];
-    }
+    UserLocationRetryDataController *userLocationRetryDataController = [UserLocationRetryDataController new];
+
+    void (^getAllLocationsCallbackBlock)(NSArray *) = ^(NSArray *previousUserLocations) {
+        NSMutableArray *locations = [NSMutableArray new];
+        if (previousUserLocations && [previousUserLocations count] > 0) {
+            NSEnumerator *e = [previousUserLocations objectEnumerator];
+            id object;
+            while (object = [e nextObject]) {
+                NSDictionary *previousLocation = (NSDictionary *)object;
+                NSDictionary *adaptedPreviousLocation = [self buildLocationWithDate:[previousLocation valueForKey:SERVER_DATE_KEY] lat:[previousLocation valueForKey:SERVER_LAT_KEY] lon:[previousLocation valueForKey:SERVER_LON_KEY] radius:STM_USER_GEOFENCE_RADIUS metersSinceLastUpdate:[previousLocation objectForKey:SERVER_METERS_SINCE_LAST_UPDATE_KEY]];
+                [locations addObject:adaptedPreviousLocation];
+            }
+        }
+        
+        NSDictionary *currentLocation = [self buildLocationWithDate:self.timestamp lat:[NSNumber numberWithDouble:self.lat] lon:[NSNumber numberWithDouble:self.lon] radius:STM_USER_GEOFENCE_RADIUS metersSinceLastUpdate:self.metersSinceLastUpdate];
+        [locations addObject:currentLocation];
+        
+        NSDictionary *requestData = @{ SERVER_CMD_LOCATIONS: [locations copy] };
+        
+        NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
+                            [Settings controller].strServerURL,
+                            SERVER_CMD_PERSONALIZE,
+                            [UserData controller].user.strUserID,
+                            SERVER_CMD_LOCATIONS];
+        NSURL *url = [NSURL URLWithString:strUrl];
+        
+        STMUploadRequest *uploadRequest = [STMUploadRequest new];
+        [uploadRequest send:requestData toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:^(NSError *uploadRequestError, id obj) {
+            // NOTE: This completion handler occurs when there is an error sending the request to the Shout to Me service.
+            NSLog(@"An error occurred %@", uploadRequestError);
+            
+            STM_ERROR(ErrorCategory_Internal, ErrorSeverity_Warning, @"An error occurred uploading a user location", uploadRequestError.description, nil, nil, nil);
+            
+            NSMutableDictionary *userLocationRecordData = [NSMutableDictionary new];
+            [userLocationRecordData setValue:self.timestamp forKey:SERVER_DATE_KEY];
+            [userLocationRecordData setValue:[NSNumber numberWithDouble:self.lat] forKey:SERVER_LAT_KEY];
+            [userLocationRecordData setValue:[NSNumber numberWithDouble:self.lon] forKey:SERVER_LON_KEY];
+            [userLocationRecordData setValue:[NSNumber numberWithDouble:STM_USER_GEOFENCE_RADIUS] forKey:SERVER_RADIUS_KEY];
+            if (self.metersSinceLastUpdate) {
+                [userLocationRecordData setValue:self.metersSinceLastUpdate forKey:SERVER_METERS_SINCE_LAST_UPDATE_KEY];
+            }
+            [userLocationRetryDataController saveUserLocation:[userLocationRecordData copy]];
+        }];
+    };
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@/%@",
-                        [Settings controller].strServerURL,
-                        SERVER_CMD_PERSONALIZE,
-                        [UserData controller].user.strUserID,
-                        SERVER_CMD_LOCATION];
-    NSURL *url = [NSURL URLWithString:strUrl];
-    
-    STMUploadRequest *uploadRequest = [STMUploadRequest new];
-    [uploadRequest send:requestData toUrl:url usingHTTPMethod:@"PUT" responseHandlerDelegate:self withCompletionHandler:nil];
+    [userLocationRetryDataController getAllUserLocations:getAllLocationsCallbackBlock];
 }
 
-- (NSString *)getUTCFormateDate
+- (NSDictionary *)buildLocationWithDate:(NSDate *)date lat:(NSNumber *)lat lon:(NSNumber *)lon radius:(double)radius metersSinceLastUpdate:(NSNumber *)metersSinceLastUpdate
+{
+    NSMutableDictionary *location = [NSMutableDictionary new];
+    
+    [location setObject:@{
+                          SERVER_TYPE_KEY: SERVER_TYPE_SHAPE_CIRCLE,
+                          SERVER_COORDINATES_KEY: @[lon, lat],
+                          SERVER_RADIUS_KEY: [NSString stringWithFormat:@"%f", radius]
+                          } forKey:SERVER_CMD_LOCATION];
+    [location setObject:[self getUTCFormateDate:date] forKey:SERVER_DATE_KEY];
+    if (metersSinceLastUpdate) {
+        [location setValue:metersSinceLastUpdate forKey:SERVER_METERS_SINCE_LAST_UPDATE_KEY];
+    }
+    
+    return [location copy];
+}
+
+- (NSString *)getUTCFormateDate:(NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:TIME_ZONE_UTC];
     [dateFormatter setTimeZone:timeZone];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    NSString *dateString = [dateFormatter stringFromDate:[self timestamp]];
+    NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }
 
 #pragma mark - STMHTTPResponseHandlerDelegate
+// NOTE: This callback method occurs during successful sending of request to the Shout to Me service.
 - (void)processResponseData:(NSDictionary *)responseData withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
-    NSLog(@"UserLocation response %@", responseData);
+    UserLocationRetryDataController *userLocationRetryDataController = [UserLocationRetryDataController new];
+    [userLocationRetryDataController deleteAllUserLocations];
 }
 @end

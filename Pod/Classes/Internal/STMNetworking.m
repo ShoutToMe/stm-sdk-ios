@@ -200,7 +200,7 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
 - (void)processServerResultsWithData:(NSData *)responseData URLResponse:(NSURLResponse *)urlResponse responseHandlerDelegate:(id<STMHTTPResponseHandlerDelegate>)responseHandlerDelegate andCompletionHandler:(void(^)(NSError *, id))completionHandler
 {
     STMServerResponse *stmServerResponse = [[STMServerResponse alloc] initWithData:responseData andNSURLResponse:urlResponse];
-    
+
     if (stmServerResponse.error) {
         if (completionHandler) {
             completionHandler(stmServerResponse.error, nil);
@@ -229,24 +229,29 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
                                                    options:kNilOptions error:&error];
 
     if (!error) {
-        NSURLSession *session = [self buildSession];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        request.HTTPMethod = httpMethod;
-        NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
-                                                                   fromData:requestData
-                                                          completionHandler:^(NSData *responseData, NSURLResponse *urlResponse, NSError *error) {
-                                                              [self processServerResultsWithData:responseData
-                                                                                     URLResponse:urlResponse
-                                                                         responseHandlerDelegate:responseHandlerDelegate
-                                                                            andCompletionHandler:completionHandler];
-                                                                   }];
-        [uploadTask resume];
+        [self sendJSON:requestData toUrl:url usingHTTPMethod:httpMethod responseHandlerDelegate:responseHandlerDelegate withCompletionHandler:completionHandler];
     } else {
         if (completionHandler) {
             completionHandler(error, nil);    
         }
     }
 
+}
+
+- (void)sendJSON:(NSData *)json toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseHandlerDelegate:(id<STMHTTPResponseHandlerDelegate>)responseHandlerDelegate withCompletionHandler:(void (^)(NSError *, id))completionHandler
+{
+    NSURLSession *session = [self buildSession];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = httpMethod;
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+                                                               fromData:json
+                                                      completionHandler:^(NSData *responseData, NSURLResponse *urlResponse, NSError *error) {
+                                                          [self processServerResultsWithData:responseData
+                                                                                 URLResponse:urlResponse
+                                                                     responseHandlerDelegate:responseHandlerDelegate
+                                                                        andCompletionHandler:completionHandler];
+                                                      }];
+    [uploadTask resume];
 }
 
 - (void)sendInBackground:(NSDictionary *)data toUrl:(NSURL *)url usingHTTPMethod:(NSString *)httpMethod responseType:(NSString *)responseType delegate:(id<STMHTTPResponseHandlerDelegate>)delegate

@@ -237,9 +237,9 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
     [self.locationManager stopUpdatingLocation];
     updateLocationTimer = nil;
     
-    [self updateUserLocation];
-    
     [self createGeofence];
+    
+    [self updateUserLocation];
 }
 
 #pragma mark - Client notification methods
