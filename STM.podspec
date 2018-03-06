@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
   }
   s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'CoreData' #, UIKit', 'MapKit'
-  s.dependency 'AWSCore', '~> 2.5'
-  s.dependency 'AWSS3', '~> 2.5'
-  s.dependency 'AWSSNS', '~> 2.5'
+  s.dependency 'AWSCore', '~> 2.6.12'
+  s.dependency 'AWSS3', '~> 2.6.12'
+  s.dependency 'AWSSNS', '~> 2.6.12'
 end

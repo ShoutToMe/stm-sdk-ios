@@ -16,13 +16,13 @@
 
 @protocol STMBackgroundSession <NSObject>
 
-+ (void)setBackgroundCompletionHandler:(void (^)())completionHandler;
++ (void)setBackgroundCompletionHandler:(void (^)(void))completionHandler;
 
 @end
 
 @interface STMNetworking : NSObject
 
-+ (void)handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler;
++ (void)handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler;
 
 @end
 

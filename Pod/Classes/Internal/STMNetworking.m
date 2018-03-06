@@ -13,12 +13,12 @@
 #import "UserData.h"
 #import "Utils.h"
 
-static void (^uploadRequestBackgroundURLSessionCompletionHandler)() = nil;
+static void (^uploadRequestBackgroundURLSessionCompletionHandler)(void) = nil;
 static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.URLSession.Identifier.";
 
 @implementation STMNetworking
 
-+(void)handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
++(void)handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler
 {
     if (!identifier) {
         return;
@@ -165,7 +165,7 @@ static NSString *uploadRequestURLSessionIdentifier = @"me.shoutto.UploadRequest.
 }
 
 #pragma mark - STMBackgroundSession
-+ (void)setBackgroundCompletionHandler:(void (^)())completionHandler
++ (void)setBackgroundCompletionHandler:(void (^)(void))completionHandler
 {
     uploadRequestBackgroundURLSessionCompletionHandler = completionHandler;
 }

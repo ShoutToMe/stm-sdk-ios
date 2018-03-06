@@ -9,7 +9,7 @@
 
 @interface UserLocationRetryDataController : NSObject
 
-@property (readonly, strong) NSPersistentContainer * _Nonnull persistentContainer;
+@property (readonly, strong) NSPersistentContainer * _Nonnull persistentContainer NS_AVAILABLE_IOS(10.0);
 
 -(void) deleteAllUserLocations;
 -(void) getAllUserLocations:(void(^_Nonnull)(NSArray *_Nullable))callbackBlock;

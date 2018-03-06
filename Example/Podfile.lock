@@ -1,13 +1,13 @@
 PODS:
-  - AWSCore (2.6.4)
-  - AWSS3 (2.6.4):
-    - AWSCore (= 2.6.4)
-  - AWSSNS (2.6.4):
-    - AWSCore (= 2.6.4)
+  - AWSCore (2.6.12)
+  - AWSS3 (2.6.12):
+    - AWSCore (= 2.6.12)
+  - AWSSNS (2.6.12):
+    - AWSCore (= 2.6.12)
   - STM (0.2.1):
-    - AWSCore (~> 2.5)
-    - AWSS3 (~> 2.5)
-    - AWSSNS (~> 2.5)
+    - AWSCore (~> 2.6.12)
+    - AWSS3 (~> 2.6.12)
+    - AWSSNS (~> 2.6.12)
 
 DEPENDENCIES:
   - STM (from `../`)
@@ -17,10 +17,10 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AWSCore: f5611be1c3edc38dbf9d6da0a5d2b6c4841d1c05
-  AWSS3: f7a10f4c6bae46efc9a4588a1480a6761edcbc45
-  AWSSNS: 0eace54987b5a3ac44c060776691d14ce841fc6a
-  STM: e219b40b3c4a3ef18e5aabea368bfb1d5474d83d
+  AWSCore: d0d6e4f6831754aaf98058d2306a016ae71510fe
+  AWSS3: c35608e0cdd5172f9e1d943221fd5fde01c5f749
+  AWSSNS: e0811e07d6b1f0dfefea17bcd45b9b4a5b4b968b
+  STM: 91ed79504e67a6aa08371f5bfffbdd34c6ebfc2b
 
 PODFILE CHECKSUM: 9105fe2d3a4217af2cb57509e42f8a9c4386fc70
 

@@ -303,7 +303,7 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 }
 
 #pragma mark - Life Cycle Events
-+ (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(nonnull NSString *)identifier completionHandler:(nonnull void (^)())completionHandler
++ (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(nonnull NSString *)identifier completionHandler:(nonnull void (^)(void))completionHandler
 {
     [STMNetworking handleEventsForBackgroundURLSession:identifier completionHandler:completionHandler];
     
