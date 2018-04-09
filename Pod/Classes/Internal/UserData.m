@@ -319,6 +319,12 @@ __strong static UserData *singleton = nil; // this will be the one and only obje
     [self save];
 }
 
+- (void)setMetaInfo:(NSDictionary *)metaInfo
+{
+    self.user.metaInfo = metaInfo;
+    [self save];
+}
+
 - (void)setPhone:(NSString *)strPhone
 {
     self.user.strPhoneNumber = strPhone;

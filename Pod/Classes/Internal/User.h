@@ -13,6 +13,7 @@
 @interface SetUserPropertiesInput : NSObject
 
 @property (nonatomic, nullable) NSString *email;
+@property (nonatomic, nullable) NSString *gender;
 @property (nonatomic, nullable) NSString *handle;
 @property (nonatomic, nullable) NSString *phoneNumber;
 

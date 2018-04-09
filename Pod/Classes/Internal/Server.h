@@ -62,6 +62,7 @@
 #define SERVER_REPLY_TO_ID_KEY                  @"reply_to_id"
 #define SERVER_LAT_KEY                          @"lat"
 #define SERVER_LON_KEY                          @"lon"
+#define SERVER_META_INFO                        @"meta_info"
 #define SERVER_HANDLE_KEY                       @"handle"
 #define SERVER_COURSE_KEY                       @"course"
 #define SERVER_SPEED_KEY                        @"speed"

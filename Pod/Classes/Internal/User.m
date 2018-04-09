@@ -22,14 +22,16 @@ __strong static User *singleton = nil;
 @implementation SetUserPropertiesInput
 {
     NSMutableDictionary *properties;
+    NSMutableDictionary *metaInfo;
 }
 
 - (id)init
 {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         properties = [NSMutableDictionary new];
+        metaInfo = [NSMutableDictionary new];
+        [properties setObject:metaInfo forKey:SERVER_META_INFO];
     }
     return self;
 }
@@ -37,19 +39,25 @@ __strong static User *singleton = nil;
 - (void)setEmail:(NSString *)email
 {
     _email = email;
-    [self setProperty:self.email forKey:SERVER_RESULTS_USER_EMAIL_KEY];
+    [self setProperty:self.email forKey:SERVER_RESULTS_USER_EMAIL_KEY inDictionary:properties];
+}
+
+- (void)setGender: (NSString *)gender
+{
+    _gender = gender;
+    [self setProperty:self.gender forKey:@"gender" inDictionary:metaInfo];
 }
 
 - (void)setHandle:(NSString *)handle
 {
     _handle = handle;
-    [self setProperty:self.handle forKey:SERVER_HANDLE_KEY];
+    [self setProperty:self.handle forKey:SERVER_HANDLE_KEY inDictionary:properties];
 }
 
 - (void)setPhoneNumber:(NSString *)phoneNumber
 {
     _phoneNumber = phoneNumber;
-    [self setProperty:self.phoneNumber forKey:SERVER_PHONE_NUMBER_KEY];
+    [self setProperty:self.phoneNumber forKey:SERVER_PHONE_NUMBER_KEY inDictionary:properties];
 }
 
 - (NSDictionary *)getPropertyDictionary
@@ -57,12 +65,12 @@ __strong static User *singleton = nil;
     return [properties copy];
 }
 
-- (void)setProperty:(NSString *)value forKey:(NSString *)key
+- (void)setProperty:(NSString *)value forKey:(NSString *)key inDictionary:dict
 {
     if (!value || [@"" isEqual:value]) {
-        [properties setObject:[NSNull null] forKey:key];
+        [dict setObject:[NSNull null] forKey:key];
     } else {
-        [properties setObject:value forKey:key];
+        [dict setObject:value forKey:key];
     }
 }
 
@@ -83,8 +91,7 @@ __strong static User *singleton = nil;
 
 + (void)initAll
 {
-    if (NO == bInitialized)
-    {
+    if (NO == bInitialized) {
         [Settings initAll];
         [DL_URLServer initAll];
         
@@ -96,8 +103,7 @@ __strong static User *singleton = nil;
 
 + (void)freeAll
 {
-    if (YES == bInitialized)
-    {
+    if (YES == bInitialized) {
         // release our singleton
         singleton = nil;
         
@@ -117,8 +123,7 @@ __strong static User *singleton = nil;
 - (id)init
 {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         
     }
     return self;
@@ -173,7 +178,48 @@ __strong static User *singleton = nil;
 
 - (void)setProperties:(SetUserPropertiesInput *)setUserPropertiesInput withCompletionHandler:(void (^)(NSError *, id))completionHandler
 {
-    [self updateProperties:[setUserPropertiesInput getPropertyDictionary] withCompletionHandler:completionHandler];
+    NSString *strUrl = [NSString stringWithFormat:@"%@/%@/%@",
+                        [Settings controller].strServerURL,
+                        SERVER_CMD_PERSONALIZE,
+                        [UserData controller].user.strUserID];
+    NSURL *url = [NSURL URLWithString:strUrl];
+    STMDataRequest *getUserRequest = [STMDataRequest new];
+    [getUserRequest sendToUrl:url responseHandlerDelegate:[UserResponseHandler new] withCompletionHandler:^(NSError *error, id obj) {
+        if (error) {
+            STM_ERROR(ErrorCategory_Internal, ErrorSeverity_Warning, @"An error occurred getting user", error.description, strUrl, [setUserPropertiesInput getPropertyDictionary], nil);
+            NSLog(@"An error occurred getting user. %@", error);
+            completionHandler(error, nil);
+        } else {
+            STMUser *stmUser = obj;
+            NSMutableDictionary *setUserPropertiesInputDictionary = [NSMutableDictionary dictionaryWithDictionary:[setUserPropertiesInput getPropertyDictionary]];
+            NSDictionary *newMetaInfo = [setUserPropertiesInputDictionary objectForKey:SERVER_META_INFO];
+            if (newMetaInfo) {
+                NSMutableDictionary *metaInfo;
+                
+                if (!stmUser.metaInfo || [[NSNull null] isEqual:stmUser.metaInfo]) {
+                    metaInfo = [NSMutableDictionary new];
+                } else {
+                    metaInfo = [NSMutableDictionary dictionaryWithDictionary:stmUser.metaInfo];
+                }
+                
+                for (id key in newMetaInfo) {
+                    if ([[NSNull null] isEqual:[newMetaInfo objectForKey:key]]) {
+                        [metaInfo removeObjectForKey:key];
+                    } else {
+                        [metaInfo setObject:[newMetaInfo objectForKey:key] forKey:key];
+                    }
+                }
+                
+                if ([metaInfo count] == 0) {
+                    [setUserPropertiesInputDictionary setObject:[NSNull null] forKey:SERVER_META_INFO];
+                } else {
+                    [setUserPropertiesInputDictionary setObject:metaInfo forKey:SERVER_META_INFO];
+                }
+            }
+            
+            [self updateProperties:[setUserPropertiesInputDictionary copy] withCompletionHandler:completionHandler];
+        }
+    }];
 }
 
 - (void)enableNotifications
@@ -268,6 +314,12 @@ __strong static User *singleton = nil;
         [[UserData controller].user setStrPhoneNumber:user.strPhoneNumber];
     } else {
         [[UserData controller].user setStrPhoneNumber:@""];
+    }
+    
+    if (user.metaInfo) {
+        [[UserData controller].user setMetaInfo:user.metaInfo];
+    } else {
+        [[UserData controller].user setMetaInfo:[NSDictionary new]];
     }
     [UserData saveAll];
     
