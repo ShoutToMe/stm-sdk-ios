@@ -45,3 +45,5 @@ Example/Pods/
 # Carthage/Checkouts
 
 Carthage/Build
+
+Example/STMExample.xcworkspace/xcshareddata/
