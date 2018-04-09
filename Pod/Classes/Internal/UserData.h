@@ -32,6 +32,7 @@
 - (NSDictionary *)dictStandardRequestHeaders;
 - (void)setHandle:(NSString *)strHandle;
 - (void)setEmail:(NSString *)strEmail;
+- (void)setMetaInfo:(NSDictionary *)metaInfo;
 - (void)setPhone:(NSString *)strPhone;
 - (void)setPlatformEndpointArn:(NSString *)platformEndpointArn;
 - (void)setChannelSubscriptions:(NSArray<NSString*>*)channelIds;

@@ -89,6 +89,7 @@
     
     SetUserPropertiesInput *setUserPropertiesInput = [SetUserPropertiesInput new];
     [setUserPropertiesInput setHandle:self.handleTextField.text];
+//    [setUserPropertiesInput setGender:@"female"];
     
     // Delete properties with nil or an empty string
     [setUserPropertiesInput setEmail:@""];

@@ -19,6 +19,7 @@
 @property (nonatomic, copy)   NSString              *strPlatformEndpointArn;
 @property (nonatomic, copy)   NSArray<NSString*>    *channelSubscriptions;
 @property (nonatomic, copy)   NSArray<NSString*>    *topicPreferences;
+@property (nonatomic, copy)   NSDictionary          *metaInfo;
 
 - (id)initWithDictionary:(NSDictionary *)dictMessage;
 

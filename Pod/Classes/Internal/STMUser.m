@@ -25,6 +25,7 @@
 #define KEY_PLATFORM_ENDPOINT_ARN       @"UserPlatformEndpointARN"
 #define KEY_USER_CHANNEL_SUBSCRIPTIONS  @"UserChannelSubscriptions"
 #define KEY_USER_TOPIC_PREFERENCES      @"UserTopicPreferences"
+#define KEY_USER_META_INFO              @"UserMetaInfo"
 
 @interface STMUser ()
 {
@@ -51,6 +52,7 @@
         self.strPlatformEndpointArn = @"";
         self.channelSubscriptions = [NSArray new];
         self.topicPreferences = [NSArray new];
+        self.metaInfo = [NSDictionary new];
     }
     return self;
 }
@@ -63,14 +65,15 @@
 // overriding the description - used in debugging
 - (NSString *)description
 {
-    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, Email: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, PlatformEndpointARN: %@",
+    return([NSString stringWithFormat:@"UserID: %@, Handle: %@, Email: %@, PhoneNumber: %@, AuthCode: %@, Verified: %@, PlatformEndpointARN: %@, MetaInfo: %@",
             self.strUserID,
             self.strHandle,
             self.strEmail,
             self.strPhoneNumber,
             self.strAuthCode,
             self.bVerified ? @"YES" : @"NO",
-            self.strPlatformEndpointArn
+            self.strPlatformEndpointArn,
+            self.metaInfo
             ]);
 }
 
@@ -158,6 +161,16 @@
             {
                 self.topicPreferences = [NSArray new];
             }
+            
+            NSDictionary *metaInfo = [aDecoder decodeObjectForKey:KEY_USER_META_INFO];
+            if (metaInfo)
+            {
+                self.metaInfo = metaInfo;
+            }
+            else
+            {
+                self.metaInfo = [NSDictionary new];
+            }
         }
     }
 
@@ -176,6 +189,7 @@
     [aCoder encodeObject:self.strPlatformEndpointArn forKey:KEY_PLATFORM_ENDPOINT_ARN];
     [aCoder encodeObject:self.channelSubscriptions forKey:KEY_USER_CHANNEL_SUBSCRIPTIONS];
     [aCoder encodeObject:self.topicPreferences forKey:KEY_USER_TOPIC_PREFERENCES];
+    [aCoder encodeObject:self.metaInfo forKey:KEY_USER_META_INFO];
 }
 
 #pragma mark - Misc Methods
@@ -202,6 +216,11 @@
         NSArray *topicPreferences = [dict objectForKey:SERVER_RESULTS_TOPIC_PREFERENCES];
         if (topicPreferences) {
             self.topicPreferences = topicPreferences;
+        }
+        
+        NSDictionary *metaInfo = [dict objectForKey:SERVER_META_INFO];
+        if (metaInfo) {
+            self.metaInfo = metaInfo;
         }
     }
 }
