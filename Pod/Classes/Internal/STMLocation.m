@@ -19,7 +19,7 @@
 
 static NSString *const MESSAGE_CATEGORY = @"SHOUTTOME_MESSAGE";
 static BOOL bInitialized = NO;
-static double const RECENT_UPDATE_MAX_SECONDS = 60.0;
+static double const RECENT_UPDATE_MAX_SECONDS = 15.0;
 
 static STMLocation *singleton = nil;  // this will be the one and only object this static singleton class has
 
@@ -37,6 +37,8 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 @synthesize locationManager = m_locationManager;
 @synthesize curLocation = m_curLocation;
 @synthesize prevLocation = m_prevLocation;
+
+NSString *const STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY = @"me.shoutto.sdk.Location.lastUpdate";
 
 #pragma mark - Static Methods
 
@@ -325,6 +327,16 @@ static STMLocation *singleton = nil;  // this will be the one and only object th
 - (void)updateUserLocation {
     
     if (self.curLocation) {
+        // Ensure SDK never sends results out of order
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSInteger lastUpdateTimestamp = [userDefaults integerForKey:STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY];
+        if (lastUpdateTimestamp && lastUpdateTimestamp > [self.curLocation.timestamp timeIntervalSince1970]) {
+            // Throw away result
+            return;
+        } else {
+            [userDefaults setInteger:[self.curLocation.timestamp timeIntervalSince1970] forKey:STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY];
+        }
+        
         UserLocation *userLocation = [UserLocation new];
         [userLocation setTimestamp:self.curLocation.timestamp];
         [userLocation setLat:self.curLocation.coordinate.latitude];
