@@ -20,7 +20,6 @@
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
 #import "Messages.h"
-#import "Subscriptions.h"
 #import "Conversations.h"
 #import "MonitoredConversations.h"
 #import "STMRecordingOverlayViewController.h"
@@ -53,7 +52,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 + (AudioSystem *)audioSystem;
 + (RecordingSystem *)recordingSystem;
 + (Messages *)messages;
-+ (Subscriptions *)subscriptions;
 + (Conversations *)conversations;
 + (MonitoredConversations *)monitoredConversations;
 
@@ -90,7 +88,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [Channels initAll];
         [RecordingSystem initAll];
         [Messages initAll];
-        [Subscriptions initAll];
         [Conversations initAll];
         [MonitoredConversations initAll];
         
@@ -121,7 +118,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
         [STMLocation freeAll];
         [RecordingSystem freeAll];
         [Messages freeAll];
-        [Subscriptions freeAll];
         [Conversations freeAll];
         [MonitoredConversations freeAll];
         
@@ -191,9 +187,6 @@ __strong static STM *singleton = nil; // this will be the one and only object th
 }
 + (Messages *)messages {
     return ([Messages controller]);
-}
-+ (Subscriptions *)subscriptions {
-    return ([Subscriptions controller]);
 }
 + (Conversations *)conversations {
     return ([Conversations controller]);
