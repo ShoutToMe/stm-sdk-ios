@@ -13,7 +13,7 @@
 @interface STMMessage : NSObject
 
 @property (nonatomic, copy)     NSString                    *strID;
-@property (nonatomic, copy)     NSDate                      *dateCreated;
+@property (nonatomic, copy)     NSDate                      *sentDate;
 @property (nonatomic, copy)     NSString                    *strChannelId;
 @property (nonatomic, copy)     NSString                    *strSenderId;
 @property (nonatomic, copy)     NSString                    *strRecipientId;
