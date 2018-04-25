@@ -84,7 +84,7 @@
         self.strRecipientId = [Utils stringFromKey:@"recipient_id" inDictionary:dictMessage];
         self.strMessage = [Utils stringFromKey:@"message" inDictionary:dictMessage];
         self.strIdType = [Utils stringFromKey:@"id_type" inDictionary:dictMessage];
-        self.dateCreated = [Utils dateFromString:[Utils stringFromKey:@"created_date" inDictionary:dictMessage]];
+        self.sentDate = [Utils dateFromString:[Utils stringFromKey:@"sent_date" inDictionary:dictMessage]];
         self.channel = [self channelFromKey:@"channel" inDictionary:dictMessage];
         self.recipient = [self userFromKey:@"recipient" inDictionary:dictMessage];
         self.sender = [self userFromKey:@"sender" inDictionary:dictMessage];

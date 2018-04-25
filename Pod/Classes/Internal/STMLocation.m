@@ -178,11 +178,11 @@ NSString *const STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY = @"me.shoutto.sdk.Locatio
         self.prevLocation = self.curLocation;
         self.curLocation = nil;
         
-        // Start location listening
-        [self.locationManager startUpdatingLocation];
-        
         // Start the timer for updating the location/geofence
         [self startLocationListeningTimer];
+        
+        // Start location listening
+        [self.locationManager startUpdatingLocation];
     }
 }
 
@@ -201,11 +201,10 @@ NSString *const STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY = @"me.shoutto.sdk.Locatio
     }
     
     if (updateLocationTimer) {
+        // Update is occurring during the timer process.  Just need to set the location for later processing
         [self setLocation:location];
-    } else if (![self locationInGeofenceAreaWithLocation:location]) {
-
-        // [self sendSignificantLocationNotInGeofenceEmail:location];
-        
+    } else {
+        // Update is occurring likely because of the Significant Location Change process. Kick off the timer process to generate a more accurate location.
         [self deleteGeofence];
         [self processGeofenceUpdate];
     }
@@ -294,22 +293,6 @@ NSString *const STM_LOCATION_DEFAULTS_LAST_UPDATE_KEY = @"me.shoutto.sdk.Locatio
         }
     }
     return stmRegion;
-}
-
-- (BOOL)locationInGeofenceAreaWithLocation:(CLLocation *)location
-{
-    CLCircularRegion *stmRegion = [self findSTMGeofence];
-    if (stmRegion) {
-        CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:stmRegion.center.latitude longitude:stmRegion.center.longitude];
-        CLLocationDistance distance = [regionLocation distanceFromLocation:location];
-        if (distance - location.horizontalAccuracy < stmRegion.radius) {
-            return YES;
-        } else {
-            return NO;
-        }
-    } else {
-        return NO;
-    }
 }
 
 - (void)setLocation:(CLLocation *)location

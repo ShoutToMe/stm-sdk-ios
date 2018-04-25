@@ -26,7 +26,6 @@
 #import "AudioSystem.h"
 #import "RecordingSystem.h"
 #import "Messages.h"
-#import "Subscriptions.h"
 #import "Conversations.h"
 #import "MonitoredConversations.h"
 
@@ -79,7 +78,6 @@
 + (nullable AudioSystem *)audioSystem;
 + (nullable RecordingSystem *)recordingSystem;
 + (nullable Messages *)messages;
-+ (nullable Subscriptions *)subscriptions;
 + (nullable Conversations *)conversations;
 + (nullable MonitoredConversations *)monitoredConversations;
 

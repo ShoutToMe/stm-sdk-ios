@@ -41,7 +41,6 @@
 #define SERVER_CMD_PUT_DOWNVOTE_SHOUT           @"downvote"
 #define SERVER_CMD_GET_CURRENT_MARKET           @"markets/current"
 #define SERVER_CMD_GET_MESSAGES                 @"messages"
-#define SERVER_CMD_GET_SUBSCRIPTIONS            @"subscriptions"
 #define SERVER_CMD_CHANNEL_SUBSCRIPTION         @"channel_subscription"
 #define SERVER_CMD_TOPIC_PREFERENCE             @"topic_preference"
 #define SERVER_CMD_LOCATION                     @"location"
